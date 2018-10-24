@@ -257,7 +257,7 @@ docker ps -a
 To launch an interactive shell on the frontend container:
 
 ```bash
-docker exec -it nrms-frontend bash
+docker exec -it news-dashboard bash
 ```
 
 > This will launch a bash shell that is running within the container, allowing you to inspect the internal files and folders within the container.
