@@ -1,0 +1,79 @@
+kind: Template
+apiVersion: v1
+labels:
+  role: webserver
+metadata:
+  name: "${RUNTIME_IMAGE_NAME}"
+  creationTimestamp: null
+  annotations:
+    tags: "builder,nginx"
+    iconClass: icon-nginx
+    description: >-
+      This template defines resources needed to serve static content via Nginx
+      HTTP Server and a reverse proxy (nginx). This is your runtime image that
+      serves the compiled Angular frontend SPA (Single Page Application) to the
+      outside world. Nginx is a web server and a reverse proxy server, with a
+      strong focus on high concurrency, performance and low memory usage.
+objects:
+  - kind: ImageStream
+    apiVersion: v1
+    metadata:
+      name: "${RUNTIME_IMAGE_NAME}"
+      annotations:
+        description: Keeps track of changes in this runtime image.
+  - kind: BuildConfig
+    apiVersion: v1
+    metadata:
+      name: "${RUNTIME_IMAGE_NAME}"
+      creationTimestamp: null
+      annotations:
+        description: >-
+          An Nginx HTTP server and a reverse proxy (nginx) application that
+          serves static content.
+    spec:
+      runPolicy: Serial
+      triggers:
+        - type: ConfigChange
+      source:
+        type: Git
+        git:
+          ref: "${GIT_REF}"
+          uri: "${GIT_REPO_URL}"
+        contextDir: "${SOURCE_CONTEXT_DIR}"
+      strategy:
+        type: Docker
+      output:
+        to:
+          kind: ImageStreamTag
+          name: "${RUNTIME_IMAGE_NAME}:latest"
+      resources: {}
+      postCommit: {}
+    status:
+      lastVersion: 0
+parameters:
+  - name: RUNTIME_IMAGE_NAME
+    displayName: Name
+    description: >-
+      The name assigned to the Nginx runtime image defined in this template. You
+      should keep this as default unless you know what you are doing.
+    required: true
+    value: frontend-nginx-runtime
+  - name: GIT_REPO_URL
+    displayName: Git Repository URL
+    description: The URL of the repository with your application source code.
+    required: true
+    value: "https://github.com/bcgov/gcpe-news-dashboard.git"
+  - name: GIT_REF
+    displayName: Git Reference
+    description: >-
+      Set this to a branch name, tag or other ref of your repository if you are
+      not using the default branch.
+    required: true
+    value: develop
+  - name: SOURCE_CONTEXT_DIR
+    displayName: Context Directory
+    description: >-
+      Set this to the relative path to the Dockerfile that describes this
+      runtime image, if it is not in the root of your repository.
+    required: true
+    value: openshift/templates/runtime/
