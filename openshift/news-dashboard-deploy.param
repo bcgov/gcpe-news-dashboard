@@ -1,0 +1,22 @@
+#=========================================================
+# OpenShift template parameters for:
+# Component: .
+# Template File: templates/frontend/news-dashboard-deploy.yaml
+#=========================================================
+NAME=news-dashboard
+IMAGE_NAMESPACE=nrms-tools
+REAL_IP_FROM=172.51.0.0/16
+API_URL=https://nrms-api-nrms-dev.pathfinder.gov.bc.ca/api/
+API_SERVICE_NAME=nrms-api
+API_PATH=/api/
+AdditionalRealIpFromRules=
+IpFilterRules=
+APPLICATION_DOMAIN=news-dashboard-nrms-dev.pathfinder.gov.bc.ca
+TAG_NAME=dev
+HTTP_BASIC=
+HTTP_BASIC_USERNAME=
+HTTP_BASIC_PASSWORD=
+CPU_LIMIT=500m
+MEMORY_LIMIT=1Gi
+CPU_REQUEST=100m
+MEMORY_REQUEST=100Mi

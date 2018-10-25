@@ -1,0 +1,234 @@
+apiVersion: v1
+kind: Template
+labels:
+  app: "${NAME}-static"
+  template: "${NAME}-deployment"
+  tier: frontend
+metadata:
+  name: "${NAME}-deployment-template"
+  annotations:
+    description:
+      Deployment template for serving an Angular frontend application via Nginx
+    tags: "angular,nginx"
+    iconClass: icon-angularjs
+objects:
+  - apiVersion: v1
+    kind: DeploymentConfig
+    metadata:
+      creationTimestamp: null
+      name: "${NAME}"
+      annotations:
+        description: "Defines how to deploy ${NAME}"
+    spec:
+      replicas: 1
+      selector:
+        app: "${NAME}-static"
+        deploymentconfig: "${NAME}"
+      strategy:
+        rollingParams:
+          intervalSeconds: 1
+          maxSurge: "25%"
+          maxUnavailable: "25%"
+          timeoutSeconds: 600
+          updatePeriodSeconds: 1
+        type: Rolling
+      template:
+        metadata:
+          creationTimestamp: null
+          labels:
+            app: "${NAME}-static"
+            deploymentconfig: "${NAME}"
+        spec:
+          containers:
+            - image: "${NAME}-static"
+              imagePullPolicy: Always
+              name: "${NAME}-static"
+              ports:
+                - containerPort: 8080
+                  protocol: TCP
+              env:
+                - name: API_URL
+                  value: "${API_URL}"
+                - name: API_SERVICE_NAME
+                  value: "${API_SERVICE_NAME}"
+                - name: API_PATH
+                  value: "${API_PATH}"
+                - name: RealIpFrom
+                  value: "${REAL_IP_FROM}"
+                - name: AdditionalRealIpFromRules
+                  value: "${AdditionalRealIpFromRules}"
+                - name: IpFilterRules
+                  value: "${IpFilterRules}"
+                - name: HTTP_BASIC
+                  value: "${HTTP_BASIC}"
+                - name: HTTP_BASIC_USERNAME
+                  value: "${HTTP_BASIC_USERNAME}"
+                - name: HTTP_BASIC_PASSWORD
+                  value: "${HTTP_BASIC_PASSWORD}"
+              resources:
+                requests:
+                  cpu: "${CPU_REQUEST}"
+                  memory: "${MEMORY_REQUEST}"
+                limits:
+                  cpu: "${CPU_LIMIT}"
+                  memory: "${MEMORY_LIMIT}"
+              livenessProbe:
+                httpGet:
+                  path: /nginx_status
+                  port: 8080
+                  scheme: HTTP
+                initialDelaySeconds: 30
+                timeoutSeconds: 60
+                periodSeconds: 10
+                successThreshold: 1
+                failureThreshold: 3
+              readinessProbe:
+                httpGet:
+                  path: /nginx_status
+                  port: 8080
+                  scheme: HTTP
+                initialDelaySeconds: 10
+                timeoutSeconds: 60
+                periodSeconds: 10
+                successThreshold: 1
+                failureThreshold: 3
+          dnsPolicy: ClusterFirst
+          restartPolicy: Always
+          securityContext: {}
+          terminationGracePeriodSeconds: 30
+      test: false
+      triggers:
+        - type: ConfigChange
+        - type: ImageChange
+          imageChangeParams:
+            automatic: true
+            containerNames:
+              - "${NAME}-static"
+            from:
+              kind: ImageStreamTag
+              namespace: "${IMAGE_NAMESPACE}"
+              name: "${NAME}-static:${TAG_NAME}"
+  - apiVersion: v1
+    kind: Service
+    metadata:
+      creationTimestamp: null
+      name: "${NAME}"
+    spec:
+      ports:
+        - name: 8080-tcp
+          port: 8080
+          protocol: TCP
+          targetPort: 8080
+      selector:
+        app: "${NAME}-static"
+        deploymentconfig: "${NAME}"
+      sessionAffinity: None
+      type: ClusterIP
+  - apiVersion: v1
+    kind: Route
+    metadata:
+      name: "${NAME}"
+    spec:
+      host: "${APPLICATION_DOMAIN}"
+      port:
+        targetPort: 8080-tcp
+      tls:
+        insecureEdgeTerminationPolicy: Redirect
+        termination: edge
+      to:
+        kind: Service
+        name: "${NAME}"
+        weight: 100
+parameters:
+  - name: NAME
+    displayName: Name
+    description: >-
+      The name assigned to all of the openshift objects defined in this
+      template. It is also the name of runtime image you want.
+    required: true
+    value: news-dashboard
+  - name: IMAGE_NAMESPACE
+    displayName: Image Namespace
+    description: The namespace where to get the above image name
+    required: true
+    value: nrms-tools
+  - name: REAL_IP_FROM
+    displayName: OpenShift Cluster IP Range
+    description: >-
+      OpenShift cluster private IP range in CIDR notation, used by Nginx
+      ngx_http_realip_module.
+    required: true
+    value: 172.51.0.0/16
+  - name: API_URL
+    displayName: API URL
+    description: >-
+      The default URL to use when proxying requests to the application's API.
+      The value here will be overridden if a API_SERVICE_NAME is defined.
+    required: false
+    value: "https://nrms-api-nrms-dev.pathfinder.gov.bc.ca/api/"
+  - name: API_SERVICE_NAME
+    displayName: API Service Name
+    description: >-
+      The name of the service endpoint for the API.  Used to wire up to an API
+      endpoint within the same project; overriding the URL defined by API_URL.
+    required: false
+    value: nrms-api
+  - name: API_PATH
+    displayName: API Path
+    description:
+      The root path for the API.  Used in conjunction with API_SERVICE_NAME.
+    required: true
+    value: /api/
+  - name: AdditionalRealIpFromRules
+    displayName: Additional real_ip_from Rules
+    description: >-
+      Additional known and trusted reverse proxy ips conforming to nginx
+      set_real_ip_from directive syntax. Multiple directives are allowed,
+      separated by semicolon.
+  - name: IpFilterRules
+    displayName: Ip Filter Rules
+    description: Nginx ngx_http_access_module ip filter rules
+    value: ""
+  - name: APPLICATION_DOMAIN
+    displayName: Application Hostname
+    description: >-
+      The exposed hostname that will route to the service, e.g.,
+      myappname.pathfinder.gov.bc.ca, if left blank a value will be defaulted.
+    value: ""
+  - name: TAG_NAME
+    displayName: Env TAG name
+    description: "The TAG name for this environment, e.g., dev, test, prod"
+    value: dev
+  - name: HTTP_BASIC
+    displayName: HTTP Basic Nginx Config Line
+    description: >-
+      For very simple HTTP Basic authentication, use %HTTP_BASIC% in your nginx
+      config and provide the value here that you want in nginx config, e.g.,
+      auth_basic 'restricted';
+    value: ""
+  - name: HTTP_BASIC_USERNAME
+    displayName: HTTP Basic Username
+    description:
+      For very simple HTTP Basic authentication, the username of the ONE user
+    value: ""
+  - name: HTTP_BASIC_PASSWORD
+    displayName: HTTP Basic Password
+    description:
+      For very simple HTTP Basic authentication, the password of the ONE user
+    value: ""
+  - name: CPU_LIMIT
+    displayName: CPU Limit
+    description: Maximum amount of CPU the container can use.
+    value: 500m
+  - name: MEMORY_LIMIT
+    displayName: Memory Limit
+    description: Maximum amount of memory the container can use.
+    value: 1Gi
+  - name: CPU_REQUEST
+    displayName: CPU Request
+    description: Starting amount of CPU the container can use.
+    value: 100m
+  - name: MEMORY_REQUEST
+    displayName: Memory Request
+    description: Starting amount of memory the container can use.
+    value: 100Mi
