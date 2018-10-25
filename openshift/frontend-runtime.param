@@ -1,0 +1,9 @@
+#=========================================================
+# OpenShift template parameters for:
+# Component: .
+# Template File: templates/runtime/frontend-runtime.yaml
+#=========================================================
+RUNTIME_IMAGE_NAME=frontend-nginx-runtime
+GIT_REPO_URL=https://github.com/bcgov/gcpe-news-dashboard.git
+GIT_REF=develop
+SOURCE_CONTEXT_DIR=openshift/templates/runtime/

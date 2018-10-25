@@ -1,0 +1,9 @@
+#=========================================================
+# OpenShift template parameters for:
+# Component: .
+# Template File: templates/builder/frontend-builder.yaml
+#=========================================================
+BUILDER_IMAGE_NAME=frontend-yarn-builder
+GIT_REPO_URL=https://github.com/bcgov/gcpe-news-dashboard.git
+GIT_REF=develop
+SOURCE_CONTEXT_DIR=openshift/templates/builder/
