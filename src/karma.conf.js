@@ -1,6 +1,10 @@
 // Karma configuration file, see link for more information
 // https://karma-runner.github.io/1.0/config/configuration-file.html
 
+// The Chrome DevTools team created Puppeteer
+// - it will automatically install Chromium for all platforms and contains everything you need to run it from within your CI.
+process.env.CHROME_BIN = process.env.CI ? require('puppeteer').executablePath() : process.env.CHROME_BIN;
+
 module.exports = function (config) {
   config.set({
     basePath: '',
@@ -26,6 +30,13 @@ module.exports = function (config) {
     logLevel: config.LOG_INFO,
     autoWatch: true,
     browsers: ['Chrome'],
+    // https://angular.io/guide/testing#set-up-continuous-integration
+    customLaunchers: {
+      ChromeHeadlessCI: {
+        base: 'ChromeHeadless',
+        flags: ['--no-sandbox', '--disable-gpu']
+      }
+    },
     singleRun: false
   });
 };
