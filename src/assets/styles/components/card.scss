@@ -10,14 +10,14 @@ main .jumbotron{
     padding-right:20px;
     color: map-get($theme-colors, light)!important;
 }
-  
+
 .list-inline .list-inline-item a{
     color: map-get($theme-colors, mediem);
     padding-bottom: 10px;
     text-decoration: none;
 }
   
-.list-inline .active{
+.list-inline .active {
     color: map-get($theme-colors, dark)!important;
     border-bottom: 2px solid map-get($theme-colors, primary-nav)!important;
 }
