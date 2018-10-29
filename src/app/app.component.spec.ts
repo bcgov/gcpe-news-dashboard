@@ -1,7 +1,7 @@
 import { TestBed, async } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 import { AppComponent } from './app.component';
-import { NavMenuComponent } from './navmenu/navmenu.component';
+import { NavMenuComponent } from './core/navmenu/navmenu.component';
 import { NgbDropdownModule } from '@ng-bootstrap/ng-bootstrap';
 import {  NgbCollapseModule } from '@ng-bootstrap/ng-bootstrap';
 

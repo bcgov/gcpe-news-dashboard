@@ -59,7 +59,7 @@ describe('NavmenuComponent', () => {
 
   it('should display the `Topics` button', () => {
     //There should a create button in the template
-    expect(element.innerText).toContain("Topics");
+    expect(element.innerHTML).toContain("Topics");
   });
 
   it('should display the `hamburger` menu', () => {

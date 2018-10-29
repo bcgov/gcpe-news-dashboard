@@ -1,0 +1,34 @@
+<main role="main">
+  <div class="jumbotron">
+      <div class="container" style="padding-top: 80px;" id="hq-dashboard-body">
+          <h2>HQ Dashboard</h2>
+          <p style="font-size: 1.2em;" class="lighter-font">
+            The most important news you should be aware of.
+          </p>
+          <div style="padding-top:30px; font-size: 1.1em;">
+            <ul class="list-inline">
+              <li class="list-inline-item"><a class="active" href="#">LAST 7 DAYS</a></li>
+              <li class="list-inline-item"><a href="#">7 DAYS FORECAST</a></li>
+              <li class="list-inline-item"><a href="#">THEME OF THE WEEK</a></li>
+              <li class="list-inline-item"><a href="#">SOCIAL MEDIA</a></li>
+            </ul>
+          </div>
+          <div id="activity-list" class="card-columns" style="padding-left:0; padding-right:0; padding-top:30px;">
+              <div *ngFor="let activity of activities">
+                  <div class="card">
+                      <img *ngIf="activity.imgUrl" class="card-img-top" src="{{activity.imgUrl}}" alt="Card image cap" style="height: 225px; width: 100%; display: block;">
+                      <div class="card-body">
+                        <h6 *ngIf="activity.ministryLabel" class="card-subtitle mb-2 text-muted card-ministry-label">{{activity.ministryLabel}}</h6>
+                        <h5 *ngIf="activity.title" class="card-title">{{activity.title}}</h5>
+                        <p *ngIf="activity.text"  class="card-text justify-content-between">{{activity.text}}</p>
+                        <p class="card-text">{{activity.publishDate}} <i class="fa fa-bookmark-o fa-lg pull-right" style="padding-right:30px;"></i></p>
+                      </div>
+                    </div>
+                    
+              </div>
+              
+          </div>
+      </div>
+  </div>
+</main>
+
