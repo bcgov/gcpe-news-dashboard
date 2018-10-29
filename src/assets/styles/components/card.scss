@@ -33,5 +33,10 @@ main .jumbotron{
 #activity-list .card .card-text{
     color: map-get($theme-colors, mediem)!important;
 }
+
+.btn-print{
+    border: 1px solid map-get($theme-colors, light)!important;
+    color: map-get($theme-colors, primary-nav)!important;
+}
   
   
