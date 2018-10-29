@@ -14,6 +14,4 @@ export class ActivityListComponent implements OnInit {
 
   ngOnInit() {
   }
-
-  
 }
