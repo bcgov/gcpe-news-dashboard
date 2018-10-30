@@ -8,7 +8,6 @@ import { NavMenuComponent } from  './core/navmenu/navmenu.component';
 import { ActivityListComponent } from './activities/activity-list/activity-list.component';
 import { FooterComponent } from './core/footer/footer.component';
 
- 
 @NgModule({
   declarations: [
     AppComponent,

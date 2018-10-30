@@ -47,8 +47,16 @@ fi
 echo "---> Installing application dependencies"
 yarn install
 
-echo "---> Building in production mode"
-yarn build
+# Set the CI_BUILD to false by default.
+CI_BUILD=${CI_BUILD:-false}
+
+if [ "$CI_BUILD" == "true" ]; then
+  echo "---> Running Tests and building in production mode"
+  yarn ci
+else
+  echo "---> Building in production mode"
+  yarn build
+fi
 
 echo "---> Removing node modules from image"
 rm -rf ./node_modules
