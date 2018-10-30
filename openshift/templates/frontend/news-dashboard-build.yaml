@@ -54,6 +54,9 @@ objects:
           from:
             kind: ImageStreamTag
             name: "${BUILDER_IMAGE}:latest"
+          env:
+            - name: CI_BUILD
+              value: "${CI_BUILD}"
       output:
         to:
           kind: ImageStreamTag
@@ -133,6 +136,12 @@ parameters:
     description: The image to use as the Builder Image.
     required: true
     value: frontend-yarn-builder
+  - name: CI_BUILD
+    displayName: Execute a CI build
+    description:
+      When set to true, the unit tests (if any) will be run during the build.
+    required: true
+    value: "true"
   - name: RUNTIME_IMAGE
     displayName: Runtime Image
     description: The image to use as the application runtime.
