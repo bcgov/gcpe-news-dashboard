@@ -33,4 +33,9 @@ header .nav-item .active{
     vertical-align: middle;
     line-height: 36px;
 }
+
+// remove the profile menu dropdown arrow
+.dropdown-toggle::after{
+    content:initial
+ }
   
