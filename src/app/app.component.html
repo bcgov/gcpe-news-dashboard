@@ -1,2 +1,23 @@
 <news-dashboard-navmenu></news-dashboard-navmenu>
+<main role="main">
+    <div class="jumbotron">
+        <div class="container" style="padding-top: 80px;" id="hq-dashboard-body">
+            <h2>HQ Dashboard <button class="btn btn-primary pull-right btn-print"><i class="fa fa-print fa-lg"></i>
+                    Print Report</button></h2>
+            <p style="font-size: 1.2em;" class="lighter-font">
+                The most important news you should be aware of.
+            </p>
+            <div style="padding-top:30px; font-size: 1.1em;">
+                <ul class="list-inline">
+                    <li class="list-inline-item"><a class="active" href="#">LAST 7 DAYS</a></li>
+                    <li class="list-inline-item"><a href="#">7 DAYS FORECAST</a></li>
+                    <li class="list-inline-item"><a href="#">THEME OF THE WEEK</a></li>
+                    <li class="list-inline-item"><a href="#">SOCIAL MEDIA</a></li>
+                </ul>
+            </div>
+            <app-activity-list></app-activity-list>
+        </div>
+    </div>
+</main>
 <router-outlet></router-outlet>
+<app-footer></app-footer>

@@ -4,12 +4,16 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { NavMenuComponent } from './navmenu/navmenu.component';
+import { NavMenuComponent } from  './core/navmenu/navmenu.component';
+import { ActivityListComponent } from './activities/activity-list/activity-list.component';
+import { FooterComponent } from './core/footer/footer.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     NavMenuComponent,
+    ActivityListComponent,
+    FooterComponent
   ],
   imports: [
     BrowserModule,

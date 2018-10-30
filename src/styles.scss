@@ -1,5 +1,4 @@
 /* You can add global styles to this file, and also import other style files */
-
 @font-face {
     font-family: 'Myriad-Pro';
     src: url('assets/fonts/MyriadWebPro.eot'); 
@@ -9,10 +8,13 @@
   }
   
   $fa-font-path: "../node_modules/font-awesome/fonts";
+
   @import "../node_modules/font-awesome/css/font-awesome.min.css";
 
   // Layout
   @import "assets/styles/variables.scss";
   @import '../node_modules/bootstrap/scss/bootstrap.scss';
-  @import "assets/styles/overrides.scss";
- 
+  @import 'assets/styles/layout.scss';
+  @import 'assets/styles/footer.scss';
+  @import 'assets/styles/header.scss';
+  @import 'assets/styles/components/card.scss'

@@ -1,0 +1,18 @@
+// Only paragraph links should be underlined
+p a {
+    text-decoration: underline;
+}
+
+// Sticky footer
+html {
+   position: relative;
+   min-height: 100%;
+}
+body {
+   /* Margin bottom by footer height */
+   margin-bottom: 65px !important;
+}
+
+.lighter-font{
+    color: map-get($theme-colors, mediem)!important;
+}
