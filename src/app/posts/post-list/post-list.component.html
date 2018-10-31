@@ -6,7 +6,7 @@
               <h6 *ngIf="post.leadMinistryKey" class="card-subtitle mb-2 text-muted card-ministry-label">{{post.leadMinistryKey}}</h6>
               <h5 *ngIf="post.documents" class="card-title">{{post.documents[0].headline}}</h5>
               <p *ngIf="post.summary" class="card-text justify-content-between">{{post.summary}}</p>
-              <p class="card-text">{{post.publishDate}} <i class="fa fa-bookmark-o fa-lg pull-right" style="padding-right:30px;"></i></p>
+              <p class="card-text">{{post.publishDate | date:'mediumDate'}} <i class="fa fa-bookmark-o fa-lg pull-right" style="padding-right:30px;"></i></p>
             </div>
           </div>
     </div>

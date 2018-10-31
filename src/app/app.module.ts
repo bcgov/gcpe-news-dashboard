@@ -12,7 +12,7 @@ import { ActivitiesForecastListComponent } from './activities/activities-forecas
 import { RouterModule, Routes } from '@angular/router';
 
 const appRoutes: Routes = [
-  { path: 'activity-list', component: ActivityListComponent },
+  { path: 'last-7-day-post-list', component: PostListComponent },
   { path: 'activity-forecast-list', component: ActivitiesForecastListComponent },
 ];
 
@@ -21,7 +21,8 @@ const appRoutes: Routes = [
     AppComponent,
     NavMenuComponent,
     PostListComponent,
-    FooterComponent
+    FooterComponent,
+    ActivitiesForecastListComponent
   ],
   imports: [
     BrowserModule,
