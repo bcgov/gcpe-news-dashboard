@@ -16,3 +16,11 @@ body {
 .lighter-font{
     color: map-get($theme-colors, mediem)!important;
 }
+
+/* wider screen layout
+@media (min-width: 1200px){
+    .container {
+        max-width: 1400px;
+    }
+}
+*/
