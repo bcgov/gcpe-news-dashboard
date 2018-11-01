@@ -1,6 +1,8 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Post } from '../../shared/post';
+import { Router, ActivatedRoute } from '@angular/router';
+import { ApiService } from '../../services/api.service'
 
 @Component({
   selector: 'app-post-list',
@@ -10,13 +12,19 @@ import { Post } from '../../shared/post';
 
 export class PostListComponent implements OnInit {
   public posts: Post[];
-  
-  constructor(http: HttpClient, @Inject('BASE_API_URL') baseApiUrl: string) {
-    http.get<Post[]>(baseApiUrl + 'api/Posts/Latest/home/default?count=10&api-version=1.0').subscribe(result => {
-      this.posts = result;
-    }, error => console.error(error));
-  }
+
+  constructor(private router: Router, private  apiService:  ApiService, private route: ActivatedRoute) { }
 
   ngOnInit() {
+    this.route.data.subscribe(data => {
+      this.posts = data['posts'];
+      console.log(data);
+    });
+  }
+
+  getEntries() {
+    this.apiService.getEntries().subscribe((data) => {
+      this.posts = data;
+    }, error => console.error(error));
   }
 }

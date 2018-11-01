@@ -10,10 +10,13 @@ import { PostListComponent } from './posts/post-list/post-list.component';
 import { FooterComponent } from './core/footer/footer.component';
 import { EntryForecastListComponent } from './entries/entry-list/entry-forecast-list.component';
 import { RouterModule, Routes } from '@angular/router';
+import { EntryListResolver } from "./_resolvers/entry-list.resolver";
+import { PostListResolver } from "./_resolvers/post-list.resolver";
+import { ApiService } from './services/api.service';
 
 const appRoutes: Routes = [
-  { path: 'last-7-day-post-list', component: PostListComponent },
-  { path: 'next-7-day-entry-list', component: EntryForecastListComponent },
+  { path: 'last-7-day-post-list', component: PostListComponent,  resolve: { posts: PostListResolver } },
+  { path: 'next-7-day-entry-list', component: EntryForecastListComponent, resolve: { entrylist: EntryListResolver }  },
   { path: '', redirectTo: 'last-7-day-post-list', pathMatch: 'full' },
 ];
 
@@ -32,7 +35,11 @@ const appRoutes: Routes = [
     RouterModule.forRoot(appRoutes,{ enableTracing: true }),
     AppRoutingModule
   ],
-  providers: [],
+  providers: [
+    ApiService,
+    EntryListResolver,
+    PostListResolver
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

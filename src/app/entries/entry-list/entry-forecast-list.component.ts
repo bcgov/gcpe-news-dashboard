@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ApiService } from '../../services/api.service';
-import { Entry } from '../../shared/entry'
+import { Entry } from '../../shared/entry';
+import { Router, ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-entry-forecast-list',
@@ -10,21 +11,20 @@ import { Entry } from '../../shared/entry'
 
 export class EntryForecastListComponent implements OnInit {
   public entrylist: Entry[];
-  public daysofWeek = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
+  public daysOfWeek = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
 
-  constructor(private  apiService:  ApiService) { }
+  constructor(private router: Router, private  apiService:  ApiService, private route: ActivatedRoute) { }
 
   ngOnInit() {
-    this.getPosts();
+    this.route.data.subscribe(data => {
+      this.entrylist = data['entrylist'];
+      console.log(data);
+    });
   }
 
-  getPosts() {
+  getEntries() {
     this.apiService.getEntries().subscribe((data) => {
       this.entrylist = data;
     }, error => console.error(error));
-  }
-
-  getDaysofWeek(){
-    return ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
   }
 }
