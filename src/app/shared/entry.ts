@@ -1,14 +1,13 @@
-import { WeekDay } from '@angular/common';
-
 export class Entry {
-    day: WeekDay;
-    date: string;
-    entrydetails: details[]
-  }
+    summary: string;
+    ministryKeys: string[];
+    assetUrl: string;
+    publishDate: string;
+    documents: Document[];
+}
 
-  class details {
-    title: '';
-    ministrylabel: '';
-    text:'';
-};
- 
+export class Document {
+    headline: string;
+    subheadline: string;
+    detailsHtml: string;
+  }
