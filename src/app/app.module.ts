@@ -8,12 +8,13 @@ import { AppComponent } from './app.component';
 import { NavMenuComponent } from  './core/navmenu/navmenu.component';
 import { PostListComponent } from './posts/post-list/post-list.component';
 import { FooterComponent } from './core/footer/footer.component';
-import { ActivitiesForecastListComponent } from './activities/activities-forecast-list/activities-forecast-list.component';
+import { EntryForecastListComponent } from './entries/entry-list/entry-forecast-list.component';
 import { RouterModule, Routes } from '@angular/router';
 
 const appRoutes: Routes = [
   { path: 'last-7-day-post-list', component: PostListComponent },
-  { path: 'activity-forecast-list', component: ActivitiesForecastListComponent },
+  { path: 'next-7-day-entry-list', component: EntryForecastListComponent },
+  { path: '', redirectTo: 'last-7-day-post-list', pathMatch: 'full' },
 ];
 
 @NgModule({
@@ -22,7 +23,7 @@ const appRoutes: Routes = [
     NavMenuComponent,
     PostListComponent,
     FooterComponent,
-    ActivitiesForecastListComponent
+    EntryForecastListComponent
   ],
   imports: [
     BrowserModule,

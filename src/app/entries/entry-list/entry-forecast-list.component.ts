@@ -3,14 +3,13 @@ import { ApiService } from '../../services/api.service';
 import { Entry } from '../../shared/entry'
 
 @Component({
-  selector: 'app-activities-forecast-list',
-  templateUrl: './activities-forecast-list.component.html',
-  styleUrls: ['./activities-forecast-list.component.scss']
+  selector: 'app-entry-forecast-list',
+  templateUrl: './entry-forecast-list.component.html',
+  styleUrls: ['./entry-forecast-list.component.scss']
 })
 
-export class ActivitiesForecastListComponent implements OnInit {
-  public  entrylist;
-  public sampleEntry: Entry;
+export class EntryForecastListComponent implements OnInit {
+  public entrylist: Entry[];
   public daysofWeek = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
 
   constructor(private  apiService:  ApiService) { }
@@ -20,10 +19,8 @@ export class ActivitiesForecastListComponent implements OnInit {
   }
 
   getPosts() {
-    this.apiService.getPosts().subscribe((data) => {
+    this.apiService.getEntries().subscribe((data) => {
       this.entrylist = data;
-      this.sampleEntry = data[0];
-      console.log(this.sampleEntry);
     }, error => console.error(error));
   }
 

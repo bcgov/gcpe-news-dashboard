@@ -6,9 +6,9 @@
             </div>  
             <div class="card" *ngFor="let entry of entrylist; let i = index" [hidden]="i>2">
                 <div class="card-body"  >
-                    <h6 class="card-subtitle mb-2 text-muted card-ministry-label">ministry label</h6>
-                    <h5 class="card-title">Light card title</h5>
-                    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                    <h6 class="card-subtitle mb-2 text-muted card-ministry-label">{{entry.ministryKeys}}</h6>
+                    <h5 class="card-title">{{entry.documents[0].headline}}</h5>
+                    <p class="card-text">{{entry.summary}}</p>
                   </div>
             </div>
         </div>
