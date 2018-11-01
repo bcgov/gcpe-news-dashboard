@@ -1,0 +1,24 @@
+@media (min-width: 1140px) {
+    .seven-cols .col-md-1,
+    .seven-cols .col-sm-1,
+    .seven-cols .col-lg-1 {
+        flex:14.285714285714285714285714285714%;
+      max-width: 14.285714285714285714285714285714%;
+      *width: 14.285714285714285714285714285714%;
+    }
+  }
+
+#entry-forecast-list{
+    padding-left:0; 
+    padding-right:0; 
+    padding-top:30px;
+}
+
+#entry-forecast-list .card{
+    margin-bottom:15px;
+}
+
+#entry-forecast-list .col-lg-1{
+    padding-left:5px;
+    padding-right:5px;
+}

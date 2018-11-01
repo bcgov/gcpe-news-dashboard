@@ -1,12 +1,12 @@
-<div id="post-list" class="card-columns" style="padding-left:0; padding-right:0; padding-top:30px;">
+<div id="post-list" class="card-columns pl-0 pr-0 pt-3">
     <div *ngFor="let post of posts">
         <div class="card">
-            <img *ngIf="post.assetUrl" class="card-img-top" src="{{post.assetUrl}}" alt="Card image cap" style="height: 225px; width: 100%; display: block;">
+            <img *ngIf="post.assetUrl" class="card-img-top post-image" src="{{post.assetUrl}}" alt="Card image cap">
             <div class="card-body">
               <h6 *ngIf="post.leadMinistryKey" class="card-subtitle mb-2 text-muted card-ministry-label">{{post.leadMinistryKey}}</h6>
               <h5 *ngIf="post.documents" class="card-title">{{post.documents[0].headline}}</h5>
               <p *ngIf="post.summary" class="card-text justify-content-between">{{post.summary}}</p>
-              <p class="card-text">{{post.publishDate}} <i class="fa fa-bookmark-o fa-lg pull-right" style="padding-right:30px;"></i></p>
+              <p class="card-text">{{post.publishDate | date:'mediumDate'}} <i class="fa fa-bookmark-o fa-lg pull-right pr-3" ></i></p>
             </div>
           </div>
     </div>
