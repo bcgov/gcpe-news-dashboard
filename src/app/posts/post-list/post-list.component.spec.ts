@@ -1,6 +1,8 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-
 import { PostListComponent } from './post-list.component';
+import { ApiService } from '../../services/api.service';
+import { RouterModule } from '@angular/router';
+import { RouterTestingModule } from '@angular/router/testing';
 
 describe('PostListComponent', () => {
   let component: PostListComponent;
@@ -8,7 +10,14 @@ describe('PostListComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [PostListComponent ]
+      imports: [
+        RouterModule,
+        RouterTestingModule
+       ],
+      declarations: [PostListComponent ],
+      providers: [
+        {provide:ApiService}
+      ]
     })
     .compileComponents();
   }));
