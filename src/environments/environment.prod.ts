@@ -1,3 +1,4 @@
 export const environment = {
-  production: true
+  production: true,
+  apiUrl: "https://dev.api.news.gov.bc.ca/"
 };
