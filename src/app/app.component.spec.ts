@@ -4,6 +4,7 @@ import { AppComponent } from './app.component';
 import { NavMenuComponent } from './core/navmenu/navmenu.component';
 import { NgbDropdownModule } from '@ng-bootstrap/ng-bootstrap';
 import {  NgbCollapseModule } from '@ng-bootstrap/ng-bootstrap';
+import { FooterComponent } from './core/footer/footer.component';
 
 describe('AppComponent', () => {
   beforeEach(async(() => {
@@ -15,7 +16,8 @@ describe('AppComponent', () => {
       ],
       declarations: [
         AppComponent,
-        NavMenuComponent
+        NavMenuComponent,
+        FooterComponent
       ],
     }).compileComponents();
   }));
