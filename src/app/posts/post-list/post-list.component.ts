@@ -1,5 +1,4 @@
 import { Component, OnInit, Inject } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
 import { Post } from '../../shared/post';
 import { Router, ActivatedRoute } from '@angular/router';
 import { ApiService } from '../../services/api.service'

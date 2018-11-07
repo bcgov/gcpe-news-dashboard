@@ -1,5 +1,20 @@
+@import "./src/assets/styles/variables.scss";
+
 .post-image{
     height: 225px; 
     width: 100%; 
     display: block;
 }
+  
+.card-ministry-label{
+    color: map-get($theme-colors, primary-nav)!important;
+}
+
+#post-list .card {
+    margin-bottom: 40px;
+}
+
+#post-list .card .card-text {
+    color: map-get($theme-colors, mediem) !important;
+}
+
