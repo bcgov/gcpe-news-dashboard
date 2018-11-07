@@ -2,6 +2,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { OAuthModule } from 'angular-oauth2-oidc';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -13,6 +14,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { EntryListResolver } from "./_resolvers/entry-list.resolver";
 import { PostListResolver } from "./_resolvers/post-list.resolver";
 import { ApiService } from './services/api.service';
+import { AuthService } from './services/auth.service';
 
 const appRoutes: Routes = [
   { path: 'last-7-day-post-list', component: PostListComponent,  resolve: { posts: PostListResolver } },
@@ -32,11 +34,13 @@ const appRoutes: Routes = [
     BrowserModule,
     HttpClientModule,
     NgbModule.forRoot(),
+    OAuthModule.forRoot(),
     RouterModule.forRoot(appRoutes,{ enableTracing: true }),
     AppRoutingModule
   ],
   providers: [
     ApiService,
+    AuthService,
     EntryListResolver,
     PostListResolver
   ],
