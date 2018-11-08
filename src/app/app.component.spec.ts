@@ -5,6 +5,8 @@ import { NavMenuComponent } from './core/navmenu/navmenu.component';
 import { NgbDropdownModule } from '@ng-bootstrap/ng-bootstrap';
 import {  NgbCollapseModule } from '@ng-bootstrap/ng-bootstrap';
 import { FooterComponent } from './core/footer/footer.component';
+import { OAuthService, UrlHelperService, OAuthLogger } from 'angular-oauth2-oidc';
+import { HttpClientModule } from '@angular/common/http';
 
 describe('AppComponent', () => {
   beforeEach(async(() => {
@@ -12,12 +14,18 @@ describe('AppComponent', () => {
       imports: [
         RouterTestingModule,
         NgbCollapseModule.forRoot(),
-        NgbDropdownModule.forRoot()
+        NgbDropdownModule.forRoot(),
+        HttpClientModule
       ],
       declarations: [
         AppComponent,
         NavMenuComponent,
         FooterComponent
+      ],
+      providers: [
+        OAuthService,
+        UrlHelperService,
+        OAuthLogger
       ],
     }).compileComponents();
   }));
