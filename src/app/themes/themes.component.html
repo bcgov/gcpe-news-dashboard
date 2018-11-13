@@ -1,0 +1,29 @@
+<div id="theme-list" class="row pl-0 pr-0 pt-3">
+  <div class="col-8">
+    <div *ngFor="let theme of themes">
+      <div class="card">
+        <div class="card-body">
+          <h5 *ngIf="theme.documents" class="card-title">{{theme.documents[0].headline}}</h5>
+          <p *ngIf="theme.summary" class="card-text justify-content-between">{{theme.summary}}</p>
+          <ul class="custom-list-style">
+              <li>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat.</li>
+              <li>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat.</li>
+              <li>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col-4">
+      <div class="card">
+          <div class="card-body">
+            <h5 class="card-title">Message Title Test Long Title in Two Line</h5>
+            <p class="card-text justify-content-between">Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua.</p>
+            <ul  class="custom-list-style">
+                <li>Lorem ipsum dolor sit amet, consetetur sadipscing elitr.</li>
+                <li>Lorem ipsum dolor sit amet, consetetur sadipscing elitr.</li>
+            </ul>
+          </div>
+        </div>
+  </div>
+</div>
