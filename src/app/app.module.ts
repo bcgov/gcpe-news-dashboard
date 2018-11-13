@@ -13,6 +13,8 @@ import { EntryListResolver } from "./_resolvers/entry-list.resolver";
 import { PostListResolver } from "./_resolvers/post-list.resolver";
 import { ApiService } from './services/api.service';
 import { AuthService } from './services/auth.service';
+import { ThemesComponent } from './themes/themes.component';
+import { ThemeListResolver } from './_resolvers/theme-list.resolver';
 
 @NgModule({
   declarations: [
@@ -20,7 +22,8 @@ import { AuthService } from './services/auth.service';
     NavMenuComponent,
     PostListComponent,
     FooterComponent,
-    EntryForecastListComponent
+    EntryForecastListComponent,
+    ThemesComponent
   ],
   imports: [
     BrowserModule,
@@ -33,7 +36,8 @@ import { AuthService } from './services/auth.service';
     ApiService,
     AuthService,
     EntryListResolver,
-    PostListResolver
+    PostListResolver,
+    ThemeListResolver
   ],
   bootstrap: [AppComponent]
 })

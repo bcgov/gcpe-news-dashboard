@@ -3,6 +3,7 @@ import { HttpClient} from  '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Entry } from '../shared/entry';
 import { Post } from '../shared/post';
+import { Theme } from '../shared/theme';
 
 @Injectable({
   providedIn: 'root'
@@ -20,6 +21,11 @@ export class ApiService {
 
   getPosts(): Observable<Post[]> {
     return this.httpClient.get<Post[]>(`${this.API_URL}/api/Posts/Latest/home/default?count=10&api-version=1.0`)
+    .pipe();
+  }
+
+  getThemes(): Observable<Theme[]> {
+    return this.httpClient.get<Theme[]>(`${this.API_URL}/api/Posts/Latest/home/default?count=10&api-version=1.0`)
     .pipe();
   }
   
