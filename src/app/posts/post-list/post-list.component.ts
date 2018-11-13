@@ -21,7 +21,7 @@ export class PostListComponent implements OnInit {
     });
   }
 
-  getEntries() {
+  getPosts() {
     this.apiService.getEntries().subscribe((data) => {
       this.posts = data;
     }, error => console.error(error));
