@@ -15,6 +15,8 @@ import { ApiService } from './services/api.service';
 import { AuthService } from './services/auth.service';
 import { ThemesComponent } from './themes/themes.component';
 import { ThemeListResolver } from './_resolvers/theme-list.resolver';
+import { SocialMediaListComponent } from './socialMedia/social-media-list/social-media-list.component';
+import { SociaMediaListResolver } from './_resolvers/social-media-list.resolver'
 
 @NgModule({
   declarations: [
@@ -23,7 +25,8 @@ import { ThemeListResolver } from './_resolvers/theme-list.resolver';
     PostListComponent,
     FooterComponent,
     EntryForecastListComponent,
-    ThemesComponent
+    ThemesComponent,
+    SocialMediaListComponent
   ],
   imports: [
     BrowserModule,
@@ -37,7 +40,8 @@ import { ThemeListResolver } from './_resolvers/theme-list.resolver';
     AuthService,
     EntryListResolver,
     PostListResolver,
-    ThemeListResolver
+    ThemeListResolver,
+    SociaMediaListResolver
   ],
   bootstrap: [AppComponent]
 })

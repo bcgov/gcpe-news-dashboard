@@ -6,11 +6,14 @@ import { EntryForecastListComponent } from './entries/entry-list/entry-forecast-
 import { EntryListResolver } from './_resolvers/entry-list.resolver';
 import { ThemesComponent } from './themes/themes.component';
 import { ThemeListResolver } from './_resolvers/theme-list.resolver';
+import { SocialMediaListComponent } from './socialMedia/social-media-list/social-media-list.component';
+import { SociaMediaListResolver } from './_resolvers/social-media-list.resolver';
 
 const appRoutes: Routes = [
   { path: 'last-7-day-post-list', component: PostListComponent,  resolve: { posts: PostListResolver } },
-  { path: 'next-7-day-entry-list', component: EntryForecastListComponent, resolve: { entrylist: EntryListResolver }  },
-  { path: 'themes-of-the-week', component: ThemesComponent, resolve: { themes: ThemeListResolver }},
+  { path: 'next-7-day-entry-list', component: EntryForecastListComponent, resolve: { entrylist: EntryListResolver } },
+  { path: 'themes-of-the-week', component: ThemesComponent, resolve: { themes: ThemeListResolver } },
+  { path: 'social-media', component: SocialMediaListComponent, resolve: { socialmedia: SociaMediaListResolver } },
   { path: '', redirectTo: 'last-7-day-post-list', pathMatch: 'full' },
 ];
 

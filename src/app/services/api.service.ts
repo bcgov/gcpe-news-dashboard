@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 import { Entry } from '../shared/entry';
 import { Post } from '../shared/post';
 import { Theme } from '../shared/theme';
+import { SocialMedia } from '../shared/social-media';
 
 @Injectable({
   providedIn: 'root'
@@ -29,4 +30,8 @@ export class ApiService {
     .pipe();
   }
   
+  getSocialMedia(): Observable<SocialMedia[]> {
+    return this.httpClient.get<SocialMedia[]>(`${this.API_URL}/api/Posts/Latest/home/default?count=10&api-version=1.0`)
+    .pipe();
+  }
 }
