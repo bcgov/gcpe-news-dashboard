@@ -13,11 +13,17 @@ import { EntryListResolver } from "./_resolvers/entry-list.resolver";
 import { PostListResolver } from "./_resolvers/post-list.resolver";
 import { ApiService } from './services/api.service';
 import { AuthService } from './services/auth.service';
+<<<<<<< HEAD
 import { ThemesComponent } from './themes/themes.component';
 import { ThemeListResolver } from './_resolvers/theme-list.resolver';
 import { SocialMediaListComponent } from './socialMedia/social-media-list/social-media-list.component';
 import { SociaMediaListResolver } from './_resolvers/social-media-list.resolver';
 import { SociaMediaTypeListResolver } from './_resolvers/social-media-type-list.resolver';
+||||||| merged common ancestors
+=======
+import { ThemesComponent } from './themes/themes.component';
+import { ThemeListResolver } from './_resolvers/theme-list.resolver';
+>>>>>>> db1b0759df81eed41dd3fdd0bec4a9db0030785f
 
 @NgModule({
   declarations: [
@@ -25,9 +31,16 @@ import { SociaMediaTypeListResolver } from './_resolvers/social-media-type-list.
     NavMenuComponent,
     PostListComponent,
     FooterComponent,
+<<<<<<< HEAD
     EntryForecastListComponent,
     ThemesComponent,
     SocialMediaListComponent,
+||||||| merged common ancestors
+    EntryForecastListComponent
+=======
+    EntryForecastListComponent,
+    ThemesComponent
+>>>>>>> db1b0759df81eed41dd3fdd0bec4a9db0030785f
   ],
   imports: [
     BrowserModule,
@@ -40,10 +53,17 @@ import { SociaMediaTypeListResolver } from './_resolvers/social-media-type-list.
     ApiService,
     AuthService,
     EntryListResolver,
+<<<<<<< HEAD
     PostListResolver,
     ThemeListResolver,
     SociaMediaListResolver,
     SociaMediaTypeListResolver
+||||||| merged common ancestors
+    PostListResolver
+=======
+    PostListResolver,
+    ThemeListResolver
+>>>>>>> db1b0759df81eed41dd3fdd0bec4a9db0030785f
   ],
   bootstrap: [AppComponent]
 })
