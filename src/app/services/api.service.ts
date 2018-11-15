@@ -3,14 +3,9 @@ import { HttpClient} from  '@angular/common/http';
 import { Observable, of } from 'rxjs';
 import { Entry } from '../shared/entry';
 import { Post } from '../shared/post';
-<<<<<<< HEAD
 import { Theme } from '../shared/theme';
 import { SocialMedia } from '../shared/social-media';
 import { SocialMediaType } from '../shared/social-media-type';
-||||||| merged common ancestors
-=======
-import { Theme } from '../shared/theme';
->>>>>>> db1b0759df81eed41dd3fdd0bec4a9db0030785f
 
 @Injectable({
   providedIn: 'root'
