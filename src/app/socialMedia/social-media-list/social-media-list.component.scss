@@ -1,6 +1,7 @@
 
 @import "../../../assets/styles/variables.scss";
 
+// color referenced from https://codepen.io/elishaterada/pen/tGokD
 $fa-facebook: #3b5998;
 $fa-twitter:#55acee;
 $fa-linkedin: #0976b4;
@@ -32,5 +33,13 @@ $fa-soundcloud: #f80;
 #social-media-list .card {
     margin-bottom: 40px;
 }
+
+.dropdown-toggle::after{
+    content:initial;
+ }
+ #social-media-filter a{
+    color: map-get($theme-colors, primary-nav)!important;
+}
+
 
 

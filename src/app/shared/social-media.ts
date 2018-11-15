@@ -4,6 +4,7 @@ export class SocialMedia {
     assetUrl: string;
     publishDate: string;
     documents: Document[];
+    mediatype: string;
 }
 
 export class Document {

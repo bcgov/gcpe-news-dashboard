@@ -16,7 +16,8 @@ import { AuthService } from './services/auth.service';
 import { ThemesComponent } from './themes/themes.component';
 import { ThemeListResolver } from './_resolvers/theme-list.resolver';
 import { SocialMediaListComponent } from './socialMedia/social-media-list/social-media-list.component';
-import { SociaMediaListResolver } from './_resolvers/social-media-list.resolver'
+import { SociaMediaListResolver } from './_resolvers/social-media-list.resolver';
+import { SociaMediaTypeListResolver } from './_resolvers/social-media-type-list.resolver';
 
 @NgModule({
   declarations: [
@@ -26,7 +27,7 @@ import { SociaMediaListResolver } from './_resolvers/social-media-list.resolver'
     FooterComponent,
     EntryForecastListComponent,
     ThemesComponent,
-    SocialMediaListComponent
+    SocialMediaListComponent,
   ],
   imports: [
     BrowserModule,
@@ -41,7 +42,8 @@ import { SociaMediaListResolver } from './_resolvers/social-media-list.resolver'
     EntryListResolver,
     PostListResolver,
     ThemeListResolver,
-    SociaMediaListResolver
+    SociaMediaListResolver,
+    SociaMediaTypeListResolver
   ],
   bootstrap: [AppComponent]
 })

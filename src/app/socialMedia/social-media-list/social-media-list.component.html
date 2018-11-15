@@ -1,18 +1,19 @@
+
 <div id="social-media-list" class="card-columns pl-0 pr-0 pt-3">
-    <div *ngFor="let item of socialmedia; index as i">
+    <div *ngFor="let item of selectedSocialMedia">
         <div class="card">
             <img *ngIf="item.assetUrl" class="card-img-top post-image" src="{{item.assetUrl}}" alt="Card image cap">
             <div class="card-body">
-              <h5 *ngIf="item.documents" class="card-title">{{item.documents[0].headline}}</h5>
-              <p *ngIf="item.summary" class="card-text justify-content-between">{{item.summary}}</p>
-              <p class="card-text">{{item.publishDate | date:'mediumDate'}} 
-                <i *ngIf=" i%5 == 0" class="fa fa-twitter fa-2x pull-right pr-3" ></i>
-                <i *ngIf=" i%5 == 1" class="fa fa-facebook-square fa-2x pull-right pr-3" ></i>
-                <i *ngIf=" i%5 == 2" class="fa fa-linkedin-square fa-2x pull-right pr-3" ></i>
-                <i *ngIf=" i%5 == 3" class="fa fa-youtube fa-2x pull-right pr-3" ></i>
-                <i *ngIf=" i%5 == 4" class="fa fa-soundcloud fa-2x pull-right pr-3" ></i>
-              </p>
+                <h5 *ngIf="item.documents" class="card-title">{{item.documents[0].headline}}</h5>
+                <p *ngIf="item.summary" class="card-text justify-content-between">{{item.summary}}</p>
+                <p class="card-text" [ngSwitch]="item.mediatype">{{item.publishDate | date:'mediumDate'}}
+                    <i *ngSwitchCase="'Twitter'" class="fa fa-twitter fa-2x pull-right pr-3"></i>
+                    <i *ngSwitchCase="'Facebook'" class="fa fa-facebook-square fa-2x pull-right pr-3"></i>
+                    <i *ngSwitchCase="'LinkedIn'" class="fa fa-linkedin-square fa-2x pull-right pr-3"></i>
+                    <i *ngSwitchCase="'YouTube'" class="fa fa-youtube fa-2x pull-right pr-3"></i>
+                    <i *ngSwitchCase="'SoundCloud'" class="fa fa-soundcloud fa-2x pull-right pr-3"></i>
+                </p>
             </div>
-          </div>
+        </div>
     </div>
 </div>
