@@ -9,7 +9,6 @@ import { ApiService } from '../../services/api.service';
   styleUrls: ['./hq-dashboard-sub-menu.component.scss']
 })
 export class HqDashboardSubMenuComponent  {
-
   hideSocialMediaFilter = false;
   socialmediatypes: SocialMediaType[];
   filterBySocialMediaType: string = 'All';
@@ -17,7 +16,6 @@ export class HqDashboardSubMenuComponent  {
   constructor(private router: Router, private route: ActivatedRoute, private apiService:  ApiService) {
     this.apiService.getSocialMediaTypes().subscribe(data => {
       this.socialmediatypes = data;
-      console.log(this.socialmediatypes);
     });
 
     // Only display the social media filter dropdown when social media link is active

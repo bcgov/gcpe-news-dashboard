@@ -13,9 +13,9 @@ import { EntryListResolver } from "./_resolvers/entry-list.resolver";
 import { PostListResolver } from "./_resolvers/post-list.resolver";
 import { ApiService } from './services/api.service';
 import { AuthService } from './services/auth.service';
-import { ThemesComponent } from './themes/themes-of-week/themes.component';
+import { ThemesOfWeekComponent } from './themes/themes-of-week/themes-of-week.component';
 import { ThemeListResolver } from './_resolvers/theme-list.resolver';
-import { SocialMediaListComponent } from './socialMedia/social-media-list/social-media-list.component';
+import { SocialMediaListComponent } from './social-media/social-media-list/social-media-list.component';
 import { SociaMediaListResolver } from './_resolvers/social-media-list.resolver';
 import { SociaMediaTypeListResolver } from './_resolvers/social-media-type-list.resolver';
 import { ThemeListComponent } from './themes/theme-list/theme-list.component';
@@ -30,7 +30,7 @@ import { ThemeListByAdminResolver } from './_resolvers/theme-list-by-admin.solve
     PostListComponent,
     FooterComponent,
     EntryForecastListComponent,
-    ThemesComponent,
+    ThemesOfWeekComponent,
     SocialMediaListComponent,
     ThemeListComponent,
     HqDashboardSubMenuComponent,

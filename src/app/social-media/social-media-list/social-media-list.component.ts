@@ -13,7 +13,7 @@ export class SocialMediaListComponent implements OnInit {
 
   socialmedia: SocialMedia[];
   selectedSocialMedia: SocialMedia[];
-  public socialmediatypes: SocialMediaType[];
+  socialmediatypes: SocialMediaType[];
   filterBy: string = 'All';
 
   constructor(private router: Router, private apiService:  ApiService, private route: ActivatedRoute) { }
@@ -24,41 +24,37 @@ export class SocialMediaListComponent implements OnInit {
       this.socialmedia = data['socialmedia'];
 
       // mockup data for the media types
-      for (var i=0; i<this.socialmedia.length;i++)
-      {
+      this.socialmedia.forEach(function (item, i, list) {
         switch (i%5)
         {
           case 0:
-            this.socialmedia[i].mediatype = 'Facebook';
+            item.mediatype = 'Facebook';
             break;
           case 1:
-            this.socialmedia[i].mediatype = 'Twitter';
+            item.mediatype = 'Twitter';
             break;
           case 2:
-            this.socialmedia[i].mediatype = 'LinkedIn';
+            item.mediatype = 'LinkedIn';
             break;
           case 3:
-            this.socialmedia[i].mediatype = 'YouTube';
+            item.mediatype = 'YouTube';
             break;
           case 4:
-            this.socialmedia[i].mediatype = 'SoundCloud';
+            item.mediatype = 'SoundCloud';
             break;
         }
-      }
+      });
     });
     
     this.route.queryParams.subscribe((queryParams:any) => {
-      console.log(queryParams.type);
       if (queryParams.type === 'All')
       {
         this.selectedSocialMedia = this.socialmedia;
       }
       else
       {
-        this.selectedSocialMedia = this.socialmedia.filter(s=>s.mediatype === queryParams.type);
+        this.selectedSocialMedia = this.socialmedia.filter( s => s.mediatype === queryParams.type );
       }
-      
-      console.log(this.selectedSocialMedia);
      });
   }
 

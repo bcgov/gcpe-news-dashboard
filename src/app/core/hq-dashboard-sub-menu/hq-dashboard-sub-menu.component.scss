@@ -1,10 +1,10 @@
 @import '../../../assets/styles/variables.scss';
 
-.dropdown-toggle::after{
+.dropdown-toggle::after {
     content:initial;
  }
 
- #social-media-filter a{
+ #social-media-filter a {
      color: map-get($theme-colors, primary-nav)!important;
  }
 
@@ -16,7 +16,7 @@
     font-size: 1.1em;
  }
 
- .dashboard-sub-menu-container{
+ .dashboard-sub-menu-container {
     padding-top: 80px; 
     padding-left:0; 
     padding-right:0

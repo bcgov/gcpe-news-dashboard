@@ -10,7 +10,7 @@ export class SociaMediaListResolver implements Resolve<SocialMedia[]> {
     constructor(private apiService: ApiService,private router: Router) { }
 
     resolve(route: ActivatedRouteSnapshot): Observable<SocialMedia[]> {
-        return this.apiService.getSocialMedia()
+        return this.apiService.getSocialMediaPosts()
         .pipe(
             catchError(error => {
                 this.router.navigate(['/home']);

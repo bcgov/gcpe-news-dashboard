@@ -17,7 +17,6 @@ export class PostListComponent implements OnInit {
   ngOnInit() {
     this.route.data.subscribe(data => {
       this.posts = data['posts'];
-      console.log(data);
     });
   }
 

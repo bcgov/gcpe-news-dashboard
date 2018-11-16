@@ -1,41 +1,9 @@
 <news-dashboard-navmenu></news-dashboard-navmenu>
 <main role="main">
-    <div class="jumbotron">   
-    <!--
-<div class="container" style="padding-top: 80px;" id="hq-dashboard-body">
-            <h2>HQ Dashboard <button class="btn btn-primary pull-right btn-print"><i class="fa fa-print fa-lg"></i>
-                    Print Report</button></h2>
-            <p class="lighter-font hq-dashboard-info">
-                The most important news you should be aware of.
-            </p>
-            <div class="pt-3 router-style">
-                <ul class="list-inline">
-                    <li class="list-inline-item"><a class="active" [routerLink]="['/last-7-day-post-list']" routerLinkActive="active">LAST 7 DAYS</a></li>
-                    <li class="list-inline-item"><a [routerLink]="['/next-7-day-entry-list']" routerLinkActive="active">7 DAYS FORECAST</a></li>
-                    <li class="list-inline-item"><a [routerLink]="['/themes-of-the-week']" routerLinkActive="active">THEME OF THE WEEK</a></li>
-                    <li class="list-inline-item"><a [routerLink]="['/social-media']" [queryParams]="{ type: 'All'}" routerLinkActive="active">SOCIAL MEDIA</a></li>
-
-                    <li id="social-media-filter" class="list-inline-item pull-right" [hidden]="hideSocialMediaFilter">
-                        <div ngbDropdown placement="bottom-right">
-                            <a class="btn-link " id="dropdown-social-media-filter" ngbDropdownToggle>{{filterBySocialMediaType}} <i class="fa fa-angle-down" aria-hidden="true"></i></a>
-                            <div ngbDropdownMenu aria-labelledby="dropdown-social-media-filter">
-                                <button [routerLink]="['/social-media']" [queryParams]="{ type: 'All'}" class="dropdown-item" (click)="updateSocialMediaType('All')">All</button>
-                                <button [routerLink]="['/social-media']" [queryParams]="{ type: socialmediatype.name}"
-                                    class="dropdown-item" 
-                                    *ngFor="let socialmediatype of socialmediatypes" (click)="updateSocialMediaType(socialmediatype.name)">
-                                    {{socialmediatype.name}}
-                                </button>
-                            </div>
-                        </div>
-                    </li>
-                </ul>
-            </div>
-        </div>
-        -->
+    <div class="jumbotron">
         <div class="container hq-dashboard-container">
-            <router-outlet></router-outlet> 
+            <router-outlet></router-outlet>
         </div>
     </div>
 </main>
-
 <app-footer></app-footer>

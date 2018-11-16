@@ -45,31 +45,37 @@ export class ApiService {
     this.API_URL = baseApiUrl;
   }
 
+  // get the entries for 7 days forecast
   getEntries(): Observable<Entry[]> {
     return this.httpClient.get<Entry[]>(`${this.API_URL}/api/Posts/Latest/home/default?count=10&api-version=1.0`)
     .pipe();
   }
 
+  // get the last 7 days post
   getPosts(): Observable<Post[]> {
     return this.httpClient.get<Post[]>(`${this.API_URL}/api/Posts/Latest/home/default?count=10&api-version=1.0`)
     .pipe();
   }
 
+  // get the themes of the week
   getThemes(): Observable<Theme[]> {
     return this.httpClient.get<Theme[]>(`${this.API_URL}/api/Posts/Latest/home/default?count=10&api-version=1.0`)
     .pipe();
   }
 
-  getThemesByAdmin(): Observable<Theme[]> {
+  // get the theme list by logged user
+  getThemesManagement(): Observable<Theme[]> {
     return this.httpClient.get<Theme[]>(`${this.API_URL}/api/Posts/Latest/home/default?count=10&api-version=1.0`)
     .pipe();
   }
   
-  getSocialMedia(): Observable<SocialMedia[]> {
+  // get the social media list
+  getSocialMediaPosts(): Observable<SocialMedia[]> {
     return this.httpClient.get<SocialMedia[]>(`${this.API_URL}/api/Posts/Latest/home/default?count=10&api-version=1.0`)
     .pipe();
   }
 
+  // get the social media type list, used in the filter
   getSocialMediaTypes(): Observable<SocialMediaType[]> {
     return of(this.SocialMediaTypeList);
   }

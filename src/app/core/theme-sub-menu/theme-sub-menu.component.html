@@ -5,8 +5,8 @@
     
     <div class="pt-3 router-style">
         <ul class="list-inline">
-            <li class="list-inline-item"><a [routerLink]="['/theme-list']"  [queryParams]="{ type: 'Published'}" routerLinkActive="active">PUBLISHED</a></li>
-            <li class="list-inline-item"><a [routerLink]="['/theme-list']" [queryParams]="{ type: 'Drafts'}" routerLinkActive="active">DRAFTS</a></li>
+            <li class="list-inline-item"><a [routerLink]="['/theme-list']"  [queryParams]="{ type: 'Published'}" routerLinkActive="active">{{'published' | uppercase }}</a></li>
+            <li class="list-inline-item"><a [routerLink]="['/theme-list']" [queryParams]="{ type: 'Drafts'}" routerLinkActive="active">{{'drafts' | uppercase }}</a></li>
         </ul>
     </div>
 </div>
