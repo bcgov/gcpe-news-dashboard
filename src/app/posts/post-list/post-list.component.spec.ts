@@ -1,8 +1,10 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { PostListComponent } from './post-list.component';
-import { ApiService } from '../../services/api.service';
 import { RouterModule } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
+import { HqDashboardSubMenuComponent } from '../../core/hq-dashboard-sub-menu/hq-dashboard-sub-menu.component';
+import { environment } from '../../../environments/environment';
+import { HttpClientModule } from '@angular/common/http';
 
 describe('PostListComponent', () => {
   let component: PostListComponent;
@@ -12,12 +14,16 @@ describe('PostListComponent', () => {
     TestBed.configureTestingModule({
       imports: [
         RouterModule,
-        RouterTestingModule
+        RouterTestingModule,
+        HttpClientModule
        ],
-      declarations: [PostListComponent ],
+      declarations: [
+        PostListComponent,
+        HqDashboardSubMenuComponent
+      ],
       providers: [
-        {provide:ApiService}
-      ]
+        { provide: 'BASE_API_URL', useValue: environment.apiUrl }
+      ],
     })
     .compileComponents();
   }));

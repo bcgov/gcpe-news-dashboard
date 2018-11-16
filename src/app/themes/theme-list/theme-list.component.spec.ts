@@ -1,6 +1,10 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-
+import { ThemeSubMenuComponent } from '../../core/theme-sub-menu/theme-sub-menu.component'
 import { ThemeListComponent } from './theme-list.component';
+import { RouterModule } from '@angular/router';
+import { RouterTestingModule } from '@angular/router/testing';
+import { HttpClientModule } from '@angular/common/http';
+import { environment } from '../../../environments/environment';
 
 describe('ThemeListComponent', () => {
   let component: ThemeListComponent;
@@ -8,7 +12,18 @@ describe('ThemeListComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ ThemeListComponent ]
+      imports: [
+        RouterModule,
+        RouterTestingModule,
+        HttpClientModule
+       ],
+      declarations: [ 
+        ThemeListComponent,
+        ThemeSubMenuComponent
+      ],
+      providers: [
+        { provide: 'BASE_API_URL', useValue: environment.apiUrl }
+      ],
     })
     .compileComponents();
   }));

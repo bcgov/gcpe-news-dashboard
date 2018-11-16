@@ -1,7 +1,5 @@
 import { Component } from '@angular/core';
 import { Router, NavigationEnd, ActivatedRoute } from '@angular/router';
-import { OAuthService, JwksValidationHandler } from 'angular-oauth2-oidc';
-import { authConfig } from '../../auth.config';
 import { SocialMediaType } from '../../shared/social-media-type';
 import { ApiService } from '../../services/api.service';
 

@@ -11,7 +11,7 @@ import { SocialMediaType } from '../../shared/social-media-type';
 })
 export class SocialMediaListComponent implements OnInit {
 
-  public socialmedia: SocialMedia[];
+  socialmedia: SocialMedia[];
   selectedSocialMedia: SocialMedia[];
   public socialmediatypes: SocialMediaType[];
   filterBy: string = 'All';

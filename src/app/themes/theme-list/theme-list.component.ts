@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Theme } from '../../shared/theme';
 import { Router, ActivatedRoute } from '@angular/router';
 import { ApiService } from '../../services/api.service';
+import { forEach } from '@angular/router/src/utils/collection';
 
 @Component({
   selector: 'app-theme-list',
@@ -10,19 +11,20 @@ import { ApiService } from '../../services/api.service';
 })
 export class ThemeListComponent implements OnInit {
 
-  public themes: Theme[];
-  public selectedThemes: Theme[];
+  themes: Theme[];
+  selectedThemes: Theme[];
 
   constructor(private router: Router, private  apiService:  ApiService, private route: ActivatedRoute) { }
 
   ngOnInit() {
     this.route.data.subscribe(data => {
       this.themes = data['themes'];
+      console.log(this.themes)
     });
 
     // mockup data for the media types
-    for (var i=0; i<this.themes.length;i++)
-    {
+    var i= 0;
+    for (let theme in this.themes) {
       if (i%2 == 0)
       {
         this.themes[i].type = 'Published';
@@ -31,8 +33,9 @@ export class ThemeListComponent implements OnInit {
       {
         this.themes[i].type = 'Drafts';
       }
-    }
-
+      i++
+   }
+   
     this.route.queryParams.subscribe((queryParams:any) => {
       console.log(queryParams.type);
       if (queryParams.type === 'All')
