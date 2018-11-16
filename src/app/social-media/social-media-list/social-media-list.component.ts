@@ -56,6 +56,10 @@ export class SocialMediaListComponent implements OnInit {
         this.selectedSocialMedia = this.socialmedia.filter( s => s.mediatype === queryParams.type );
       }
      });
+
+     this.route.data.subscribe(data => {
+      this.socialmediatypes = data['socialmediatype'];
+    });
   }
 
   UpdateSocialMediaTypeFilter(newSocialMediaType: string){

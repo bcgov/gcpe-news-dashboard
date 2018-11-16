@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { Router, NavigationEnd, ActivatedRoute } from '@angular/router';
 import { SocialMediaType } from '../../shared/social-media-type';
 import { ApiService } from '../../services/api.service';
@@ -10,14 +10,15 @@ import { ApiService } from '../../services/api.service';
 })
 export class HqDashboardSubMenuComponent  {
   hideSocialMediaFilter = false;
-  socialmediatypes: SocialMediaType[];
+  @Input() socialmediatypes: SocialMediaType[];
   filterBySocialMediaType: string = 'All';
 
   constructor(private router: Router, private route: ActivatedRoute, private apiService:  ApiService) {
+    /*
     this.apiService.getSocialMediaTypes().subscribe(data => {
       this.socialmediatypes = data;
     });
-
+*/
     // Only display the social media filter dropdown when social media link is active
     this.router.events.subscribe((event) => {
       if (event instanceof NavigationEnd) {
