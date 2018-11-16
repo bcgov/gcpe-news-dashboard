@@ -1,7 +1,7 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { Post } from '../../shared/post';
 import { Router, ActivatedRoute } from '@angular/router';
-import { ApiService } from '../../services/api.service'
+import { ApiService } from '../../services/api.service';
 
 @Component({
   selector: 'app-post-list',

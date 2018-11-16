@@ -1,4 +1,4 @@
-import { Component, OnInit, OnChanges } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { ApiService } from '../../services/api.service';
 import { SocialMedia } from '../../shared/social-media';
@@ -9,7 +9,7 @@ import { SocialMediaType } from '../../shared/social-media-type';
   templateUrl: './social-media-list.component.html',
   styleUrls: ['./social-media-list.component.scss']
 })
-export class SocialMediaListComponent implements OnInit, OnChanges {
+export class SocialMediaListComponent implements OnInit {
 
   public socialmedia: SocialMedia[];
   selectedSocialMedia: SocialMedia[];
@@ -60,9 +60,6 @@ export class SocialMediaListComponent implements OnInit, OnChanges {
       
       console.log(this.selectedSocialMedia);
      });
-  }
-  ngOnChanges(){
-
   }
 
   UpdateSocialMediaTypeFilter(newSocialMediaType: string){

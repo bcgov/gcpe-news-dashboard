@@ -13,11 +13,15 @@ import { EntryListResolver } from "./_resolvers/entry-list.resolver";
 import { PostListResolver } from "./_resolvers/post-list.resolver";
 import { ApiService } from './services/api.service';
 import { AuthService } from './services/auth.service';
-import { ThemesComponent } from './themes/themes.component';
+import { ThemesComponent } from './themes/themes-of-week/themes.component';
 import { ThemeListResolver } from './_resolvers/theme-list.resolver';
 import { SocialMediaListComponent } from './socialMedia/social-media-list/social-media-list.component';
 import { SociaMediaListResolver } from './_resolvers/social-media-list.resolver';
 import { SociaMediaTypeListResolver } from './_resolvers/social-media-type-list.resolver';
+import { ThemeListComponent } from './themes/theme-list/theme-list.component';
+import { HqDashboardSubMenuComponent } from './core/hq-dashboard-sub-menu/hq-dashboard-sub-menu.component';
+import { ThemeSubMenuComponent } from './core/theme-sub-menu/theme-sub-menu.component';
+import { ThemeListByAdminResolver } from './_resolvers/theme-list-by-admin.solver';
 
 @NgModule({
   declarations: [
@@ -28,6 +32,9 @@ import { SociaMediaTypeListResolver } from './_resolvers/social-media-type-list.
     EntryForecastListComponent,
     ThemesComponent,
     SocialMediaListComponent,
+    ThemeListComponent,
+    HqDashboardSubMenuComponent,
+    ThemeSubMenuComponent,
   ],
   imports: [
     BrowserModule,
@@ -43,7 +50,8 @@ import { SociaMediaTypeListResolver } from './_resolvers/social-media-type-list.
     PostListResolver,
     ThemeListResolver,
     SociaMediaListResolver,
-    SociaMediaTypeListResolver
+    SociaMediaTypeListResolver,
+    ThemeListByAdminResolver
   ],
   bootstrap: [AppComponent]
 })

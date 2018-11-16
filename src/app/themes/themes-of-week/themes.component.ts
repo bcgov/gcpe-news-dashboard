@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { Theme } from '../shared/theme';
+import { Theme } from '../../shared/theme';
 import { Router, ActivatedRoute } from '@angular/router';
-import { ApiService } from '../services/api.service'
+import { ApiService } from '../../services/api.service';
 
 @Component({
   selector: 'app-themes',
@@ -17,7 +17,6 @@ export class ThemesComponent implements OnInit {
   ngOnInit() {
     this.route.data.subscribe(data => {
       this.themes = data['themes'];
-      console.log(data);
     });
   }
 

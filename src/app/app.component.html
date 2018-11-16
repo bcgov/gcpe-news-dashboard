@@ -1,7 +1,8 @@
 <news-dashboard-navmenu></news-dashboard-navmenu>
 <main role="main">
-    <div class="jumbotron">
-        <div class="container" style="padding-top: 80px;" id="hq-dashboard-body">
+    <div class="jumbotron">   
+    <!--
+<div class="container" style="padding-top: 80px;" id="hq-dashboard-body">
             <h2>HQ Dashboard <button class="btn btn-primary pull-right btn-print"><i class="fa fa-print fa-lg"></i>
                     Print Report</button></h2>
             <p class="lighter-font hq-dashboard-info">
@@ -18,9 +19,9 @@
                         <div ngbDropdown placement="bottom-right">
                             <a class="btn-link " id="dropdown-social-media-filter" ngbDropdownToggle>{{filterBySocialMediaType}} <i class="fa fa-angle-down" aria-hidden="true"></i></a>
                             <div ngbDropdownMenu aria-labelledby="dropdown-social-media-filter">
-                                <button [routerLink]="['/social-media']" [queryParams]="{ type: 'All'}" class="dropdown-item" [class.active]="filterBySocialMediaType==='All'" (click)="updateSocialMediaType('All')">All</button>
+                                <button [routerLink]="['/social-media']" [queryParams]="{ type: 'All'}" class="dropdown-item" (click)="updateSocialMediaType('All')">All</button>
                                 <button [routerLink]="['/social-media']" [queryParams]="{ type: socialmediatype.name}"
-                                    class="dropdown-item" [class.active]="filterBySocialMediaType==='socialmediatype.name'" 
+                                    class="dropdown-item" 
                                     *ngFor="let socialmediatype of socialmediatypes" (click)="updateSocialMediaType(socialmediatype.name)">
                                     {{socialmediatype.name}}
                                 </button>
@@ -29,7 +30,10 @@
                     </li>
                 </ul>
             </div>
-            <router-outlet></router-outlet>
+        </div>
+        -->
+        <div class="container hq-dashboard-container">
+            <router-outlet></router-outlet> 
         </div>
     </div>
 </main>

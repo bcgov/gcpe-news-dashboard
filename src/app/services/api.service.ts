@@ -59,6 +59,11 @@ export class ApiService {
     return this.httpClient.get<Theme[]>(`${this.API_URL}/api/Posts/Latest/home/default?count=10&api-version=1.0`)
     .pipe();
   }
+
+  getThemesByAdmin(): Observable<Theme[]> {
+    return this.httpClient.get<Theme[]>(`${this.API_URL}/api/Posts/Latest/home/default?count=10&api-version=1.0`)
+    .pipe();
+  }
   
   getSocialMedia(): Observable<SocialMedia[]> {
     return this.httpClient.get<SocialMedia[]>(`${this.API_URL}/api/Posts/Latest/home/default?count=10&api-version=1.0`)

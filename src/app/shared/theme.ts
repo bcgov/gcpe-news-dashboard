@@ -4,6 +4,7 @@ export class Theme {
     assetUrl: string;
     publishDate: string;
     documents: Document[];
+    type: string;
 }
 
 export class Document {

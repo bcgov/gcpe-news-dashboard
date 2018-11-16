@@ -1,0 +1,25 @@
+@import '../../../assets/styles/variables.scss';
+
+.dropdown-toggle::after{
+    content:initial;
+ }
+
+ #social-media-filter a{
+     color: map-get($theme-colors, primary-nav)!important;
+ }
+
+ .hq-dashboard-info {
+    font-size: 1.2em;
+ }
+
+ .router-style {
+    font-size: 1.1em;
+ }
+
+ .dashboard-sub-menu-container{
+    padding-top: 50px; 
+    padding-left:0; 
+    padding-right:0
+ }
+
+
