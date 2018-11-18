@@ -9,7 +9,6 @@ import { ApiService } from '../../services/api.service'
   styleUrls: ['./theme-list.component.scss']
 })
 export class ThemeListComponent implements OnInit {
-
   themes: Theme[];
   selectedThemes: Theme[];
 
@@ -17,12 +16,13 @@ export class ThemeListComponent implements OnInit {
 
   ngOnInit() {
     this.route.data.subscribe(data => {
-      this.themes = data['themes'];
+      this.themes = data['themelist'];
     });
 
     // mockup data for the theme list
-    this.themes.forEach(function (item, i, list) {
-      if (i%2 == 0)
+    
+ this.themes.map(function (item, index, list) {
+      if (index%2 == 0)
       {
         item.type = 'Published';
       }
@@ -32,15 +32,10 @@ export class ThemeListComponent implements OnInit {
       }
     });
 
+     
+   
     this.route.queryParams.subscribe((queryParams:any) => {
-      if (queryParams.type === 'All')
-      {
-        this.selectedThemes = this.themes;
-      }
-      else
-      {
-        this.selectedThemes = this.themes.filter( s => s.type === queryParams.type );
-      }
+      this.selectedThemes = this.themes.filter( s => s.type === queryParams.type );
      });
 
   }

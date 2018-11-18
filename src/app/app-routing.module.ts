@@ -18,7 +18,7 @@ const appRoutes: Routes = [
   { path: 'themes-of-the-week', component: ThemesOfWeekComponent, resolve: { themes: ThemeListResolver } },
   { path: 'social-media', component: SocialMediaListComponent, resolve: { socialmedia: SociaMediaListResolver, socialmediatype: SociaMediaTypeListResolver } },
   { path: '', redirectTo: 'last-7-day-post-list', pathMatch: 'full' },
-  { path: 'theme-list', component: ThemeListComponent, resolve: { themes: ThemeListByAdminResolver } },
+  { path: 'theme-list', component: ThemeListComponent, resolve: { themelist: ThemeListByAdminResolver } },
 ];
 
 @NgModule({
