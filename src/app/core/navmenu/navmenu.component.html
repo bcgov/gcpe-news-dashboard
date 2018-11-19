@@ -27,7 +27,7 @@
               </div>
             </li>
             <li class="nav-item">
-              <a class="nav-link active" >HQ Dashboard</a> 
+              <a class="nav-link active" [routerLink]="['/last-7-day-post-list']" routerLinkActive="active">HQ Dashboard</a> 
             </li>
             <li class="nav-item">
               <a class="nav-link" >Just For You</a> 
@@ -46,7 +46,7 @@
                   <div class="user-image" id="profile-menu" ngbDropdownToggle>J</div>
                   <div ngbDropdownMenu class="dropdown-menu" aria-labelledby="profile-menu">
                     <a class="dropdown-item" href="#">New Theme</a>
-                    <a class="dropdown-item" href="#">Themes</a>
+                    <a class="dropdown-item" [routerLink]="['/theme-list']" [queryParams]="{ type: 'Published'}" routerLinkActive="active">Themes</a>
                     <div class="dropdown-divider"></div>
                     <a class="dropdown-item" href="#">Subscriptions</a>
                     <a class="dropdown-item" href="#">Account Settings</a>

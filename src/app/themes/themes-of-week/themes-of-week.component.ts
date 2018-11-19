@@ -1,23 +1,22 @@
 import { Component, OnInit } from '@angular/core';
-import { Theme } from '../shared/theme';
+import { Theme } from '../../shared/theme';
 import { Router, ActivatedRoute } from '@angular/router';
-import { ApiService } from '../services/api.service'
+import { ApiService } from '../../services/api.service';
 
 @Component({
-  selector: 'app-themes',
-  templateUrl: './themes.component.html',
-  styleUrls: ['./themes.component.scss']
+  selector: 'app-themes-of-week',
+  templateUrl: './themes-of-week.component.html',
+  styleUrls: ['./themes-of-week.component.scss']
 })
-export class ThemesComponent implements OnInit {
+export class ThemesOfWeekComponent implements OnInit {
 
-  public themes: Theme[];
+  themes: Theme[];
 
   constructor(private router: Router, private  apiService:  ApiService, private route: ActivatedRoute) { }
 
   ngOnInit() {
     this.route.data.subscribe(data => {
       this.themes = data['themes'];
-      console.log(data);
     });
   }
 

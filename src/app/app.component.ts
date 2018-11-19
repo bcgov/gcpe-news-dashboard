@@ -1,9 +1,5 @@
-import { Component } from '@angular/core';
-import { Router } from '@angular/router';
-
-import {
-  OAuthService,
-  JwksValidationHandler } from 'angular-oauth2-oidc';
+import { Component, OnInit } from '@angular/core';
+import { OAuthService, JwksValidationHandler } from 'angular-oauth2-oidc';
 import { authConfig } from './auth.config';
 
 @Component({
@@ -12,7 +8,7 @@ import { authConfig } from './auth.config';
   styleUrls: ['./app.component.scss']
 })
 
-export class AppComponent {
+export class AppComponent implements OnInit{
   title = 'BC Gov News';
 
   constructor(private oauthService: OAuthService) {
@@ -20,4 +16,7 @@ export class AppComponent {
     this.oauthService.tokenValidationHandler = new JwksValidationHandler();
     this.oauthService.loadDiscoveryDocumentAndTryLogin();
   }
+  ngOnInit() {
+  }
+
 }
