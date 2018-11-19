@@ -18,7 +18,6 @@ export class EntryForecastListComponent implements OnInit {
   ngOnInit() {
     this.route.data.subscribe(data => {
       this.entrylist = data['entrylist'];
-      console.log(data);
     });
   }
 
