@@ -5,6 +5,7 @@ import { RouterModule } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
 import { HttpClientModule } from '@angular/common/http';
 import { environment } from '../../../environments/environment';
+import { map } from 'rxjs/operators';
 
 describe('ThemeListComponent', () => {
   let component: ThemeListComponent;
@@ -15,11 +16,11 @@ describe('ThemeListComponent', () => {
       imports: [
         RouterModule,
         RouterTestingModule,
-        HttpClientModule
+        HttpClientModule,
        ],
       declarations: [ 
         ThemeListComponent,
-        ThemeSubMenuComponent
+        ThemeSubMenuComponent,
       ],
       providers: [
         { provide: 'BASE_API_URL', useValue: environment.apiUrl }
