@@ -1,0 +1,14 @@
+<app-theme-sub-menu></app-theme-sub-menu>
+<div id="admin-theme-list" class="row pl-0 pr-0 pt-3">
+  <div class="col-12">
+      <div *ngFor="let theme of selectedThemes">
+          <div class="card">
+            <div class="card-body">
+              <h5 *ngIf="theme.documents" class="card-title">{{theme.documents[0].headline}}</h5>
+              <p *ngIf="theme.summary" class="card-text justify-content-between">{{theme.summary}}</p>
+              <p class="card-text card-date">{{theme.publishDate | date:'mediumDate'}}</p>
+            </div>
+          </div>
+        </div>
+  </div>  
+</div>

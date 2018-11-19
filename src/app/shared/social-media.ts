@@ -1,15 +1,14 @@
-export class Theme {
+export class SocialMedia {
     summary: string;
     ministryKeys: string[];
     assetUrl: string;
     publishDate: string;
     documents: Document[];
-    type: string;
+    mediatype: string;
 }
 
 export class Document {
-    headline: string;
-    subheadline: string;
-    detailsHtml: string;
-  }
-  
+  headline: string;
+  subheadline: string;
+  detailsHtml: string;
+}

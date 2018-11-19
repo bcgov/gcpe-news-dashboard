@@ -3,10 +3,11 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { AppComponent } from './app.component';
 import { NavMenuComponent } from './core/navmenu/navmenu.component';
 import { NgbDropdownModule } from '@ng-bootstrap/ng-bootstrap';
-import {  NgbCollapseModule } from '@ng-bootstrap/ng-bootstrap';
+import { NgbCollapseModule } from '@ng-bootstrap/ng-bootstrap';
 import { FooterComponent } from './core/footer/footer.component';
 import { OAuthService, UrlHelperService, OAuthLogger } from 'angular-oauth2-oidc';
 import { HttpClientModule } from '@angular/common/http';
+import { environment } from '../environments/environment';
 
 describe('AppComponent', () => {
   beforeEach(async(() => {
@@ -25,7 +26,8 @@ describe('AppComponent', () => {
       providers: [
         OAuthService,
         UrlHelperService,
-        OAuthLogger
+        OAuthLogger,
+        { provide: 'BASE_API_URL', useValue: environment.apiUrl }
       ],
     }).compileComponents();
   }));

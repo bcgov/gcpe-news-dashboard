@@ -1,0 +1,45 @@
+
+@import "../../../assets/styles/variables.scss";
+
+// color referenced from https://codepen.io/elishaterada/pen/tGokD
+$fa-facebook: #3b5998;
+$fa-twitter:#55acee;
+$fa-linkedin: #0976b4;
+$fa-youtube: #e52d27;
+$fa-soundcloud: #f80;
+
+.fa {
+    &.fa-facebook-square {
+        color: $fa-facebook;
+    }
+    &.fa-twitter {
+        color: $fa-twitter;
+    }
+    &.fa-linkedin-square {
+        color: $fa-linkedin;
+    }
+    &.fa-youtube {
+        color: $fa-youtube;
+    }
+    &.fa-soundcloud {
+        color: $fa-soundcloud;
+    }
+}
+
+#social-media-list .card .card-text {
+    color: map-get($theme-colors, mediem) !important;
+}
+
+#social-media-list .card {
+    margin-bottom: 40px;
+}
+
+.dropdown-toggle::after {
+    content:initial;
+ }
+ #social-media-filter a {
+    color: map-get($theme-colors, primary-nav)!important;
+}
+
+
+

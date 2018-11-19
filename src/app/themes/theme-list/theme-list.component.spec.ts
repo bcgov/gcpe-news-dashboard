@@ -1,25 +1,26 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { PostListComponent } from './post-list.component';
+import { ThemeSubMenuComponent } from '../../core/theme-sub-menu/theme-sub-menu.component'
+import { ThemeListComponent } from './theme-list.component';
 import { RouterModule } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
-import { HqDashboardSubMenuComponent } from '../../core/hq-dashboard-sub-menu/hq-dashboard-sub-menu.component';
-import { environment } from '../../../environments/environment';
 import { HttpClientModule } from '@angular/common/http';
+import { environment } from '../../../environments/environment';
+import { map } from 'rxjs/operators';
 
-describe('PostListComponent', () => {
-  let component: PostListComponent;
-  let fixture: ComponentFixture<PostListComponent>;
+describe('ThemeListComponent', () => {
+  let component: ThemeListComponent;
+  let fixture: ComponentFixture<ThemeListComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       imports: [
         RouterModule,
         RouterTestingModule,
-        HttpClientModule
+        HttpClientModule,
        ],
-      declarations: [
-        PostListComponent,
-        HqDashboardSubMenuComponent
+      declarations: [ 
+        ThemeListComponent,
+        ThemeSubMenuComponent,
       ],
       providers: [
         { provide: 'BASE_API_URL', useValue: environment.apiUrl }
@@ -29,7 +30,7 @@ describe('PostListComponent', () => {
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(PostListComponent);
+    fixture = TestBed.createComponent(ThemeListComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
