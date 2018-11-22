@@ -40,7 +40,13 @@ objects:
         to:
           kind: ImageStreamTag
           name: "${BUILDER_IMAGE_NAME}:latest"
-      resources: {}
+      resources:
+        requests:
+          cpu: "${CPU_REQUEST}"
+          memory: "${MEMORY_REQUEST}"
+        limits:
+          cpu: "${CPU_LIMIT}"
+          memory: "${MEMORY_LIMIT}"
       postCommit: {}
     status:
       lastVersion: 0
@@ -71,3 +77,23 @@ parameters:
       builder image, if it is not in the root of your repository.
     required: true
     value: openshift/templates/builder/
+  - name: CPU_LIMIT
+    displayName: Resources CPU Limit
+    description: The resources CPU limit (in cores) for this build.
+    required: true
+    value: "1"
+  - name: MEMORY_LIMIT
+    displayName: Resources Memory Limit
+    description: "The resources Memory limit (in Mi, Gi, etc) for this build."
+    required: true
+    value: 4Gi
+  - name: CPU_REQUEST
+    displayName: Resources CPU Request
+    description: The resources CPU request (in cores) for this build.
+    required: true
+    value: "1"
+  - name: MEMORY_REQUEST
+    displayName: Resources Memory Request
+    description: "The resources Memory request (in Mi, Gi, etc) for this build."
+    required: true
+    value: 2Gi
