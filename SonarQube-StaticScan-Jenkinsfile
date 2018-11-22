@@ -10,10 +10,10 @@ def SONAR_ROUTE_NAME = 'sonarqube'
 def SONAR_ROUTE_NAMESPACE = 'ntu9uh-tools'
 
 // The name of your SonarQube project
-def SONAR_PROJECT_NAME = 'GCPE News Dashboard'
+def SONAR_PROJECT_NAME = 'gcpe-news-dashboard'
 
 // The project key of your SonarQube project
-def SONAR_PROJECT_KEY = 'GCPENewsDashboard'
+def SONAR_PROJECT_KEY = 'gcpe-news-dashboard'
 
 // The base directory of your project.
 // This is relative to the location of the `sonar-runner` directory within your project.
