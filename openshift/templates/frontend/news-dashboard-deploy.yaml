@@ -151,7 +151,7 @@ parameters:
     displayName: Image Namespace
     description: The namespace where to get the above image name
     required: true
-    value: nrms-tools
+    value: ntu9uh-tools
   - name: REAL_IP_FROM
     displayName: OpenShift Cluster IP Range
     description: >-
@@ -165,14 +165,14 @@ parameters:
       The default URL to use when proxying requests to the application's API.
       The value here will be overridden if a API_SERVICE_NAME is defined.
     required: false
-    value: "https://nrms-api-nrms-dev.pathfinder.gov.bc.ca/api/"
+    value: "https://hub-api-ntu9uh-dev.pathfinder.gov.bc.ca/api/"
   - name: API_SERVICE_NAME
     displayName: API Service Name
     description: >-
       The name of the service endpoint for the API.  Used to wire up to an API
       endpoint within the same project; overriding the URL defined by API_URL.
     required: false
-    value: nrms-api
+    value: hub-api
   - name: API_PATH
     displayName: API Path
     description:
