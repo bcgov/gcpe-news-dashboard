@@ -4,14 +4,14 @@
 # Template File: templates/frontend/news-dashboard-deploy.yaml
 #=========================================================
 # NAME=news-dashboard
-# IMAGE_NAMESPACE=nrms-tools
+# IMAGE_NAMESPACE=ntu9uh-tools
 # REAL_IP_FROM=172.51.0.0/16
-# API_URL=https://nrms-api-nrms-dev.pathfinder.gov.bc.ca/api/
-# API_SERVICE_NAME=nrms-api
+# API_URL=https://hub-api-ntu9uh-dev.pathfinder.gov.bc.ca/api/
+# API_SERVICE_NAME=hub-api
 # API_PATH=/api/
 # AdditionalRealIpFromRules=
 # IpFilterRules=
-APPLICATION_DOMAIN=news-dashboard-nrms-prod.pathfinder.gov.bc.ca
+APPLICATION_DOMAIN=news-dashboard-ntu9uh-prod.pathfinder.gov.bc.ca
 TAG_NAME=prod
 # HTTP_BASIC=
 # HTTP_BASIC_USERNAME=

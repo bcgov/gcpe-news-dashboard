@@ -1,6 +1,6 @@
 // Edit your app's name below
 APP_NAME = "news-dashboard"
-PROJECT_NAMESPACE = "nrms"
+PROJECT_NAMESPACE = "ntu9uh"
 
 class AppEnvironment {
   String name
