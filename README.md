@@ -282,7 +282,7 @@ Enable the legacy browser polyfills. See `/src/polyfills.ts` for instructions.
 
 ## Getting Help or Reporting an Issue
 
-To report bugs/issues/feature requests, please file an [issue](https://github.com/bcgov/gcpe-NRMS-frontend/issues/).
+To report bugs/issues/feature requests, please file an [issue](https://github.com/bcgov/gcpe-news-dashboard/issues/).
 
 ## How to Contribute
 
