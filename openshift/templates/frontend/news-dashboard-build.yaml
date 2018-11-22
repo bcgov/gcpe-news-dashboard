@@ -147,7 +147,7 @@ parameters:
     description:
       When set to true, the unit tests (if any) will be run during the build.
     required: true
-    value: "false"
+    value: "true"
   - name: RUNTIME_IMAGE
     displayName: Runtime Image
     description: The image to use as the application runtime.
