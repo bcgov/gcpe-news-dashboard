@@ -3,8 +3,8 @@
 
 // The Chrome DevTools team created Puppeteer
 // - it will automatically install Chromium for all platforms and contains everything you need to run it from within your CI.
-// process.env.CHROME_BIN = process.env.CI ? require('puppeteer').executablePath() : process.env.CHROME_BIN;
-process.env.CHROME_BIN = require('puppeteer').executablePath();
+process.env.CHROME_BIN = process.env.CI ? require('puppeteer').executablePath() : process.env.CHROME_BIN;
+//process.env.CHROME_BIN = require('puppeteer').executablePath();
 
 module.exports = function (config) {
   config.set({
