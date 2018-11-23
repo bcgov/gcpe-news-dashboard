@@ -35,13 +35,13 @@ module.exports = function (config) {
     customLaunchers: {
       ChromeHeadlessCI: {
         base: 'ChromeHeadless',
-        flags: ['--no-sandbox', '--disable-gpu']
+        flags: ['--no-sandbox', '--disable-setuid-sandbox', '--disable-gpu']
       },
       ChromeCI: {
         base: 'Chrome',
-        flags: ['--no-sandbox', '--disable-gpu']
+        flags: ['--no-sandbox', '--disable-setuid-sandbox', '--disable-gpu']
       },
-      'ChromeHeadlessCustom': {
+      ChromeHeadlessCustom: {
         base: 'ChromiumHeadless',
         flags: [
             '--no-sandbox',
