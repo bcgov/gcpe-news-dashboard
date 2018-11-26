@@ -8,8 +8,7 @@ const puppeteer = require('puppeteer');
 config.capabilities = {
   browserName: 'chrome',
   chromeOptions: {
-    //args: ['--headless', '--no-sandbox', '--disable-gpu', '--disable-gpu', '--window-size=1000x1000'],
-    args: ['--headless', '--no-sandbox', '--window-size=1000x1000'],
+    args: ['--headless', '--no-sandbox'],
     binary: puppeteer.executablePath()
   }
 };
