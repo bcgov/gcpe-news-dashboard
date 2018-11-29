@@ -10,7 +10,7 @@ export class ThemeListByAdminResolver implements Resolve<Theme[]> {
     constructor(private themeService: ApiService, private router: Router) { }
     
     resolve(route: ActivatedRouteSnapshot): Observable<Theme[]> {
-        let isPublished = route.queryParams['type'].toLowerCase() === 'published';
+        let isPublished = route.queryParams['type'].toLowerCase() !== 'drafts';
         return this.themeService.getThemesManagement(isPublished)
         .pipe(
             catchError(error => {
