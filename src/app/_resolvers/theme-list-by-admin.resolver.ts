@@ -8,9 +8,10 @@ import { catchError } from 'rxjs/operators';
 @Injectable()
 export class ThemeListByAdminResolver implements Resolve<Theme[]> {
     constructor(private themeService: ApiService, private router: Router) { }
-
+    
     resolve(route: ActivatedRouteSnapshot): Observable<Theme[]> {
-        return this.themeService.getThemesManagement()
+        let isPublished = route.queryParams['type'].toLowerCase() === 'published';
+        return this.themeService.getThemesManagement(isPublished)
         .pipe(
             catchError(error => {
                 this.router.navigate(['/home']);

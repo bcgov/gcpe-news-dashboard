@@ -5,7 +5,8 @@ import { AppModule } from './app/app.module';
 import { environment } from './environments/environment';
 
 const providers = [
-  { provide: 'BASE_API_URL', useValue: environment.apiUrl }
+  { provide: 'BASE_API_URL', useValue: environment.apiUrl },
+  { provide: 'BASE_HUB_API_URL', useValue: environment.hubApiUrl },
 ];
 
 if (environment.production) {

@@ -4,7 +4,8 @@
 
 export const environment = {
   production: false,
-  apiUrl: "https://dev.api.news.gov.bc.ca/"
+  apiUrl: "https://dev.api.news.gov.bc.ca/",
+  hubApiUrl: "http://windows:8888/"
 };
 
 /*

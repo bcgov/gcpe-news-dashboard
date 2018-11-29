@@ -12,6 +12,7 @@ import { SocialMediaType } from '../shared/social-media-type';
 })
 export class ApiService {
   API_URL  =  '';
+  HUB_API_URL = '';
 
   // mock data for the media types
   private SocialMediaTypeList: SocialMediaType[] = [
@@ -41,8 +42,9 @@ export class ApiService {
     }
   ];
 
-  constructor(private  httpClient:  HttpClient, @Inject('BASE_API_URL') baseApiUrl: string) {
+  constructor(private  httpClient:  HttpClient, @Inject('BASE_API_URL') baseApiUrl: string, @Inject('BASE_HUB_API_URL') baseHubApiUrl: string) {
     this.API_URL = baseApiUrl;
+    this.HUB_API_URL = baseHubApiUrl;
   }
 
   // get the entries for 7 days forecast
@@ -59,13 +61,13 @@ export class ApiService {
 
   // get the themes of the week
   getThemes(): Observable<Theme[]> {
-    return this.httpClient.get<Theme[]>(`${this.API_URL}/api/Posts/Latest/home/default?count=10&api-version=1.0`)
+    return this.httpClient.get<Theme[]>(`${this.HUB_API_URL}/api/Messages?IsPublished=true`)
     .pipe();
   }
 
   // get the theme list by logged user
-  getThemesManagement(): Observable<Theme[]> {
-    return this.httpClient.get<Theme[]>(`${this.API_URL}/api/Posts/Latest/home/default?count=10&api-version=1.0`)
+  getThemesManagement(isPublished: Boolean): Observable<Theme[]> {
+    return this.httpClient.get<Theme[]>(`${this.HUB_API_URL}/api/Messages?IsPublished=${isPublished}`)
     .pipe();
   }
   
