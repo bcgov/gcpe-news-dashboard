@@ -58,11 +58,6 @@
     "snyk": "^1.117.1",
     "ts-node": "~7.0.0",
     "tslint": "~5.11.0",
-    "typescript": "~3.1.6",
-    "unzip2": "^0.2.5"
-  },
-  "comments": {
-    "compiler-cli~7.1.0": "requires @angular/core 7.1.0 exactly",
-    "@angular/core 7.1.0": "requires zone.js^0.8.26"
+    "typescript": "~3.1.6"
   }
 }
