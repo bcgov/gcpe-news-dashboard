@@ -13,11 +13,6 @@
     "ci": "npm run test-ci && npm run e2e-ci && npm run build"
   },
   "private": true,
-  "permissions": {
-    "cross-domain-content": [
-      "https://connect.facebook.net"
-    ]
-  },
   "dependencies": {
     "@angular/animations": "^7.1.0",
     "@angular/common": "^7.1.0",
