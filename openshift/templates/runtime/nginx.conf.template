@@ -73,7 +73,6 @@ http {
             add_header  SMGOV_USERDISPLAYNAME  $http_smgov_userdisplayname;
             add_header  SMGOV_USERTYPE  $http_smgov_usertype;
             add_header  SMGOV_USERIDENTIFIER  $http_smgov_useridentifier;
-
         }
 
         # redirect server error pages to the static page /50x.html
