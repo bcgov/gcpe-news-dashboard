@@ -5,7 +5,7 @@
 #=========================================================
 NAME=news-dashboard
 BUILDER_IMAGE=frontend-yarn-builder
-CI_BUILD=false
+CI_BUILD=true
 RUNTIME_IMAGE=frontend-nginx-runtime
 GIT_REPO_URL=https://github.com/bcgov/gcpe-news-dashboard.git
 GIT_REF=develop

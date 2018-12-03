@@ -26,18 +26,6 @@ export class ApiService {
     {
       id: 3,
       name: 'Instagram'
-    },
-    {
-      id: 4,
-      name: 'YouTube'
-    },
-    {
-      id: 5,
-      name: 'LinkedIn'
-    },
-    {
-      id: 6,
-      name: 'SoundCloud'
     }
   ];
 

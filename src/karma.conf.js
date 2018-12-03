@@ -3,8 +3,8 @@
 
 // The Chrome DevTools team created Puppeteer
 // - it will automatically install Chromium for all platforms and contains everything you need to run it from within your CI.
-// process.env.CHROME_BIN = process.env.CI ? require('puppeteer').executablePath() : process.env.CHROME_BIN;
-process.env.CHROME_BIN = require('puppeteer').executablePath();
+process.env.CHROME_BIN = process.env.CI ? require('puppeteer').executablePath() : process.env.CHROME_BIN;
+//process.env.CHROME_BIN = require('puppeteer').executablePath();
 
 module.exports = function (config) {
   config.set({
@@ -35,8 +35,22 @@ module.exports = function (config) {
     customLaunchers: {
       ChromeHeadlessCI: {
         base: 'ChromeHeadless',
-        flags: ['--no-sandbox', '--disable-gpu']
-      }
+        flags: ['--no-sandbox', '--disable-setuid-sandbox', '--remote-debugging-port=9222']
+      },
+      ChromeCI: {
+        base: 'Chrome',
+        flags: ['--no-sandbox', '--disable-setuid-sandbox']
+      },
+      ChromeHeadlessCustom: {
+        base: 'ChromiumHeadless',
+        flags: [
+            '--no-sandbox',
+            '--headless',
+            '--disable-gpu',
+            '--disable-translate',
+            '--disable-extensions'
+        ]
+    }
     },
     singleRun: false
   });
