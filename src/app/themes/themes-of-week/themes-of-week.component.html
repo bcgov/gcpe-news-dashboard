@@ -1,7 +1,7 @@
 
 <app-hq-dashboard-sub-menu></app-hq-dashboard-sub-menu>
-<div id="theme-list" class="row pl-0 pr-0 pt-3">
-  <div class="col-8">
+<div id="theme-list-container" class="row pl-0 pr-0 pt-3">
+  <div id="theme-list" [ngClass]="highlightedTheme ? 'col-sm-8' : 'col-sm-12'">
     <div *ngFor="let theme of themes" class="card">
       <div class="card-body">
         <h5 *ngIf="theme.title" class="card-title">{{theme.title}}</h5>
@@ -9,13 +9,11 @@
       </div>
     </div>
   </div>
-  <div *ngIf="highlightedTheme" class="col-4">
-    <div class="message">
-      <h5 class="message-header">{{'message' | uppercase}}</h5>
-      <div class="message-body">
-        <h5 *ngIf="highlightedTheme.title" class="message-title">{{highlightedTheme.title}}</h5>
-        <p *ngIf="highlightedTheme.description" class="message-text justify-content-between">{{highlightedTheme.description}}</p>
-      </div>
+  <div *ngIf="highlightedTheme" class="message col-sm-4">
+    <h5 class="message-header">{{'message' | uppercase}}</h5>
+    <div class="message-body">
+      <h5 *ngIf="highlightedTheme.title" class="message-title">{{highlightedTheme.title}}</h5>
+      <p *ngIf="highlightedTheme.description" class="message-text justify-content-between">{{highlightedTheme.description}}</p>
     </div>
   </div>
 </div>

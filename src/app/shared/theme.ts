@@ -1,10 +1,11 @@
 export class Theme {
-    title: string;
-    description: string;
-    sortOrder: number;
-    isHighlighted: boolean;
-    isPublished: boolean;
-    timestamp: Date;
+    constructor(public title: string,
+                public description: string,
+                public sortOrder: number,
+                public isHighlighted: boolean,
+                public isPublished: boolean,
+                public timestamp: Date) {
+    }
 }
 
 export class Document {

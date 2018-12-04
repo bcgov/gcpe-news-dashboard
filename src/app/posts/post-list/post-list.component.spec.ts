@@ -22,7 +22,8 @@ describe('PostListComponent', () => {
         HqDashboardSubMenuComponent
       ],
       providers: [
-        { provide: 'BASE_API_URL', useValue: environment.apiUrl }
+        { provide: 'BASE_API_URL', useValue: environment.apiUrl },
+        { provide: 'BASE_HUB_API_URL', useValue: environment.hubApiUrl }
       ],
     })
     .compileComponents();

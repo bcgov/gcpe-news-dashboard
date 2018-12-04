@@ -17,8 +17,8 @@ export class ThemesOfWeekComponent implements OnInit {
 
   ngOnInit() {
     this.route.data.subscribe(data => {
-      this.themes = data['themes'].filter((theme) => !theme.isHighlighted);
-      this.highlightedTheme = data['themes'].find((theme) => theme.isHighlighted);
+      this.themes = data['themes'].filter((theme) => !theme.isHighlighted && theme.isPublished);
+      this.highlightedTheme = data['themes'].find((theme) => theme.isHighlighted && theme.isPublished);
     });
   }
 }
