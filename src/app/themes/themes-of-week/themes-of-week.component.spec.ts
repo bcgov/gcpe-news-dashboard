@@ -1,14 +1,14 @@
-import { async, ComponentFixture, TestBed, inject, getTestBed } from '@angular/core/testing';
+import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { HqDashboardSubMenuComponent } from '../../core/hq-dashboard-sub-menu/hq-dashboard-sub-menu.component';
 import { environment } from '../../../environments/environment';
 import { ThemesOfWeekComponent } from './themes-of-week.component';
 import { RouterModule } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
-import { Observable, of, from } from 'rxjs';
-import { Theme } from 'src/app/shared/theme';
+import { of } from 'rxjs';
 import { FakeThemeData } from '../../test-helpers/themes';
 import { ActivatedRoute } from '@angular/router';
+import { ThemeCardComponent } from '../theme-card/theme-card.component';
 
 
 
@@ -27,7 +27,8 @@ describe('ThemesOfWeekComponent', () => {
        ],
       declarations: [
         ThemesOfWeekComponent,
-        HqDashboardSubMenuComponent
+        HqDashboardSubMenuComponent,
+        ThemeCardComponent
       ],
       providers: [
         { provide: 'BASE_API_URL', useValue: environment.apiUrl },

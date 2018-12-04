@@ -2,12 +2,9 @@
 <app-hq-dashboard-sub-menu></app-hq-dashboard-sub-menu>
 <div id="theme-list-container" class="row pl-0 pr-0 pt-3">
   <div id="theme-list" [ngClass]="highlightedTheme ? 'col-sm-8' : 'col-sm-12'">
-    <div *ngFor="let theme of themes" class="card">
-      <div class="card-body">
-        <h5 *ngIf="theme.title" class="card-title">{{theme.title}}</h5>
-        <p *ngIf="theme.description" class="card-text justify-content-between">{{theme.description}}</p>
-      </div>
-    </div>
+    <ng-container *ngFor="let theme of themes">
+        <app-theme-card [theme]="theme"></app-theme-card>
+    </ng-container>
   </div>
   <div *ngIf="highlightedTheme" class="message col-sm-4">
     <h5 class="message-header">{{'message' | uppercase}}</h5>
