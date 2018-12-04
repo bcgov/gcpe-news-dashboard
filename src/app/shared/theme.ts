@@ -1,10 +1,11 @@
 export class Theme {
-    summary: string;
-    ministryKeys: string[];
-    assetUrl: string;
-    publishDate: string;
-    documents: Document[];
-    type: string;
+    constructor(public title: string,
+                public description: string,
+                public sortOrder: number,
+                public isHighlighted: boolean,
+                public isPublished: boolean,
+                public timestamp: Date) {
+    }
 }
 
 export class Document {

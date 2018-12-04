@@ -21,7 +21,8 @@ import { SociaMediaTypeListResolver } from './_resolvers/social-media-type-list.
 import { ThemeListComponent } from './themes/theme-list/theme-list.component';
 import { HqDashboardSubMenuComponent } from './core/hq-dashboard-sub-menu/hq-dashboard-sub-menu.component';
 import { ThemeSubMenuComponent } from './core/theme-sub-menu/theme-sub-menu.component';
-import { ThemeListByAdminResolver } from './_resolvers/theme-list-by-admin.solver';
+import { ThemeListByAdminResolver } from './_resolvers/theme-list-by-admin.resolver';
+import { ThemeCardComponent } from './themes/theme-card/theme-card.component';
 
 @NgModule({
   declarations: [
@@ -35,6 +36,7 @@ import { ThemeListByAdminResolver } from './_resolvers/theme-list-by-admin.solve
     ThemeListComponent,
     HqDashboardSubMenuComponent,
     ThemeSubMenuComponent,
+    ThemeCardComponent,
   ],
   imports: [
     BrowserModule,

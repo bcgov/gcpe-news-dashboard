@@ -13,7 +13,7 @@ export class SociaMediaListResolver implements Resolve<SocialMedia[]> {
         return this.apiService.getSocialMediaPosts()
         .pipe(
             catchError(error => {
-                this.router.navigate(['/home']);
+                this.router.navigate(['/']);
                 return of(null);
             })
         );

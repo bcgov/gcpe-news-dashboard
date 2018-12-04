@@ -11,19 +11,14 @@ import { ApiService } from '../../services/api.service';
 export class ThemesOfWeekComponent implements OnInit {
 
   themes: Theme[];
+  highlightedTheme: Theme;
 
   constructor(private router: Router, private  apiService:  ApiService, private route: ActivatedRoute) { }
 
   ngOnInit() {
     this.route.data.subscribe(data => {
-      this.themes = data['themes'];
+      this.themes = data['themes'].filter((theme) => !theme.isHighlighted && theme.isPublished);
+      this.highlightedTheme = data['themes'].find((theme) => theme.isHighlighted && theme.isPublished);
     });
   }
-
-  getThemes() {
-    this.apiService.getThemes().subscribe((data) => {
-      this.themes = data;
-    }, error => console.error(error));
-  }
-
 }
