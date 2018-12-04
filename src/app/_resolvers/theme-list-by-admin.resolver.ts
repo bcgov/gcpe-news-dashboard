@@ -14,7 +14,7 @@ export class ThemeListByAdminResolver implements Resolve<Theme[]> {
         return this.themeService.getThemesManagement(isPublished)
         .pipe(
             catchError(error => {
-                this.router.navigate(['/home']);
+                this.router.navigate(['/']);
                 return of(null);
             })
         );

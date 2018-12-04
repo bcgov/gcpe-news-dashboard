@@ -13,7 +13,7 @@ export class SociaMediaTypeListResolver implements Resolve<SocialMediaType[]> {
         return this.apiService.getSocialMediaTypes()
         .pipe(
             catchError(error => {
-                this.router.navigate(['/home']);
+                this.router.navigate(['/']);
                 return of(null);
             })
         );

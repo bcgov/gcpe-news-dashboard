@@ -13,7 +13,7 @@ export class PostListResolver implements Resolve<Post[]> {
         return this.entryService.getPosts()
         .pipe(
             catchError(error => {
-                this.router.navigate(['/home']);
+                this.router.navigate(['/']);
                 return of(null);
             })
         );

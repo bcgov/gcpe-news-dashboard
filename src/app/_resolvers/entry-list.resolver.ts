@@ -13,7 +13,7 @@ export class EntryListResolver implements Resolve<Entry[]> {
         return this.entryService.getEntries()
         .pipe(
             catchError(error => {
-                this.router.navigate(['/home']);
+                this.router.navigate(['/']);
                 return of(null);
             })
         );

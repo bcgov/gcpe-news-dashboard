@@ -46,4 +46,13 @@ describe('ThemeCardComponent', () => {
     const div = fixture.nativeElement.querySelector('.card-text');
     expect(div.innerHTML).toBe('Test description')
   });
+
+  it('should have last class if last', () => {
+    const theme = new Theme("Test Theme", "Test description", 0, true, false, new Date());
+    component.theme = theme;
+    component.last = true;
+    fixture.detectChanges();
+    const div = fixture.nativeElement.querySelector('.card');
+    expect(div.getAttribute('class')).toContain('last');
+  });
 });

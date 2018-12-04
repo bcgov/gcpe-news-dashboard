@@ -13,7 +13,7 @@ export class ThemeListResolver implements Resolve<Theme[]> {
         return this.themeService.getThemes()
         .pipe(
             catchError(error => {
-                this.router.navigate(['/home']);
+                this.router.navigate(['/']);
                 return of(null);
             })
         );

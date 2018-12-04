@@ -16,10 +16,14 @@
     font-size: 1.1em;
  }
 
- .dashboard-sub-menu-container {
-    padding-top: 80px; 
-    padding-left:0; 
-    padding-right:0
- }
+.dashboard-sub-menu-container {
+   padding-top: 80px; 
+   padding-left:0; 
+   padding-right:0;
+   h2 {
+      display: inline-block;   
+   }
+}
+ 
 
 

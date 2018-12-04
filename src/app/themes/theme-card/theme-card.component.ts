@@ -8,4 +8,5 @@ import { Theme } from '../../shared/theme';
 })
 export class ThemeCardComponent {
   @Input() theme: Theme;
+  @Input() last: Boolean;
 }

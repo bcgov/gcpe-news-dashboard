@@ -12,23 +12,6 @@
     font-size: 0.9em;
 }
 
-.card {
-    border: none;
-    border-bottom: 1px solid map-get($theme-colors, light);
-}
-
-.card:last-of-type {
-    border: none;
-}
-
-.card-body {
-    padding-left: 0;
-    padding-right: 0;
-}
-.custom-list-style li {
-    padding-top:15px;
-}
-
 .col-4 {
     padding-left:100px;
     color: map-get($theme-colors, mediem);
