@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Theme } from '../shared/theme';
+import { Theme } from '../view-models/theme';
 import { Resolve, ActivatedRouteSnapshot, Router } from '@angular/router';
 import { Observable, of } from 'rxjs';
 import { ApiService } from '../services/api.service';

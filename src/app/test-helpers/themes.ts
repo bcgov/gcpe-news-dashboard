@@ -1,5 +1,5 @@
 import { of } from 'rxjs';
-import { Theme } from '../shared/theme';
+import { Theme } from '../view-models/theme';
 
 export function FakeThemeData(publishedCount: number, unpublishedCount: number, includeHighlighted: boolean) {
     let themes: Theme[] = [];

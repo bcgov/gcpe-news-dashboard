@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Entry } from '../shared/entry';
+import { Entry } from '../view-models/entry';
 import { Resolve, ActivatedRouteSnapshot, Router } from '@angular/router';
 import { Observable, of } from 'rxjs';
 import { ApiService } from '../services/api.service';

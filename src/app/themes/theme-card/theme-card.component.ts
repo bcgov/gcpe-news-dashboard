@@ -1,5 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { Theme } from '../../shared/theme';
+import { Theme } from '../../view-models/theme';
 
 @Component({
   selector: 'app-theme-card',
