@@ -1,5 +1,5 @@
 import { Component, OnInit, Inject } from '@angular/core';
-import { Post } from '../../shared/post';
+import { Post } from '../../view-models/news/post';
 import { Router, ActivatedRoute } from '@angular/router';
 import { ApiService } from '../../services/api.service';
 
@@ -21,7 +21,7 @@ export class PostListComponent implements OnInit {
   }
 
   getPosts() {
-    this.apiService.getEntries().subscribe((data) => {
+    this.apiService.getPosts().subscribe((data) => {
       this.posts = data;
     }, error => console.error(error));
   }

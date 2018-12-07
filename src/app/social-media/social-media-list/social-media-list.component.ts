@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { ApiService } from '../../services/api.service';
-import { SocialMedia } from '../../shared/social-media';
-import { SocialMediaType } from '../../shared/social-media-type';
+import { SocialMedia } from '../../view-models/social-media';
+import { SocialMediaType } from '../../view-models/social-media-type';
 
 @Component({
   selector: 'app-social-media-list',

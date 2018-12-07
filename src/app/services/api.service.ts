@@ -1,11 +1,11 @@
 import { Injectable, Inject  } from '@angular/core';
 import { HttpClient} from  '@angular/common/http';
 import { Observable, of } from 'rxjs';
-import { Entry } from '../shared/entry';
-import { Post } from '../shared/post';
-import { Theme } from '../shared/theme';
-import { SocialMedia } from '../shared/social-media';
-import { SocialMediaType } from '../shared/social-media-type';
+import { Entry } from '../view-models/entry';
+import { Post } from '../view-models/news/post';
+import { Theme } from '../view-models/theme';
+import { SocialMedia } from '../view-models/social-media';
+import { SocialMediaType } from '../view-models/social-media-type';
 
 @Injectable({
   providedIn: 'root'

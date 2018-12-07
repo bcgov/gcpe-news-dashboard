@@ -1,8 +1,8 @@
 import { TestBed, async, inject } from '@angular/core/testing';
 import { HttpClientModule,HttpClient } from '@angular/common/http';
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
-import { Post } from '../shared/post';
-import { Entry } from '../shared/entry';
+import { Post } from '../view-models/news/post';
+import { Entry } from '../view-models/entry';
 import { environment } from '../../environments/environment';
 import { ApiService } from './api.service';
 

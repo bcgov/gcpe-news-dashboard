@@ -1,6 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { Router, NavigationEnd, ActivatedRoute } from '@angular/router';
-import { SocialMediaType } from '../../shared/social-media-type';
+import { SocialMediaType } from '../../view-models/social-media-type';
 import { ApiService } from '../../services/api.service';
 
 @Component({

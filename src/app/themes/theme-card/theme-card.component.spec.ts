@@ -1,7 +1,7 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { ThemeCardComponent } from './theme-card.component';
-import { Theme } from '../../shared/theme';
+import { Theme } from '../../view-models/theme';
 
 describe('ThemeCardComponent', () => {
   let component: ThemeCardComponent;

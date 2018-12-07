@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { SocialMedia } from '../shared/social-media';
+import { SocialMedia } from '../view-models/social-media';
 import { Resolve, ActivatedRouteSnapshot, Router } from '@angular/router';
 import { Observable, of } from 'rxjs';
 import { ApiService } from '../services/api.service';
