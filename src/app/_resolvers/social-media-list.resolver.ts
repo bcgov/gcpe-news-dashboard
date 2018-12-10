@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { SocialMedia } from '../shared/social-media';
+import { SocialMedia } from '../view-models/social-media';
 import { Resolve, ActivatedRouteSnapshot, Router } from '@angular/router';
 import { Observable, of } from 'rxjs';
 import { ApiService } from '../services/api.service';
@@ -13,7 +13,7 @@ export class SociaMediaListResolver implements Resolve<SocialMedia[]> {
         return this.apiService.getSocialMediaPosts()
         .pipe(
             catchError(error => {
-                this.router.navigate(['/home']);
+                this.router.navigate(['/']);
                 return of(null);
             })
         );

@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Theme } from '../shared/theme';
+import { Theme } from '../view-models/theme';
 import { Resolve, ActivatedRouteSnapshot, Router } from '@angular/router';
 import { Observable, of } from 'rxjs';
 import { ApiService } from '../services/api.service';
@@ -13,7 +13,7 @@ export class ThemeListResolver implements Resolve<Theme[]> {
         return this.themeService.getThemes()
         .pipe(
             catchError(error => {
-                this.router.navigate(['/home']);
+                this.router.navigate(['/']);
                 return of(null);
             })
         );

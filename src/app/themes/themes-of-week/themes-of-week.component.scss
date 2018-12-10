@@ -1,23 +1,18 @@
 @import "../../../assets/styles/variables.scss";
 
-.card {
-    border: none;
+.message {
+    padding: 1.25rem 0;
+}
+
+.message-header {
     border-bottom: 1px solid map-get($theme-colors, light);
+    padding-bottom: 10px;
+    margin-bottom: 30px;
+    color: map-get($theme-colors, dark);
+    font-size: 0.9em;
 }
 
-.col-8:last-child {
-    border: none;
-}
-
-.card-body{
-    padding-left: 0;
-    padding-right: 0;
-}
-.custom-list-style li{
-    padding-top:15px;
-}
-
-.col-4{
+.col-4 {
     padding-left:100px;
     color: map-get($theme-colors, mediem);
 }

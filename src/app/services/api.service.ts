@@ -1,17 +1,18 @@
 import { Injectable, Inject  } from '@angular/core';
 import { HttpClient} from  '@angular/common/http';
 import { Observable, of } from 'rxjs';
-import { Entry } from '../shared/entry';
-import { Post } from '../shared/post';
-import { Theme } from '../shared/theme';
-import { SocialMedia } from '../shared/social-media';
-import { SocialMediaType } from '../shared/social-media-type';
+import { Entry } from '../view-models/entry';
+import { Post } from '../view-models/news/post';
+import { Theme } from '../view-models/theme';
+import { SocialMedia } from '../view-models/social-media';
+import { SocialMediaType } from '../view-models/social-media-type';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ApiService {
   API_URL  =  '';
+  HUB_API_URL = '';
 
   // mock data for the media types
   private SocialMediaTypeList: SocialMediaType[] = [
@@ -29,8 +30,9 @@ export class ApiService {
     }
   ];
 
-  constructor(private  httpClient:  HttpClient, @Inject('BASE_API_URL') baseApiUrl: string) {
+  constructor(private  httpClient:  HttpClient, @Inject('BASE_API_URL') baseApiUrl: string, @Inject('BASE_HUB_API_URL') baseHubApiUrl: string) {
     this.API_URL = baseApiUrl;
+    this.HUB_API_URL = baseHubApiUrl;
   }
 
   // get the entries for 7 days forecast
@@ -47,13 +49,13 @@ export class ApiService {
 
   // get the themes of the week
   getThemes(): Observable<Theme[]> {
-    return this.httpClient.get<Theme[]>(`${this.API_URL}/api/Posts/Latest/home/default?count=10&api-version=1.0`)
+    return this.httpClient.get<Theme[]>(`${this.HUB_API_URL}/api/Messages?IsPublished=true`)
     .pipe();
   }
 
   // get the theme list by logged user
-  getThemesManagement(): Observable<Theme[]> {
-    return this.httpClient.get<Theme[]>(`${this.API_URL}/api/Posts/Latest/home/default?count=10&api-version=1.0`)
+  getThemesManagement(isPublished: Boolean): Observable<Theme[]> {
+    return this.httpClient.get<Theme[]>(`${this.HUB_API_URL}/api/Messages?IsPublished=${isPublished}`)
     .pipe();
   }
   
