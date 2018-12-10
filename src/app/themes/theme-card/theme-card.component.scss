@@ -1,0 +1,18 @@
+@import "../../../assets/styles/variables.scss";
+
+.card {
+    border: none;
+    border-bottom: 1px solid map-get($theme-colors, light);
+}
+
+.card.last {
+    border: none;
+}
+
+.card-body {
+    padding-left: 0;
+    padding-right: 0;
+}
+.custom-list-style li {
+    padding-top:15px;
+}

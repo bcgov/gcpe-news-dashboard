@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { SocialMediaType } from '../shared/social-media-type';
+import { SocialMediaType } from '../view-models/social-media-type';
 import { Resolve, ActivatedRouteSnapshot, Router } from '@angular/router';
 import { Observable, of } from 'rxjs';
 import { ApiService } from '../services/api.service';
@@ -13,7 +13,7 @@ export class SociaMediaTypeListResolver implements Resolve<SocialMediaType[]> {
         return this.apiService.getSocialMediaTypes()
         .pipe(
             catchError(error => {
-                this.router.navigate(['/home']);
+                this.router.navigate(['/']);
                 return of(null);
             })
         );

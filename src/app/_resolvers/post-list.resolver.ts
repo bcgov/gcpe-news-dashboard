@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Post } from '../shared/post';
+import { Post } from '../view-models/news/post';
 import { Resolve, ActivatedRouteSnapshot, Router } from '@angular/router';
 import { Observable, of } from 'rxjs';
 import { ApiService } from '../services/api.service';
@@ -13,7 +13,7 @@ export class PostListResolver implements Resolve<Post[]> {
         return this.entryService.getPosts()
         .pipe(
             catchError(error => {
-                this.router.navigate(['/home']);
+                this.router.navigate(['/']);
                 return of(null);
             })
         );

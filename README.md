@@ -15,24 +15,12 @@ Angular CLI and the generated project requires [Node 8.9](https://nodejs.org/en/
 
 :warning: NOTE: You’ll need to have Node on your **local development machine** (but it’s not required on the server).
 
-#### Yarn
-
-To install Yarn:
-
-```bash
-npm install -g yarn
-```
-
-Yarn is a package manager for your code (like npm). Yarn is fully **backward compatible** with the npm package manager structure.
-
 #### Angular CLI
 
 To install the Angular CLI:
 
 ```bash
 npm install -g @angular/cli
-# OR
-yarn global add @angular/cli
 ```
 
 After installation, you will have access to the `ng` binary in your command line. You can verify that it is properly installed by simply running `ng`, which should present you with a help message listing all available commands.
@@ -56,8 +44,8 @@ git clone https://github.com/bcgov/gcpe-news-dashboard
 cd gcpe-news-dashboard
 
 # Install dependencies
-npm install -g @angular/cli yarn
-yarn install
+npm install -g @angular/cli
+npm install
 
 # Build from source
 npm run build
