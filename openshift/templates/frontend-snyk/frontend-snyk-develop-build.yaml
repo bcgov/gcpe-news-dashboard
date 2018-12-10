@@ -1,17 +1,14 @@
+---
 kind: Template
 apiVersion: v1
 metadata:
-  name: "${NAME}-build-template"
+  name: "${NAME}-snyk-build-template"
   creationTimestamp: 
 objects:
-- kind: ImageStream
-  apiVersion: v1
-  metadata:
-    name: "${NAME}"
 - kind: BuildConfig
   apiVersion: v1
   metadata:
-    name: "${NAME}"
+    name: "${NAME}-snyk-develop"
     labels:
       app: "${NAME}"
   spec:
@@ -26,27 +23,34 @@ objects:
         ref: "${GIT_REF}"
       contextDir: "${SOURCE_CONTEXT_DIR}"
     strategy:
-      type: Docker
-      dockerStrategy:
+      type: Source
+      sourceStrategy:
         from:
           kind: "${SOURCE_IMAGE_KIND}"
           name: "${SOURCE_IMAGE_NAME}:${SOURCE_IMAGE_TAG}"
-        dockerfilePath: "${DOCKER_FILE_PATH}"
-    output:
-      to:
-        kind: ImageStreamTag
-        name: "${NAME}:${OUTPUT_IMAGE_TAG}"
+        env:
+        - name: DOTNET_STARTUP_PROJECT
+          value: "${DOTNET_STARTUP_PROJECT}"
+        - name: SNYK_TOKEN
+          value: "${SNYK_TOKEN}"
+    resources:
+      requests:
+        cpu: "${CPU_REQUEST}"
+        memory: "${MEMORY_REQUEST}"
+      limits:
+        cpu: "${CPU_LIMIT}"
+        memory: "${MEMORY_LIMIT}"
 parameters:
 - name: NAME
   displayName: Name
   description: The name assigned to all of the resources defined in this template.
   required: true
-  value: dotnet-snyk
+  value: news-dashboard
 - name: GIT_REPO_URL
   displayName: Git Repo URL
   description: The URL to your GIT repo.
   required: true
-  value: https://github.com/bcgov/gcpe-news-dashboard
+  value: https://github.com/bcgov/gcpe-news-dashboard.git
 - name: GIT_REF
   displayName: Git Reference
   description: The git reference or branch.
@@ -56,30 +60,49 @@ parameters:
   displayName: Source Context Directory
   description: The source context directory.
   required: false
-  value: "/Dotnet-Snyk"
+  value: ''
 - name: SOURCE_IMAGE_KIND
   displayName: Source Image Kind
-  description: The 'kind' (type) of the  source image; typically ImageStreamTag, or
-    DockerImage.
+  description: The 'kind' (type) of the  source image; typically ImageStreamTag, or DockerImage.
   required: true
-  value: DockerImage
+  value: ImageStreamTag
 - name: SOURCE_IMAGE_NAME
   displayName: Source Image Name
   description: The name of the source image.
   required: true
-  value: registry.access.redhat.com/dotnet/dotnet-21-rhel7
+  value: dotnet-snyk-develop
 - name: SOURCE_IMAGE_TAG
   displayName: Source Image Tag
   description: The tag of the source image.
   required: true
   value: latest
-- name: DOCKER_FILE_PATH
-  displayName: Docker File Path
-  description: The path to the docker file defining the build.
-  required: false
-  value: Dockerfile.rhel7
 - name: OUTPUT_IMAGE_TAG
   displayName: Output Image Tag
   description: The tag given to the built image.
   required: true
   value: latest
+- name: CPU_LIMIT
+  displayName: Resources CPU Limit
+  description: The resources CPU limit (in cores) for this build.
+  required: true
+  value: '1'
+- name: MEMORY_LIMIT
+  displayName: Resources Memory Limit
+  description: The resources Memory limit (in Mi, Gi, etc) for this build.
+  required: true
+  value: 6Gi
+- name: CPU_REQUEST
+  displayName: Resources CPU Request
+  description: The resources CPU request (in cores) for this build.
+  required: true
+  value: '1'
+- name: MEMORY_REQUEST
+  displayName: Resources Memory Request
+  description: The resources Memory request (in Mi, Gi, etc) for this build.
+  required: true
+  value: 4Gi
+- name: SNYK_TOKEN
+  displayName: Snyk Token
+  description: A user token obtained from snyk.io
+  required: true
+  value: '123'

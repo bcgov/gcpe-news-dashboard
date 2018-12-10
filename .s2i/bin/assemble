@@ -58,6 +58,15 @@ else
   yarn build
 fi
 
+# Set the CI_BUILD to false by default.
+SNYK_TEST=${SNYK_TEST:-false}
+
+if [ "$SNYK_TEST" == "true" ]; then
+  # echo "---> Running Tests and building in production mode"
+  snyk test
+fi
+
+
 echo "---> Removing node modules from image"
 rm -rf ./node_modules
 
