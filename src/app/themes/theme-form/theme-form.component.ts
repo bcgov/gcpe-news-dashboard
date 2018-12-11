@@ -91,12 +91,12 @@ export class ThemeFormComponent implements OnInit {
     if (this.themeForm.invalid) {
       return;
     }
-    this.theme = this.themeForm.value;
-    this.theme.isPublished = !this.theme.isPublished;
+    let theme = this.themeForm.value;
+    theme.isPublished = !this.theme.isPublished;
     if (this.isNew) {
-      this.create(this.theme);
+      this.create(theme);
     } else {
-      this.update(this.theme);
+      this.update(theme);
     }
   }
 
