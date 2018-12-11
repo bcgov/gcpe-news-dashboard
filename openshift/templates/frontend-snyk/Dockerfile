@@ -8,5 +8,7 @@ ENV PATH="$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$PATH"
 # Switch to root for package installs
 USER 0
 
+RUN npm install -g snyk
+
 # Run container by default as user with id 1001 (default)
 USER 1001
