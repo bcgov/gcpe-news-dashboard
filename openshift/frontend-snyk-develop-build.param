@@ -6,7 +6,7 @@
 BUILDER_IMAGE_NAME=frontend-yarn-builder-snyk
 GIT_REPO_URL=https://github.com/bcgov/gcpe-news-dashboard.git
 GIT_REF=develop
-SOURCE_CONTEXT_DIR=openshift/templates/builder/
+SOURCE_CONTEXT_DIR=openshift/templates/frontend-snyk/
 CPU_LIMIT=1
 MEMORY_LIMIT=4Gi
 CPU_REQUEST=1
