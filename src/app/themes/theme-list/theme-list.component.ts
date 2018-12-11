@@ -14,8 +14,15 @@ export class ThemeListComponent implements OnInit {
   constructor(private router: Router, private  apiService:  ApiService, private route: ActivatedRoute) { }
 
   ngOnInit() {
+    if (typeof this.route.queryParams['type'] === 'undefined') {
+      this.router.navigate(['/themes'], { queryParams: { type: 'Published' }});
+    }
     this.route.data.subscribe(data => {
       this.themes = data['themelist'];
     });
+  }
+
+  navigateToTheme(id) {
+    this.router.navigate([`/theme/edit/${id}`]);
   }
 }

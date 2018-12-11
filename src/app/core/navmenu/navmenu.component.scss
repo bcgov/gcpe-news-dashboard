@@ -44,22 +44,4 @@ header .nav-item .active{
 .dropdown-toggle::after{
     content:initial;
  }
-
-// Theme nav
-#theme-nav #site-title h4{
-    padding-top:25px;
-    padding-bottom: 9px;
-    color: map-get($theme-colors, dark)!important;
-}
-
-#theme-nav .btn-publish{
-    padding: 8px 25px;
-    border: 1px solid map-get($theme-colors, light)!important;
-    color: map-get($theme-colors, primary-nav)!important;
-}
-
-.more-dropdown {
-    font-size: 2rem;
-    color: map-get($theme-colors, light);
-    cursor: pointer;
-}
+ 

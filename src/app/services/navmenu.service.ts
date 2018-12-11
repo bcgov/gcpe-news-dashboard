@@ -5,10 +5,14 @@ import { BehaviorSubject } from 'rxjs';
   providedIn: 'root'
 })
 export class NavmenuService {
-  private navNameSource: BehaviorSubject<string> = new BehaviorSubject('default');
-  public name = this.navNameSource.asObservable();
+  private visibleSource: BehaviorSubject<boolean> = new BehaviorSubject(true);
+  public visible = this.visibleSource.asObservable();
 
-  change(name) {
-    this.navNameSource.next(name);
+  hide() {
+    this.visibleSource.next(false);
+  }
+
+  show() {
+    this.visibleSource.next(true);
   }
 }

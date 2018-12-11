@@ -24,6 +24,7 @@ import { ThemeListComponent } from './themes/theme-list/theme-list.component';
 import { HqDashboardSubMenuComponent } from './core/hq-dashboard-sub-menu/hq-dashboard-sub-menu.component';
 import { ThemeSubMenuComponent } from './core/theme-sub-menu/theme-sub-menu.component';
 import { ThemeListByAdminResolver } from './_resolvers/theme-list-by-admin.resolver';
+import { ThemeResolver } from './_resolvers/theme.resolver';
 import { ThemeCardComponent } from './themes/theme-card/theme-card.component';
 import { ThemeFormComponent } from './themes/theme-form/theme-form.component';
 
@@ -60,7 +61,8 @@ import { ThemeFormComponent } from './themes/theme-form/theme-form.component';
     ThemeListResolver,
     SociaMediaListResolver,
     SociaMediaTypeListResolver,
-    ThemeListByAdminResolver
+    ThemeListByAdminResolver,
+    ThemeResolver
   ],
   bootstrap: [AppComponent]
 })

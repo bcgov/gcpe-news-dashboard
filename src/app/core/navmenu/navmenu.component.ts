@@ -9,13 +9,13 @@ import { NavmenuService } from 'src/app/services/navmenu.service';
 })
 export class NavMenuComponent implements OnInit {
   isCollapsed = true;
-  navName: string;
+  visible: boolean;
 
   constructor(private authService: AuthService, public nav: NavmenuService) {}
 
   ngOnInit() {
-    this.nav.name.subscribe(n => {
-      this.navName = n;
+    this.nav.visible.subscribe(n => {
+      this.visible = n;
     });
   }
 
