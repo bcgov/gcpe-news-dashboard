@@ -1,105 +1,99 @@
----
 kind: Template
 apiVersion: v1
 metadata:
-  name: "${NAME}-snyk-build-template"
-  creationTimestamp: 
+  name: "${BUILDER_IMAGE_NAME}"
+  creationTimestamp: null
+  annotations:
+    tags: "builder,nodejs,yarn"
+    iconClass: icon-nodejs
+    description: >-
+      This template defines resources needed to build Angular frontend
+      applications. This is your builder image that compiles the Angular source
+      code. This builder image uses YARN instead of NPM to build the frontend.
 objects:
-- kind: BuildConfig
-  apiVersion: v1
-  metadata:
-    name: "${NAME}-snyk-develop"
-    labels:
-      app: "${NAME}"
-  spec:
-    triggers:
-    - type: ImageChange
-    - type: ConfigChange
-    runPolicy: Serial
-    source:
-      type: Git
-      git:
-        uri: "${GIT_REPO_URL}"
-        ref: "${GIT_REF}"
-      contextDir: "${SOURCE_CONTEXT_DIR}"
-    strategy:
-      type: Source
-      sourceStrategy:
-        from:
-          kind: "${SOURCE_IMAGE_KIND}"
-          name: "${SOURCE_IMAGE_NAME}:${SOURCE_IMAGE_TAG}"
-        env:
-        - name: DOTNET_STARTUP_PROJECT
-          value: "${DOTNET_STARTUP_PROJECT}"
-        - name: SNYK_TOKEN
-          value: "${SNYK_TOKEN}"
-    resources:
-      requests:
-        cpu: "${CPU_REQUEST}"
-        memory: "${MEMORY_REQUEST}"
-      limits:
-        cpu: "${CPU_LIMIT}"
-        memory: "${MEMORY_LIMIT}"
+  - kind: ImageStream
+    apiVersion: v1
+    metadata:
+      name: "${BUILDER_IMAGE_NAME}"
+      annotations:
+        description: Keeps track of changes in this builder image.
+  - kind: BuildConfig
+    apiVersion: v1
+    metadata:
+      name: "${BUILDER_IMAGE_NAME}"
+      creationTimestamp: null
+      annotations:
+        description: Defines how to build Angular applications from source code.
+    spec:
+      runPolicy: Serial
+      triggers:
+        - type: ConfigChange
+      source:
+        type: Git
+        git:
+          ref: "${GIT_REF}"
+          uri: "${GIT_REPO_URL}"
+        contextDir: "${SOURCE_CONTEXT_DIR}"
+      strategy:
+        type: Docker
+      output:
+        to:
+          kind: ImageStreamTag
+          name: "${BUILDER_IMAGE_NAME}:latest"
+      resources:
+        requests:
+          cpu: "${CPU_REQUEST}"
+          memory: "${MEMORY_REQUEST}"
+        limits:
+          cpu: "${CPU_LIMIT}"
+          memory: "${MEMORY_LIMIT}"
+      postCommit: {}
+    status:
+      lastVersion: 0
 parameters:
-- name: NAME
-  displayName: Name
-  description: The name assigned to all of the resources defined in this template.
-  required: true
-  value: news-dashboard
-- name: GIT_REPO_URL
-  displayName: Git Repo URL
-  description: The URL to your GIT repo.
-  required: true
-  value: https://github.com/bcgov/gcpe-news-dashboard.git
-- name: GIT_REF
-  displayName: Git Reference
-  description: The git reference or branch.
-  required: true
-  value: develop
-- name: SOURCE_CONTEXT_DIR
-  displayName: Context Directory
-  description: >-
-    Set this to the relative path to the Dockerfile that describes this
-    builder image, if it is not in the root of your repository.
-  required: true
-  value: openshift/templates/builder/
-- name: SOURCE_IMAGE_KIND
-  displayName: Source Image Kind
-  description: The 'kind' (type) of the  source image; typically ImageStreamTag, or DockerImage.
-  required: true
-  value: ImageStreamTag
-- name: SOURCE_IMAGE_NAME
-  displayName: Source Image Name
-  description: The name of the source image.
-  required: true
-  value: dotnet-snyk-develop
-- name: OUTPUT_IMAGE_TAG
-  displayName: Output Image Tag
-  description: The tag given to the built image.
-  required: true
-  value: latest
-- name: CPU_LIMIT
-  displayName: Resources CPU Limit
-  description: The resources CPU limit (in cores) for this build.
-  required: true
-  value: '1'
-- name: MEMORY_LIMIT
-  displayName: Resources Memory Limit
-  description: The resources Memory limit (in Mi, Gi, etc) for this build.
-  required: true
-  value: 6Gi
-- name: CPU_REQUEST
-  displayName: Resources CPU Request
-  description: The resources CPU request (in cores) for this build.
-  required: true
-  value: '1'
-- name: MEMORY_REQUEST
-  displayName: Resources Memory Request
-  description: The resources Memory request (in Mi, Gi, etc) for this build.
-  required: true
-  value: 4Gi
-- name: SNYK_TOKEN
-  displayName: Snyk Token
-  description: A user token obtained from snyk.io
-  required: true
-  value: '123'
+  - name: BUILDER_IMAGE_NAME
+    displayName: Builder Image
+    description: >-
+      The name assigned to the builder image defined in this template. You
+      should keep this as default unless you know what you are doing.
+    required: true
+    value: frontend-yarn-builder-snyk
+  - name: GIT_REPO_URL
+    displayName: Git Repository URL
+    description: The URL of the repository with your application source code.
+    required: true
+    value: "https://github.com/bcgov/gcpe-news-dashboard.git"
+  - name: GIT_REF
+    displayName: Git Reference
+    description: >-
+      Set this to a branch name, tag or other ref of your repository if you are
+      not using the default branch.
+    required: true
+    value: develop
+  - name: SOURCE_CONTEXT_DIR
+    displayName: Context Directory
+    description: >-
+      Set this to the relative path to the Dockerfile that describes this
+      builder image, if it is not in the root of your repository.
+    required: true
+    value: openshift/templates/builder/
+  - name: CPU_LIMIT
+    displayName: Resources CPU Limit
+    description: The resources CPU limit (in cores) for this build.
+    required: true
+    value: "1"
+  - name: MEMORY_LIMIT
+    displayName: Resources Memory Limit
+    description: "The resources Memory limit (in Mi, Gi, etc) for this build."
+    required: true
+    value: 4Gi
+  - name: CPU_REQUEST
+    displayName: Resources CPU Request
+    description: The resources CPU request (in cores) for this build.
+    required: true
+    value: "1"
+  - name: MEMORY_REQUEST
+    displayName: Resources Memory Request
+    description: "The resources Memory request (in Mi, Gi, etc) for this build."
+    required: true
+    value: 2Gi
