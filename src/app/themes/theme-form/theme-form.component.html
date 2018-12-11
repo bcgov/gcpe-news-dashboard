@@ -1,0 +1,26 @@
+<div id="admin-theme-form" class="row pl-0 pr-0 pt-5">
+  <div class="col-12">
+    <form>
+      <div class="form-group row">
+        <div class="form-check col-sm-10 offset-sm-2">
+          <div class="form-check-label">
+            <input type="checkbox" class="form-check-input">
+            Highlighted Message
+          </div>
+        </div>
+      </div>
+      <div class="form-group row">
+        <label for="title" class="col-sm-2 col-form-label">TITLE</label>
+        <div class="col-sm-10">
+          <input type="text" class="form-control" id="title" placeholder="Title" [formControl]="title">
+        </div>
+      </div>
+      <div class="form-group row">
+        <label for="description" class="col-sm-2 col-form-label">DESCRIPTION</label>
+        <div class="col-sm-10">
+          <input type="text" class="form-control" id="description" placeholder="Short Description">
+        </div>
+      </div>
+    </form>
+  </div>  
+</div> 

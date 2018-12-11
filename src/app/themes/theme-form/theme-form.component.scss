@@ -1,0 +1,13 @@
+@import "../../../assets/styles/variables.scss";
+
+#site-title h4{
+    padding-top:25px;
+    padding-bottom: 9px;
+    color: map-get($theme-colors, dark)!important;
+}
+
+nav {
+    background-color: map-get($theme-colors, primary-alt);;
+    border-bottom: 1px solid map-get($theme-colors, light);
+    margin-bottom: 20px;
+}

@@ -11,6 +11,7 @@ import { SociaMediaListResolver } from './_resolvers/social-media-list.resolver'
 import { SociaMediaTypeListResolver } from './_resolvers/social-media-type-list.resolver';
 import { ThemeListComponent } from './themes/theme-list/theme-list.component';
 import { ThemeListByAdminResolver } from './_resolvers/theme-list-by-admin.resolver';
+import { ThemeFormComponent } from './themes/theme-form/theme-form.component';
 
 const appRoutes: Routes = [
   { path: 'last-7-day-post-list', component: PostListComponent,  resolve: { posts: PostListResolver } },
@@ -19,6 +20,7 @@ const appRoutes: Routes = [
   { path: 'social-media', component: SocialMediaListComponent, resolve: { socialmedia: SociaMediaListResolver, socialmediatype: SociaMediaTypeListResolver } },
   { path: '', redirectTo: 'last-7-day-post-list', pathMatch: 'full' },
   { path: 'theme-list', component: ThemeListComponent, resolve: { themelist: ThemeListByAdminResolver }, runGuardsAndResolvers: 'paramsOrQueryParamsChange' },
+  { path: 'theme-new', component: ThemeFormComponent }
 ];
 
 @NgModule({

@@ -1,5 +1,5 @@
 <header>
-  <nav class="navbar fixed-top navbar-expand-lg bg-primary gov-navbar navbar-light" style="padding-top: 0; padding-bottom: 0;">
+  <nav *ngIf="navName === 'default'" class="navbar fixed-top navbar-expand-lg bg-primary gov-navbar navbar-light" style="padding-top: 0; padding-bottom: 0;">
     <!-- Navbar content -->
     <div class="container">
       <div class="flex-fill row row-eq-height justify-content-between">
@@ -45,7 +45,7 @@
               <div ngbDropdown class="image" placement="bottom-right">
                   <div class="user-image" id="profile-menu" ngbDropdownToggle>J</div>
                   <div ngbDropdownMenu class="dropdown-menu" aria-labelledby="profile-menu">
-                    <a class="dropdown-item" href="#">New Theme</a>
+                    <a class="dropdown-item" [routerLink]="['/theme-new']">New Theme</a>
                     <a class="dropdown-item" [routerLink]="['/theme-list']" [queryParams]="{ type: 'Published'}" routerLinkActive="active">Themes</a>
                     <div class="dropdown-divider"></div>
                     <a class="dropdown-item" href="#">Subscriptions</a>
@@ -56,6 +56,29 @@
             </li>
           </ul>
         </div>
+      </div>
+    </div>
+  </nav>
+  <nav *ngIf="navName === 'theme-form'" id="theme-nav" class="navbar fixed-top navbar-expand-lg bg-primary navbar-light" style="padding-top: 0; padding-bottom: 0;">
+    <div class="container">
+      <div class="flex-fill row justify-content-between">
+        <div class="navbar-brand title" id="site-title" >
+          <h4>New Theme</h4>
+        </div>
+        <ul class="navbar-nav">
+          <li ngbDropdown class="nav-item my-auto">
+              <a class="nav-link more-dropdown" role="button" ngbDropdownToggle aria-haspopup="true" aria-expanded="false">
+                •••
+              </a>
+              <div aria-labelledby="navbarDropdown" ngbDropdownMenu>
+                <a class="dropdown-item" href="#">Save</a>
+                <a class="dropdown-item" href="#">Delete</a>
+              </div>
+            </li>
+          <li class="nav-item my-auto">
+            <a class="nav-link btn btn-primary btn-publish" href="#">Publish</a>
+          </li>
+        </ul>
       </div>
     </div>
   </nav>

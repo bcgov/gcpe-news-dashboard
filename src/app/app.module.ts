@@ -1,6 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { OAuthModule } from 'angular-oauth2-oidc';
 import { AppRoutingModule } from './app-routing.module';
@@ -24,6 +25,7 @@ import { HqDashboardSubMenuComponent } from './core/hq-dashboard-sub-menu/hq-das
 import { ThemeSubMenuComponent } from './core/theme-sub-menu/theme-sub-menu.component';
 import { ThemeListByAdminResolver } from './_resolvers/theme-list-by-admin.resolver';
 import { ThemeCardComponent } from './themes/theme-card/theme-card.component';
+import { ThemeFormComponent } from './themes/theme-form/theme-form.component';
 
 @NgModule({
   declarations: [
@@ -38,13 +40,16 @@ import { ThemeCardComponent } from './themes/theme-card/theme-card.component';
     HqDashboardSubMenuComponent,
     ThemeSubMenuComponent,
     ThemeCardComponent,
+    ThemeFormComponent,
   ],
   imports: [
     BrowserModule,
     HttpClientModule,
     NgbModule.forRoot(),
     OAuthModule.forRoot(),
-    AppRoutingModule
+    AppRoutingModule,
+    FormsModule,
+    ReactiveFormsModule
   ],
   providers: [
     ApiService,
