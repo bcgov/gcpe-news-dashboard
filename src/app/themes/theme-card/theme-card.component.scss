@@ -1,18 +1,38 @@
 @import "../../../assets/styles/variables.scss";
 
-.card {
+.theme-card {
     border: none;
     border-bottom: 1px solid map-get($theme-colors, light);
+    &.last {
+        border: none;
+    }
 }
-
-.card.last {
-    border: none;
+.theme-footer {
+    color: map-get($theme-colors, mediem);
+    font-size: 0.9em;
+    a {
+        color: map-get($theme-colors, mediem);
+        text-decoration: none;
+        &:hover {
+            text-decoration: underline;
+            color: map-get($theme-colors, dark);
+        }
+    }
+    .sort-order-button {
+        padding-left: 15px;
+    }
 }
-
 .card-body {
     padding-left: 0;
     padding-right: 0;
 }
 .custom-list-style li {
     padding-top:15px;
+}
+.admin {
+    border: none;
+    cursor: pointer;
+    .card-body:hover .card-title {
+        text-decoration: underline;
+    }
 }

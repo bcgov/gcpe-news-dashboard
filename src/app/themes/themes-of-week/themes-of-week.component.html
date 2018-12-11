@@ -2,8 +2,8 @@
 <app-hq-dashboard-sub-menu></app-hq-dashboard-sub-menu>
 <div id="theme-list-container" class="row pl-0 pr-0 pt-3">
   <div id="theme-list" [ngClass]="highlightedTheme ? 'col-sm-8' : 'col-sm-12'">
-    <ng-container *ngFor="let theme of themes; let last = last">
-        <app-theme-card [theme]="theme" [last]="last"></app-theme-card>
+    <ng-container *ngFor="let theme of themes; let first = first; let last = last">
+      <app-theme-card [theme]="theme" [first]="first" [last]="last"></app-theme-card>
     </ng-container>
   </div>
   <div *ngIf="highlightedTheme" class="message col-sm-4">

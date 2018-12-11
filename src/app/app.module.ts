@@ -28,6 +28,7 @@ import { ThemeCardComponent } from './themes/theme-card/theme-card.component';
 import { ThemeFormComponent } from './themes/theme-form/theme-form.component';
 import { AutosizeDirective } from './directives/autosize.directive';
 import { ClickPreventDefaultDirective } from './directives/click-preventdefault.directive';
+import { TimeAgoPipe } from 'time-ago-pipe';
 
 @NgModule({
   declarations: [
@@ -45,6 +46,7 @@ import { ClickPreventDefaultDirective } from './directives/click-preventdefault.
     ThemeFormComponent,
     AutosizeDirective,
     ClickPreventDefaultDirective,
+    TimeAgoPipe,
   ],
   imports: [
     BrowserModule,

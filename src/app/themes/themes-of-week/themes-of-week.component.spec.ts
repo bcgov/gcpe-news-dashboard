@@ -10,6 +10,7 @@ import { FakeThemeData } from '../../test-helpers/themes';
 import { ActivatedRoute } from '@angular/router';
 import { ThemeCardComponent } from '../theme-card/theme-card.component';
 import { BASE_PATH } from '../../variables';
+import { TimeAgoPipe } from 'time-ago-pipe';
 
 
 
@@ -17,7 +18,6 @@ describe('ThemesOfWeekComponent', () => {
   let component: ThemesOfWeekComponent;
   let fixture: ComponentFixture<ThemesOfWeekComponent>;
   let div: HTMLElement;
-  let route;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
@@ -29,7 +29,8 @@ describe('ThemesOfWeekComponent', () => {
       declarations: [
         ThemesOfWeekComponent,
         HqDashboardSubMenuComponent,
-        ThemeCardComponent
+        ThemeCardComponent,
+        TimeAgoPipe
       ],
       providers: [
         { provide: BASE_PATH, useValue: environment.apiUrl }
@@ -62,7 +63,7 @@ describe('ThemesOfWeekComponent', () => {
     it('should show 10 theme cards', () => {
       component.ngOnInit();
       const themeList = div.querySelector('#theme-list');
-      expect(themeList.querySelectorAll('.card').length).toBe(10);
+      expect(themeList.querySelectorAll('app-theme-card').length).toBe(10);
     });
   });
 
@@ -90,7 +91,7 @@ describe('ThemesOfWeekComponent', () => {
     it('should show 20 theme cards', () => {
       component.ngOnInit();
       const themeList = div.querySelector('#theme-list');
-      expect(themeList.querySelectorAll('.card').length).toBe(20);
+      expect(themeList.querySelectorAll('app-theme-card').length).toBe(20);
     });
 
     it('should show message', () => {
@@ -120,13 +121,13 @@ describe('ThemesOfWeekComponent', () => {
     it('should have 2 theme cards', () => {
       component.ngOnInit();
       const themeList = div.querySelector('#theme-list');
-      expect(themeList.querySelectorAll('.card').length).toBe(2);
+      expect(themeList.querySelectorAll('app-theme-card').length).toBe(2);
     });
 
     it('should not have a message', () => {
       component.ngOnInit();
       const themeList = div.querySelector('#theme-list');
-      expect(themeList.querySelectorAll('.card').length).toBe(2);
+      expect(themeList.querySelectorAll('app-theme-card').length).toBe(2);
     });
   });
 });
