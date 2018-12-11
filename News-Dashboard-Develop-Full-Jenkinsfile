@@ -1,13 +1,13 @@
 node('master') {
-    // stage('Code Quality') {
-    //     echo "Running SonarQube static code analysis."
-    //     openshiftBuild bldCfg: 'frontend-sonar', showBuildLogs: 'true'
-    // }
+    stage('Code Quality') {
+        echo "Running SonarQube static code analysis."
+        openshiftBuild bldCfg: 'frontend-sonar', showBuildLogs: 'true'
+    }
 
-    // stage('Dependency Security Check') {
-    //     echo "Running Snyk analysis of dependencies"
-    //     openshiftBuild bldCfg: 'frontend-snyk', showBuildLogs: 'true'
-    // }
+    stage('Dependency Security Check') {
+        echo "Running Snyk analysis of dependencies"
+        openshiftBuild bldCfg: 'frontend-snyk', showBuildLogs: 'true'
+    }
     
     stage('Assemble Builder & Runtime') {
         echo "Assembling Builder and runtime..."
