@@ -62,7 +62,8 @@ fi
 SNYK_TEST=${SNYK_TEST:-false}
 
 if [ "$SNYK_TEST" == "true" ]; then
-  # echo "---> Running Tests and building in production mode"
+  echo "---> Running Dependency Security scan"
+  yarn add global snyk
   snyk test
 fi
 
