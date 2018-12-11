@@ -1,14 +1,8 @@
-export class SocialMedia {
-    summary: string;
-    ministryKeys: string[];
-    assetUrl: string;
-    publishDate: string;
-    documents: Document[];
-    mediatype: string;
-}
+import { SafeUrl } from '@angular/platform-browser';
 
-export class Document {
-  headline: string;
-  subheadline: string;
-  detailsHtml: string;
+export class SocialMedia {
+  id:string;
+  url:string;
+  safeUrl?: SafeUrl;
+  mediatype:string;
 }

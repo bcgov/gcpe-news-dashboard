@@ -30,6 +30,29 @@ export class ApiService {
     }
   ];
 
+  private SocialMediaList: SocialMedia[] = [
+    {
+        id: '1',
+        mediatype: 'Facebook',
+        url: 'https://www.facebook.com/BCProvincialGovernment/posts/2456078591077085',
+    },
+    {
+        id: '2',
+        mediatype: 'Twitter',
+        url: 'https://twitter.com/Interior/status/463440424141459456',
+    },
+    {
+      id: '3',
+      mediatype: 'Instagram',
+      url:'https://www.instagram.com/p/Bqs5nnBBQRc/',
+    },
+    {
+      id: '4',
+      mediatype: 'Instagram',
+      url:'https://www.instagram.com/p/BrBSPuMBHDn/',
+    }
+  ];
+
   constructor(private  httpClient:  HttpClient, @Inject('BASE_API_URL') baseApiUrl: string, @Inject('BASE_HUB_API_URL') baseHubApiUrl: string) {
     this.API_URL = baseApiUrl;
     this.HUB_API_URL = baseHubApiUrl;
@@ -61,8 +84,11 @@ export class ApiService {
   
   // get the social media list
   getSocialMediaPosts(): Observable<SocialMedia[]> {
+    /*
     return this.httpClient.get<SocialMedia[]>(`${this.API_URL}/api/Posts/Latest/home/default?count=10&api-version=1.0`)
     .pipe();
+    */
+   return of(this.SocialMediaList);
   }
 
   // get the social media type list, used in the filter

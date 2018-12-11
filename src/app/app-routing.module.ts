@@ -16,7 +16,7 @@ const appRoutes: Routes = [
   { path: 'last-7-day-post-list', component: PostListComponent,  resolve: { posts: PostListResolver } },
   { path: 'next-7-day-entry-list', component: EntryForecastListComponent, resolve: { entrylist: EntryListResolver } },
   { path: 'themes-of-the-week', component: ThemesOfWeekComponent, resolve: { themes: ThemeListResolver } },
-  { path: 'social-media', component: SocialMediaListComponent, resolve: { socialmedia: SociaMediaListResolver, socialmediatype: SociaMediaTypeListResolver } },
+  { path: 'social-media', component: SocialMediaListComponent, resolve: { socialmedia: SociaMediaListResolver, socialmediatype: SociaMediaTypeListResolver }, runGuardsAndResolvers: 'paramsOrQueryParamsChange', },
   { path: '', redirectTo: 'last-7-day-post-list', pathMatch: 'full' },
   { path: 'theme-list', component: ThemeListComponent, resolve: { themelist: ThemeListByAdminResolver }, runGuardsAndResolvers: 'paramsOrQueryParamsChange' },
 ];

@@ -1,32 +1,22 @@
-
 <app-hq-dashboard-sub-menu [socialmediatypes]="socialmediatypes"></app-hq-dashboard-sub-menu>
-<div id="social-media-list" class="card-columns pl-0 pr-0 pt-3">
+<div id="social-media-list">
     <div *ngFor="let item of selectedSocialMedia">
-        <div class="card">
-            <img *ngIf="item.assetUrl" class="card-img-top post-image" src="{{item.assetUrl}}" alt="Card image cap">
-            <div class="card-body">
-                <h5 *ngIf="item.documents" class="card-title">{{item.documents[0].headline}}</h5>
-                <p *ngIf="item.summary" class="card-text justify-content-between">{{item.summary}}</p>
-                <p class="card-text" [ngSwitch]="item.mediatype">{{item.publishDate | date:'mediumDate'}}
-                    <i *ngSwitchCase="'Twitter'" class="fa fa-twitter fa-2x pull-right pr-3"></i>
-                    <i *ngSwitchCase="'Facebook'" class="fa fa-facebook-square fa-2x pull-right pr-3"></i>
-                    <i *ngSwitchCase="'LinkedIn'" class="fa fa-linkedin-square fa-2x pull-right pr-3"></i>
-                    <i *ngSwitchCase="'YouTube'" class="fa fa-youtube fa-2x pull-right pr-3"></i>
-                    <i *ngSwitchCase="'SoundCloud'" class="fa fa-soundcloud fa-2x pull-right pr-3"></i>
-                </p>
-            </div>
+        <div [ngSwitch]="item.mediatype">
+                <blockquote *ngSwitchCase="'Twitter'"  class="twitter-tweet" data-lang="en" id={{item.id}}>
+                        <a href="https://publish.twitter.com/oembed?
+                                            {{item.url}}"></a>
+                </blockquote>
+        
+                <div *ngSwitchCase="'Facebook'">
+                        <div class="fb-post" [attr.data-href]="item.url"></div>
+                       
+                </div>
+
+                <blockquote *ngSwitchCase="'Instagram'" class="instagram-media" data-instgrm-captioned attr.data-instgrm-permalink="{{item.url}}?OMITSCRIPT=true" data-instgrm-version="9" id={{item.id}}>
+                        <a href="{{item.url}}?OMITSCRIPT=true"></a>
+                </blockquote>
         </div>
     </div>
 </div>
-<div>
-    test sdk
-    <blockquote id="463440424141459456" class="twitter-tweet" data-lang="en">
-        <p lang="en" dir="ltr">just setting up my twttr</p>
-        <a href="https://publish.twitter.com/oembed?
-                url=https://twitter.com/Interior/status/463440424141459456">
-        </a>
-    </blockquote>
-    
-    <div class="fb-post" data-href="https://www.facebook.com/20531316728/posts/10154009990506729/"></div>
-</div>
+
 
