@@ -15,7 +15,7 @@
             </div>
           </li>
         <li class="nav-item my-auto">
-          <a class="nav-link btn btn-primary btn-publish" href="#">Publish</a>
+          <button class="nav-link btn btn-primary btn-publish" (click)="togglePublished()" [disabled]="themeForm.invalid">{{theme.isPublished ? 'Unpublish' : 'Publish'}}</button>
         </li>
       </ul>
     </div>
@@ -41,7 +41,7 @@
       <div class="form-group row">
         <label for="description" class="col-sm-2 col-form-label">DESCRIPTION</label>
         <div class="col-sm-10">
-          <input type="text" class="form-control" id="description" placeholder="Short Description">
+          <input type="text" class="form-control" id="description" placeholder="Short Description" formControlName="description">
         </div>
       </div>
     </form>

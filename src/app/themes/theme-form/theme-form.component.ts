@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder } from '@angular/forms';
+import { FormBuilder, FormControl, Validators, FormGroup } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
 
 import { NavmenuService } from '../../services/navmenu.service';
@@ -12,20 +12,32 @@ import { Theme } from 'src/app/view-models/theme';
   styleUrls: ['./theme-form.component.scss']
 })
 export class ThemeFormComponent implements OnInit {
-  themeId = "";
-  isNew = true;
-  themeForm = this.fb.group(new Theme());
+  themeId: string = "";
+  isNew: boolean = true;
+  theme: Theme = new Theme();
+  themeForm: FormGroup;
 
-  constructor(public nav: NavmenuService, private themesService: ThemesService, private fb: FormBuilder,
-              private router: Router, private route: ActivatedRoute) { }
+  constructor(public nav: NavmenuService, private themesService: ThemesService, private fb: FormBuilder, private router: Router, private route: ActivatedRoute) {
+    this.resetForm();
+  }
+
+  resetForm() {
+    this.themeForm = this.fb.group({
+      title: [this.theme.title, Validators.required],
+      description: [this.theme.description],
+      isHighlighted: [this.theme.isHighlighted],
+      isPublished: [this.theme.isPublished]
+    });
+  }
 
   ngOnInit() {
     this.nav.hide();
     this.route.data.subscribe(data => {
       if (typeof data['theme'] !== 'undefined') {
-        this.themeForm = this.fb.group(<Theme>{
+        this.theme = <Theme>{
           ...data['theme']
-        });
+        };
+        this.resetForm();
         this.themeId = data['theme'].id;
         this.isNew = false;
       }
@@ -38,17 +50,15 @@ export class ThemeFormComponent implements OnInit {
 
   save(e) {
     e.preventDefault();
-    if (this.themeForm.valid) {
-      let theme: Theme = this.themeForm.value;
-      if (this.isNew) {
-        this.create(theme);
-      } else {
-        this.update(theme);
-      }
+    if (this.themeForm.invalid) {
+      return;
     }
-    // console.log(this.themeForm);
-    // create if new
-    // update if not new
+    let theme: Theme = this.themeForm.value;
+    if (this.isNew) {
+      this.create(theme);
+    } else {
+      this.update(theme);
+    }
   }
 
   create(theme) {
@@ -77,8 +87,24 @@ export class ThemeFormComponent implements OnInit {
     );
   }
 
+  togglePublished() {
+    if (this.themeForm.invalid) {
+      return;
+    }
+    this.theme = this.themeForm.value;
+    this.theme.isPublished = !this.theme.isPublished;
+    if (this.isNew) {
+      this.create(this.theme);
+    } else {
+      this.update(this.theme);
+    }
+  }
 
   close() {
-    this.router.navigate(['themes']);
+    if (this.theme.isPublished) {
+      this.router.navigate(['themes'], { queryParams: { type: 'Published' }});
+    } else {
+      this.router.navigate(['themes'], { queryParams: { type: 'Drafts' }});
+    }
   }
 }
