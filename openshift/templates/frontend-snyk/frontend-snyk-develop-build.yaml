@@ -57,10 +57,12 @@ parameters:
   required: true
   value: develop
 - name: SOURCE_CONTEXT_DIR
-  displayName: Source Context Directory
-  description: The source context directory.
-  required: false
-  value: ''
+  displayName: Context Directory
+  description: >-
+    Set this to the relative path to the Dockerfile that describes this
+    builder image, if it is not in the root of your repository.
+  required: true
+  value: openshift/templates/builder/
 - name: SOURCE_IMAGE_KIND
   displayName: Source Image Kind
   description: The 'kind' (type) of the  source image; typically ImageStreamTag, or DockerImage.
@@ -71,11 +73,6 @@ parameters:
   description: The name of the source image.
   required: true
   value: dotnet-snyk-develop
-- name: SOURCE_IMAGE_TAG
-  displayName: Source Image Tag
-  description: The tag of the source image.
-  required: true
-  value: latest
 - name: OUTPUT_IMAGE_TAG
   displayName: Output Image Tag
   description: The tag given to the built image.
