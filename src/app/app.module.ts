@@ -12,21 +12,21 @@ import { FooterComponent } from './core/footer/footer.component';
 import { ActivityForecastListComponent } from './activities/activity-list/activity-forecast-list.component';
 import { ActivityListResolver } from "./_resolvers/activity-list.resolver";
 import { PostListResolver } from "./_resolvers/post-list.resolver";
-import { MessagesService } from './services/messages.service';
 import { ApiService } from './services/api.service';
 import { AuthService } from './services/auth.service';
+import { MessagesService } from './services/messages.service';
 import { ThemesOfWeekComponent } from './themes/themes-of-week/themes-of-week.component';
-import { ThemeListResolver } from './_resolvers/theme-list.resolver';
+import { MessageListResolver } from './_resolvers/message-list.resolver';
 import { SocialMediaListComponent } from './social-media/social-media-list/social-media-list.component';
 import { SociaMediaListResolver } from './_resolvers/social-media-list.resolver';
 import { SociaMediaTypeListResolver } from './_resolvers/social-media-type-list.resolver';
 import { ThemeListComponent } from './themes/theme-list/theme-list.component';
 import { HqDashboardSubMenuComponent } from './core/hq-dashboard-sub-menu/hq-dashboard-sub-menu.component';
 import { ThemeSubMenuComponent } from './core/theme-sub-menu/theme-sub-menu.component';
-import { ThemeListByAdminResolver } from './_resolvers/theme-list-by-admin.resolver';
-import { ThemeResolver } from './_resolvers/theme.resolver';
+import { MessageResolver } from './_resolvers/message.resolver';
 import { ThemeCardComponent } from './themes/theme-card/theme-card.component';
 import { ThemeFormComponent } from './themes/theme-form/theme-form.component';
+import { Autosize } from './directives/autosize.directive';
 
 @NgModule({
   declarations: [
@@ -42,6 +42,7 @@ import { ThemeFormComponent } from './themes/theme-form/theme-form.component';
     ThemeSubMenuComponent,
     ThemeCardComponent,
     ThemeFormComponent,
+    Autosize,
   ],
   imports: [
     BrowserModule,
@@ -57,12 +58,12 @@ import { ThemeFormComponent } from './themes/theme-form/theme-form.component';
     MessagesService,
     AuthService,
     ActivityListResolver,
+    MessagesService,
     PostListResolver,
-    ThemeListResolver,
+    MessageListResolver,
     SociaMediaListResolver,
     SociaMediaTypeListResolver,
-    ThemeListByAdminResolver,
-    ThemeResolver
+    MessageResolver
   ],
   bootstrap: [AppComponent]
 })

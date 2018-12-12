@@ -3,7 +3,7 @@ import { FormBuilder, FormControl, Validators, FormGroup } from '@angular/forms'
 import { Router, ActivatedRoute } from '@angular/router';
 
 import { NavmenuService } from '../../services/navmenu.service';
-import { ThemesService } from '../../services/themes.service';
+import { MessagesService } from '../../services/messages.service';
 import { Theme } from 'src/app/view-models/theme';
 
 @Component({
@@ -17,7 +17,7 @@ export class ThemeFormComponent implements OnInit {
   theme: Theme = new Theme();
   themeForm: FormGroup;
 
-  constructor(public nav: NavmenuService, private themesService: ThemesService, private fb: FormBuilder, private router: Router, private route: ActivatedRoute) {
+  constructor(public nav: NavmenuService, private messagesService: MessagesService, private fb: FormBuilder, private router: Router, private route: ActivatedRoute) {
     this.resetForm();
   }
 
@@ -62,7 +62,7 @@ export class ThemeFormComponent implements OnInit {
   }
 
   create(theme) {
-    this.themesService.create(theme)
+    this.messagesService.addMessage(theme)
     .subscribe(
       () => {
         console.log("Created theme!");
@@ -75,7 +75,7 @@ export class ThemeFormComponent implements OnInit {
   }
 
   update(theme) {
-    this.themesService.update(this.themeId, theme)
+    this.messagesService.updateMessage(this.themeId, theme)
     .subscribe(
       () => {
         console.log("Updated theme!");
