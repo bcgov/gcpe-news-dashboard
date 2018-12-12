@@ -1,16 +1,16 @@
 
 <app-hq-dashboard-sub-menu></app-hq-dashboard-sub-menu>
-<div id="entry-forecast-list">
+<div id="activity-forecast-list">
   <div class="row seven-cols">
         <div class="col-lg-1" *ngFor="let day of daysOfWeek">
             <div class="card" style="max-width: 18rem;">
                 <div class="card-header bg-light">{{day}}<div class="pull-right">20</div></div>
             </div>  
-            <div class="card" *ngFor="let entry of entrylist; let i = index" [hidden]="i>2">
+            <div class="card" *ngFor="let activity of activityList; let i = index" [hidden]="i>2">
                 <div class="card-body"  >
-                    <h6 class="card-subtitle mb-2 text-muted card-ministry-label">{{entry.ministryKeys}}</h6>
-                    <h5 class="card-title">{{entry.documents[0].headline}}</h5>
-                    <p class="card-text">{{entry.summary}}</p>
+                    <h6 class="card-subtitle mb-2 text-muted card-ministry-label">{{activity.ministryKeys}}</h6>
+                    <h5 class="card-title">{{activity.documents[0].headline}}</h5>
+                    <p class="card-text">{{activity.summary}}</p>
                   </div>
             </div>
         </div>

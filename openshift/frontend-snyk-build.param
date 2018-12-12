@@ -1,0 +1,18 @@
+#=========================================================
+# OpenShift template parameters for:
+# Component: .
+# Template File: templates/frontend-snyk/frontend-snyk-build.yaml
+#=========================================================
+NAME=frontend-snyk
+GIT_REPO_URL=https://github.com/bcgov/gcpe-news-dashboard.git
+GIT_REF=develop
+SOURCE_CONTEXT_DIR=
+SOURCE_IMAGE_KIND=ImageStreamTag
+SOURCE_IMAGE_NAME=frontend-yarn-builder-snyk
+SOURCE_IMAGE_TAG=latest
+OUTPUT_IMAGE_TAG=latest
+CPU_LIMIT=1
+MEMORY_LIMIT=6Gi
+CPU_REQUEST=1
+MEMORY_REQUEST=4Gi
+SNYK_TOKEN=123

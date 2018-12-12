@@ -1,0 +1,14 @@
+#=========================================================
+# OpenShift template parameters for:
+# Component: .
+# Template File: templates/dotnet-snyk/dotnet-snyk-develop-build.yaml
+#=========================================================
+NAME=dotnet-snyk-develop
+GIT_REPO_URL=https://github.com/bcgov/gcpe-news-dashboard.git
+GIT_REF=develop
+SOURCE_CONTEXT_DIR=/Dotnet-Snyk
+SOURCE_IMAGE_KIND=DockerImage
+SOURCE_IMAGE_NAME=registry.access.redhat.com/dotnet/dotnet-21-rhel7
+SOURCE_IMAGE_TAG=latest
+DOCKER_FILE_PATH=Dockerfile.rhel7
+OUTPUT_IMAGE_TAG=latest
