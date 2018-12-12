@@ -26,12 +26,12 @@ $fa-soundcloud: #f80;
     }
 }
 
-#social-media-list .card .card-text {
-    color: map-get($theme-colors, mediem) !important;
+#social-media-list {
+    margin-top: 50px;
 }
 
-#social-media-list .card {
-    margin-bottom: 40px;
+#social-media-list .social-media-post {
+    margin-bottom: 30px;
 }
 
 .dropdown-toggle::after {
@@ -40,6 +40,4 @@ $fa-soundcloud: #f80;
  #social-media-filter a {
     color: map-get($theme-colors, primary-nav)!important;
 }
-
-
 

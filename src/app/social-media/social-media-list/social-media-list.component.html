@@ -1,22 +1,23 @@
 <app-hq-dashboard-sub-menu [socialmediatypes]="socialmediatypes"></app-hq-dashboard-sub-menu>
-<div id="social-media-list">
-    <div *ngFor="let item of selectedSocialMedia">
-        <div [ngSwitch]="item.mediatype">
-                <blockquote *ngSwitchCase="'Twitter'"  class="twitter-tweet" data-lang="en" id={{item.id}}>
-                        <a href="https://publish.twitter.com/oembed?
-                                            {{item.url}}"></a>
-                </blockquote>
-        
-                <div *ngSwitchCase="'Facebook'">
-                        <div class="fb-post" [attr.data-href]="item.url"></div>
-                       
+<div id="social-media-list" class="card-columns">
+        <div *ngFor="let item of selectedSocialMedia">
+                <div [ngSwitch]="item.mediatype">
+                        <div class="social-media-post card">
+                                <blockquote *ngSwitchCase="'Twitter'" class="twitter-tweet" data-lang="en" id={{item.id}}>
+                                        <a href="https://publish.twitter.com/oembed?
+                                                                    {{item.url}}"></a>
+                                </blockquote>
+
+                                <blockquote *ngSwitchCase="'Facebook'" class="fb-post" attr.data-href="{{item.url}}"
+                                        data-width="355"></blockquote>
+
+                                <blockquote *ngSwitchCase="'Instagram'" class="instagram-media" data-instgrm-captioned
+                                        attr.data-instgrm-permalink="{{item.url}}?OMITSCRIPT=true" data-instgrm-version="9"
+                                        id={{item.id}} style="width:355px;">
+                                        <a href="{{item.url}}?OMITSCRIPT=true"></a>
+                                </blockquote>
+                        </div>
+
                 </div>
-
-                <blockquote *ngSwitchCase="'Instagram'" class="instagram-media" data-instgrm-captioned attr.data-instgrm-permalink="{{item.url}}?OMITSCRIPT=true" data-instgrm-version="9" id={{item.id}}>
-                        <a href="{{item.url}}?OMITSCRIPT=true"></a>
-                </blockquote>
         </div>
-    </div>
 </div>
-
-

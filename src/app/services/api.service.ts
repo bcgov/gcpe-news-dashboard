@@ -50,7 +50,13 @@ export class ApiService {
       id: '4',
       mediatype: 'Instagram',
       url:'https://www.instagram.com/p/BrBSPuMBHDn/',
-    }
+    },
+    
+    {
+      id: '5',
+      mediatype: 'Facebook',
+      url: 'https://www.facebook.com/BCProvincialGovernment/posts/2447373845280893',
+    },
   ];
 
   constructor(private  httpClient:  HttpClient, @Inject('BASE_API_URL') baseApiUrl: string, @Inject('BASE_HUB_API_URL') baseHubApiUrl: string) {
