@@ -6,7 +6,7 @@ node('master') {
 
   stage('Dependency Security Check') {
         echo "Running Snyk analysis of dependencies"
-        // openshiftBuild bldCfg: 'frontend-snyk', showBuildLogs: 'true'
+        openshiftBuild bldCfg: 'frontend-snyk', showBuildLogs: 'true'
     }
     
     stage('Build Image') {
