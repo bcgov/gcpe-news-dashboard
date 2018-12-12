@@ -58,6 +58,21 @@ else
   yarn build
 fi
 
+# Set the SNYK_TEST to false by default.
+SNYK_TEST=${SNYK_TEST:-false}
+
+if [ "$SNYK_TEST" == "true" ]; then
+  echo "---> Running Dependency Security scan"
+  npm install -g snyk
+  snyk test
+fi
+
+if [ "$SONAR_TOKEN" ]; then
+  echo "---> Running Code Quality scan"
+  npm install -g sonarqube-scanner
+  sonar-scanner -Dsonar.host.url=$SONAR_URL -Dsonar.login=$SONAR_TOKEN
+fi
+
 echo "---> Removing node modules from image"
 rm -rf ./node_modules
 

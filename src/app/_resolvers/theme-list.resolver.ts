@@ -1,16 +1,16 @@
 import { Injectable } from '@angular/core';
-import { Theme } from '../view-models/theme';
+import { Message } from '../view-models/message';
 import { Resolve, ActivatedRouteSnapshot, Router } from '@angular/router';
 import { Observable, of } from 'rxjs';
-import { ApiService } from '../services/api.service';
+import { MessagesService } from '../services/messages.service';
 import { catchError } from 'rxjs/operators';
 
 @Injectable()
-export class ThemeListResolver implements Resolve<Theme[]> {
-    constructor(private themeService: ApiService,private router: Router) { }
+export class ThemeListResolver implements Resolve<Message[]> {
+    constructor(private messagesService: MessagesService,private router: Router) { }
 
-    resolve(route: ActivatedRouteSnapshot): Observable<Theme[]> {
-        return this.themeService.getThemes()
+    resolve(route: ActivatedRouteSnapshot): Observable<Message[]> {
+        return this.messagesService.getAllMessages()
         .pipe(
             catchError(error => {
                 this.router.navigate(['/']);

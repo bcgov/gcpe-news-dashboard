@@ -81,5 +81,6 @@ var download = function (url, tsPath, models2get) {
   });
 }
 
-download(newsApiUrl, "/news", ["/dataIndex", "/dataModel", "/post", "/document", "/asset", "/keyValuePair", "/category", "/ministry", "/ministries", "/minister", "/contact", "/resourceLink.ts"]);
-
+//download(newsApiUrl, "/news", ["/dataIndex", "/dataModel", "/post.ts", "/document", "/asset", "/keyValuePair", "/category", "/ministry", "/minister", "/contact", "/resourceLink.ts"]);
+//generate services for message and socialMediaPost, but not activities
+downloadCB("", ["/message", "/socialMediaPost", "/activity.ts"]);

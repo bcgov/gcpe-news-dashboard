@@ -9,6 +9,7 @@ import { of } from 'rxjs';
 import { FakeThemeData } from '../../test-helpers/themes';
 import { ActivatedRoute } from '@angular/router';
 import { ThemeCardComponent } from '../theme-card/theme-card.component';
+import { BASE_PATH } from '../../variables';
 
 
 
@@ -31,8 +32,8 @@ describe('ThemesOfWeekComponent', () => {
         ThemeCardComponent
       ],
       providers: [
-        { provide: 'BASE_API_URL', useValue: environment.apiUrl },
-        { provide: 'BASE_HUB_API_URL', useValue: environment.hubApiUrl }
+        { provide: BASE_PATH, useValue: environment.apiUrl },
+        { provide: 'BASE_NEWS_API_URL', useValue: environment.newsApiUrl }
       ],
     })
     .compileComponents();
