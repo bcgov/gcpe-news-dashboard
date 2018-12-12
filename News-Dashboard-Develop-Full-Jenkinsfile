@@ -4,6 +4,17 @@ node('master') {
         openshiftBuild bldCfg: 'frontend-sonar', showBuildLogs: 'true'
     }
 
+  stage('Dependency Security Check') {
+        echo "Running Snyk analysis of dependencies"
+        openshiftBuild bldCfg: 'frontend-snyk', showBuildLogs: 'true'
+    }
+    
+    stage('Build Image') {
+        echo "Building..."
+        openshiftBuild bldCfg: 'news-dashboard-static', showBuildLogs: 'true'
+        openshiftTag destStream: 'news-dashboard-static', verbose: 'true', destTag: '$BUILD_ID', srcStream: 'news-dashboard-static', srcTag: 'latest'
+    }
+
     stage('Deploy on Dev') {
         echo "Deploying to dev..."
         openshiftTag destStream: 'news-dashboard-static', verbose: 'true', destTag: 'dev', srcStream: 'news-dashboard-static', srcTag: '$BUILD_ID'
