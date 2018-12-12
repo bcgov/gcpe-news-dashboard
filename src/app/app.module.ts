@@ -27,6 +27,7 @@ import { MessageResolver } from './_resolvers/message.resolver';
 import { ThemeCardComponent } from './themes/theme-card/theme-card.component';
 import { ThemeFormComponent } from './themes/theme-form/theme-form.component';
 import { Autosize } from './directives/autosize.directive';
+import { ClickPreventDefaultDirective } from './directives/click-preventdefault.directive';
 
 @NgModule({
   declarations: [
@@ -43,6 +44,7 @@ import { Autosize } from './directives/autosize.directive';
     ThemeCardComponent,
     ThemeFormComponent,
     Autosize,
+    ClickPreventDefaultDirective,
   ],
   imports: [
     BrowserModule,

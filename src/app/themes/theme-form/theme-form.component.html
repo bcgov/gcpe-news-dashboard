@@ -5,15 +5,18 @@
         <h4>New Theme</h4>
       </div>
       <ul class="navbar-nav">
-        <li ngbDropdown class="nav-item my-auto">
-            <a class="nav-link more-dropdown" role="button" ngbDropdownToggle aria-haspopup="true" aria-expanded="false">
-              •••
-            </a>
-            <div aria-labelledby="navbarDropdown" ngbDropdownMenu>
-              <a class="dropdown-item" href="#" (click)="save($event)">Save and Close</a>
-              <a class="dropdown-item" href="#">Delete</a>
-            </div>
-          </li>
+        <li *ngIf="!isNew || themeForm.dirty; else cancel" ngbDropdown class="nav-item my-auto">
+          <a class="nav-link more-dropdown" role="button" ngbDropdownToggle aria-haspopup="true" aria-expanded="false">
+            •••
+          </a>
+          <div aria-labelledby="navbarDropdown" ngbDropdownMenu>
+            <a class="dropdown-item" href="#" (click.prevent)="save()">Save and Close</a>
+            <a class="dropdown-item" href="#">Delete</a>
+          </div>
+        </li>
+        <ng-template #cancel>
+          <li class="nav-item my-auto cancel-btn"><a href="#" (click.prevent)="close()" class="btn btn-link">Cancel</a></li>
+        </ng-template>
         <li class="nav-item my-auto">
           <button class="nav-link btn btn-primary btn-publish" (click)="togglePublished()" [disabled]="themeForm.invalid" [class.publish]="!theme.isPublished">
             {{theme.isPublished ? 'Unpublish' : 'Publish'}}

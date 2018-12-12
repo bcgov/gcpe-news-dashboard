@@ -48,8 +48,7 @@ export class ThemeFormComponent implements OnInit {
     this.nav.show();
   }
 
-  save(e) {
-    e.preventDefault();
+  save() {
     if (this.themeForm.invalid) {
       return;
     }
