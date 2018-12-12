@@ -1,18 +1,18 @@
 import { Injectable, Inject  } from '@angular/core';
 import { HttpClient} from  '@angular/common/http';
 import { Observable, of } from 'rxjs';
-import { Entry } from '../view-models/entry';
+import { Activity } from '../view-models/activity';
 import { Post } from '../view-models/news/post';
-import { Theme } from '../view-models/theme';
 import { SocialMedia } from '../view-models/social-media';
 import { SocialMediaType } from '../view-models/social-media-type';
+import { BASE_PATH } from '../variables';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ApiService {
-  API_URL  =  '';
-  HUB_API_URL = '';
+  API_URL = '';
+  NEWS_API_URL = '';
 
   // mock data for the media types
   private SocialMediaTypeList: SocialMediaType[] = [
@@ -30,38 +30,26 @@ export class ApiService {
     }
   ];
 
-  constructor(private  httpClient:  HttpClient, @Inject('BASE_API_URL') baseApiUrl: string, @Inject('BASE_HUB_API_URL') baseHubApiUrl: string) {
+  constructor(private httpClient: HttpClient, @Inject(BASE_PATH) baseApiUrl: string, @Inject('BASE_NEWS_API_URL') baseNewsApiUrl: string) {
     this.API_URL = baseApiUrl;
-    this.HUB_API_URL = baseHubApiUrl;
+    this.NEWS_API_URL = baseNewsApiUrl;
   }
 
-  // get the entries for 7 days forecast
-  getEntries(): Observable<Entry[]> {
-    return this.httpClient.get<Entry[]>(`${this.API_URL}/api/Posts/Latest/home/default?count=10&api-version=1.0`)
+  // get the activities for 7 days forecast
+  getActivityForecast(): Observable<Activity[]> {
+    return this.httpClient.get<Activity[]>(`${this.NEWS_API_URL}/api/Posts/Latest/home/default?count=10&api-version=1.0`)
     .pipe();
   }
 
   // get the last 7 days post
   getPosts(): Observable<Post[]> {
-    return this.httpClient.get<Post[]>(`${this.API_URL}/api/Posts/Latest/home/default?count=10&api-version=1.0`)
+    return this.httpClient.get<Post[]>(`${this.NEWS_API_URL}/api/Posts/Latest/home/default?count=10&api-version=1.0`)
     .pipe();
   }
 
-  // get the themes of the week
-  getThemes(): Observable<Theme[]> {
-    return this.httpClient.get<Theme[]>(`${this.HUB_API_URL}/api/Messages?IsPublished=true`)
-    .pipe();
-  }
-
-  // get the theme list by logged user
-  getThemesManagement(isPublished: Boolean): Observable<Theme[]> {
-    return this.httpClient.get<Theme[]>(`${this.HUB_API_URL}/api/Messages?IsPublished=${isPublished}`)
-    .pipe();
-  }
-  
   // get the social media list
   getSocialMediaPosts(): Observable<SocialMedia[]> {
-    return this.httpClient.get<SocialMedia[]>(`${this.API_URL}/api/Posts/Latest/home/default?count=10&api-version=1.0`)
+    return this.httpClient.get<SocialMedia[]>(`${this.NEWS_API_URL}/api/Posts/Latest/home/default?count=10&api-version=1.0`)
     .pipe();
   }
 

@@ -1,7 +1,7 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { ThemeCardComponent } from './theme-card.component';
-import { Theme } from '../../view-models/theme';
+import { Message } from '../../view-models/message';
 
 describe('ThemeCardComponent', () => {
   let component: ThemeCardComponent;
@@ -25,14 +25,14 @@ describe('ThemeCardComponent', () => {
   });
 
   it('should create with theme', () => {
-    const theme = new Theme("Test Theme", "Test description", 0, true, false, new Date());
+    const theme = { title: "Test Theme", description: "Test description", sortOrder: 0, isPublished: true, timestamp: new Date() } as Message;
     component.theme = theme;
     fixture.detectChanges();
     expect(component).toBeTruthy();
   });
 
   it('should create with proper title', () => {
-    const theme = new Theme("Test Theme", "Test description", 0, true, false, new Date());
+    const theme = { title: "Test Theme", description: "Test description", sortOrder: 0, isPublished: true, timestamp: new Date() } as Message;
     component.theme = theme;
     fixture.detectChanges();
     const div = fixture.nativeElement.querySelector('.card-title');
@@ -40,7 +40,7 @@ describe('ThemeCardComponent', () => {
   });
 
   it('should create with proper description', () => {
-    const theme = new Theme("Test Theme", "Test description", 0, true, false, new Date());
+    const theme = { title: "Test Theme", description: "Test description", sortOrder: 0, isPublished: true, timestamp: new Date() } as Message;
     component.theme = theme;
     fixture.detectChanges();
     const div = fixture.nativeElement.querySelector('.card-text');
@@ -48,7 +48,7 @@ describe('ThemeCardComponent', () => {
   });
 
   it('should have last class if last', () => {
-    const theme = new Theme("Test Theme", "Test description", 0, true, false, new Date());
+    const theme = { title: "Test Theme", description: "Test description", sortOrder: 0, isPublished: true, timestamp: new Date() } as Message;
     component.theme = theme;
     component.last = true;
     fixture.detectChanges();

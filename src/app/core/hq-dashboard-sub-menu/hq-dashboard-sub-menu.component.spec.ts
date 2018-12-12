@@ -4,6 +4,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { RouterTestingModule } from '@angular/router/testing';
 import { environment } from '../../../environments/environment';
 import { RouterModule } from '@angular/router';
+import { BASE_PATH } from '../../variables';
 
 describe('HqDashboardSubMenuComponent', () => {
   let component: HqDashboardSubMenuComponent;
@@ -20,8 +21,8 @@ describe('HqDashboardSubMenuComponent', () => {
         HqDashboardSubMenuComponent
       ],
       providers: [
-        { provide: 'BASE_API_URL', useValue: environment.apiUrl },
-        { provide: 'BASE_HUB_API_URL', useValue: environment.hubApiUrl }
+        { provide: BASE_PATH, useValue: environment.apiUrl },
+        { provide: 'BASE_NEWS_API_URL', useValue: environment.newsApiUrl }
       ],
     })
     .compileComponents();
