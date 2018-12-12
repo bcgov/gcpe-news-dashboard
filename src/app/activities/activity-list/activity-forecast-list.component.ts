@@ -1,29 +1,29 @@
 import { Component, OnInit } from '@angular/core';
 import { ApiService } from '../../services/api.service';
-import { Entry } from '../../view-models/entry';
+import { Activity } from '../../view-models/activity';
 import { Router, ActivatedRoute } from '@angular/router';
 
 @Component({
-  selector: 'app-entry-forecast-list',
-  templateUrl: './entry-forecast-list.component.html',
-  styleUrls: ['./entry-forecast-list.component.scss']
+  selector: 'app-activity-forecast-list',
+  templateUrl: './activity-forecast-list.component.html',
+  styleUrls: ['./activity-forecast-list.component.scss']
 })
 
-export class EntryForecastListComponent implements OnInit {
-  public entrylist: Entry[];
+export class ActivityForecastListComponent implements OnInit {
+  public activityList: Activity[];
   public daysOfWeek = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
 
   constructor(private router: Router, private  apiService:  ApiService, private route: ActivatedRoute) { }
 
   ngOnInit() {
     this.route.data.subscribe(data => {
-      this.entrylist = data['entrylist'];
+      this.activityList = data['activityList'];
     });
   }
 
-  getEntries() {
-    this.apiService.getEntries().subscribe((data) => {
-      this.entrylist = data;
+  getActivities() {
+    this.apiService.getActivityForecast().subscribe((data) => {
+      this.activityList = data;
     }, error => console.error(error));
   }
 }

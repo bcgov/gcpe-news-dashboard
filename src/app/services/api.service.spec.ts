@@ -2,9 +2,10 @@ import { TestBed, async, inject } from '@angular/core/testing';
 import { HttpClientModule,HttpClient } from '@angular/common/http';
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
 import { Post } from '../view-models/news/post';
-import { Entry } from '../view-models/entry';
+import { Activity } from '../view-models/activity';
 import { environment } from '../../environments/environment';
 import { ApiService } from './api.service';
+import { BASE_PATH } from '../variables';
 
 describe('ApiService', () => {
   beforeEach(() => TestBed.configureTestingModule({
@@ -14,8 +15,8 @@ describe('ApiService', () => {
     ],
     providers: [
       ApiService,
-      {provide: 'BASE_API_URL', useValue: environment.apiUrl},
-      {provide: 'BASE_HUB_API_URL', useValue: environment.hubApiUrl}
+      { provide: BASE_PATH, useValue: environment.apiUrl},
+      { provide: 'BASE_NEWS_API_URL', useValue: environment.newsApiUrl}
     ],
 
   }));
@@ -44,9 +45,9 @@ describe('ApiService', () => {
     });
   })));
 
-  it('should issue a request to get entries', 
+  it('should issue a request to get activities', 
   async(inject([HttpClient, HttpTestingController], (http: HttpClient, backend: HttpTestingController) => {
-    http.get<Entry[]>(environment.apiUrl+'api/Posts/Latest/home/default?count=10&api-version=1.0').subscribe();
+    http.get<Activity[]>(environment.apiUrl+'api/Posts/Latest/home/default?count=10&api-version=1.0').subscribe();
     backend.expectOne({
       url: environment.apiUrl+ 'api/Posts/Latest/home/default?count=10&api-version=1.0',
       method: 'GET'

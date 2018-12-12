@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Theme } from '../../view-models/theme';
+import { Message } from '../../view-models/message';
 import { Router, ActivatedRoute } from '@angular/router';
 import { ApiService } from '../../services/api.service';
 
@@ -10,8 +10,8 @@ import { ApiService } from '../../services/api.service';
 })
 export class ThemesOfWeekComponent implements OnInit {
 
-  themes: Theme[];
-  highlightedTheme: Theme;
+  themes: Message[];
+  highlightedTheme: Message;
 
   constructor(private router: Router, private  apiService:  ApiService, private route: ActivatedRoute) { }
 

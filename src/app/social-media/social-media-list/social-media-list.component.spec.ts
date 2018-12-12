@@ -5,6 +5,7 @@ import { SocialMediaListComponent } from './social-media-list.component';
 import { HqDashboardSubMenuComponent } from '../../core/hq-dashboard-sub-menu/hq-dashboard-sub-menu.component';
 import { environment } from '../../../environments/environment';
 import { HttpClientModule } from '@angular/common/http';
+import { BASE_PATH } from '../../variables';
 
 describe('SocialMediaListComponent', () => {
   let component: SocialMediaListComponent;
@@ -22,8 +23,8 @@ describe('SocialMediaListComponent', () => {
         HqDashboardSubMenuComponent
       ],
       providers: [
-        { provide: 'BASE_API_URL', useValue: environment.apiUrl },
-        { provide: 'BASE_HUB_API_URL', useValue: environment.hubApiUrl }
+        { provide: BASE_PATH, useValue: environment.apiUrl },
+        { provide: 'BASE_NEWS_API_URL', useValue: environment.newsApiUrl }
       ],
     })
     .compileComponents();

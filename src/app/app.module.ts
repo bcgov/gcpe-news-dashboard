@@ -8,9 +8,10 @@ import { AppComponent } from './app.component';
 import { NavMenuComponent } from  './core/navmenu/navmenu.component';
 import { PostListComponent } from './posts/post-list/post-list.component';
 import { FooterComponent } from './core/footer/footer.component';
-import { EntryForecastListComponent } from './entries/entry-list/entry-forecast-list.component';
-import { EntryListResolver } from "./_resolvers/entry-list.resolver";
+import { ActivityForecastListComponent } from './activities/activity-list/activity-forecast-list.component';
+import { ActivityListResolver } from "./_resolvers/activity-list.resolver";
 import { PostListResolver } from "./_resolvers/post-list.resolver";
+import { MessagesService } from './services/messages.service';
 import { ApiService } from './services/api.service';
 import { AuthService } from './services/auth.service';
 import { ThemesOfWeekComponent } from './themes/themes-of-week/themes-of-week.component';
@@ -30,7 +31,7 @@ import { ThemeCardComponent } from './themes/theme-card/theme-card.component';
     NavMenuComponent,
     PostListComponent,
     FooterComponent,
-    EntryForecastListComponent,
+    ActivityForecastListComponent,
     ThemesOfWeekComponent,
     SocialMediaListComponent,
     ThemeListComponent,
@@ -47,8 +48,9 @@ import { ThemeCardComponent } from './themes/theme-card/theme-card.component';
   ],
   providers: [
     ApiService,
+    MessagesService,
     AuthService,
-    EntryListResolver,
+    ActivityListResolver,
     PostListResolver,
     ThemeListResolver,
     SociaMediaListResolver,
