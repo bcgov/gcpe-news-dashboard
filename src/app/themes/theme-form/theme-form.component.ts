@@ -4,7 +4,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 
 import { NavmenuService } from '../../services/navmenu.service';
 import { MessagesService } from '../../services/messages.service';
-import { Theme } from 'src/app/view-models/theme';
+import { Message } from 'src/app/view-models/message';
 
 @Component({
   selector: 'app-theme-form',
@@ -14,7 +14,12 @@ import { Theme } from 'src/app/view-models/theme';
 export class ThemeFormComponent implements OnInit {
   themeId: string = "";
   isNew: boolean = true;
-  theme: Theme = new Theme();
+  theme = {
+    title: '',
+    description: '',
+    isHighlighted: false,
+    isPublished: false
+  } as Message;
   themeForm: FormGroup;
 
   constructor(public nav: NavmenuService, private messagesService: MessagesService, private fb: FormBuilder, private router: Router, private route: ActivatedRoute) {
@@ -34,7 +39,7 @@ export class ThemeFormComponent implements OnInit {
     this.nav.hide();
     this.route.data.subscribe(data => {
       if (typeof data['theme'] !== 'undefined') {
-        this.theme = <Theme>{
+        this.theme = <Message>{
           ...data['theme']
         };
         this.resetForm();
@@ -52,7 +57,7 @@ export class ThemeFormComponent implements OnInit {
     if (this.themeForm.invalid) {
       return;
     }
-    let theme: Theme = this.themeForm.value;
+    let theme: Message = this.themeForm.value;
     if (this.isNew) {
       this.create(theme);
     } else {
