@@ -1,11 +1,11 @@
 import { Directive, Output, EventEmitter, Renderer2, ElementRef } from '@angular/core';
 
 @Directive({
-  selector: '[click.prevent]'
+  selector: '[click.preventDefault]'
 })
 export class ClickPreventDefaultDirective {
-  @Output("click.prevent") preventEvent = new EventEmitter();
-  unsubscribe;
+  @Output("click.preventDefault") preventEvent = new EventEmitter();
+  unsubscribe: Function;
 
   constructor(private renderer: Renderer2, private element: ElementRef) { }
 
