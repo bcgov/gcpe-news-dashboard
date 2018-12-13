@@ -9,7 +9,7 @@ import { NavmenuService } from 'src/app/services/navmenu.service';
 })
 export class NavMenuComponent implements OnInit {
   isCollapsed = true;
-  visible: boolean;
+  visible = true;
 
   constructor(private authService: AuthService, public nav: NavmenuService) {}
 

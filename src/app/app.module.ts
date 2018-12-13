@@ -26,7 +26,7 @@ import { ThemeSubMenuComponent } from './core/theme-sub-menu/theme-sub-menu.comp
 import { MessageResolver } from './_resolvers/message.resolver';
 import { ThemeCardComponent } from './themes/theme-card/theme-card.component';
 import { ThemeFormComponent } from './themes/theme-form/theme-form.component';
-import { Autosize } from './directives/autosize.directive';
+import { AutosizeDirective } from './directives/autosize.directive';
 import { ClickPreventDefaultDirective } from './directives/click-preventdefault.directive';
 
 @NgModule({
@@ -43,7 +43,7 @@ import { ClickPreventDefaultDirective } from './directives/click-preventdefault.
     ThemeSubMenuComponent,
     ThemeCardComponent,
     ThemeFormComponent,
-    Autosize,
+    AutosizeDirective,
     ClickPreventDefaultDirective,
   ],
   imports: [
