@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormControl, Validators, FormGroup } from '@angular/forms';
+import { FormBuilder, Validators, FormGroup } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
 
 import { NavmenuService } from '../../services/navmenu.service';
@@ -9,7 +9,7 @@ import { Message } from 'src/app/view-models/message';
 @Component({
   selector: 'app-theme-form',
   templateUrl: './theme-form.component.html',
-  styleUrls: ['./theme-form.component.scss']
+  styleUrls: ['./theme-form.component.scss'],
 })
 export class ThemeFormComponent implements OnInit {
   themeId: string = "";
@@ -38,6 +38,7 @@ export class ThemeFormComponent implements OnInit {
   ngOnInit() {
     this.nav.hide();
     this.route.data.subscribe(data => {
+      console.log(data)
       if (typeof data['theme'] !== 'undefined') {
         this.theme = <Message>{
           ...data['theme']
@@ -65,11 +66,10 @@ export class ThemeFormComponent implements OnInit {
     }
   }
 
-  create(theme) {
+  create(theme: Message) {
     this.messagesService.addMessage(theme)
     .subscribe(
       () => {
-        console.log("Created theme!");
         this.close();
       },
       () => {
@@ -78,11 +78,10 @@ export class ThemeFormComponent implements OnInit {
     );
   }
 
-  update(theme) {
+  update(theme: Message) {
     this.messagesService.updateMessage(this.themeId, theme)
     .subscribe(
       () => {
-        console.log("Updated theme!");
         this.close();
       },
       () => {
