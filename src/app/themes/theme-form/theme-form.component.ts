@@ -38,14 +38,14 @@ export class ThemeFormComponent implements OnInit {
   ngOnInit() {
     this.nav.hide();
     this.route.data.subscribe(data => {
-      console.log(data)
       if (typeof data['theme'] !== 'undefined') {
         this.theme = <Message>{
           ...data['theme']
         };
-        this.resetForm();
+        
         this.themeId = data['theme'].id;
         this.isNew = false;
+        this.resetForm();
       }
     });
   }
