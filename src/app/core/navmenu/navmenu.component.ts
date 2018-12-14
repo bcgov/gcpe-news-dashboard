@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from 'src/app/services/auth.service';
+import { NavmenuService } from 'src/app/services/navmenu.service';
 
 @Component({
   selector: 'news-dashboard-navmenu',
@@ -8,10 +9,15 @@ import { AuthService } from 'src/app/services/auth.service';
 })
 export class NavMenuComponent implements OnInit {
   isCollapsed = true;
+  visible = true;
 
-  constructor(private authService: AuthService) {}
+  constructor(private authService: AuthService, public nav: NavmenuService) {}
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.nav.visible.subscribe(n => {
+      this.visible = n;
+    });
+  }
 
   isLoggedIn() {
     return this.authService.loggedIn();

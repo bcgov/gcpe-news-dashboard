@@ -81,7 +81,7 @@ export class ApiService {
     return this.httpClient.get<Post[]>(`${this.NEWS_API_URL}/api/Posts/Latest/home/default?count=10&api-version=1.0`)
     .pipe();
   }
-
+  
   // get the social media list
   getSocialMediaPosts(): Observable<SocialMedia[]> {
     /*
