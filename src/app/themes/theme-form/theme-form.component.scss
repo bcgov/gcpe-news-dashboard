@@ -1,0 +1,86 @@
+@import "../../../assets/styles/variables.scss";
+
+#site-title h4{
+    padding-top:25px;
+    padding-bottom: 9px;
+    color: map-get($theme-colors, dark)!important;
+}
+
+nav {
+    background-color: map-get($theme-colors, primary-alt);;
+    border-bottom: 1px solid map-get($theme-colors, light);
+    margin-bottom: 20px;
+}
+#theme-nav #site-title h4{
+    padding-top:25px;
+    padding-bottom: 9px;
+    color: map-get($theme-colors, dark);
+}
+#theme-nav .btn-publish{
+    padding: 8px 25px;
+    border: 1px solid map-get($theme-colors, light);
+    color: map-get($theme-colors, primary-nav);
+    &.publish:not([disabled]) {
+        background-color: map-get($theme-colors, primary-nav);
+        color: map-get($theme-colors, light);
+    }
+}
+.more-dropdown {
+    font-size: 2rem;
+    color: map-get($theme-colors, light);
+    cursor: pointer;
+}
+.dropdown-toggle::after{
+    content:initial;
+}
+#title {
+    font-size: 2em;
+    font-weight: bold;
+}
+#title, #description {
+    border: none;
+    resize: none;
+    &:focus {
+        outline: none;
+        box-shadow: none;
+    }
+}
+label {
+    font-size: 0.8em;
+    font-weight: bold;
+    color: map-get($theme-colors, mediem);
+}
+label.title-label {
+    line-height: 50px;
+}
+label.description-label {
+    line-height: 25px;
+}
+.hidden {
+    visibility: hidden;
+}
+.form-check {
+    padding-left: 3rem;
+    font-size: 1.2rem;
+}
+.custom-control-label::before, .custom-control-label::after {
+    top: 0;
+    width: 1.2rem;
+    height: 1.2rem;
+    border: 1px solid black;
+    background-color: white;
+    // background-image: url("data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 8 8'%3E%3Cpath fill='rgb(56,89,138)' d='M6.564.75l-3.59 3.612-1.538-1.55L0 4.26 2.974 7.25 8 2.193z'/%3E%3C/svg%3E");
+    background-size: 80%;
+}
+.custom-control-input:checked + label::before,.custom-control-input:checked + label::after{
+    background-image: url("data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 8 8'%3E%3Cpath fill='rgb(56,89,138)' d='M6.564.75l-3.59 3.612-1.538-1.55L0 4.26 2.974 7.25 8 2.193z'/%3E%3C/svg%3E");
+}
+.custom-checkbox .custom-control-input:focus~.custom-control-label::before {
+    outline: none;
+    box-shadow: none;
+}
+.custom-control-label {
+    padding-left: 8px;
+    font-weight: normal;
+    color: map-get($theme-colors, mediem);
+}

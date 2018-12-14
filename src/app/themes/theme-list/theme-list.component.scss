@@ -1,6 +1,12 @@
 @import "../../../assets/styles/variables.scss";
 .card {
     border: none;
+    cursor: pointer;
+}
+.card:hover {
+    .card-title {
+        text-decoration: underline;
+    }
 }
 
 .col-12:last-child {

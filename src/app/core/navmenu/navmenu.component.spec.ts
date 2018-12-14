@@ -1,8 +1,8 @@
 /* tslint:disable:no-unused-variable */
-import { async, ComponentFixture, TestBed, fakeAsync, tick } from '@angular/core/testing';
+import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { DebugElement } from '@angular/core';
-import { RouterModule, Router } from '@angular/router';
+import { RouterModule } from '@angular/router';
 import { NavMenuComponent } from './navmenu.component';
 import { HttpClientModule } from '@angular/common/http';
 import { RouterTestingModule } from '@angular/router/testing';
@@ -40,9 +40,9 @@ describe('NavmenuComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(NavMenuComponent);
     component = fixture.componentInstance;
+    fixture.detectChanges();
     de = fixture.debugElement.query(By.css('.gov-navbar'));
     element  = de.nativeElement;
-    fixture.detectChanges();
   });
   
   it('should create', () => {

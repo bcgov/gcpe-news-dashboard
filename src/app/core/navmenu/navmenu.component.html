@@ -1,5 +1,5 @@
 <header>
-  <nav class="navbar fixed-top navbar-expand-lg bg-primary gov-navbar navbar-light" style="padding-top: 0; padding-bottom: 0;">
+  <nav *ngIf="visible" class="navbar fixed-top navbar-expand-lg bg-primary gov-navbar navbar-light" style="padding-top: 0; padding-bottom: 0;">
     <!-- Navbar content -->
     <div class="container">
       <div class="flex-fill row row-eq-height justify-content-between">
@@ -45,8 +45,8 @@
               <div ngbDropdown class="image" placement="bottom-right">
                   <div class="user-image" id="profile-menu" ngbDropdownToggle>J</div>
                   <div ngbDropdownMenu class="dropdown-menu" aria-labelledby="profile-menu">
-                    <a class="dropdown-item" href="#">New Theme</a>
-                    <a class="dropdown-item" [routerLink]="['/theme-list']" [queryParams]="{ type: 'Published'}" routerLinkActive="active">Themes</a>
+                    <a class="dropdown-item" [routerLink]="['/theme/new']">New Theme</a>
+                    <a class="dropdown-item" [routerLink]="['/themes']" [queryParams]="{ type: 'Published'}" routerLinkActive="active">Themes</a>
                     <div class="dropdown-divider"></div>
                     <a class="dropdown-item" href="#">Subscriptions</a>
                     <a class="dropdown-item" href="#">Account Settings</a>
