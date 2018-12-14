@@ -1,12 +1,12 @@
 <div class="container dashboard-theme-container" >
     <h2>Themes
-      <button class="btn btn-primary pull-right btn-print">New Theme</button>
+      <a class="btn btn-primary pull-right btn-print" [routerLink]="['/theme/new']">New Theme</a>
     </h2>
     
     <div class="pt-3 router-style">
         <ul class="list-inline">
-            <li class="list-inline-item"><a [routerLink]="['/theme-list']"  [queryParams]="{ type: 'Published'}" routerLinkActive="active">{{'published' | uppercase }}</a></li>
-            <li class="list-inline-item"><a [routerLink]="['/theme-list']" [queryParams]="{ type: 'Drafts'}" routerLinkActive="active">{{'drafts' | uppercase }}</a></li>
+            <li class="list-inline-item"><a [routerLink]="['/themes']"  [queryParams]="{ type: 'Published'}" routerLinkActive="active">{{'published' | uppercase }}</a></li>
+            <li class="list-inline-item"><a [routerLink]="['/themes']" [queryParams]="{ type: 'Drafts'}" routerLinkActive="active">{{'drafts' | uppercase }}</a></li>
         </ul>
     </div>
 </div>

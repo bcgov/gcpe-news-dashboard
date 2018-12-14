@@ -6,11 +6,11 @@ import { MessagesService } from '../services/messages.service';
 import { catchError } from 'rxjs/operators';
 
 @Injectable()
-export class ThemeListByAdminResolver implements Resolve<Message[]> {
-  constructor(private messagesService: MessagesService, private router: Router) { }
-    
+export class MessageListResolver implements Resolve<Message[]> {
+    constructor(private messagesService: MessagesService, private router: Router) { }
+
     resolve(route: ActivatedRouteSnapshot): Observable<Message[]> {
-      let isPublished = route.queryParams['type'].toLowerCase() !== 'drafts';
+        const isPublished = (route.queryParams['type'] || 'Published').toLowerCase() !== 'drafts';
         return this.messagesService.getAllMessages(isPublished)
         .pipe(
             catchError(error => {

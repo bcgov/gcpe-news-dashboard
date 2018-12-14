@@ -18,4 +18,8 @@ export class ThemeListComponent implements OnInit {
       this.themes = data['themelist'];
     });
   }
+
+  navigateToTheme(id) {
+    this.router.navigate([`/theme/edit/${id}`]);
+  }
 }
