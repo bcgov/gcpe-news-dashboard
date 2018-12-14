@@ -1,23 +1,26 @@
-<app-hq-dashboard-sub-menu [socialmediatypes]="socialmediatypes"></app-hq-dashboard-sub-menu>
+<app-hq-dashboard-sub-menu [socialmediatypes]="socialmediatypes" ></app-hq-dashboard-sub-menu>
 <div id="social-media-list" class="card-columns">
         <div *ngFor="let item of selectedSocialMedia">
                 <div [ngSwitch]="item.mediatype">
-                        <div class="social-media-post card">
-                                <blockquote *ngSwitchCase="'Twitter'" class="twitter-tweet" data-lang="en" id={{item.id}}>
+                        <div class="social-media-post">
+                                <blockquote *ngSwitchCase="'Twitter'" class="twitter-tweet" data-lang="en" id={{item.id}} data-width="355">
                                         <a href="https://publish.twitter.com/oembed?
-                                                                    {{item.url}}"></a>
+                                                                    {{item.url}} | async"></a>
                                 </blockquote>
+                                <blockquote *ngSwitchCase="'Facebook'" class="fb-post" attr.data-href="{{item.url}} | async"
+                                        data-width="355" data-max-width="355"></blockquote>
 
-                                <blockquote *ngSwitchCase="'Facebook'" class="fb-post" attr.data-href="{{item.url}}"
-                                        data-width="355"></blockquote>
-
-                                <blockquote *ngSwitchCase="'Instagram'" class="instagram-media" data-instgrm-captioned
-                                        attr.data-instgrm-permalink="{{item.url}}?OMITSCRIPT=true" data-instgrm-version="9"
-                                        id={{item.id}} style="width:355px;">
-                                        <a href="{{item.url}}?OMITSCRIPT=true"></a>
+                                <blockquote *ngSwitchCase="'Instagram'" class="responsive-social-media-post instagram-media" data-instgrm-captioned
+                                        attr.data-instgrm-permalink="{{item.url}}?OMITSCRIPT=true | async" data-instgrm-version="9"
+                                        id={{item.id}} style="width:355px">
+                                        <a href="{{item.url}}?OMITSCRIPT=true | async"></a>
                                 </blockquote>
+                                <div *ngSwitchCase="'Instagram'" class="instagram-post"></div>
                         </div>
-
                 </div>
         </div>
 </div>
+
+<div #dataContainerInstagram></div>
+
+<div #dataContainerFacebook></div>

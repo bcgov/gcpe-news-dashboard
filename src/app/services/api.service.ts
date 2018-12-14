@@ -6,6 +6,8 @@ import { Post } from '../view-models/news/post';
 import { SocialMedia } from '../view-models/social-media';
 import { SocialMediaType } from '../view-models/social-media-type';
 import { BASE_PATH } from '../variables';
+import { resolve } from 'q';
+
 
 @Injectable({
   providedIn: 'root'
@@ -51,11 +53,15 @@ export class ApiService {
       mediatype: 'Instagram',
       url:'https://www.instagram.com/p/BrBSPuMBHDn/',
     },
-    
     {
       id: '5',
       mediatype: 'Facebook',
       url: 'https://www.facebook.com/BCProvincialGovernment/posts/2447373845280893',
+    },
+    {
+      id: '6',
+      mediatype: 'Twitter',
+      url: 'https://twitter.com/BCGovNews/status/1072287955014877184',
     },
   ];
 
@@ -82,6 +88,17 @@ export class ApiService {
     return this.httpClient.get<SocialMedia[]>(`${this.API_URL}/api/Posts/Latest/home/default?count=10&api-version=1.0`)
     .pipe();
     */
+   this.SocialMediaList.forEach(function (item, i, list) {
+    if (item.url.search('facebook.com') >= 0) {
+      item.mediatype = 'Facebook';
+    }
+    else if (item.url.search('twitter.com') >= 0) {
+      item.mediatype = 'Twitter';
+    }
+    else {
+      item.mediatype = 'Instagram';
+    }
+  });
    return of(this.SocialMediaList);
   }
 
@@ -89,4 +106,5 @@ export class ApiService {
   getSocialMediaTypes(): Observable<SocialMediaType[]> {
     return of(this.SocialMediaTypeList);
   }
+
 }

@@ -36,8 +36,27 @@ $fa-soundcloud: #f80;
 
 .dropdown-toggle::after {
     content:initial;
- }
- #social-media-filter a {
+}
+
+#social-media-filter a {
     color: map-get($theme-colors, primary-nav)!important;
 }
+
+.card-columns {
+    @include media-breakpoint-only(xs) {
+      column-count: 1;
+    }
+    @include media-breakpoint-only(sm) {
+        column-count: 1;
+    }
+    @include media-breakpoint-only(md) {
+        column-count: 2;
+    }
+    @include media-breakpoint-only(lg) {
+        column-count: 2;
+    }
+  }
+
+
+
 
