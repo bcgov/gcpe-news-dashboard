@@ -1,12 +1,15 @@
 import { Injectable, Inject  } from '@angular/core';
 import { HttpClient} from  '@angular/common/http';
-import { Observable, of } from 'rxjs';
+import { Observable, of, forkJoin } from 'rxjs';
 import { Activity } from '../view-models/activity';
 import { Post } from '../view-models/news/post';
 import { SocialMedia } from '../view-models/social-media';
 import { SocialMediaType } from '../view-models/social-media-type';
 import { BASE_PATH } from '../variables';
-import { resolve } from 'q';
+import { InstagramPost } from '../view-models/instagram-post';
+import { FacebookPost } from '../view-models/facebook-post';
+import { map, concatAll } from 'rxjs/operators';
+import { interval } from 'rxjs';
 
 
 @Injectable({
@@ -106,5 +109,50 @@ export class ApiService {
   getSocialMediaTypes(): Observable<SocialMediaType[]> {
     return of(this.SocialMediaTypeList);
   }
+
+  requestInstagramEmbed() :Observable<InstagramPost[]> {
+
+    let instagramPostList = this.SocialMediaList.filter(res => res.mediatype == 'Instagram');
+    let responses : InstagramPost[];
+    responses = [];
+    let temp: InstagramPost;
+    instagramPostList.forEach((item) => {
+      var url = `https://api.instagram.com/oembed?url=${item.url}&omitscript=true`;
+      let response = this.httpClient.get<InstagramPost>(url, {responseType:"json"}).subscribe(data => {
+        console.log(data);
+        temp = data;
+      });
+      responses.push(temp);
+    });
+    
+    //let result = forkJoin(responses);
+    console.log('response'+ responses);
+    return of(responses);
+  }
+
+  requestFacebookEmbed() :Observable<FacebookPost[]> {
+
+    let instagramPostList = this.SocialMediaList.filter(res => res.mediatype == 'Facebook');
+    let responses : FacebookPost[];
+    responses = [];
+    let temp: FacebookPost;
+    instagramPostList.forEach((item) => {
+      const proxyurl = "https://cors-anywhere.herokuapp.com/";
+      var url = `https://www.facebook.com/plugins/post/oembed.json/?url=${item.url}&omitscript=true`;
+      let response = this.httpClient.get<FacebookPost>(proxyurl+url, {responseType:"json"}).subscribe(data => {
+        console.log(data);
+        temp = data;
+      });
+      responses.push(temp);
+    });
+    
+    //let result = forkJoin(responses);
+    console.log('facebook response'+ responses);
+    return of(responses);
+    
+
+    
+  }
+
 
 }

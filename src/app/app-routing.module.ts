@@ -18,6 +18,7 @@ const appRoutes: Routes = [
   { path: 'next-7-day-entry-list', component: ActivityForecastListComponent, resolve: { entrylist: ActivityListResolver } },
   { path: 'themes-of-the-week', component: ThemesOfWeekComponent, resolve: { themes: MessageListResolver } },
   { path: 'social-media', component: SocialMediaListComponent, resolve: { socialmedia: SociaMediaListResolver, socialmediatype: SociaMediaTypeListResolver }, runGuardsAndResolvers: 'paramsOrQueryParamsChange', },
+  { path: 'social-media-list-input', component: SocialMediaListComponent, resolve: { socialmedia: SociaMediaListResolver } },
   { path: '', redirectTo: 'last-7-day-post-list', pathMatch: 'full' },
   { path: 'themes', component: ThemeListComponent, resolve: { themelist: MessageListResolver }, runGuardsAndResolvers: 'paramsOrQueryParamsChange' },
   { path: 'theme/new', component: ThemeFormComponent },

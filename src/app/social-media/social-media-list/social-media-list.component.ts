@@ -72,7 +72,8 @@ export class SocialMediaListComponent implements OnInit, AfterViewInit, OnDestro
     this.requestInstagramEmbed("https://www.instagram.com/p/BrTJd9yBvVy/?utm_source=ig_web_copy_link");
     //this.requestFacebookEmbed("http://www.facebook.com/BCProvincialGovernment/posts/2456078591077085");
     this.loadInstagramDivs();
-
+    this.apiService.requestInstagramEmbed();
+    this.apiService.requestFacebookEmbed();
   }
 
   loadTwitterWidgets(){
@@ -144,11 +145,10 @@ export class SocialMediaListComponent implements OnInit, AfterViewInit, OnDestro
     for (let i = 0; i < allDivs.length; i++) 
     {
       var url = `https://api.instagram.com/oembed?url=https://www.instagram.com/p/BrTJd9yBvVy/?utm_source=ig_web_copy_link&omitscript=true`;
-    let result = this.http.get<InstagramPost>(url, {responseType:"json"}).subscribe(data => { 
-      console.log(data);
-
-      allDivs[i].innerHTML = data.html;
-    });
+      let result = this.http.get<InstagramPost>(url, {responseType:"json"}).subscribe(data => { 
+        console.log(data);
+        allDivs[i].innerHTML = data.html;
+      });
     }
   }
 
