@@ -17,7 +17,7 @@ export class ActivityForecastListComponent implements OnInit {
 
   ngOnInit() {
     this.route.data.subscribe(data => {
-      this.activityList = data['activityList'];
+      this.activityList = data['activities'];
     });
   }
 

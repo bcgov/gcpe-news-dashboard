@@ -5,12 +5,11 @@ var request = require('request');
 var jsYaml = require('js-yaml');
 var unzip = require('unzip2');
 
-var newsApiUrl = "https://dev.api.news.gov.bc.ca/swagger/v1/swagger.json";
 var hubApiUrl = "https://dev.api.hub.gov.bc.ca/swagger/v1/swagger.json";
 
 var swaggerTempFile = __dirname + path.sep + "swagger.json";
 
-function downloadCB(tsPath, models2get) {
+function downloadCB(models2get) {
   var codeGenEndpoint = 'http://generator.swagger.io/api/gen/clients'; // swagger-codegen
 
   fs.readFile(path.resolve(swaggerTempFile), 'utf8', function (error, yaml) {
@@ -23,7 +22,7 @@ function downloadCB(tsPath, models2get) {
       options: {
         modelPropertyNaming: 'camelCase',
         apiPackage: 'services',
-        modelPackage: 'view-models' + tsPath,
+        modelPackage: 'view-models',
         ngVersion : "6.0"
       }
     };
@@ -69,18 +68,18 @@ function downloadCB(tsPath, models2get) {
 }
 
 // invoke the download...
-var download = function (url, tsPath, models2get) {
+var download = function (url, models2get) {
   console.log("Download URL is " + url);
   console.log("Destination is " + swaggerTempFile);
   var file = fs.createWriteStream(swaggerTempFile);
   https.get(url, function (response) {
     response.pipe(file);
     file.on('finish', function () {
-      file.close(downloadCB(tsPath, models2get));  // close() is async, call downloadCB after close completes.
+      file.close(downloadCB(models2get));  // close() is async, call downloadCB after close completes.
     });
   });
 }
 
-//download(newsApiUrl, "/news", ["/dataIndex", "/dataModel", "/post.ts", "/document", "/asset", "/keyValuePair", "/category", "/ministry", "/minister", "/contact", "/resourceLink.ts"]);
 //generate services for message and socialMediaPost, but not activities
-downloadCB("", ["/message", "/socialMediaPost", "/activity.ts"]);
+downloadCB(["/message", "/socialMediaPost", "/activity.ts", "/post.ts", "/document"]);
+//download(hubApiUrl, ["/message", "/socialMediaPost", "/activity.ts", "/post.ts", "/document"]);

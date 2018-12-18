@@ -1,7 +1,7 @@
 import { TestBed, async, inject } from '@angular/core/testing';
 import { HttpClientModule,HttpClient } from '@angular/common/http';
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
-import { Post } from '../view-models/news/post';
+import { Post } from '../view-models/post';
 import { Activity } from '../view-models/activity';
 import { environment } from '../../environments/environment';
 import { ApiService } from './api.service';
@@ -15,8 +15,7 @@ describe('ApiService', () => {
     ],
     providers: [
       ApiService,
-      { provide: BASE_PATH, useValue: environment.apiUrl},
-      { provide: 'BASE_NEWS_API_URL', useValue: environment.newsApiUrl}
+      { provide: BASE_PATH, useValue: environment.apiUrl}
     ],
 
   }));
