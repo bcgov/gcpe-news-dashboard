@@ -22,8 +22,7 @@ describe('ThemeSubMenuComponent', () => {
         ThemeSubMenuComponent
       ],
       providers: [
-        { provide: BASE_PATH, useValue: environment.apiUrl },
-        { provide: 'BASE_NEWS_API_URL', useValue: environment.newsApiUrl }
+        { provide: BASE_PATH, useValue: environment.apiUrl }
       ],
     })
     .compileComponents();

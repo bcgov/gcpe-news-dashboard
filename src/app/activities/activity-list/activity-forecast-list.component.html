@@ -8,9 +8,9 @@
             </div>  
             <div class="card" *ngFor="let activity of activityList; let i = index" [hidden]="i>2">
                 <div class="card-body"  >
-                    <h6 class="card-subtitle mb-2 text-muted card-ministry-label">{{activity.ministryKeys}}</h6>
-                    <h5 class="card-title">{{activity.documents[0].headline}}</h5>
-                    <p class="card-text">{{activity.summary}}</p>
+                    <h6 class="card-subtitle mb-2 text-muted card-ministry-label">{{activity.contactMinistryKey}}</h6>
+                    <h5 class="card-title">{{activity.title}}</h5>
+                    <p class="card-text">{{activity.details}}</p>
                   </div>
             </div>
         </div>
