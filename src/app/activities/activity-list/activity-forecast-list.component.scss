@@ -1,13 +1,3 @@
-@media (min-width: 1140px) {
-    .seven-cols .col-md-1,
-    .seven-cols .col-sm-1,
-    .seven-cols .col-lg-1 {
-        flex:14.285714285714285714285714285714%;
-      max-width: 14.285714285714285714285714285714%;
-      *width: 14.285714285714285714285714285714%;
-    }
-  }
-
 #activity-forecast-list {
     padding-left: 0;
     padding-right: 0;
@@ -18,7 +8,7 @@
     margin-bottom: 15px;
 }
 
-#activity-forecast-list .col-lg-1 {
+#activity-forecast-list .col-lg-2 {
     padding-left: 5px;
     padding-right: 5px;
 }
