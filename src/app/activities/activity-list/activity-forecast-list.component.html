@@ -1,12 +1,12 @@
 
 <app-hq-dashboard-sub-menu></app-hq-dashboard-sub-menu>
 <div id="activity-forecast-list">
-  <div class="row seven-cols">
-        <div class="col-lg-1" *ngFor="let day of daysOfWeek">
+  <div class="row">
+        <div class="col-lg-2" *ngFor="let dayActivities of activitiesPerDays; let i = index">
             <div class="card" style="max-width: 18rem;">
-                <div class="card-header bg-light">{{day}}<div class="pull-right">20</div></div>
+              <div class="card-header bg-light">{{getStartDow(i)}}<div class="pull-right">{{getStartDay(i)}}</div></div>
             </div>  
-            <div class="card" *ngFor="let activity of activityList; let i = index" [hidden]="i>2">
+            <div class="card" *ngFor="let activity of dayActivities">
                 <div class="card-body"  >
                     <h6 class="card-subtitle mb-2 text-muted card-ministry-label">{{activity.contactMinistryKey}}</h6>
                     <h5 class="card-title">{{activity.title}}</h5>
