@@ -2,9 +2,9 @@ import { Component, OnInit, ViewChild, ElementRef, AfterViewInit, OnDestroy } fr
 import { Router, ActivatedRoute } from '@angular/router';
 import { SocialMediaType } from '../../view-models/social-media-type';
 import { SocialMediaPostsService } from '../../services/socialMediaPosts.service';
-import { SocialMediaPostViewModel } from '../../view-models/social-media-post';
+import { SocialMediaPostExtended } from '../../view-models/social-media-post-extended';
 
-// the following readonly names need to match the names from the scoial media sdk
+// the following readonly names need to match the names from the social media sdk
 declare const FB: any;
 declare const twttr: any;
 declare const instgrm: any;
@@ -15,8 +15,8 @@ declare const instgrm: any;
   styleUrls: ['./social-media-post-list.component.scss']
 })
 export class SocialMediaPostListComponent implements OnInit, AfterViewInit, OnDestroy {
-  socialmedia: SocialMediaPostViewModel[];
-  selectedSocialMedia: SocialMediaPostViewModel[];
+  socialmedia: SocialMediaPostExtended[];
+  selectedSocialMedia: SocialMediaPostExtended[];
 
   socialmediatypes: SocialMediaType[];
   filterBy: string = 'All';
@@ -44,8 +44,7 @@ export class SocialMediaPostListComponent implements OnInit, AfterViewInit, OnDe
     this.activatedRoute.queryParams.subscribe((queryParams: any) => {
       if (queryParams.type === 'All') {
         this.selectedSocialMedia = this.socialmedia;
-      }
-      else {
+      } else {
         this.selectedSocialMedia = this.socialmedia.filter(s => s.mediaType === queryParams.type);
       }
 
@@ -83,8 +82,7 @@ export class SocialMediaPostListComponent implements OnInit, AfterViewInit, OnDe
           this.loadInstagramWidgets();
           this.loadTwitterWidgets();
           this.loadFacebookWidgets();
-        }
-        else {
+        } else {
           this.selectedSocialMedia = this.socialmedia.filter(s => s.mediaType === queryParams.type);
           switch (queryParams.type) {
             case 'Facebook':
@@ -104,5 +102,4 @@ export class SocialMediaPostListComponent implements OnInit, AfterViewInit, OnDe
   ngOnDestroy() {
     console.log('destroy');
   }
-
 }

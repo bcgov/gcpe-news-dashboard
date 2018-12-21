@@ -130,8 +130,7 @@ export class SocialMediaListInputComponent implements OnInit {
               console.log('Failed to update psot: ' + post.id);
             }
           )
-        }
-        else {
+        } else {
           delete post["id"];
           this.socialMediaService.addSocialMediaPost(post).subscribe(
             () => {
@@ -144,8 +143,7 @@ export class SocialMediaListInputComponent implements OnInit {
         }
       });
       this.router.navigate(['social-media-list'], { queryParams: { type: 'All' } });
-    }
-    else{
+    } else {
       /// TODO: if submit failed, do something
       console.log('not valid');
     }
@@ -164,3 +162,4 @@ export class SocialMediaListInputComponent implements OnInit {
     this.nav.show();
   }
 }
+

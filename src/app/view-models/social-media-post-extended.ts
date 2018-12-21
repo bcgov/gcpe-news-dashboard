@@ -1,6 +1,6 @@
 import { SocialMediaPost } from './socialMediaPost';
 
-export class SocialMediaPostViewModel implements SocialMediaPost {
+export class SocialMediaPostExtended implements SocialMediaPost {
     id?: string;
     url: string;
     sortOrder?: number;

@@ -15,5 +15,4 @@ export class DeletePostConfirmationModalComponent implements OnInit {
 
   ngOnInit() {
   }
-
 }
