@@ -142,7 +142,7 @@ export class SocialMediaListInputComponent implements OnInit {
           )
         }
       });
-      this.router.navigate(['social-media-list'], { queryParams: { type: 'All' } });
+      this.router.navigate(['social-media-list'], { queryParams: { type: 'All', v: new Date().getTime()}, preserveQueryParams: false });
     } else {
       /// TODO: if submit failed, do something
       console.log('not valid');
