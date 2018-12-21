@@ -55,4 +55,8 @@ describe('ThemeCardComponent', () => {
     const div = fixture.nativeElement.querySelector('.card');
     expect(div.getAttribute('class')).toContain('last');
   });
+
+  afterEach(() => {
+    TestBed.resetTestingModule();
+});
 });
