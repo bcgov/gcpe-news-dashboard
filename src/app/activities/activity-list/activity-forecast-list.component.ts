@@ -12,7 +12,7 @@ import { WeekDay } from '@angular/common';
 
 export class ActivityForecastListComponent implements OnInit {
   public activitiesPerDays: Activity[][] = [[], [], [], [], [], []]; // just 5 + 1 for the week-end
-  today: number = new Date().valueOf();
+  today: Date = new Date();
   msInaDay: number = 24 * 3600 * 1000;
 
   constructor(private apiService:  ApiService, private route: ActivatedRoute) { }
@@ -20,7 +20,7 @@ export class ActivityForecastListComponent implements OnInit {
   ngOnInit() {
     this.route.data.subscribe(data => {
       var inst = this;
-      var todayDow = new Date().getDay();
+      var todayDow = this.today.getDay();
       if (todayDow == 6) todayDow = 0; // group Sunday with Saturday
       data['activities'].forEach(v => {
         v.startDateTime = new Date(v.startDateTime);
@@ -31,18 +31,25 @@ export class ActivityForecastListComponent implements OnInit {
     });
   }
   getStartDow(i: number) {
-    var weekDay = WeekDay[this.getStartDate(i).getDay()];
-    return weekDay == "Sunday" ? "Sat/Sun" : weekDay;
+    var dow: number = this.getStartDate(i).getDay();
+    return dow != 0 && dow != 6 ? WeekDay[dow] : "Sat/Sun";
   }
 
   getStartDay(i: number) {
     var startDateTime: Date = this.getStartDate(i);
-    var day:number = startDateTime.getDate();
-    return startDateTime.getDay() == 0 ? new Date(startDateTime.valueOf() - this.msInaDay).getDate() + "/" + day : day;
+    var day: string = startDateTime.getDate().toString();
+    var dow: number = startDateTime.getDay();
+    if (dow == 0 || dow == 6) {
+      if (dow == 0) day = new Date(startDateTime.valueOf() - this.msInaDay).getDate() + "/" + day;
+      else day+= "/" + new Date(startDateTime.valueOf() + this.msInaDay).getDate();
+    }
+    return day;// + "(" + (startDateTime.getMonth() + 1) + ")";
   }
 
   getStartDate(i: number) {
-    return this.activitiesPerDays[i].length != 0 ? this.activitiesPerDays[i][0].startDateTime : new Date(this.today + i * this.msInaDay);
+    if (this.activitiesPerDays[i].length != 0) return this.activitiesPerDays[i][0].startDateTime;
+    if (i + this.today.getDay() > 6) i++; // for the week-end
+    return new Date(this.today.valueOf() + i * this.msInaDay);
   }
 
   /*getActivities() {
