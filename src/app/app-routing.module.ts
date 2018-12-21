@@ -20,7 +20,6 @@ const appRoutes: Routes = [
   { path: 'themes-of-the-week', component: ThemesOfWeekComponent, resolve: { themes: MessageListResolver } },
   { path: 'social-media-list', component: SocialMediaPostListComponent, resolve: { socialmedia: SociaMediaPostListResolver, socialmediatype: SociaMediaTypeListResolver }, runGuardsAndResolvers: 'paramsOrQueryParamsChange', },
   { path: 'social-media-list-input', component: SocialMediaListInputComponent, resolve: { socialmedia: SociaMediaPostListResolver } },
-
   { path: '', redirectTo: 'last-7-day-post-list', pathMatch: 'full' },
   { path: 'themes', component: ThemeListComponent, resolve: { themelist: MessageListResolver }, runGuardsAndResolvers: 'paramsOrQueryParamsChange' },
   { path: 'theme/new', component: ThemeFormComponent },
