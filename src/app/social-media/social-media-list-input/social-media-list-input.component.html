@@ -12,13 +12,13 @@
 </nav>
 
 <div id="admin-social-media-list-input-form" class="container pl-0 pr-0 pt-5">
-    <form [formGroup]="socialMediaPostListForm" (ngSubmit)="onSubmit()">
+    <form [formGroup]="socialMediaPostListForm" (ngSubmit)="submit()">
         <legend>
             Please update the social media post url here
         </legend>
         <fieldset style="padding-top:30px;">
             <div formArrayName="postList">
-                <div *ngFor="let formGroup of socialMediaPostListForm.controls.postList.controls; index as i">
+                <div *ngFor="let formGroup of socialMediaPostListForm['controls'].postList['controls']; index as i">
                     <div [formGroup]="formGroup">
                         <div class="input-group">
                             <label for="url" class="col-lg-1 col-form-label">{{'Url' | uppercase}}</label>
