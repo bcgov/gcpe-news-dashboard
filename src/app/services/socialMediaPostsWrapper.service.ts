@@ -1,8 +1,6 @@
 import { Injectable, Inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable, of, forkJoin } from 'rxjs';
-import { Activity } from '../view-models/activity';
-import { Post } from '../view-models/news/post';
 import { SocialMediaType } from '../view-models/social-media-type';
 import { BASE_PATH } from '../variables';
 import { InstagramPost } from '../view-models/instagram-post';
@@ -24,9 +22,8 @@ export class SocialMediaApiService {
     API_URL = '';
     NEWS_API_URL = '';
     instagramList: any[];
-    constructor(private httpClient: HttpClient, @Inject(BASE_PATH) baseApiUrl: string, @Inject('BASE_NEWS_API_URL') baseNewsApiUrl: string, private socialMediaService: SocialMediaPostsService) {
+    constructor(private httpClient: HttpClient, @Inject(BASE_PATH) baseApiUrl: string, private socialMediaService: SocialMediaPostsService) {
         this.API_URL = baseApiUrl;
-        this.NEWS_API_URL = baseNewsApiUrl;
     }
 
     getAllSocialMediaPosts() {
