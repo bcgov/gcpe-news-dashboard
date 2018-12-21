@@ -52,6 +52,13 @@ module.exports = function (config) {
         ]
     }
     },
-    singleRun: false
+    singleRun: false,
+    files: [
+      'https://connect.facebook.net/en_US/sdk.js',
+      'https://www.instagram.com/embed.js',
+      'https://platform.twitter.com/widgets.js'
+    ],
+    // Test config for social media post
+    // crossOriginAttribute: false,
   });
 };

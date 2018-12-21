@@ -1,7 +1,7 @@
 <app-hq-dashboard-sub-menu [socialmediatypes]="socialmediatypes" ></app-hq-dashboard-sub-menu>
 <div id="social-media-list" class="card-columns">
         <div *ngFor="let item of selectedSocialMedia">
-                <div [ngSwitch]="item.mediatype">
+                <div [ngSwitch]="item.mediaType">
                         <div class="social-media-post">
                                 <blockquote *ngSwitchCase="'Twitter'" class="twitter-tweet" data-lang="en" id={{item.id}} data-width="355">
                                         <a href="https://publish.twitter.com/oembed?
@@ -20,7 +20,3 @@
                 </div>
         </div>
 </div>
-
-<div #dataContainerInstagram></div>
-
-<div #dataContainerFacebook></div>

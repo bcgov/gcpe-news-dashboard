@@ -1,3 +1,44 @@
-<p>
-  social-media-list-input works!
-</p>
+<nav id="social-media-list-input-nav" class="navbar fixed-top navbar-expand-lg bg-primary navbar-light" style="padding-top: 0; padding-bottom: 0;">
+    <div class="container">
+        <div class="navbar-brand title mr-auto">
+            <h4>Update Social Media List</h4>
+        </div>
+        <ul class="navbar-nav navbar-right">
+            <li class="nav-item btn-link"><a href="#" (click.preventDefault)="addSocialMediaPost()" class="btn btn-link">Add</a></li>
+            <li class="nav-item btn-link"><a href="#" (click.preventDefault)="submit()" class="btn btn-link">Submit</a></li>
+            <li class="nav-item btn-link"><a href="#" (click.preventDefault)="close()" class="btn btn-link">Cancel</a></li>
+        </ul>
+    </div>
+</nav>
+
+<div id="admin-social-media-list-input-form" class="container pl-0 pr-0 pt-5">
+    <form [formGroup]="socialMediaPostListForm" (ngSubmit)="onSubmit()">
+        <legend>
+            Please update the social media post url here
+        </legend>
+        <fieldset style="padding-top:30px;">
+            <div formArrayName="postList">
+                <div *ngFor="let formGroup of socialMediaPostListForm.controls.postList.controls; index as i">
+                    <div [formGroup]="formGroup">
+                        <div class="input-group">
+                            <label for="url" class="col-lg-1 col-form-label">{{'Url' | uppercase}}</label>
+                            <div class="col-lg-7 ">
+                                <input class="form-control" type="text" name="url" formControlName="url">
+                            </div>
+                            <div class="col-lg-4 pull-right">
+                                <div class="btn-group" role="group" aria-label="Basic example">
+                                    <button type="submit" (click.preventDefault)="move(-1, i)" class="btn btn-link"><i
+                                            class="fa fa-arrow-up fa-2x"></i></button>
+                                    <button type="submit" (click.preventDefault)="move(1, i)" class="btn btn-link"><i
+                                            class="fa fa-arrow-down fa-2x"></i></button>
+                                    <button type="submit" (click.preventDefault)="deleteSocialMediaPost(i)" class="btn btn-link"><i
+                                            class="fa fa-trash fa-2x"></i></button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </fieldset>
+    </form>
+</div>
