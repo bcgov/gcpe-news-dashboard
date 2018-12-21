@@ -7,40 +7,17 @@ import { catchError, map } from 'rxjs/operators';
 
 @Injectable()
 export class SociaMediaPostListResolver implements Resolve<SocialMediaPostViewModel[]> {
-    constructor(private apiService: SocialMediaPostsService,private router: Router) { }
+    constructor(private socialMediaPostsService: SocialMediaPostsService,private router: Router) { }
 
     resolve(route: ActivatedRouteSnapshot): Observable<SocialMediaPostViewModel[]> {
-        return this.apiService.getAllSocialMediaPosts()
+        return this.socialMediaPostsService.getAllSocialMediaPosts()
         .pipe(
-            map(res => res.map(item => ({
-                id: item.id,
-                url: item.url,
-                sortOrder: item.sortOrder,
-                mediaType: this.getMediaType(item.url),
-            } as SocialMediaPostViewModel))),
+            map(res => res.map(item => ( new SocialMediaPostViewModel(item)))),
             catchError(error => {
                 this.router.navigate(['/']);
                 return of(null);
             })
         )
     }
-
-    getMediaType(url:string): string{
-        let type: string;
-        type = '';
-        if (url.indexOf('facebook')>=0)
-        {
-            type = 'Facebook';
-        }
-        else if (url.indexOf('twitter')>=0)
-        {
-            type = 'Twitter';
-        }
-        else if (url.indexOf('instagram') >=0)
-        {
-            type = 'Instagram';
-        }
-        return type;
-    }
-    
+  
 }

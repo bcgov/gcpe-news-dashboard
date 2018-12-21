@@ -4,9 +4,9 @@ import { SocialMediaType } from '../../view-models/social-media-type';
 import { SocialMediaPostsService } from '../../services/socialMediaPosts.service';
 import { SocialMediaPostViewModel } from '../../view-models/social-media-post';
 
+// the following readonly names need to match the names from the scoial media sdk
 declare const FB: any;
 declare const twttr: any;
-declare const TWTTR: any;
 declare const instgrm: any;
 
 @Component({
@@ -18,34 +18,27 @@ export class SocialMediaPostListComponent implements OnInit, AfterViewInit, OnDe
   socialmedia: SocialMediaPostViewModel[];
   selectedSocialMedia: SocialMediaPostViewModel[];
 
-  private twitter: any;
-  private facebook: any;
-  private instagram: any;
-
   socialmediatypes: SocialMediaType[];
   filterBy: string = 'All';
 
-  constructor(private router: Router, private activatedRoute: ActivatedRoute, private socialMediaService: SocialMediaPostsService) { 
+  constructor(private router: Router, private activatedRoute: ActivatedRoute, private socialMediaService: SocialMediaPostsService) {
 
     this.router.routeReuseStrategy.shouldReuseRoute = () => false;
     this.init();
     this.loadInstagramWidgets();
     this.loadTwitterWidgets();
     this.loadFacebookWidgets();
-    
   }
 
   ngOnInit() {
     this.init();
   }
 
-  init(){
+  init() {
     this.activatedRoute.data.subscribe(data => {
       this.socialmedia = data['socialmedia'];
-      console.log(this.socialmedia);
-    });
-    this.activatedRoute.data.subscribe(data => {
       this.socialmediatypes = data['socialmediatype'];
+      console.log(this.socialmedia);
     });
 
     this.activatedRoute.queryParams.subscribe((queryParams: any) => {
@@ -60,26 +53,25 @@ export class SocialMediaPostListComponent implements OnInit, AfterViewInit, OnDe
     console.log(this.selectedSocialMedia);
   }
 
-  loadTwitterWidgets(){
-    if ((<any>window).twttr.ready())
-    {
-      (<any>window).twttr.widgets.load();
+  loadTwitterWidgets() {
+    if (twttr.ready()) {
+      twttr.widgets.load();
     }
   }
 
-  loadFacebookWidgets(){
-    (<any>window).FB.init({
-      xfbml      : true,
-      version    : 'v3.2'
+  loadFacebookWidgets() {
+    FB.init({
+      xfbml: true,
+      version: 'v3.2'
     });
-    (<any>window).FB.Event.subscribe('xfbml.ready', function(msg) {
-      (<any>window).FB.XFBML.parse();
+    FB.Event.subscribe('xfbml.ready', function (msg) {
+      FB.XFBML.parse();
     });
-    
+
   }
 
-  loadInstagramWidgets(){
-    (<any>window).instgrm.Embeds.process();
+  loadInstagramWidgets() {
+    instgrm.Embeds.process();
   }
 
   ngAfterViewInit() {
@@ -94,16 +86,15 @@ export class SocialMediaPostListComponent implements OnInit, AfterViewInit, OnDe
         }
         else {
           this.selectedSocialMedia = this.socialmedia.filter(s => s.mediaType === queryParams.type);
-          switch (queryParams.type)
-          {
+          switch (queryParams.type) {
             case 'Facebook':
-            this.loadFacebookWidgets();
-            break;
+              this.loadFacebookWidgets();
+              break;
             case 'Twitter':
-            this.loadTwitterWidgets();
-            break;
+              this.loadTwitterWidgets();
+              break;
             case 'Instagram':
-            this.loadInstagramWidgets();
+              this.loadInstagramWidgets();
           }
         }
       });
@@ -112,6 +103,6 @@ export class SocialMediaPostListComponent implements OnInit, AfterViewInit, OnDe
 
   ngOnDestroy() {
     console.log('destroy');
-  }   
+  }
 
 }

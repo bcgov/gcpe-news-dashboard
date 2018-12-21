@@ -56,7 +56,6 @@ export class SocialMediaListInputComponent implements OnInit {
         });
         this.socialMediaPostListForm.setControl('postList', formArray);
       }
-
     }
   }
 
@@ -128,9 +127,9 @@ export class SocialMediaListInputComponent implements OnInit {
               console.log('update success: ' + post.id);
             },
             () => {
-              console.log("Failed to update psot: " + post.id);
+              console.log('Failed to update psot: ' + post.id);
             }
-          );
+          )
         }
         else {
           delete post["id"];
@@ -139,11 +138,12 @@ export class SocialMediaListInputComponent implements OnInit {
               console.log('create success');
             },
             () => {
-              console.log("Failed to create post");
+              console.log('Failed to create post');
             }
-          );
+          )
         }
       });
+      this.router.navigate(['social-media-list'], { queryParams: { type: 'All' } });
     }
     else{
       /// TODO: if submit failed, do something
@@ -153,8 +153,7 @@ export class SocialMediaListInputComponent implements OnInit {
 
   get_url(index: number): any{
     let arrayControl = this.socialMediaPostListForm.get('postList') as FormArray;
-    let item = arrayControl.at(index);
-    return item;
+    return arrayControl.at(index);
   }
 
   close() {
