@@ -31,7 +31,6 @@ import { SociaMediaPostListResolver } from './_resolvers/social-media-post-list.
 import { SocialMediaPostsService } from './services/socialMediaPosts.service';
 import { DeletePostConfirmationModalComponent } from './social-media/delete-post-confirmation-modal/delete-post-confirmation-modal.component';
 import { SocialMediaPostListComponent } from './social-media/social-media-post-list/social-media-post-list.component';
-import { SocialMediaApiService } from './services/socialMediaPostsWrapper.service';
 
 @NgModule({
   declarations: [
@@ -65,7 +64,6 @@ import { SocialMediaApiService } from './services/socialMediaPostsWrapper.servic
     ApiService,
     MessagesService,
     SocialMediaPostsService,
-    SocialMediaApiService,
     AuthService,
     ActivityListResolver,
     MessagesService,

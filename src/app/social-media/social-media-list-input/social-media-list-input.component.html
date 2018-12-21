@@ -24,6 +24,7 @@
                             <label for="url" class="col-lg-1 col-form-label">{{'Url' | uppercase}}</label>
                             <div class="col-lg-7 ">
                                 <input class="form-control" type="text" name="url" formControlName="url">
+                                <div *ngIf="get_url(i).invalid && (get_url(i).dirty || get_url(i).touched)" class="alert alert-danger">Url Format Error</div>
                             </div>
                             <div class="col-lg-4 pull-right">
                                 <div class="btn-group" role="group" aria-label="Basic example">

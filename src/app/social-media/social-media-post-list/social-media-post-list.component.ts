@@ -2,7 +2,6 @@ import { Component, OnInit, ViewChild, ElementRef, AfterViewInit, OnDestroy } fr
 import { Router, ActivatedRoute } from '@angular/router';
 import { SocialMediaType } from '../../view-models/social-media-type';
 import { SocialMediaPostsService } from '../../services/socialMediaPosts.service';
-import { SocialMediaApiService } from '../../services/socialMediaPostsWrapper.service';
 import { SocialMediaPostViewModel } from '../../view-models/social-media-post';
 
 declare const FB: any;
@@ -26,7 +25,7 @@ export class SocialMediaPostListComponent implements OnInit, AfterViewInit, OnDe
   socialmediatypes: SocialMediaType[];
   filterBy: string = 'All';
 
-  constructor(private router: Router, private activatedRoute: ActivatedRoute, private socialMediaService: SocialMediaPostsService, private apiService: SocialMediaApiService) { 
+  constructor(private router: Router, private activatedRoute: ActivatedRoute, private socialMediaService: SocialMediaPostsService) { 
 
     this.router.routeReuseStrategy.shouldReuseRoute = () => false;
     this.init();
@@ -111,16 +110,8 @@ export class SocialMediaPostListComponent implements OnInit, AfterViewInit, OnDe
     });
   }
 
-  UpdateSocialMediaTypeFilter(newSocialMediaType: string){
-    this.filterBy = newSocialMediaType;
-  }
-
   ngOnDestroy() {
     console.log('destroy');
-  
-    //this.twitter.unsubscribe();
-    //this.facebook.unsubscribe();
-    //this.instagram.unsubscribe();
   }   
 
 }
