@@ -1,18 +1,18 @@
 <app-hq-dashboard-sub-menu [socialmediatypes]="socialmediatypes" ></app-hq-dashboard-sub-menu>
-<div id="social-media-list" class="card-columns">
+<div id="social-media-list" class="card-columns pt-3">
         <div *ngFor="let item of selectedSocialMedia">
                 <div [ngSwitch]="item.mediaType">
                         <div class="social-media-post">
-                                <blockquote *ngSwitchCase="'Twitter'" class="twitter-tweet" data-lang="en" id={{item.id}} data-width="475">
+                                <blockquote *ngSwitchCase="'Twitter'" class="twitter-tweet" data-lang="en" id={{item.id}} data-width="425">
                                         <a href="https://publish.twitter.com/oembed?
                                                                     {{item.url}} | async"></a>
                                 </blockquote>
                                 <blockquote *ngSwitchCase="'Facebook'" class="fb-post" attr.data-href="{{item.url}} | async"
-                                        data-width="500" data-max-width="475"></blockquote>
+                                        data-width="500" data-width="425"></blockquote>
 
                                 <blockquote *ngSwitchCase="'Instagram'" class="responsive-social-media-post instagram-media" data-instgrm-captioned
                                         attr.data-instgrm-permalink="{{item.url}}?OMITSCRIPT=true | async" data-instgrm-version="9"
-                                        id={{item.id}} style="width:475px">
+                                        id={{item.id}} style="width:425px">
                                         <a href="{{item.url}}?OMITSCRIPT=true | async"></a>
                                 </blockquote>
                                 <div *ngSwitchCase="'Instagram'" class="instagram-post"></div>
