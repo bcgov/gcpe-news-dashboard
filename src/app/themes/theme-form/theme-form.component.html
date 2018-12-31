@@ -27,7 +27,7 @@
     <form [formGroup]="themeForm">
       <div class="form-group row">
         <div class="form-check custom-control custom-checkbox col-sm-10 offset-sm-2">
-          <input id="isHighlighted" type="checkbox" class="form-check-input custom-control-input" formControlName="isHighlighted" [attr.checked]="themeForm.isHighlighted">
+          <input id="isHighlighted" type="checkbox" class="form-check-input custom-control-input" formControlName="isHighlighted" [attr.checked]="themeForm['isHighlighted']">
           <label for="isHighlighted" class="custom-control-label">Highlighted Message</label>
         </div>
       </div>

@@ -39,10 +39,10 @@ export class ThemeListComponent implements OnInit {
   sortEventReceived(event) {
     const index = this.themes.findIndex(x => x.id === event.themeId);
     if (event.direction === 'up') {
-      if (index - 1 < 0) { return }
+      if (index - 1 < 0) return;
       this.swapSortOrders(index, index - 1);
     } else if (event.direction === 'down') {
-      if (index + 1 >= this.themes.length) { return }
+      if (index + 1 >= this.themes.length) return;
       this.swapSortOrders(index, index + 1);
     }
   }
