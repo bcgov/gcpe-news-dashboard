@@ -17,8 +17,6 @@ import { AuthService } from './services/auth.service';
 import { MessagesService } from './services/messages.service';
 import { ThemesOfWeekComponent } from './themes/themes-of-week/themes-of-week.component';
 import { MessageListResolver } from './_resolvers/message-list.resolver';
-import { SocialMediaListComponent } from './social-media/social-media-list/social-media-list.component';
-import { SociaMediaListResolver } from './_resolvers/social-media-list.resolver';
 import { SociaMediaTypeListResolver } from './_resolvers/social-media-type-list.resolver';
 import { ThemeListComponent } from './themes/theme-list/theme-list.component';
 import { HqDashboardSubMenuComponent } from './core/hq-dashboard-sub-menu/hq-dashboard-sub-menu.component';
@@ -29,6 +27,11 @@ import { ThemeFormComponent } from './themes/theme-form/theme-form.component';
 import { AutosizeDirective } from './directives/autosize.directive';
 import { ClickPreventDefaultDirective } from './directives/click-preventdefault.directive';
 import { TimeAgoPipe } from 'time-ago-pipe';
+import { SocialMediaListInputComponent } from './social-media/social-media-list-input/social-media-list-input.component';
+import { SociaMediaPostListResolver } from './_resolvers/social-media-post-list.resolver';
+import { SocialMediaPostsService } from './services/socialMediaPosts.service';
+import { DeletePostConfirmationModalComponent } from './social-media/delete-post-confirmation-modal/delete-post-confirmation-modal.component';
+import { SocialMediaPostListComponent } from './social-media/social-media-post-list/social-media-post-list.component';
 
 @NgModule({
   declarations: [
@@ -38,7 +41,6 @@ import { TimeAgoPipe } from 'time-ago-pipe';
     FooterComponent,
     ActivityForecastListComponent,
     ThemesOfWeekComponent,
-    SocialMediaListComponent,
     ThemeListComponent,
     HqDashboardSubMenuComponent,
     ThemeSubMenuComponent,
@@ -47,6 +49,9 @@ import { TimeAgoPipe } from 'time-ago-pipe';
     AutosizeDirective,
     ClickPreventDefaultDirective,
     TimeAgoPipe,
+    SocialMediaListInputComponent,
+    DeletePostConfirmationModalComponent,
+    SocialMediaPostListComponent,
   ],
   imports: [
     BrowserModule,
@@ -60,14 +65,18 @@ import { TimeAgoPipe } from 'time-ago-pipe';
   providers: [
     ApiService,
     MessagesService,
+    SocialMediaPostsService,
     AuthService,
     ActivityListResolver,
     MessagesService,
     PostListResolver,
     MessageListResolver,
-    SociaMediaListResolver,
     SociaMediaTypeListResolver,
-    MessageResolver
+    MessageResolver,
+    SociaMediaPostListResolver
+  ],
+  entryComponents: [
+    DeletePostConfirmationModalComponent
   ],
   bootstrap: [AppComponent]
 })

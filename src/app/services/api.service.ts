@@ -3,7 +3,6 @@ import { HttpClient} from  '@angular/common/http';
 import { Observable, of } from 'rxjs';
 import { Activity } from '../view-models/activity';
 import { Post } from '../view-models/post';
-import { SocialMedia } from '../view-models/social-media';
 import { SocialMediaType } from '../view-models/social-media-type';
 import { BASE_PATH } from '../variables';
 
@@ -36,19 +35,13 @@ export class ApiService {
 
   // get the activities for 7 days forecast
   getActivityForecast(): Observable<Activity[]> {
-    return this.httpClient.get<Activity[]>(`${this.API_URL}/api/Activities/Forecast/7?api-version=1.0`)
+    return this.httpClient.get<Activity[]>(`${this.API_URL}/api/Activities/Forecast/7`)
     .pipe();
   }
 
   // get the last 7 days post
   getPosts(): Observable<Post[]> {
-    return this.httpClient.get<Post[]>(`${this.API_URL}/api/Posts/Latest/47?api-version=1.0`)
-    .pipe();
-  }
-  
-  // get the social media list
-  getSocialMediaPosts(): Observable<SocialMedia[]> {
-    return this.httpClient.get<SocialMedia[]>(`${this.API_URL}/api/Posts/Latest/47?api-version=1.0`)
+    return this.httpClient.get<Post[]>(`${this.API_URL}/api/Posts/Latest/7`)
     .pipe();
   }
 
