@@ -28,7 +28,6 @@ export class SocialMediaListInputComponent implements OnInit {
     this.route.data.subscribe(data => {
       this.socialmedialist = data['socialmedia'];
     });
-    console.log(this.socialmedialist);
 
     this.socialMediaPostListForm = new FormGroup({
       postList: this.formBuilder.array([])
@@ -52,7 +51,6 @@ export class SocialMediaListInputComponent implements OnInit {
       if (posts.length > 0) {
         posts.map(item => {
           formArray.push(this.createForms(item));
-          console.log(item);
         });
         this.socialMediaPostListForm.setControl('postList', formArray);
       }
@@ -60,7 +58,6 @@ export class SocialMediaListInputComponent implements OnInit {
   }
 
   get socialMediaPosts(): FormArray {
-    console.log();
     return this.socialMediaPostListForm.get('postList') as FormArray;
   }
 
@@ -81,16 +78,15 @@ export class SocialMediaListInputComponent implements OnInit {
     modal.componentInstance.url = post.url;
 
     modal.result.then((result) => {
-      console.log(result);
       if (result == 'Confirm') {
         this.socialMediaPosts.removeAt(index);
         if ((post.id !== 'undefined') && (post.id !== null)) {
           this.socialMediaService.deleteSocialMediaPost(post.id).subscribe(
             () => {
-              console.log('delete post id ' + post.id + ' success');
+              // console.log('delete post id ' + post.id + ' success');
             },
             () => {
-              console.log("Failed to delete post " + post.id);
+              // console.log("Failed to delete post " + post.id);
             }
           );
         }
@@ -105,7 +101,7 @@ export class SocialMediaListInputComponent implements OnInit {
     let newIndex: number = currentIndex + shift;
     if (newIndex === -1) {
       newIndex = this.socialMediaPosts.length - 1;
-    } else if (newIndex == this.socialMediaPosts.length) {
+    } else if (newIndex === this.socialMediaPosts.length) {
       newIndex = 0;
     }
 
@@ -115,7 +111,6 @@ export class SocialMediaListInputComponent implements OnInit {
   }
 
   submit() {
-    console.log(this.socialMediaPosts);
     if (this.socialMediaPosts.valid) {
       this.socialMediaPosts.value.forEach((post, index) => {
         post = post as SocialMediaPost;
@@ -124,20 +119,20 @@ export class SocialMediaListInputComponent implements OnInit {
 
           this.socialMediaService.updateSocialMediaPost(post.id, post).subscribe(
             () => {
-              console.log('update success: ' + post.id);
+              // console.log('update success: ' + post.id);
             },
             () => {
-              console.log('Failed to update psot: ' + post.id);
+              // console.log('Failed to update psot: ' + post.id);
             }
-          )
+          );
         } else {
           delete post["id"];
           this.socialMediaService.addSocialMediaPost(post).subscribe(
             () => {
-              console.log('create success');
+              // console.log('create success');
             },
             () => {
-              console.log('Failed to create post');
+              // console.log('Failed to create post');
             }
           )
         }
@@ -145,7 +140,7 @@ export class SocialMediaListInputComponent implements OnInit {
       this.router.navigate(['social-media-list'], { queryParams: { type: 'All' } });
     } else {
       /// TODO: if submit failed, do something
-      console.log('not valid');
+      // console.log('not valid');
     }
   }
 

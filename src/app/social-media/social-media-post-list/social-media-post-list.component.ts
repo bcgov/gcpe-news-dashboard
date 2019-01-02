@@ -33,7 +33,6 @@ export class SocialMediaPostListComponent implements OnInit, OnDestroy {
       this.socialmedia = data['socialmedia'];
       this.socialmediatypes = data['socialmediatype'];
       this.selectedSocialMedia = [];
-      console.log(this.socialmedia);
     });
 
     this.activatedRoute.queryParams.subscribe((queryParams: any) => {
@@ -102,6 +101,6 @@ export class SocialMediaPostListComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    console.log('destroy');
+    // console.log('destroy');
   }
 }
