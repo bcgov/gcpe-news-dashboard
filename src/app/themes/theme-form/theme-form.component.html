@@ -1,31 +1,33 @@
 <nav id="theme-nav" class="navbar fixed-top navbar-expand-lg bg-primary navbar-light" style="padding-top: 0; padding-bottom: 0;">
-  <div class="navbar-brand title mr-auto" id="site-title" >
-    <h4>New Theme</h4>
+  <div class="container">
+    <div class="navbar-brand title mr-auto" id="site-title" >
+      <h4>New Theme</h4>
+    </div>
+    <ul class="navbar-nav navbar-right">
+      <li *ngIf="!isNew || themeForm.dirty; else cancel" ngbDropdown class="nav-item my-auto">
+        <a class="nav-link more-dropdown" role="button" ngbDropdownToggle aria-haspopup="true" aria-expanded="false">
+          •••
+        </a>
+        <div aria-labelledby="navbarDropdown" ngbDropdownMenu>
+          <a class="dropdown-item" href="#" (click.preventDefault)="save()">Save and Close</a>
+          <a class="dropdown-item" href="#" (click.preventDefault)="delete()">Delete</a>
+        </div>
+      </li>
+      <ng-template #cancel><li class="nav-item my-auto cancel-btn"><a href="#" (click.preventDefault)="close()" class="btn btn-link">Cancel</a></li></ng-template>
+      <li class="nav-item my-auto">
+        <button class="nav-link btn btn-primary btn-publish" (click)="togglePublished()" [disabled]="themeForm.invalid" [class.publish]="!theme.isPublished">
+          {{theme.isPublished ? 'Unpublish' : 'Publish'}}
+        </button>
+      </li>
+    </ul>
   </div>
-  <ul class="navbar-nav navbar-right">
-    <li *ngIf="!isNew || themeForm.dirty; else cancel" ngbDropdown class="nav-item my-auto">
-      <a class="nav-link more-dropdown" role="button" ngbDropdownToggle aria-haspopup="true" aria-expanded="false">
-        •••
-      </a>
-      <div aria-labelledby="navbarDropdown" ngbDropdownMenu>
-        <a class="dropdown-item" href="#" (click.preventDefault)="save()">Save and Close</a>
-        <a class="dropdown-item" href="#">Delete</a>
-      </div>
-    </li>
-    <ng-template #cancel><li class="nav-item my-auto cancel-btn"><a href="#" (click.preventDefault)="close()" class="btn btn-link">Cancel</a></li></ng-template>
-    <li class="nav-item my-auto">
-      <button class="nav-link btn btn-primary btn-publish" (click)="togglePublished()" [disabled]="themeForm.invalid" [class.publish]="!theme.isPublished">
-        {{theme.isPublished ? 'Unpublish' : 'Publish'}}
-      </button>
-    </li>
-  </ul>
 </nav>
 <div id="admin-theme-form" class="row pl-0 pr-0 pt-5">
   <div class="col-12">
     <form [formGroup]="themeForm">
       <div class="form-group row">
         <div class="form-check custom-control custom-checkbox col-sm-10 offset-sm-2">
-          <input id="isHighlighted" type="checkbox" class="form-check-input custom-control-input" formControlName="isHighlighted" [attr.checked]="themeForm.isHighlighted">
+          <input id="isHighlighted" type="checkbox" class="form-check-input custom-control-input" formControlName="isHighlighted" [attr.checked]="themeForm['isHighlighted']">
           <label for="isHighlighted" class="custom-control-label">Highlighted Message</label>
         </div>
       </div>
