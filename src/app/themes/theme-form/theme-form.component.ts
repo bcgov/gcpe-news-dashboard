@@ -54,6 +54,10 @@ export class ThemeFormComponent implements OnInit {
     this.nav.show();
   }
 
+  handleError(message) {
+    console.log(message);
+  }
+
   save() {
     if (this.themeForm.invalid) {
       return;
@@ -73,7 +77,7 @@ export class ThemeFormComponent implements OnInit {
         this.close();
       },
       () => {
-        // console.log("Failed to create theme");
+        this.handleError("Failed to create theme");
       }
     );
   }
@@ -85,7 +89,7 @@ export class ThemeFormComponent implements OnInit {
         this.close();
       },
       () => {
-        // console.log("Failed to create theme");
+        this.handleError("Failed to create theme");
       }
     );
   }
@@ -94,12 +98,11 @@ export class ThemeFormComponent implements OnInit {
     if (this.themeForm.invalid) {
       return;
     }
-    let theme = this.themeForm.value;
-    theme.isPublished = !this.theme.isPublished;
+    this.theme = { ...this.themeForm.value, isPublished: !this.theme.isPublished };
     if (this.isNew) {
-      this.create(theme);
+      this.create(this.theme);
     } else {
-      this.update(theme);
+      this.update(this.theme);
     }
   }
 
@@ -109,5 +112,17 @@ export class ThemeFormComponent implements OnInit {
     } else {
       this.router.navigate(['themes'], { queryParams: { type: 'Drafts' }});
     }
+  }
+
+  delete() {
+    if (this.isNew) {
+      this.close();
+      return;
+    }
+    this.messagesService.deleteMessage(this.theme.id)
+    .subscribe(
+      () => { this.close() },
+      () => { this.handleError("Failed to delete theme") }
+    );
   }
 }

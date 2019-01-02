@@ -16,7 +16,7 @@ import { HttpClient, HttpHeaders, HttpParams,
          HttpResponse, HttpEvent }                           from '@angular/common/http';
 import { CustomHttpUrlEncodingCodec }                        from '../encoder';
 
-import { Observable }                                        from 'rxjs'; // Manually edited to avoid including rxjs-compat
+import { Observable }                                        from 'rxjs';
 
 import { Message } from '../view-models/message';
 
@@ -105,6 +105,46 @@ export class MessagesService {
     /**
      * 
      * 
+     * @param id 
+     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+     * @param reportProgress flag to report request and response progress.
+     */
+    public deleteMessage(id: string, observe?: 'body', reportProgress?: boolean): Observable<any>;
+    public deleteMessage(id: string, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<any>>;
+    public deleteMessage(id: string, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<any>>;
+    public deleteMessage(id: string, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+        if (id === null || id === undefined) {
+            throw new Error('Required parameter id was null or undefined when calling deleteMessage.');
+        }
+
+        let headers = this.defaultHeaders;
+
+        // to determine the Accept header
+        let httpHeaderAccepts: string[] = [
+            'application/json'
+        ];
+        let httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+        if (httpHeaderAcceptSelected != undefined) {
+            headers = headers.set("Accept", httpHeaderAcceptSelected);
+        }
+
+        // to determine the Content-Type header
+        let consumes: string[] = [
+        ];
+
+        return this.httpClient.delete<any>(`${this.basePath}/api/Messages/${encodeURIComponent(String(id))}`,
+            {
+                withCredentials: this.configuration.withCredentials,
+                headers: headers,
+                observe: observe,
+                reportProgress: reportProgress
+            }
+        );
+    }
+
+    /**
+     * 
+     * 
      * @param isPublished 
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
@@ -123,9 +163,6 @@ export class MessagesService {
 
         // to determine the Accept header
         let httpHeaderAccepts: string[] = [
-            'text/plain',
-            'application/json',
-            'text/json'
         ];
         let httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
         if (httpHeaderAcceptSelected != undefined) {
@@ -166,9 +203,6 @@ export class MessagesService {
 
         // to determine the Accept header
         let httpHeaderAccepts: string[] = [
-            'text/plain',
-            'application/json',
-            'text/json'
         ];
         let httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
         if (httpHeaderAcceptSelected != undefined) {
@@ -209,9 +243,6 @@ export class MessagesService {
 
         // to determine the Accept header
         let httpHeaderAccepts: string[] = [
-            'text/plain',
-            'application/json',
-            'text/json'
         ];
         let httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
         if (httpHeaderAcceptSelected != undefined) {
