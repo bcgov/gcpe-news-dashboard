@@ -18,7 +18,7 @@ export class HqDashboardSubMenuComponent  {
     // Only display the social media filter dropdown when social media link is active
     this.router.events.subscribe((event) => {
       if (event instanceof NavigationEnd) {
-        if ( event.url.indexOf('/social-media') > -1 ) {
+        if ( event.url.indexOf('/social-media-list') > -1 ) {
           this.hideSocialMediaFilter = false;
         }  else {
           this.hideSocialMediaFilter = true;  
@@ -29,5 +29,9 @@ export class HqDashboardSubMenuComponent  {
 
   updateSocialMediaType(newType: string) {
     this.filterBySocialMediaType = newType;
+  }
+
+  print() {
+    window.print();
   }
 }

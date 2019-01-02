@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Theme } from '../../view-models/theme';
+import { Message } from '../../view-models/message';
 import { Router, ActivatedRoute } from '@angular/router';
 import { ApiService } from '../../services/api.service';
 
@@ -9,7 +9,7 @@ import { ApiService } from '../../services/api.service';
   styleUrls: ['./theme-list.component.scss']
 })
 export class ThemeListComponent implements OnInit {
-  themes: Theme[];
+  themes: Message[];
 
   constructor(private router: Router, private  apiService:  ApiService, private route: ActivatedRoute) { }
 
@@ -17,5 +17,9 @@ export class ThemeListComponent implements OnInit {
     this.route.data.subscribe(data => {
       this.themes = data['themelist'];
     });
+  }
+
+  navigateToTheme(id) {
+    this.router.navigate([`/theme/edit/${id}`]);
   }
 }

@@ -1,5 +1,4 @@
 export const environment = {
   production: true,
-  apiUrl: "https://dev.api.news.gov.bc.ca/",   // temporarily set the prod api url to run the openshift pipeline
-  hubApiUrl: "http://hub-api-ntu9uh-dev.pathfinder.gov.bc.ca/"
+  apiUrl: "http://hub-api-ntu9uh-dev.pathfinder.gov.bc.ca"// temporarily set the prod api url to run the openshift pipeline
 };

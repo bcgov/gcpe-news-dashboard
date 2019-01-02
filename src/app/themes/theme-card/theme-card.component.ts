@@ -1,5 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { Theme } from '../../view-models/theme';
+import { Message } from '../../view-models/message';
 
 @Component({
   selector: 'app-theme-card',
@@ -7,6 +7,6 @@ import { Theme } from '../../view-models/theme';
   styleUrls: ['./theme-card.component.scss']
 })
 export class ThemeCardComponent {
-  @Input() theme: Theme;
+  @Input() theme: Message;
   @Input() last: Boolean;
 }

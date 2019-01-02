@@ -4,6 +4,7 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { environment } from '../../../environments/environment';
 import { ThemeSubMenuComponent } from './theme-sub-menu.component';
 import { RouterModule } from '@angular/router';
+import { BASE_PATH } from '../../variables';
 
 
 describe('ThemeSubMenuComponent', () => {
@@ -21,8 +22,7 @@ describe('ThemeSubMenuComponent', () => {
         ThemeSubMenuComponent
       ],
       providers: [
-        { provide: 'BASE_API_URL', useValue: environment.apiUrl },
-        { provide: 'BASE_HUB_API_URL', useValue: environment.hubApiUrl }
+        { provide: BASE_PATH, useValue: environment.apiUrl }
       ],
     })
     .compileComponents();

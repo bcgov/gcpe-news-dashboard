@@ -6,6 +6,7 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { HttpClientModule } from '@angular/common/http';
 import { environment } from '../../../environments/environment';
 import { map } from 'rxjs/operators';
+import { BASE_PATH } from '../../variables';
 
 describe('ThemeListComponent', () => {
   let component: ThemeListComponent;
@@ -23,8 +24,7 @@ describe('ThemeListComponent', () => {
         ThemeSubMenuComponent,
       ],
       providers: [
-        { provide: 'BASE_API_URL', useValue: environment.apiUrl },
-        { provide: 'BASE_HUB_API_URL', useValue: environment.hubApiUrl }
+        { provide: BASE_PATH, useValue: environment.apiUrl }
       ],
     })
     .compileComponents();
