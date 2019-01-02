@@ -38,7 +38,6 @@ export class SocialMediaPostListComponent implements OnInit, AfterViewInit, OnDe
     this.activatedRoute.data.subscribe(data => {
       this.socialmedia = data['socialmedia'];
       this.socialmediatypes = data['socialmediatype'];
-      console.log(this.socialmedia);
     });
 
     this.activatedRoute.queryParams.subscribe((queryParams: any) => {
@@ -49,7 +48,6 @@ export class SocialMediaPostListComponent implements OnInit, AfterViewInit, OnDe
       }
 
     });
-    console.log(this.selectedSocialMedia);
   }
 
   loadTwitterWidgets() {
@@ -100,6 +98,6 @@ export class SocialMediaPostListComponent implements OnInit, AfterViewInit, OnDe
   }
 
   ngOnDestroy() {
-    console.log('destroy');
+    // console.log('destroy');
   }
 }

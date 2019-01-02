@@ -73,7 +73,7 @@ export class ThemeFormComponent implements OnInit {
         this.close();
       },
       () => {
-        console.log("Failed to create theme");
+        // console.log("Failed to create theme");
       }
     );
   }
@@ -85,7 +85,7 @@ export class ThemeFormComponent implements OnInit {
         this.close();
       },
       () => {
-        console.log("Failed to create theme");
+        // console.log("Failed to create theme");
       }
     );
   }
