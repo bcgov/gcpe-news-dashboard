@@ -56,7 +56,7 @@ describe('ThemeCardComponent', () => {
     component.theme = theme;
     component.last = true;
     fixture.detectChanges();
-    const div = fixture.nativeElement.querySelector('.card');
+    const div = fixture.nativeElement.querySelector('.theme-card');
     expect(div.getAttribute('class')).toContain('last');
   });
 
