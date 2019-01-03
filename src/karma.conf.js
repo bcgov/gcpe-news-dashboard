@@ -59,6 +59,6 @@ module.exports = function (config) {
       'https://platform.twitter.com/widgets.js'
     ],
     // Test config for social media post
-    // crossOriginAttribute: false,
+    crossOriginAttribute: false,
   });
 };
