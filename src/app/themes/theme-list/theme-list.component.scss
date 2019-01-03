@@ -1,28 +1,8 @@
 @import "../../../assets/styles/variables.scss";
-.card {
-    border: none;
-    cursor: pointer;
-}
-.card:hover {
-    .card-title {
-        text-decoration: underline;
-    }
-}
 
 .col-12:last-child {
     border: none;
 }
-
-.card-body{
-    padding-left: 0;
-    padding-right: 0;
-}
 .custom-list-style li{
     padding-top:15px;
 }
-
-#admin-theme-list .card-date {
-    color: map-get($theme-colors, mediem) !important;
-    font-size: 0.9em;
-}
-

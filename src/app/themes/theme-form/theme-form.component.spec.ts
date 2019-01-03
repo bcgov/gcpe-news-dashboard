@@ -11,6 +11,7 @@ import { of } from 'rxjs';
 class MockMessagesService {
   addMessage() {}
   updateMessage() {}
+  deleteMessage() {}
 }
 
 @Injectable()
@@ -108,8 +109,8 @@ describe('ThemeFormComponent', () => {
       component.togglePublished();
   
       expect(component.create).toHaveBeenCalledWith({
-        'title': 'Publish me!',
-        'description': '',
+        title: 'Publish me!',
+        description: '',
         isHighlighted: false,
         isPublished: true
       });
@@ -132,6 +133,16 @@ describe('ThemeFormComponent', () => {
       component.close();
   
       expect(router.navigate).toHaveBeenCalledWith(['themes'], { queryParams: { type: 'Published' }});
+    });
+    
+    it('should close on delete message', () => {
+      spyOn(messagesService, "deleteMessage").and.returnValue(of({}));
+      spyOn(component, "close");
+
+      component.delete();
+
+      expect(component.close).toHaveBeenCalled();
+      expect(messagesService.deleteMessage).not.toHaveBeenCalled();
     });
   });
   
@@ -185,5 +196,15 @@ describe('ThemeFormComponent', () => {
         isHighlighted: false,
       });
     }));
+
+    it('should delete message', () => {
+      spyOn(TestBed.get(MessagesService), "deleteMessage").and.returnValue(of({}));
+      spyOn(component, "close");
+
+      component.delete();
+
+      expect(component.close).toHaveBeenCalled();
+      expect(TestBed.get(MessagesService).deleteMessage).toHaveBeenCalledWith(component.theme.id);
+    });
   });
 });

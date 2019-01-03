@@ -57,3 +57,9 @@ main .jumbotron{
 .full-width{
     width: 95% !important;
  }
+
+@media print {
+    .doNotPrint {
+        display: none !important;
+    }
+}

@@ -1,4 +1,17 @@
-<div class="card" [ngClass]="{ last: last }">
+<div *ngIf="admin" class="theme-card admin" [class.first]="first" [class.last]="last">
+  <div class="card-body" (click)="navigateToTheme()">
+    <h5 *ngIf="theme && theme.title" class="card-title">{{theme.title}}</h5>
+    <p *ngIf="theme && theme.description" class="card-text justify-content-between">{{theme.description}}</p>
+  </div>
+  <div class="theme-footer">
+    <span class="theme-details">Last edited {{theme.timestamp | timeAgo}}</span>
+    <span *ngIf="theme.isPublished"> · <a href="#" (click.preventDefault)="unpublish()">Unpublish</a>
+      <a *ngIf="!first" href="#" (click.preventDefault)="moveUp()" class="sort-order-button"><i class="fa fa-arrow-up" aria-hidden="true"></i></a>
+      <a *ngIf="!last" href="#" (click.preventDefault)="moveDown()" class="sort-order-button"><i class="fa fa-arrow-down" aria-hidden="true"></i></a>
+    </span>
+  </div>
+</div>
+<div *ngIf="!admin" class="theme-card" [class.first]="first" [class.last]="last">
   <div class="card-body">
     <h5 *ngIf="theme && theme.title" class="card-title">{{theme.title}}</h5>
     <p *ngIf="theme && theme.description" class="card-text justify-content-between">{{theme.description}}</p>

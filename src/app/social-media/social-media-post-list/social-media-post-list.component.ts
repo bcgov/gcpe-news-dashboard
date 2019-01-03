@@ -1,7 +1,6 @@
-import { Component, OnInit, ViewChild, ElementRef, AfterViewInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { SocialMediaType } from '../../view-models/social-media-type';
-import { SocialMediaPostsService } from '../../services/socialMediaPosts.service';
 import { SocialMediaPostExtended } from '../../view-models/social-media-post-extended';
 
 // the following readonly names need to match the names from the social media sdk
@@ -14,20 +13,15 @@ declare const instgrm: any;
   templateUrl: './social-media-post-list.component.html?v=${new Date().getTime()}',
   styleUrls: ['./social-media-post-list.component.scss']
 })
-export class SocialMediaPostListComponent implements OnInit, AfterViewInit, OnDestroy {
+export class SocialMediaPostListComponent implements OnInit, OnDestroy {
   socialmedia: SocialMediaPostExtended[];
   selectedSocialMedia: SocialMediaPostExtended[];
 
   socialmediatypes: SocialMediaType[];
   filterBy: string = 'All';
 
-  constructor(private router: Router, private activatedRoute: ActivatedRoute, private socialMediaService: SocialMediaPostsService) {
-
+  constructor(private router: Router, private activatedRoute: ActivatedRoute) {
     this.router.routeReuseStrategy.shouldReuseRoute = () => false;
-    this.init();
-    this.loadInstagramWidgets();
-    this.loadTwitterWidgets();
-    this.loadFacebookWidgets();
   }
 
   ngOnInit() {
@@ -38,18 +32,18 @@ export class SocialMediaPostListComponent implements OnInit, AfterViewInit, OnDe
     this.activatedRoute.data.subscribe(data => {
       this.socialmedia = data['socialmedia'];
       this.socialmediatypes = data['socialmediatype'];
-      console.log(this.socialmedia);
+      this.selectedSocialMedia = [];
     });
 
     this.activatedRoute.queryParams.subscribe((queryParams: any) => {
       if (queryParams.type === 'All') {
-        this.selectedSocialMedia = this.socialmedia;
+        this.loadNextPosts();
       } else {
         this.selectedSocialMedia = this.socialmedia.filter(s => s.mediaType === queryParams.type);
+        console.log("selectedSocialMedia: " + this.selectedSocialMedia);
+        setTimeout(() => { this.loadWidgets(queryParams.type); }, 0);
       }
-
     });
-    console.log(this.selectedSocialMedia);
   }
 
   loadTwitterWidgets() {
@@ -59,47 +53,54 @@ export class SocialMediaPostListComponent implements OnInit, AfterViewInit, OnDe
   }
 
   loadFacebookWidgets() {
+    // remove the fb-post class from the posts that have already been rendered so they don't flicker when we parse/render the next one
+    var fbPosts = document.getElementsByClassName("fb-post");
+    for (var i = fbPosts.length - 1; i >= 0; i--) {
+      fbPosts[i].className = fbPosts[i].className.replace("fb-post ", "");
+    }
     FB.init({
       xfbml: true,
       version: 'v3.2'
     });
-    FB.Event.subscribe('xfbml.ready', function (msg) {
-      FB.XFBML.parse();
-    });
-
+    FB.XFBML.parse();
   }
 
   loadInstagramWidgets() {
     instgrm.Embeds.process();
   }
 
-  ngAfterViewInit() {
-    this.activatedRoute.queryParams.subscribe(val => {
-      this.activatedRoute.queryParams.subscribe((queryParams: any) => {
-        this.filterBy = queryParams.type;
-        if (queryParams.type === 'All') {
-          this.selectedSocialMedia = this.socialmedia;
-          this.loadInstagramWidgets();
-          this.loadTwitterWidgets();
-          this.loadFacebookWidgets();
-        } else {
-          this.selectedSocialMedia = this.socialmedia.filter(s => s.mediaType === queryParams.type);
-          switch (queryParams.type) {
-            case 'Facebook':
-              this.loadFacebookWidgets();
-              break;
-            case 'Twitter':
-              this.loadTwitterWidgets();
-              break;
-            case 'Instagram':
-              this.loadInstagramWidgets();
-          }
-        }
-      });
-    });
+  loadNextPosts() {
+    if (this.selectedSocialMedia.length != 0) {
+      this.loadWidgets(this.socialmedia[this.selectedSocialMedia.length - 1].mediaType);
+    }
+    if (this.selectedSocialMedia.length == this.socialmedia.length) return;
+
+    var mediaTypeToLoad = this.socialmedia[this.selectedSocialMedia.length].mediaType;
+
+    while (this.selectedSocialMedia.length < this.socialmedia.length) {
+      var postToLoad = this.socialmedia[this.selectedSocialMedia.length];
+      if (postToLoad.mediaType != mediaTypeToLoad) break;
+      this.selectedSocialMedia.push(postToLoad);
+    }
+
+    console.log("selectedSocialMedia: " + this.selectedSocialMedia);
+    setTimeout(() => { this.loadNextPosts() }, 250); // to give a head start for fetching the post from FB, Twitter or Instagram
+  }
+
+  loadWidgets(mediaType: any) {
+    switch (mediaType) {
+      case 'Facebook':
+        this.loadFacebookWidgets();
+        break;
+      case 'Twitter':
+        this.loadTwitterWidgets();
+        break;
+      case 'Instagram':
+        this.loadInstagramWidgets();
+    }
   }
 
   ngOnDestroy() {
-    console.log('destroy');
+    // console.log('destroy');
   }
 }

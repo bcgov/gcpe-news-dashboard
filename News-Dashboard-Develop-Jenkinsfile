@@ -3,9 +3,15 @@ node('master') {
     stage('Assemble Builder & Runtime') {
         echo "Assembling Builder and runtime..."
         openshiftBuild bldCfg: 'frontend-yarn-builder', showBuildLogs: 'true', waitTime: '900000'
+<<<<<<< HEAD
+        openshiftBuild bldCfg: 'frontend-nginx-runtime' showBuildLogs: 'true', waitTime: '900000'
+        openshiftBuild bldCfg: 'news-dashboard' showBuildLogs: 'true', waitTime: '900000'
+        openshiftBuild bldCfg: 'news-dashboard-static' showBuildLogs: 'true', waitTime: '900000'    
+=======
         openshiftBuild bldCfg: 'frontend-nginx-runtime', showBuildLogs: 'true', waitTime: '900000'
         openshiftBuild bldCfg: 'news-dashboard', showBuildLogs: 'true', waitTime: '900000'
         openshiftBuild bldCfg: 'news-dashboard-static', showBuildLogs: 'true', waitTime: '900000'    
+>>>>>>> upstream/develop
     }
 
     stage('Deploy on Dev') {
@@ -21,4 +27,8 @@ stage('Deploy on Test') {
         openshiftTag destStream: 'news-dashboard-static', verbose: 'true', destTag: 'test', srcStream: 'news-dashboard-static', srcTag: '$BUILD_ID'
         // Sleeping for a while to wait deployment completes
 	    sh 'sleep 1m'
+<<<<<<< HEAD
     }   
+=======
+    }   
+>>>>>>> upstream/develop

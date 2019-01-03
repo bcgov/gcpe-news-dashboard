@@ -1,7 +1,8 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-
 import { ThemeCardComponent } from './theme-card.component';
 import { Message } from '../../view-models/message';
+import { TimeAgoPipe } from 'time-ago-pipe';
+import { RouterTestingModule } from '@angular/router/testing';
 
 describe('ThemeCardComponent', () => {
   let component: ThemeCardComponent;
@@ -9,7 +10,10 @@ describe('ThemeCardComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ ThemeCardComponent ]
+      imports: [ RouterTestingModule.withRoutes(
+        [{path: 'theme/new', component: ThemeCardComponent}]
+      )],
+      declarations: [ ThemeCardComponent, TimeAgoPipe ]
     })
     .compileComponents();
   }));
@@ -52,11 +56,11 @@ describe('ThemeCardComponent', () => {
     component.theme = theme;
     component.last = true;
     fixture.detectChanges();
-    const div = fixture.nativeElement.querySelector('.card');
+    const div = fixture.nativeElement.querySelector('.theme-card');
     expect(div.getAttribute('class')).toContain('last');
   });
 
   afterEach(() => {
     TestBed.resetTestingModule();
-});
+  });
 });

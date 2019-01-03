@@ -19,5 +19,4 @@ export class ClickPreventDefaultDirective {
   ngOnDestroy() {
     this.unsubscribe();
   }
-
 }
