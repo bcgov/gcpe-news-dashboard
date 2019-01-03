@@ -30,4 +30,8 @@ export class HqDashboardSubMenuComponent  {
   updateSocialMediaType(newType: string) {
     this.filterBySocialMediaType = newType;
   }
+
+  print() {
+    window.print();
+  }
 }
