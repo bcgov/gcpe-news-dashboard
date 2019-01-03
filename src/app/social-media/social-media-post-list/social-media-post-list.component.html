@@ -1,5 +1,5 @@
 <app-hq-dashboard-sub-menu [socialmediatypes]="socialmediatypes" ></app-hq-dashboard-sub-menu>
-<div id="social-media-list" class="card-columns">
+<div id="social-media-list" class="card-group">
         <div *ngFor="let item of selectedSocialMedia">
                 <div [ngSwitch]="item.mediaType">
                         <div class="social-media-post">
