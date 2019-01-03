@@ -6,6 +6,7 @@ import { SocialMediaPost } from 'src/app/view-models/socialMediaPost';
 import { SocialMediaPostsService } from '../../services/socialMediaPosts.service';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { DeletePostConfirmationModalComponent } from '../delete-post-confirmation-modal/delete-post-confirmation-modal.component';
+import { forkJoin, Observable } from 'rxjs';
 
 const reg : string = '(https?://)?([\\da-z.-]+)\\.([a-z.]{2,6})[/\\w .-]*/?';
 
@@ -39,13 +40,13 @@ export class SocialMediaListInputComponent implements OnInit {
     let formGroup: FormGroup = this.formBuilder.group({
       id: new FormControl(post.id),
       url: new FormControl(post.url, [Validators.required, Validators.pattern(reg)]),
-      order: new FormControl(post.order)
+      sortOrder: new FormControl(post.sortOrder)
     });
     return formGroup;
   }
 
   initFormArray(posts: SocialMediaPost[]) {
-    const formArray = this.socialMediaPostListForm.get('postList') as FormArray;
+    const formArray: FormArray = this.socialMediaPostForms;
 
     if (posts != null) {
       if (posts.length > 0) {
@@ -57,36 +58,35 @@ export class SocialMediaListInputComponent implements OnInit {
     }
   }
 
-  get socialMediaPosts(): FormArray {
+  get socialMediaPostForms(): FormArray {
     return this.socialMediaPostListForm.get('postList') as FormArray;
   }
 
   addSocialMediaPost() {
-    this.socialMediaPosts.push(new FormGroup(
+    this.socialMediaPostForms.insert(0, new FormGroup(
       {
-        id: new FormControl(),
         url: new FormControl('', [Validators.required, Validators.pattern(reg)]),
-        order: new FormControl()
+        sortOrder: new FormControl(0)
       }
     ));
   }
 
   deleteSocialMediaPost(index: number) {
-    let post = this.socialMediaPosts.at(index).value;
+    let post = this.socialMediaPostForms.at(index).value;
 
     const modal = this.modal.open(DeletePostConfirmationModalComponent, { size: 'lg' });
     modal.componentInstance.url = post.url;
 
     modal.result.then((result) => {
       if (result == 'Confirm') {
-        this.socialMediaPosts.removeAt(index);
+        this.socialMediaPostForms.removeAt(index);
         if ((post.id !== 'undefined') && (post.id !== null)) {
           this.socialMediaService.deleteSocialMediaPost(post.id).subscribe(
             () => {
               // console.log('delete post id ' + post.id + ' success');
             },
             () => {
-              // console.log("Failed to delete post " + post.id);
+               alert("Failed to delete post " + post.id);
             }
           );
         }
@@ -98,55 +98,54 @@ export class SocialMediaListInputComponent implements OnInit {
 
   move(shift, currentIndex) {
 
+    const formArray: FormArray = this.socialMediaPostForms;
     let newIndex: number = currentIndex + shift;
     if (newIndex === -1) {
-      newIndex = this.socialMediaPosts.length - 1;
-    } else if (newIndex === this.socialMediaPosts.length) {
+      newIndex = formArray.length - 1;
+    } else if (newIndex == formArray.length) {
       newIndex = 0;
     }
 
-    const currentGroup = this.socialMediaPosts.at(currentIndex);
-    this.socialMediaPosts.removeAt(currentIndex);;
-    this.socialMediaPosts.insert(newIndex, currentGroup)
+    const currentGroup = formArray.at(currentIndex);
+    formArray.removeAt(currentIndex);
+    formArray.insert(newIndex, currentGroup)
   }
 
   submit() {
-    if (this.socialMediaPosts.valid) {
-      this.socialMediaPosts.value.forEach((post, index) => {
-        post = post as SocialMediaPost;
-        post.sortOrder = index;
-        if (post.id != null) {
-
-          this.socialMediaService.updateSocialMediaPost(post.id, post).subscribe(
-            () => {
-              // console.log('update success: ' + post.id);
-            },
-            () => {
-              // console.log('Failed to update psot: ' + post.id);
-            }
-          );
-        } else {
-          delete post["id"];
-          this.socialMediaService.addSocialMediaPost(post).subscribe(
-            () => {
-              // console.log('create success');
-            },
-            () => {
-              // console.log('Failed to create post');
-            }
-          )
-        }
-      });
-      this.router.navigate(['social-media-list'], { queryParams: { type: 'All' } });
-    } else {
+    const formArray: FormArray = this.socialMediaPostForms;
+    if (!formArray.valid) {
       /// TODO: if submit failed, do something
-      // console.log('not valid');
+      alert('not valid');
+      this.close();
+      return;
     }
+    var updateFns: Observable<SocialMediaPost>[] = [];
+
+    for (var index = 0; index < formArray.length; index++) {
+      const postForm = formArray.at(index);
+      var post = postForm.value as SocialMediaPost;
+      if (post.sortOrder != index) {
+        post.sortOrder = index;
+      } else if (!postForm.dirty) continue;
+
+      updateFns.push(post.id ? this.socialMediaService.updateSocialMediaPost(post.id, post) : this.socialMediaService.addSocialMediaPost(post));
+    }
+    if (!updateFns.length) {
+      this.close();
+      return;
+    }
+    forkJoin(updateFns).subscribe(
+      (results) => {
+        this.close();
+      },
+      (err) => {
+        alert('Failed to update or create post: ' + post.id + ' Error: ' + JSON.stringify(err.error));
+      }
+    );
   }
 
   get_url(index: number): any{
-    let arrayControl = this.socialMediaPostListForm.get('postList') as FormArray;
-    return arrayControl.at(index);
+    return this.socialMediaPostForms.at(index);
   }
 
   close() {
