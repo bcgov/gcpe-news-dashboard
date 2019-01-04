@@ -1,11 +1,11 @@
 <header>
-  <nav *ngIf="visible" class="navbar fixed-top navbar-expand-lg bg-primary gov-navbar navbar-light" style="padding-top: 0; padding-bottom: 0;">
+  <nav *ngIf="visible" class="navbar fixed-top navbar-expand-lg bg-primary gov-navbar navbar-light pt-0 pb-0">
     <!-- Navbar content -->
-    <div class="container">
+    <div class="container-fluid full-width">
       <div class="flex-fill row row-eq-height justify-content-between">
-        <a class="navbar-brand" href="https://www2.gov.bc.ca" style="padding-top:0; padding-bottom: 0; margin-top: 0; margin-bottom: 0;">
-          <img class="img-reponsive d-none d-md-block" src="/assets/images/gov3_bc_logo_white_bg.png" alt="B.C. Government Logo" style="height:80px;">
-          <img class="img-reponsive d-md-none" src="/assets/images/01_gov3_bc_symbol.svg" alt="B.C. Government Logo">
+        <a class="navbar-brand pt-0 pb-0 mt-0 mb-0" href="https://www2.gov.bc.ca">
+          <img class="bc-logo-img img-fluid d-none d-md-block" src="/assets/images/gov3_bc_logo_white_bg.png" alt="B.C. Government Logo">
+          <img class="img-fluid d-md-none" src="/assets/images/01_gov3_bc_symbol.svg" alt="B.C. Government Logo">
         </a>
         <div class="navbar-brand title" id="site-title" >
           <a [routerLink]="['/home']"><h4>BC Gov News</h4></a>
