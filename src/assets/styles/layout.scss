@@ -53,9 +53,24 @@ main .jumbotron{
     border: 1px solid map-get($theme-colors, light)!important;
     color: map-get($theme-colors, primary-nav)!important;
 }
+  
+.full-width{
+    width: 95% !important;
+ }
 
 @media print {
     .doNotPrint {
         display: none !important;
     }
 }
+
+$grid-breakpoints: (
+  xs: 0,
+  sm: 576px,
+  md: 768px,
+  lg: 992px,
+  xl: 1200px,
+  xxl:1600px // this is custom breakpoint
+);
+
+@import "../../../node_modules/bootstrap/scss/bootstrap.scss";
