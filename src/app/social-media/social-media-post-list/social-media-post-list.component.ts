@@ -10,7 +10,7 @@ declare const instgrm: any;
 
 @Component({
   selector: 'app-social-media-post-list',
-  templateUrl: './social-media-post-list.component.html?v=${new Date().getTime()}',
+  templateUrl: './social-media-post-list.component.html',
   styleUrls: ['./social-media-post-list.component.scss']
 })
 export class SocialMediaPostListComponent implements OnInit, OnDestroy {
