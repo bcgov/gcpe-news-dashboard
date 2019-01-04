@@ -1,4 +1,4 @@
-<div class="dashboard-sub-menu-container full-width" >
+<div class="dashboard-sub-menu-container" >
     <h2>HQ Dashboard</h2>
     <button class="btn btn-primary pull-right btn-print doNotPrint" (click)="print()"><i class="fa fa-print fa-lg"></i> Print</button>
     <p class="lighter-font hq-dashboard-info">
@@ -8,7 +8,7 @@
         <ul class="list-inline">
             <li class="list-inline-item"><a [routerLink]="['/last-7-day-post-list']" routerLinkActive="active">{{'last 7 days' | uppercase}}</a></li>
             <li class="list-inline-item"><a [routerLink]="['/next-7-day-activity-list']" routerLinkActive="active">{{'7 days forecast' | uppercase}}</a></li>
-            <li class="list-inline-item"><a [routerLink]="['/themes-of-the-week']" routerLinkActive="active">{{'themes of the week' | uppercase}}</a></li>
+            <li class="list-inline-item"><a [routerLink]="['/themes']" routerLinkActive="active">{{'themes of the week' | uppercase}}</a></li>
             <li class="list-inline-item"><a [routerLink]="['/social-media-list']" [queryParams]="{ type: 'All'}" routerLinkActive="active">{{'social media' | uppercase}}</a></li>
 
             <li id="social-media-filter" class="list-inline-item pull-right" [hidden]="hideSocialMediaFilter">
