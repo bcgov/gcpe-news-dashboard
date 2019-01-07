@@ -1,4 +1,4 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, async } from '@angular/core/testing';
 import { SocialMediaPostListComponent } from './social-media-post-list.component';
 import { ApiService } from '../../services/api.service';
 import { SocialMediaPostsService } from '../../services/socialMediaPosts.service';
@@ -13,13 +13,13 @@ describe('SocialMediaPostListComponent', () => {
   let component: SocialMediaPostListComponent;
   let fixture: ComponentFixture<SocialMediaPostListComponent>;
 
-  beforeEach((() => {
+  beforeEach(async(() => {
     TestBed.configureTestingModule({
       imports: [
         RouterTestingModule,
         HttpClientTestingModule
        ],
-      declarations: [ 
+      declarations: [
         SocialMediaPostListComponent,
         HqDashboardSubMenuComponent
       ],
@@ -38,5 +38,4 @@ describe('SocialMediaPostListComponent', () => {
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
-  
 });

@@ -1,4 +1,4 @@
-import { async, fakeAsync, ComponentFixture, TestBed } from '@angular/core/testing';
+import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { SocialMediaListInputComponent } from './social-media-list-input.component';
 import { ReactiveFormsModule, FormBuilder, FormArray, FormGroup} from '@angular/forms';
 import { SocialMediaPostsService } from '../../services/socialMediaPosts.service';
@@ -12,11 +12,10 @@ import { DeletePostConfirmationModalComponent } from '../delete-post-confirmatio
 describe('SocialMediaListInputComponent', () => {
   let component: SocialMediaListInputComponent;
   let fixture: ComponentFixture<SocialMediaListInputComponent>;
-  let formBuilder = new FormBuilder();
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ 
+      declarations: [
         SocialMediaListInputComponent,
         DeletePostConfirmationModalComponent
       ],
@@ -37,11 +36,7 @@ describe('SocialMediaListInputComponent', () => {
 
   beforeEach(() => {
     fixture = TestBed.createComponent(SocialMediaListInputComponent);
-
     component = fixture.componentInstance;
-    
-
-    
     fixture.detectChanges();
   });
 
