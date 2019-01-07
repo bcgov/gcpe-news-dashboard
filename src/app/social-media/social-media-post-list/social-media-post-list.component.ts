@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, AfterViewInit, OnDestroy } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { SocialMediaType } from '../../view-models/social-media-type';
 import { SocialMediaPostExtended } from '../../view-models/social-media-post-extended';
@@ -13,7 +13,7 @@ declare const instgrm: any;
   templateUrl: './social-media-post-list.component.html',
   styleUrls: ['./social-media-post-list.component.scss']
 })
-export class SocialMediaPostListComponent implements OnInit, OnDestroy {
+export class SocialMediaPostListComponent implements OnInit, AfterViewInit, OnDestroy {
   socialmedia: SocialMediaPostExtended[];
   selectedSocialMedia: SocialMediaPostExtended[];
 
@@ -25,24 +25,18 @@ export class SocialMediaPostListComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    this.init();
-  }
-
-  init() {
     this.activatedRoute.data.subscribe(data => {
       this.socialmedia = data['socialmedia'];
       this.socialmediatypes = data['socialmediatype'];
-      this.selectedSocialMedia = [];
     });
 
     this.activatedRoute.queryParams.subscribe((queryParams: any) => {
       if (queryParams.type === 'All') {
-        this.loadNextPosts();
+        this.selectedSocialMedia = this.socialmedia;
       } else {
         this.selectedSocialMedia = this.socialmedia.filter(s => s.mediaType === queryParams.type);
-        console.log("selectedSocialMedia: " + this.selectedSocialMedia);
-        setTimeout(() => { this.loadWidgets(queryParams.type); }, 0);
       }
+
     });
   }
 
@@ -69,24 +63,6 @@ export class SocialMediaPostListComponent implements OnInit, OnDestroy {
     instgrm.Embeds.process();
   }
 
-  loadNextPosts() {
-    if (this.selectedSocialMedia.length != 0) {
-      this.loadWidgets(this.socialmedia[this.selectedSocialMedia.length - 1].mediaType);
-    }
-    if (this.selectedSocialMedia.length == this.socialmedia.length) return;
-
-    var mediaTypeToLoad = this.socialmedia[this.selectedSocialMedia.length].mediaType;
-
-    while (this.selectedSocialMedia.length < this.socialmedia.length) {
-      var postToLoad = this.socialmedia[this.selectedSocialMedia.length];
-      if (postToLoad.mediaType != mediaTypeToLoad) break;
-      this.selectedSocialMedia.push(postToLoad);
-    }
-
-    console.log("selectedSocialMedia: " + this.selectedSocialMedia);
-    setTimeout(() => { this.loadNextPosts() }, 250); // to give a head start for fetching the post from FB, Twitter or Instagram
-  }
-
   loadWidgets(mediaType: any) {
     switch (mediaType) {
       case 'Facebook':
@@ -98,6 +74,17 @@ export class SocialMediaPostListComponent implements OnInit, OnDestroy {
       case 'Instagram':
         this.loadInstagramWidgets();
     }
+  }
+
+  ngAfterViewInit() {
+    var selectedSocialmediatypes = [];
+
+    this.socialmedia.forEach(post => {
+      if (selectedSocialmediatypes.indexOf(post.mediaType) == -1) {
+        selectedSocialmediatypes.push(post.mediaType);
+        this.loadWidgets(post.mediaType);
+      }
+    });
   }
 
   ngOnDestroy() {
