@@ -1,4 +1,4 @@
-import { ComponentFixture, TestBed, async } from '@angular/core/testing';
+import { ComponentFixture, async, TestBed } from '@angular/core/testing';
 import { SocialMediaPostListComponent } from './social-media-post-list.component';
 import { ApiService } from '../../services/api.service';
 import { SocialMediaPostsService } from '../../services/socialMediaPosts.service';
