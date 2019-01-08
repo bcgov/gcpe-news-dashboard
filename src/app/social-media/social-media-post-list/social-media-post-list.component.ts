@@ -18,6 +18,7 @@ export class SocialMediaPostListComponent implements OnInit, AfterViewInit, OnDe
   selectedSocialMedia: SocialMediaPostExtended[];
 
   socialmediatypes: SocialMediaType[];
+  filterBySocialMediaType: string;
 
   constructor(private router: Router, private activatedRoute: ActivatedRoute) {
     this.router.routeReuseStrategy.shouldReuseRoute = () => false;
@@ -35,7 +36,7 @@ export class SocialMediaPostListComponent implements OnInit, AfterViewInit, OnDe
       } else {
         this.selectedSocialMedia = this.socialmedia.filter(s => s.mediaType === queryParams.type);
       }
-
+      this.filterBySocialMediaType = queryParams.type;
     });
   }
 
@@ -75,7 +76,7 @@ export class SocialMediaPostListComponent implements OnInit, AfterViewInit, OnDe
   }
 
   ngAfterViewInit() {
-    var selectedSocialmediatypes = [];
+    let selectedSocialmediatypes = [];
     if (this.selectedSocialMedia !== undefined) {
       this.selectedSocialMedia.forEach(post => {
         if (selectedSocialmediatypes.indexOf(post.mediaType) === -1) {

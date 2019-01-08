@@ -46,7 +46,7 @@ describe('SocialMediaPostListComponent', () => {
     .compileComponents();
   }));
 
-  beforeEach(async() => {
+  beforeEach(() => {
     TestBed.overrideProvider(ActivatedRoute,
       { useValue: {
         data: of({
@@ -58,10 +58,9 @@ describe('SocialMediaPostListComponent', () => {
     fixture = TestBed.createComponent(SocialMediaPostListComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
-    await fixture.whenStable();
   });
 
-  it('should create', async(()  => {
+  it('should create', ()  => {
     expect(component).toBeTruthy();
-  }));
+  });
 });
