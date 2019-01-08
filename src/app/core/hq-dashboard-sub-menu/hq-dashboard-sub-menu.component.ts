@@ -11,7 +11,7 @@ import { ApiService } from '../../services/api.service';
 export class HqDashboardSubMenuComponent  {
   hideSocialMediaFilter = false;
   @Input() socialmediatypes: SocialMediaType[];
-  filterBySocialMediaType: string = 'All';
+  filterBySocialMediaType: string;
 
   constructor(private router: Router, private route: ActivatedRoute, private apiService:  ApiService) {
     
@@ -21,7 +21,7 @@ export class HqDashboardSubMenuComponent  {
         if ( event.url.indexOf('/social-media-list') > -1 ) {
           this.hideSocialMediaFilter = false;
         }  else {
-          this.hideSocialMediaFilter = true;  
+          this.hideSocialMediaFilter = true; 
         }
       }
     });
