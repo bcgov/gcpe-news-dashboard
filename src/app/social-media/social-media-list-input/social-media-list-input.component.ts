@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { NavmenuService } from '../../services/navmenu.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import { FormArray, FormControl, Validators, FormGroup, FormBuilder } from '@angular/forms';
@@ -8,7 +8,7 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { DeletePostConfirmationModalComponent } from '../delete-post-confirmation-modal/delete-post-confirmation-modal.component';
 import { forkJoin, Observable } from 'rxjs';
 
-const reg : string = '(https?://)?([\\da-z.-]+)\\.([a-z.]{2,6})[/\\w .-]*/?';
+const reg = '(https?://)?([\\da-z.-]+)\\.([a-z.]{2,6})[/\\w .-]*/?';
 
 @Component({
   selector: 'app-social-media-list-input',
@@ -16,11 +16,10 @@ const reg : string = '(https?://)?([\\da-z.-]+)\\.([a-z.]{2,6})[/\\w .-]*/?';
   styleUrls: ['./social-media-list-input.component.scss']
 })
 
-export class SocialMediaListInputComponent implements OnInit {
+export class SocialMediaListInputComponent implements OnInit, OnDestroy {
 
   socialMediaPostListForm: FormGroup;
   socialmedialist: SocialMediaPost[] = [];
-  
   constructor(public nav: NavmenuService, private formBuilder: FormBuilder, private router: Router, private route: ActivatedRoute, private socialMediaService: SocialMediaPostsService, private modal: NgbModal) {
   }
 
@@ -37,7 +36,7 @@ export class SocialMediaListInputComponent implements OnInit {
   }
 
   createForms(post): FormGroup {
-    let formGroup: FormGroup = this.formBuilder.group({
+    const formGroup: FormGroup = this.formBuilder.group({
       id: new FormControl(post.id),
       url: new FormControl(post.url, [Validators.required, Validators.pattern(reg)]),
       sortOrder: new FormControl(post.sortOrder)
@@ -72,13 +71,13 @@ export class SocialMediaListInputComponent implements OnInit {
   }
 
   deleteSocialMediaPost(index: number) {
-    let post = this.socialMediaPostForms.at(index).value;
+    const post = this.socialMediaPostForms.at(index).value;
 
     const modal = this.modal.open(DeletePostConfirmationModalComponent, { size: 'lg' });
     modal.componentInstance.url = post.url;
 
     modal.result.then((result) => {
-      if (result == 'Confirm') {
+      if (result === 'Confirm') {
         this.socialMediaPostForms.removeAt(index);
         if ((post.id !== 'undefined') && (post.id !== null)) {
           this.socialMediaService.deleteSocialMediaPost(post.id).subscribe(
@@ -102,7 +101,7 @@ export class SocialMediaListInputComponent implements OnInit {
     let newIndex: number = currentIndex + shift;
     if (newIndex === -1) {
       newIndex = formArray.length - 1;
-    } else if (newIndex == formArray.length) {
+    } else if (newIndex === formArray.length) {
       newIndex = 0;
     }
 
@@ -119,14 +118,16 @@ export class SocialMediaListInputComponent implements OnInit {
       this.close();
       return;
     }
-    var updateFns: Observable<SocialMediaPost>[] = [];
+    const updateFns: Observable<SocialMediaPost>[] = [];
 
-    for (var index = 0; index < formArray.length; index++) {
+    for (let index = 0; index < formArray.length; index++) {
       const postForm = formArray.at(index);
-      var post = postForm.value as SocialMediaPost;
-      if (post.sortOrder != index) {
+      const post = postForm.value as SocialMediaPost;
+      if (post.sortOrder !== index) {
         post.sortOrder = index;
-      } else if (!postForm.dirty) continue;
+      } else if (!postForm.dirty) {
+        continue;
+      }
 
       updateFns.push(post.id ? this.socialMediaService.updateSocialMediaPost(post.id, post) : this.socialMediaService.addSocialMediaPost(post));
     }
@@ -144,7 +145,7 @@ export class SocialMediaListInputComponent implements OnInit {
     );
   }
 
-  get_url(index: number): any{
+  get_url(index: number): any {
     return this.socialMediaPostForms.at(index);
   }
 

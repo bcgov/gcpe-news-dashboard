@@ -18,7 +18,7 @@ export class SocialMediaPostListComponent implements OnInit, AfterViewInit, OnDe
   selectedSocialMedia: SocialMediaPostExtended[];
 
   socialmediatypes: SocialMediaType[];
-  filterBy: string = 'All';
+  filterBySocialMediaType: string;
 
   constructor(private router: Router, private activatedRoute: ActivatedRoute) {
     this.router.routeReuseStrategy.shouldReuseRoute = () => false;
@@ -36,6 +36,8 @@ export class SocialMediaPostListComponent implements OnInit, AfterViewInit, OnDe
       } else {
         this.selectedSocialMedia = this.socialmedia.filter(s => s.mediaType === queryParams.type);
       }
+      this.filterBySocialMediaType = queryParams.type;
+      console.log(this.filterBySocialMediaType);
 
     });
   }
@@ -48,8 +50,8 @@ export class SocialMediaPostListComponent implements OnInit, AfterViewInit, OnDe
 
   loadFacebookWidgets() {
     // remove the fb-post class from the posts that have already been rendered so they don't flicker when we parse/render the next one
-    var fbPosts = document.getElementsByClassName("fb-post");
-    for (var i = fbPosts.length - 1; i >= 0; i--) {
+    const fbPosts = document.getElementsByClassName("fb-post");
+    for (let i = fbPosts.length - 1; i >= 0; i--) {
       fbPosts[i].className = fbPosts[i].className.replace("fb-post ", "");
     }
     FB.init({
@@ -77,10 +79,10 @@ export class SocialMediaPostListComponent implements OnInit, AfterViewInit, OnDe
   }
 
   ngAfterViewInit() {
-    var selectedSocialmediatypes = [];
+    let selectedSocialmediatypes = [];
 
     this.socialmedia.forEach(post => {
-      if (selectedSocialmediatypes.indexOf(post.mediaType) == -1) {
+      if (selectedSocialmediatypes.indexOf(post.mediaType) === -1) {
         selectedSocialmediatypes.push(post.mediaType);
         this.loadWidgets(post.mediaType);
       }
