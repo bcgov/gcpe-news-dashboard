@@ -140,7 +140,7 @@ export class SocialMediaListInputComponent implements OnInit, OnDestroy {
         this.close();
       },
       (err) => {
-        alert('Failed to update or create post: ' + post.id + ' Error: ' + JSON.stringify(err.error));
+        alert('Failed to update or create post - Error: ' + JSON.stringify(err.error));
       }
     );
   }
