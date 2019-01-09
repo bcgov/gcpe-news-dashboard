@@ -72,4 +72,19 @@ describe('NavmenuComponent', () => {
     //There should a create button in the template
     expect(element.innerHTML).toContain("navbar-toggler-icon");
   });
+
+  it('should have the user`s first initial', () => {
+    spyOn(component, 'isLoggedIn').and.returnValue(true);
+    spyOn(component, 'getFirstLetter').and.returnValue('A');
+    fixture.detectChanges();
+    
+    expect(element.querySelector('.user-image').innerHTML).toBe('A');
+  });
+
+  it('should get a unique colour for each letter', () => {
+    const letters = [...Array(26).keys()].map(i => String.fromCharCode(i + 67));
+    const colours = letters.map(letter => component.getColor(letter));
+    const coloursSet = [...new Set(colours)];
+    expect(colours.length).toBe(coloursSet.length);
+  });
 })
