@@ -31,7 +31,6 @@ header .nav-item .active{
 .user-image{
     width: 36px;
     border-radius: 50%;
-    background: map-get($theme-colors, secondary)!important;
     height: 36px;
     box-sizing: initial;
     text-align: center;
@@ -44,4 +43,8 @@ header .nav-item .active{
 .dropdown-toggle::after{
     content:initial;
  }
+
+.bc-logo-img {
+    max-height: 80px;
+}
  

@@ -19,7 +19,7 @@ export class AuthService {
     return !!token;
   }
 
-  get identityClaims() { return this.oauthService.getIdentityClaims(); }
+  get identityClaims() { return this.oauthService.getIdentityClaims() || {}; }
 
   roleMatch(allowedRoles: Array<String>): boolean {
     let isMatch = false;

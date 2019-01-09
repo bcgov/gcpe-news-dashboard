@@ -1,5 +1,5 @@
-<nav id="social-media-list-input-nav" class="navbar fixed-top navbar-expand-lg bg-primary navbar-light" style="padding-top: 0; padding-bottom: 0;">
-    <div class="container">
+<nav id="social-media-list-input-nav" class="navbar fixed-top navbar-expand-lg bg-primary navbar-light pt-0 pb-0">
+    <div class="container-fluid">
         <div class="navbar-brand title mr-auto">
             <h4>Update Social Media List</h4>
         </div>
@@ -11,22 +11,19 @@
     </div>
 </nav>
 
-<div id="admin-social-media-list-input-form" class="container pl-0 pr-0 pt-5">
+<div id="admin-social-media-list-input-form" class="container-fluid pl-0 pr-0 pt-5">
     <form [formGroup]="socialMediaPostListForm" (ngSubmit)="submit()">
-        <legend>
-            Please update the social media post url here
-        </legend>
-        <fieldset style="padding-top:30px;">
+        <fieldset class="pt-3"> 
             <div formArrayName="postList">
                 <div *ngFor="let formGroup of socialMediaPostListForm['controls'].postList['controls']; index as i">
-                    <div [formGroup]="formGroup">
-                        <div class="input-group">
-                            <label for="url" class="col-lg-1 col-form-label">{{'Url' | uppercase}}</label>
-                            <div class="col-lg-7 ">
+                    <div [formGroup]="formGroup" class="row">
+                        <div class="input-group justify-content-center">
+                            <label for="url" class="col-lg-1 col-xl-1 col-xxl-1 col-form-label text-right">{{'Url' | uppercase}}</label>
+                            <div class="col-lg-7 col-xl-6 col-xxl-4">
                                 <input class="form-control" type="text" name="url" formControlName="url">
-                                <div *ngIf="get_url(i).invalid && (get_url(i).dirty || get_url(i).touched)" class="alert alert-danger">Url Format Error</div>
+                                <div *ngIf="get_url(i).invalid && get_url(i).dirty" class="alert alert-danger mt-1">Url Format Error</div>
                             </div>
-                            <div class="col-lg-4 pull-right">
+                            <div class="col-lg-4 col-xl-2 col-xxl-2 pull-right">
                                 <div class="btn-group" role="group" aria-label="Basic example">
                                     <button type="submit" (click.preventDefault)="move(-1, i)" class="btn btn-link"><i
                                             class="fa fa-arrow-up fa-2x"></i></button>

@@ -1,4 +1,4 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, async, TestBed } from '@angular/core/testing';
 import { SocialMediaPostListComponent } from './social-media-post-list.component';
 import { ApiService } from '../../services/api.service';
 import { SocialMediaPostsService } from '../../services/socialMediaPosts.service';
@@ -13,7 +13,7 @@ describe('SocialMediaPostListComponent', () => {
   let component: SocialMediaPostListComponent;
   let fixture: ComponentFixture<SocialMediaPostListComponent>;
 
-  beforeEach((() => {
+  beforeEach(async(() => {
     TestBed.configureTestingModule({
       imports: [
         RouterTestingModule,
