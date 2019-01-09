@@ -6,12 +6,13 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { OAuthModule } from 'angular-oauth2-oidc';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+// tslint:disable-next-line:import-spacing
 import { NavMenuComponent } from  './core/navmenu/navmenu.component';
 import { PostListComponent } from './posts/post-list/post-list.component';
 import { FooterComponent } from './core/footer/footer.component';
 import { ActivityForecastListComponent } from './activities/activity-list/activity-forecast-list.component';
-import { ActivityListResolver } from "./_resolvers/activity-list.resolver";
-import { PostListResolver } from "./_resolvers/post-list.resolver";
+import { ActivityListResolver } from './_resolvers/activity-list.resolver';
+import { PostListResolver } from './_resolvers/post-list.resolver';
 import { ApiService } from './services/api.service';
 import { AuthService } from './services/auth.service';
 import { MessagesService } from './services/messages.service';
@@ -30,8 +31,11 @@ import { TimeAgoPipe } from 'time-ago-pipe';
 import { SocialMediaListInputComponent } from './social-media/social-media-list-input/social-media-list-input.component';
 import { SociaMediaPostListResolver } from './_resolvers/social-media-post-list.resolver';
 import { SocialMediaPostsService } from './services/socialMediaPosts.service';
+// tslint:disable-next-line:max-line-length
 import { DeletePostConfirmationModalComponent } from './social-media/delete-post-confirmation-modal/delete-post-confirmation-modal.component';
 import { SocialMediaPostListComponent } from './social-media/social-media-post-list/social-media-post-list.component';
+import { AuthGuard } from './_guards/auth.guard';
+import { HasRoleDirective } from './_directives/hasRole.directive';
 
 @NgModule({
   declarations: [
@@ -52,6 +56,7 @@ import { SocialMediaPostListComponent } from './social-media/social-media-post-l
     SocialMediaListInputComponent,
     DeletePostConfirmationModalComponent,
     SocialMediaPostListComponent,
+    HasRoleDirective
   ],
   imports: [
     BrowserModule,
@@ -73,7 +78,8 @@ import { SocialMediaPostListComponent } from './social-media/social-media-post-l
     MessageListResolver,
     SociaMediaTypeListResolver,
     MessageResolver,
-    SociaMediaPostListResolver
+    SociaMediaPostListResolver,
+    AuthGuard
   ],
   entryComponents: [
     DeletePostConfirmationModalComponent

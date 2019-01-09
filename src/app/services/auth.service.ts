@@ -6,7 +6,7 @@ import { OAuthService } from 'angular-oauth2-oidc';
 })
 export class AuthService {
 
-  constructor(private oauthService: OAuthService) { }
+  constructor(private oauthService: OAuthService) {}
 
   login() {
     this.oauthService.initImplicitFlow(); // redirection is configured in the app component
@@ -21,4 +21,15 @@ export class AuthService {
 
   get identityClaims() { return this.oauthService.getIdentityClaims(); }
 
+  roleMatch(allowedRoles: Array<String>): boolean {
+    let isMatch = false;
+    const userRoles = this.identityClaims['user_roles']  as Array<String> || [];
+    allowedRoles.forEach(role => {
+      if (userRoles.includes(role)) {
+        isMatch = true;
+        return;
+      }
+    });
+    return isMatch;
+  }
 }
