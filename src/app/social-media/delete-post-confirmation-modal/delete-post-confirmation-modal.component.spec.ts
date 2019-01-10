@@ -1,7 +1,7 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { DeletePostConfirmationModalComponent } from './delete-post-confirmation-modal.component';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import {  NgbActiveModal }from '@ng-bootstrap/ng-bootstrap';
+import {  NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 
 describe('DeletePostConfirmationModalComponent', () => {
   let component: DeletePostConfirmationModalComponent;
@@ -13,7 +13,7 @@ describe('DeletePostConfirmationModalComponent', () => {
       providers: [
        NgbActiveModal
       ],
-      
+
     })
     .compileComponents();
   }));

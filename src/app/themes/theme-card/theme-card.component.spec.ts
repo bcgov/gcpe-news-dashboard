@@ -29,30 +29,50 @@ describe('ThemeCardComponent', () => {
   });
 
   it('should create with theme', () => {
-    const theme = { title: "Test Theme", description: "Test description", sortOrder: 0, isPublished: true, timestamp: new Date() } as Message;
+    const theme = {
+      title: 'Test Theme',
+      description: 'Test description',
+      sortOrder: 0,
+      isPublished: true,
+      timestamp: new Date() } as Message;
     component.theme = theme;
     fixture.detectChanges();
     expect(component).toBeTruthy();
   });
 
   it('should create with proper title', () => {
-    const theme = { title: "Test Theme", description: "Test description", sortOrder: 0, isPublished: true, timestamp: new Date() } as Message;
+    const theme = {
+      title: 'Test Theme',
+      description: 'Test description',
+      sortOrder: 0,
+      isPublished: true,
+      timestamp: new Date() } as Message;
     component.theme = theme;
     fixture.detectChanges();
     const div = fixture.nativeElement.querySelector('.card-title');
-    expect(div.innerHTML).toBe('Test Theme')
+    expect(div.innerHTML).toBe('Test Theme');
   });
 
   it('should create with proper description', () => {
-    const theme = { title: "Test Theme", description: "Test description", sortOrder: 0, isPublished: true, timestamp: new Date() } as Message;
+    const theme = {
+      title: 'Test Theme',
+      description: 'Test description',
+      sortOrder: 0,
+      isPublished: true,
+      timestamp: new Date() } as Message;
     component.theme = theme;
     fixture.detectChanges();
     const div = fixture.nativeElement.querySelector('.card-text');
-    expect(div.innerHTML).toBe('Test description')
+    expect(div.innerHTML).toBe('Test description');
   });
 
   it('should have last class if last', () => {
-    const theme = { title: "Test Theme", description: "Test description", sortOrder: 0, isPublished: true, timestamp: new Date() } as Message;
+    const theme = {
+      title: 'Test Theme',
+      description: 'Test description',
+      sortOrder: 0,
+      isPublished: true,
+      timestamp: new Date() } as Message;
     component.theme = theme;
     component.last = true;
     fixture.detectChanges();

@@ -1,5 +1,5 @@
 import { TestBed, async, inject } from '@angular/core/testing';
-import { HttpClientModule,HttpClient } from '@angular/common/http';
+import { HttpClientModule, HttpClient } from '@angular/common/http';
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
 import { Post } from '../view-models/post';
 import { Activity } from '../view-models/activity';
@@ -31,26 +31,24 @@ describe('ApiService', () => {
       service.getPosts().subscribe(data => {
         expect(data.length).toBe(2);
       });
-      
     })
 );
 
-  it('should issue a request to get posts', 
+  it('should issue a request to get posts',
   async(inject([HttpClient, HttpTestingController], (http: HttpClient, backend: HttpTestingController) => {
-    http.get<Post[]>(environment.apiUrl+'api/Posts/Latest/home/default?count=10&api-version=1.0').subscribe();
+    http.get<Post[]>(environment.apiUrl + 'api/Posts/Latest/home/default?count=10&api-version=1.0').subscribe();
     backend.expectOne({
-      url: environment.apiUrl+'api/Posts/Latest/home/default?count=10&api-version=1.0',
+      url: environment.apiUrl + 'api/Posts/Latest/home/default?count=10&api-version=1.0',
       method: 'GET'
     });
   })));
 
-  it('should issue a request to get activities', 
+  it('should issue a request to get activities',
   async(inject([HttpClient, HttpTestingController], (http: HttpClient, backend: HttpTestingController) => {
-    http.get<Activity[]>(environment.apiUrl+'api/Posts/Latest/home/default?count=10&api-version=1.0').subscribe();
+    http.get<Activity[]>(environment.apiUrl + 'api/Posts/Latest/home/default?count=10&api-version=1.0').subscribe();
     backend.expectOne({
-      url: environment.apiUrl+ 'api/Posts/Latest/home/default?count=10&api-version=1.0',
+      url: environment.apiUrl + 'api/Posts/Latest/home/default?count=10&api-version=1.0',
       method: 'GET'
     });
   })));
-
 });

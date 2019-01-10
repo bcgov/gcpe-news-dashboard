@@ -8,7 +8,7 @@ export const authConfig: AuthConfig = {
   // URL of the SPA to redirect the user to after login
   redirectUri: window.location.origin,
 
-  // The SPA's id. 
+  // The SPA's id.
   // The SPA is registerd with this id at the auth-server
   clientId: 'demo-app',
 
@@ -20,4 +20,4 @@ export const authConfig: AuthConfig = {
   // USE A CERTIFICATE FOR YOUR IDP
   // IN PRODUCTION
   requireHttps: false
-}
+};

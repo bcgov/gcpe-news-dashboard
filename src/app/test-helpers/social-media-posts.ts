@@ -1,10 +1,10 @@
 import { SocialMediaPost } from '../view-models/socialMediaPost';
 
 export function FakeSocialMediaPostsData(count: number) {
-  let list: SocialMediaPost[] = [];
+  const list: SocialMediaPost[] = [];
 
-  for (var i = 0; i < count; i++) {
-    var post = { url: 'https://www.instagram.com/p/BrTJd9yBvVy/', sortOrder: i, timestamp: new Date() } as SocialMediaPost;
+  for (let i = 0; i < count; i++) {
+    const post = { url: 'https://www.instagram.com/p/BrTJd9yBvVy/', sortOrder: i, timestamp: new Date() } as SocialMediaPost;
     list.push(post);
   }
   return list;
