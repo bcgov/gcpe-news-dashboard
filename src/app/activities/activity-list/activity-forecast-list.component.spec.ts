@@ -21,7 +21,7 @@ describe('ActivityForecastListComponent', () => {
         RouterModule,
         HttpClientModule
       ],
-      declarations: [ 
+      declarations: [
         ActivityForecastListComponent,
         HqDashboardSubMenuComponent,
         HasRoleDirective

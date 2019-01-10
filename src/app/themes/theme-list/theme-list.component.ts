@@ -23,8 +23,8 @@ export class ThemeListComponent implements OnInit {
   unpublishTheme(theme: Message) {
     this.messagesService.updateMessage(theme.id, {...theme, isPublished: false})
     .subscribe(
-      () => { this.removeThemeFromList(theme.id) },
-      () => { this.handleError("Failed to unpublish theme") }
+      () => { this.removeThemeFromList(theme.id); },
+      () => { this.handleError('Failed to unpublish theme'); }
     );
   }
 
@@ -39,27 +39,27 @@ export class ThemeListComponent implements OnInit {
   sortEventReceived(event) {
     const index = this.themes.findIndex(x => x.id === event.themeId);
     if (event.direction === 'up') {
-      if (index - 1 < 0) return;
+      if (index - 1 < 0) { return; }
       this.swapSortOrders(index, index - 1);
     } else if (event.direction === 'down') {
-      if (index + 1 >= this.themes.length) return;
+      if (index + 1 >= this.themes.length) { return; }
       this.swapSortOrders(index, index + 1);
     }
   }
 
   swapSortOrders(firstThemeIndex: number, secondThemeIndex: number) {
-    let firstTheme = this.themes[firstThemeIndex];
-    let secondTheme = this.themes[secondThemeIndex];
+    const firstTheme = this.themes[firstThemeIndex];
+    const secondTheme = this.themes[secondThemeIndex];
 
-    var firstCall = this.messagesService.updateMessage(firstTheme.id, {...firstTheme, sortOrder: secondTheme.sortOrder});
-    var secondCall = this.messagesService.updateMessage(secondTheme.id, {...secondTheme, sortOrder: firstTheme.sortOrder });
+    const firstCall = this.messagesService.updateMessage(firstTheme.id, {...firstTheme, sortOrder: secondTheme.sortOrder});
+    const secondCall = this.messagesService.updateMessage(secondTheme.id, {...secondTheme, sortOrder: firstTheme.sortOrder });
 
     // Subscribe to both update calls
     forkJoin(firstCall, secondCall).subscribe(results => {
       this.themes[secondThemeIndex] = results[0] as Message;
       this.themes[firstThemeIndex] = results[1] as Message;
     }, () => {
-      this.handleError("Failed to change order of themes");
+      this.handleError('Failed to change order of themes');
     });
   }
 }

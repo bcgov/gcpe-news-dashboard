@@ -1,6 +1,7 @@
 import { Input, AfterViewInit, ElementRef, HostListener, Directive } from '@angular/core';
 
 @Directive({
+  // tslint:disable-next-line:directive-selector
   selector: 'textarea[autosize]'
 })
 export class AutosizeDirective implements AfterViewInit {
@@ -9,7 +10,7 @@ export class AutosizeDirective implements AfterViewInit {
   private _minHeight: number;
   private _maxHeight: number;
   private _clientWidth: number;
-  private _rows: number = 0;
+  private _rows = 0;
   private _rowHeight: number;
 
   @Input('minHeight')
@@ -34,7 +35,7 @@ export class AutosizeDirective implements AfterViewInit {
     onResize(textArea: HTMLTextAreaElement): void {
       if (this.el.clientWidth === this._clientWidth) {
         return;
-      };
+      }
       this._clientWidth = this.el.clientWidth;
       this.adjust();
     }
@@ -79,6 +80,7 @@ export class AutosizeDirective implements AfterViewInit {
       const shrinkTo = (this._rowHeight * (this._rows - 1)) + this._initialHeight;
       this.resize(shrinkTo);
     }
+    // tslint:disable-next-line:radix
     this._rowHeight = this.el.scrollHeight - parseInt(this.el.style.height);
     this.resize(this.el.scrollHeight);
   }

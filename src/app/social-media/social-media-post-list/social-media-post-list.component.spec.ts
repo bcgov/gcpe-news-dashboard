@@ -19,7 +19,7 @@ describe('SocialMediaPostListComponent', () => {
         RouterTestingModule,
         HttpClientTestingModule
        ],
-      declarations: [ 
+      declarations: [
         SocialMediaPostListComponent,
         HqDashboardSubMenuComponent
       ],
@@ -38,5 +38,4 @@ describe('SocialMediaPostListComponent', () => {
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
-  
 });

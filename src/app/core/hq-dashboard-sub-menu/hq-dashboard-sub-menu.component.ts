@@ -12,7 +12,7 @@ import { HasRoleDirective } from '../../_directives/hasRole.directive';
 export class HqDashboardSubMenuComponent implements OnInit {
   hideSocialMediaFilter = false;
   @Input() socialmediatypes: SocialMediaType[];
-  filterBySocialMediaType: string = 'All';
+  filterBySocialMediaType = 'All';
 
   constructor(private router: Router, private activatedRoute: ActivatedRoute, private apiService:  ApiService) {
     // Only display the social media filter dropdown when social media link is active
@@ -28,7 +28,7 @@ export class HqDashboardSubMenuComponent implements OnInit {
   }
 
   ngOnInit() {
-    if(this.activatedRoute.queryParams) {
+    if (this.activatedRoute.queryParams) {
       this.activatedRoute.queryParams.subscribe((queryParams: any) => {
         this.filterBySocialMediaType = queryParams.type;
       });

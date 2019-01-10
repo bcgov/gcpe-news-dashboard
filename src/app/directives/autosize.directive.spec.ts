@@ -43,27 +43,27 @@ describe('Autosize', () => {
   });
 
   it('should call adjust on resize if new width', () => {
-    spyOn(autosizeDirective, "adjust");
+    spyOn(autosizeDirective, 'adjust');
 
     textareaEl.nativeElement.style.width = `${textareaEl.nativeElement.clientWidth / 2}px`;
     window.dispatchEvent(new Event('resize'));
-    
+
     expect(autosizeDirective.adjust).toHaveBeenCalled();
   });
 
   it('should not call adjust on resize if same width', () => {
-    spyOn(autosizeDirective, "adjust");
+    spyOn(autosizeDirective, 'adjust');
 
     window.dispatchEvent(new Event('resize'));
-    
+
     expect(autosizeDirective.adjust).not.toHaveBeenCalled();
   });
 
   it('should call adjust on input', () => {
-    spyOn(autosizeDirective, "adjust");
+    spyOn(autosizeDirective, 'adjust');
 
     textareaEl.nativeElement.dispatchEvent(new Event('input'));
-    
+
     expect(autosizeDirective.adjust).toHaveBeenCalled();
   });
 
@@ -77,7 +77,7 @@ describe('Autosize', () => {
     textareaEl.nativeElement.style.resize = 'both';
     autosizeDirective = textareaEl.injector.get<AutosizeDirective>(AutosizeDirective);
     fixture.detectChanges();
-    
+
     expect(textareaEl.nativeElement.style.resize).toBe('horizontal');
   });
 
@@ -87,9 +87,9 @@ describe('Autosize', () => {
     textareaEl = fixture.debugElement.query(By.css('textarea'));
     textareaEl.nativeElement.style.resize = 'both';
     autosizeDirective = textareaEl.injector.get<AutosizeDirective>(AutosizeDirective);
-    spyOn(autosizeDirective, "adjust");
+    spyOn(autosizeDirective, 'adjust');
     fixture.detectChanges();
-    
+
     expect(autosizeDirective.adjust).toHaveBeenCalled();
   });
 
@@ -106,9 +106,9 @@ describe('Autosize', () => {
 
   it('should grow and shrink when necessary', () => {
     const initialHeight = textareaEl.nativeElement.clientHeight;
-    const spy = spyOn(autosizeDirective, "resize").and.callThrough();
-    
-    textareaEl.nativeElement.value = "test\ntest2\ntest3\ntest4\ntest5";
+    const spy = spyOn(autosizeDirective, 'resize').and.callThrough();
+
+    textareaEl.nativeElement.value = 'test\ntest2\ntest3\ntest4\ntest5';
     textareaEl.nativeElement.dispatchEvent(new Event('input'));
 
     expect(autosizeDirective.resize).toHaveBeenCalled();

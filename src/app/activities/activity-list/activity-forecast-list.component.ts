@@ -19,31 +19,34 @@ export class ActivityForecastListComponent implements OnInit {
 
   ngOnInit() {
     this.route.data.subscribe(data => {
-      var inst = this;
-      var todayDow = this.today.getDay();
-      if (todayDow == 6) todayDow = 0; // group Sunday with Saturday
+      const inst = this;
+      let todayDow = this.today.getDay();
+      if (todayDow === 6) { todayDow = 0; } // group Sunday with Saturday
       data['activities'].forEach(v => {
         v.startDateTime = new Date(v.startDateTime);
-        var dow = v.startDateTime.getDay();
-        if (dow == 6) dow = 0; // group Sunday with Saturday
+        let dow = v.startDateTime.getDay();
+        if (dow === 6) { dow = 0; } // group Sunday with Saturday
         inst.activitiesPerDays[dow >= todayDow ? dow - todayDow : dow + 6 - todayDow].push(v);
       });
     });
   }
   getStartDow(i: number) {
-    var dow: number = this.getStartDate(i).getDay();
-    return dow != 0 && dow != 6 ? WeekDay[dow] : "Sat/Sun";
+    const dow: number = this.getStartDate(i).getDay();
+    return dow !== 0 && dow !== 6 ? WeekDay[dow] : 'Sat/Sun';
   }
 
   getStartDay(i: number) {
-    var startDateTime: Date = this.getStartDate(i);
-    var day: string = startDateTime.getDate().toString();
-    var dow: number = startDateTime.getDay();
-    if (dow == 0 || dow == 6) {
-      if (dow == 0) day = new Date(startDateTime.valueOf() - this.msInaDay).getDate() + "/" + day;
-      else day+= "/" + new Date(startDateTime.valueOf() + this.msInaDay).getDate();
+    const startDateTime: Date = this.getStartDate(i);
+    let day: string = startDateTime.getDate().toString();
+    const dow: number = startDateTime.getDay();
+    if (dow === 0 || dow === 6) {
+      if (dow === 0) {
+        day = new Date(startDateTime.valueOf() - this.msInaDay).getDate() + '/' + day;
+      } else {
+        day += '/' + new Date(startDateTime.valueOf() + this.msInaDay).getDate();
+      }
     }
-    return day;// + "(" + (startDateTime.getMonth() + 1) + ")";
+    return day; // + "(" + (startDateTime.getMonth() + 1) + ")";
   }
 
   getStartDate(i: number) {

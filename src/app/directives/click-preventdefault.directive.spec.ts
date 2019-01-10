@@ -12,7 +12,7 @@ class TestPreventDefaultComponent {
 
 describe('ClickPreventDefaultDirective', () => {
   let component: TestPreventDefaultComponent;
-  let fixture: ComponentFixture<TestPreventDefaultComponent>
+  let fixture: ComponentFixture<TestPreventDefaultComponent>;
   let aEl: DebugElement;
   let directive: ClickPreventDefaultDirective;
 
@@ -34,11 +34,11 @@ describe('ClickPreventDefaultDirective', () => {
   });
 
   it('should prevent default and call proper function', () => {
-    var event = {
+    const event = {
         type: 'click',
         preventDefault: function () {}
     };
-    var preventDefaultSpy = spyOn(event, 'preventDefault');
+    const preventDefaultSpy = spyOn(event, 'preventDefault');
     spyOn(component, 'test');
 
     aEl.triggerEventHandler('click', event);
