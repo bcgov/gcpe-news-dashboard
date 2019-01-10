@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { FormBuilder, Validators, FormGroup } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
 
@@ -11,9 +11,9 @@ import { Message } from 'src/app/view-models/message';
   templateUrl: './theme-form.component.html',
   styleUrls: ['./theme-form.component.scss'],
 })
-export class ThemeFormComponent implements OnInit {
-  themeId: string = "";
-  isNew: boolean = true;
+export class ThemeFormComponent implements OnInit, OnDestroy {
+  themeId = '';
+  isNew = true;
   theme = {
     title: '',
     description: '',
@@ -22,7 +22,12 @@ export class ThemeFormComponent implements OnInit {
   } as Message;
   themeForm: FormGroup;
 
-  constructor(public nav: NavmenuService, private messagesService: MessagesService, private fb: FormBuilder, private router: Router, private route: ActivatedRoute) {
+  constructor(
+    public nav: NavmenuService,
+    private messagesService: MessagesService,
+    private fb: FormBuilder,
+    private router: Router,
+    private route: ActivatedRoute) {
     this.resetForm();
   }
 
@@ -42,7 +47,7 @@ export class ThemeFormComponent implements OnInit {
         this.theme = <Message>{
           ...data['theme']
         };
-        
+
         this.themeId = data['theme'].id;
         this.isNew = false;
         this.resetForm();
@@ -62,7 +67,7 @@ export class ThemeFormComponent implements OnInit {
     if (this.themeForm.invalid) {
       return;
     }
-    let theme: Message = this.themeForm.value;
+    const theme: Message = this.themeForm.value;
     if (this.isNew) {
       this.create(theme);
     } else {
@@ -77,7 +82,7 @@ export class ThemeFormComponent implements OnInit {
         this.close();
       },
       () => {
-        this.handleError("Failed to create theme");
+        this.handleError('Failed to create theme');
       }
     );
   }
@@ -89,7 +94,7 @@ export class ThemeFormComponent implements OnInit {
         this.close();
       },
       () => {
-        this.handleError("Failed to create theme");
+        this.handleError('Failed to create theme');
       }
     );
   }
@@ -121,8 +126,8 @@ export class ThemeFormComponent implements OnInit {
     }
     this.messagesService.deleteMessage(this.theme.id)
     .subscribe(
-      () => { this.close() },
-      () => { this.handleError("Failed to delete theme") }
+      () => { this.close(); },
+      () => { this.handleError('Failed to delete theme'); }
     );
   }
 }

@@ -23,8 +23,8 @@ export class ThemeListComponent implements OnInit {
   unpublishTheme(theme: Message) {
     this.messagesService.updateMessage(theme.id, {...theme, isPublished: false})
     .subscribe(
-      () => { this.removeThemeFromList(theme.id) },
-      () => { this.handleError("Failed to unpublish theme") }
+      () => { this.removeThemeFromList(theme.id); },
+      () => { this.handleError('Failed to unpublish theme'); }
     );
   }
 
@@ -39,18 +39,18 @@ export class ThemeListComponent implements OnInit {
   sortEventReceived(event) {
     const index = this.themes.findIndex(x => x.id === event.themeId);
     if (event.direction === 'up') {
-      if (index - 1 < 0) return;
+      if (index - 1 < 0) { return; }
       this.messagesService.updateMessage(this.themes[index].id, {...this.themes[index], sortOrder: this.themes[index].sortOrder - 1})
       .subscribe(result => {
-        this.themes[index] = this.themes[index-1];
-        this.themes[index-1] = result;
+        this.themes[index] = this.themes[index - 1];
+        this.themes[index - 1] = result;
       });
     } else if (event.direction === 'down') {
-      if (index + 1 >= this.themes.length) return;
+      if (index + 1 >= this.themes.length) { return; }
       this.messagesService.updateMessage(this.themes[index].id, {...this.themes[index], sortOrder: this.themes[index].sortOrder + 1})
       .subscribe(result => {
-        this.themes[index] = this.themes[index+1];
-        this.themes[index+1] = result;
+        this.themes[index] = this.themes[index + 1];
+        this.themes[index + 1] = result;
       });
     }
   }

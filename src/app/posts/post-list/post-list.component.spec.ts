@@ -6,6 +6,9 @@ import { HqDashboardSubMenuComponent } from '../../core/hq-dashboard-sub-menu/hq
 import { environment } from '../../../environments/environment';
 import { HttpClientModule } from '@angular/common/http';
 import { BASE_PATH } from '../../variables';
+import { HasRoleDirective } from 'src/app/_directives/hasRole.directive';
+import { AuthService } from 'src/app/services/auth.service';
+import { OAuthService } from 'angular-oauth2-oidc';
 
 describe('PostListComponent', () => {
   let component: PostListComponent;
@@ -20,10 +23,15 @@ describe('PostListComponent', () => {
        ],
       declarations: [
         PostListComponent,
-        HqDashboardSubMenuComponent
+        HqDashboardSubMenuComponent,
+        HasRoleDirective
       ],
       providers: [
-        { provide: BASE_PATH, useValue: environment.apiUrl }
+        { provide: BASE_PATH, useValue: environment.apiUrl },
+        AuthService,
+        {provide: OAuthService, useValue: {
+          getIdentityClaims: () => ['Administrators']
+        }}
       ],
     })
     .compileComponents();

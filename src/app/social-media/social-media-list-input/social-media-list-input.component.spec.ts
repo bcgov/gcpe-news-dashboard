@@ -7,16 +7,16 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { BASE_PATH } from '../../variables';
 import { environment } from '../../../environments/environment';
-import { DeletePostConfirmationModalComponent } from '../delete-post-confirmation-modal/delete-post-confirmation-modal.component'
+import { DeletePostConfirmationModalComponent } from '../delete-post-confirmation-modal/delete-post-confirmation-modal.component';
 
 describe('SocialMediaListInputComponent', () => {
   let component: SocialMediaListInputComponent;
   let fixture: ComponentFixture<SocialMediaListInputComponent>;
-  let formBuilder = new FormBuilder();
+  const formBuilder = new FormBuilder();
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ 
+      declarations: [
         SocialMediaListInputComponent,
         DeletePostConfirmationModalComponent
       ],
@@ -39,9 +39,7 @@ describe('SocialMediaListInputComponent', () => {
     fixture = TestBed.createComponent(SocialMediaListInputComponent);
 
     component = fixture.componentInstance;
-    
 
-    
     fixture.detectChanges();
   });
 

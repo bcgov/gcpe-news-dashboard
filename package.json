@@ -32,7 +32,7 @@
     "zone.js": "~0.8.26"
   },
   "devDependencies": {
-    "@angular-devkit/build-angular": "~0.10.4",
+    "@angular-devkit/build-angular": "^0.12.1",
     "@angular/cli": "~7.1.0",
     "@angular/compiler-cli": "~7.1.0",
     "@angular/language-service": "~7.1.0",
@@ -44,7 +44,6 @@
     "cross-env": "5.2.0",
     "font-awesome": "^4.7.0",
     "global": "^4.3.2",
-    "npm": "^6.4.1",
     "jasmine-core": "~2.99.1",
     "jasmine-spec-reporter": "~4.2.1",
     "karma": "~3.0.0",
@@ -52,6 +51,7 @@
     "karma-coverage-istanbul-reporter": "~2.0.1",
     "karma-jasmine": "~1.1.2",
     "karma-jasmine-html-reporter": "^0.2.2",
+    "npm": "^6.4.1",
     "protractor": "~5.4.0",
     "puppeteer": "1.9.0",
     "snyk": "^1.117.1",
