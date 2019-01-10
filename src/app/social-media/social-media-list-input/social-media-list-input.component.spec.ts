@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { async, ComponentFixture, TestBed, fakeAsync } from '@angular/core/testing';
 import { SocialMediaListInputComponent } from './social-media-list-input.component';
 import { ReactiveFormsModule, FormBuilder, FormArray, FormGroup} from '@angular/forms';
 import { SocialMediaPostsService } from '../../services/socialMediaPosts.service';
@@ -7,13 +7,22 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { BASE_PATH } from '../../variables';
 import { environment } from '../../../environments/environment';
-import { DeletePostConfirmationModalComponent } from '../delete-post-confirmation-modal/delete-post-confirmation-modal.component'
-import { Button } from 'protractor';
+import { DeletePostConfirmationModalComponent } from '../delete-post-confirmation-modal/delete-post-confirmation-modal.component';
+import { By } from '@angular/platform-browser';
+import { FakeSocialMediaPostsData } from '../../test-helpers/social-media-posts';
+import { of } from 'rxjs';
+import { ActivatedRoute } from '@angular/router';
 
 describe('SocialMediaListInputComponent', () => {
   let component: SocialMediaListInputComponent;
   let fixture: ComponentFixture<SocialMediaListInputComponent>;
   let div: HTMLElement;
+
+  class MockActivatedRoute {
+    data = of({
+      socialmedia: FakeSocialMediaPostsData(3)
+    });
+  }
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
@@ -30,37 +39,71 @@ describe('SocialMediaListInputComponent', () => {
         SocialMediaPostsService,
         NavmenuService,
         FormBuilder,
-        { provide: BASE_PATH, useValue: environment.apiUrl }
+        { provide: BASE_PATH, useValue: environment.apiUrl },
+        { provide: ActivatedRoute, useClass: MockActivatedRoute }
       ]
     })
     .compileComponents();
   }));
 
-  describe('it should create the social media input', () => {
-    beforeEach(() => {
-      fixture = TestBed.createComponent(SocialMediaListInputComponent);
-      component = fixture.componentInstance;
-      fixture.detectChanges();
-    });
-    it('should create', ()  => {
-      expect(component).toBeTruthy();
-    });
+  beforeEach(() => {
+    fixture = TestBed.createComponent(SocialMediaListInputComponent);
+    component = fixture.componentInstance;
+    fixture.detectChanges();
+    div = fixture.nativeElement.querySelector('#postList');
   });
 
-  describe('should call addSocialMediaPost and add new social post entry ', () => {
-    beforeEach(() => {
-      fixture = TestBed.createComponent(SocialMediaListInputComponent);
-      component = fixture.componentInstance;
-      const button = fixture.debugElement.nativeElement.querySelector('#addSocialMediaPostBtn');
-      const spy = spyOn(component, 'addSocialMediaPost');
-      fixture.detectChanges();
-    });
-    it('should create', ()  => {
-      expect(component).toBeTruthy();
-    });
-    it('should call addSocialMediaPost', ()  => {
-      console.log(Button);
-    });
+  it('should create', ()  => {
+    expect(component).toBeTruthy();
+  });
+
+  it('should create a `FormGroup` comprised of `FormControl`s', () => {
+    component.ngOnInit();
+    expect(component.socialMediaPostListForm instanceof FormGroup).toBe(true);
+  });
+
+  it('should create a `FormControl` for each social media post', () => {
+    component.ngOnInit();
+    fixture.detectChanges();
+    expect(component.socialMediaPostListForm.controls['postList'].value.length).toBe(9);
+    console.log(component.socialMediaPostListForm.controls['postList']);
+  });
+
+
+  it('should create 9 social media post input entries', ()  => {
+    component.ngOnInit();
+    expect(div.querySelectorAll('.row').length).toBe(9);
+  });
+
+  it('should call addSocialMediaPost', ()  => {
+    spyOn(component, 'addSocialMediaPost');
+    const button = fixture.debugElement.query(By.css('#addSocialMediaPostBtn'));
+    button.triggerEventHandler('click.preventDefault', null);
+    fixture.detectChanges();
+    expect(component.addSocialMediaPost).toHaveBeenCalled();
+  });
+
+  it('should call close function', ()  => {
+    spyOn(component, 'close');
+    const button = fixture.debugElement.query(By.css('#cancelInputBtn'));
+    button.triggerEventHandler('click.preventDefault', null);
+    fixture.detectChanges();
+    expect(component.close).toHaveBeenCalled();
+  });
+
+  it('should call submit function', ()  => {
+    spyOn(component, 'submit');
+    const button = fixture.debugElement.query(By.css('#submitSocialMediaInputBtn'));
+    button.triggerEventHandler('click.preventDefault', null);
+    fixture.detectChanges();
+    expect(component.submit).toHaveBeenCalled();
+  });
+
+  it('should cancel and redirect', () => {
+    spyOn(component, 'close');
+    fixture.detectChanges();
+    component.close();
+    expect(component.close).toHaveBeenCalled();
   });
 
 });
