@@ -12,6 +12,7 @@ import { By } from '@angular/platform-browser';
 import { FakeSocialMediaPostsData } from '../../test-helpers/social-media-posts';
 import { of } from 'rxjs';
 import { ActivatedRoute } from '@angular/router';
+import { FacebookPost } from 'src/app/view-models/facebook-post';
 
 describe('SocialMediaListInputComponent', () => {
   let component: SocialMediaListInputComponent;
@@ -57,6 +58,15 @@ describe('SocialMediaListInputComponent', () => {
     expect(component).toBeTruthy();
   });
 
+  it('should hide nav', () => {
+    expect(TestBed.get(NavmenuService).hide).toHaveBeenCalled();
+  });
+
+  it('should show nav when destroyed', () => {
+    fixture.destroy();
+    expect(TestBed.get(NavmenuService).show).toHaveBeenCalled();
+  });
+
   it('should create a `FormGroup` comprised of `FormControl`s', () => {
     component.ngOnInit();
     expect(component.socialMediaPostListForm instanceof FormGroup).toBe(true);
@@ -66,9 +76,7 @@ describe('SocialMediaListInputComponent', () => {
     component.ngOnInit();
     fixture.detectChanges();
     expect(component.socialMediaPostListForm.controls['postList'].value.length).toBe(9);
-    console.log(component.socialMediaPostListForm.controls['postList']);
   });
-
 
   it('should create 9 social media post input entries', ()  => {
     component.ngOnInit();
@@ -81,6 +89,19 @@ describe('SocialMediaListInputComponent', () => {
     button.triggerEventHandler('click.preventDefault', null);
     fixture.detectChanges();
     expect(component.addSocialMediaPost).toHaveBeenCalled();
+    expect(div.querySelectorAll('.row').length).toBe(10);
+  });
+
+  it('should call addSocialMediaPost', ()  => {
+    spyOn(component, 'addSocialMediaPost');
+    component.socialMediaPostListForm.get('postList').patchValue({url: 'Test'});
+    
+    component.submit();
+
+   
+    fixture.detectChanges();
+
+    expect(component.submit).toHaveBeenCalled();
   });
 
   it('should call close function', ()  => {
