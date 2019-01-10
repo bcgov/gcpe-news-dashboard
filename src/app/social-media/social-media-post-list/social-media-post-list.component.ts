@@ -49,13 +49,14 @@ export class SocialMediaPostListComponent implements OnInit, AfterViewInit, OnDe
   loadFacebookWidgets() {
     // remove the fb-post class from the posts that have already been rendered so they don't flicker when we parse/render the next one
     const fbPosts = document.getElementsByClassName("fb-post");
+    for (let i = fbPosts.length - 1; i >= 0; i--) {
+      fbPosts[i].className = fbPosts[i].className.replace("fb-post ", "");
+    }
     FB.init({
       xfbml: true,
       version: 'v3.2'
     });
-    for (let i = fbPosts.length - 1; i >= 0; i--) {
-      FB.XFBML.parse(fbPosts[i].id);
-    }
+    FB.XFBML.parse();
   }
 
   loadInstagramWidgets() {
