@@ -2,7 +2,7 @@ import { Component, Input, OnInit } from '@angular/core';
 import { Router, NavigationEnd, ActivatedRoute } from '@angular/router';
 import { SocialMediaType } from '../../view-models/social-media-type';
 import { ApiService } from '../../services/api.service';
-import { HasRoleDirective } from '../../_directives/hasRole.directive';
+
 
 @Component({
   selector: 'app-hq-dashboard-sub-menu',

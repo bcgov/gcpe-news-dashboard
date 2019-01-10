@@ -24,12 +24,12 @@ export class AuthService {
   roleMatch(allowedRoles: Array<String>): boolean {
     let isMatch = false;
     const userRoles = this.identityClaims['user_roles']  as Array<String> || [];
-    allowedRoles.forEach(role => {
-      if (userRoles.includes(role)) {
-        isMatch = true;
-        return;
-      }
-    });
+
+    const found = allowedRoles.some(r => userRoles.indexOf(r) >= 0);
+    if (found) {
+      isMatch = true;
+    }
+
     return isMatch;
   }
 }

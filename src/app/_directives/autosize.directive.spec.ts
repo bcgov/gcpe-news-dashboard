@@ -116,7 +116,7 @@ describe('Autosize', () => {
     spy.calls.reset();
     const newHeight = textareaEl.nativeElement.clientHeight;
 
-    textareaEl.nativeElement.value = "test";
+    textareaEl.nativeElement.value = 'test';
     textareaEl.nativeElement.dispatchEvent(new Event('input'));
 
     expect(autosizeDirective.resize).toHaveBeenCalled();
@@ -125,9 +125,9 @@ describe('Autosize', () => {
 
   it('shouldnt grow and shrink when not necessary', () => {
     const initialHeight = textareaEl.nativeElement.clientHeight;
-    const spy = spyOn(autosizeDirective, "resize").and.callThrough();
-    
-    textareaEl.nativeElement.value = "test";
+    const spy = spyOn(autosizeDirective, 'resize').and.callThrough();
+
+    textareaEl.nativeElement.value = 'test';
     textareaEl.nativeElement.dispatchEvent(new Event('input'));
 
     expect(textareaEl.nativeElement.clientHeight).toBe(initialHeight);
@@ -140,8 +140,8 @@ describe('Autosize', () => {
     textareaEl.nativeElement.style.resize = 'vertical';
     autosizeDirective = textareaEl.injector.get<AutosizeDirective>(AutosizeDirective);
     fixture.detectChanges();
-    
-    expect(textareaEl.nativeElement.style.minHeight).toBe("200px");
+
+    expect(textareaEl.nativeElement.style.minHeight).toBe('200px');
   });
 
   it('should update maxHeight of element', () => {
@@ -150,7 +150,7 @@ describe('Autosize', () => {
     textareaEl.nativeElement.style.resize = 'vertical';
     autosizeDirective = textareaEl.injector.get<AutosizeDirective>(AutosizeDirective);
     fixture.detectChanges();
-    
-    expect(textareaEl.nativeElement.style.maxHeight).toBe("200px");
+
+    expect(textareaEl.nativeElement.style.maxHeight).toBe('200px');
   });
 });

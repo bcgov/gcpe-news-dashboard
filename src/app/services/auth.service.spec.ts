@@ -12,7 +12,7 @@ describe('AuthService', () => {
        providers: [
         AuthService,
         {provide: OAuthService, useValue: {
-          getIdentityClaims: () => ['Administrators']
+          getIdentityClaims: () => fakeRoles
         }}
        ]
      });
@@ -27,7 +27,6 @@ describe('AuthService', () => {
     const spy = spyOn(service, 'loggedIn').and.returnValue(!!fakeToken);
     const rvl = service.loggedIn();
     expect(spy).toHaveBeenCalled();
-    expect(spy).toHaveBeenCalledWith();
     expect(rvl).toEqual(true);
   }));
 
@@ -36,7 +35,6 @@ describe('AuthService', () => {
     const spy = spyOn(service, 'loggedIn').and.returnValue(!!null);
     const rvl = service.loggedIn();
     expect(spy).toHaveBeenCalled();
-    expect(spy).toHaveBeenCalledWith();
     expect(rvl).toEqual(false);
   }));
 

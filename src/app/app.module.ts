@@ -25,8 +25,8 @@ import { ThemeSubMenuComponent } from './core/theme-sub-menu/theme-sub-menu.comp
 import { MessageResolver } from './_resolvers/message.resolver';
 import { ThemeCardComponent } from './themes/theme-card/theme-card.component';
 import { ThemeFormComponent } from './themes/theme-form/theme-form.component';
-import { AutosizeDirective } from './directives/autosize.directive';
-import { ClickPreventDefaultDirective } from './directives/click-preventdefault.directive';
+import { AutosizeDirective } from './_directives/autosize.directive';
+import { ClickPreventDefaultDirective } from './_directives/click-preventdefault.directive';
 import { TimeAgoPipe } from 'time-ago-pipe';
 import { SocialMediaListInputComponent } from './social-media/social-media-list-input/social-media-list-input.component';
 import { SociaMediaPostListResolver } from './_resolvers/social-media-post-list.resolver';
