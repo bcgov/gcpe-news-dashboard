@@ -18,8 +18,6 @@ export class AuthGuard implements CanActivate {
                 return true;
             } else {
                 this.router.navigate(['last-7-day-post-list']);
-                // window.alert('You are not authorized to access this area!');
-                console.log('You are not authorized to access this area!');
             }
         }
 
@@ -27,8 +25,6 @@ export class AuthGuard implements CanActivate {
             return true;
         }
 
-        // window.alert('You are not logged in!');
-        console.log('You are not logged in!');
         this.router.navigate(['last-7-day-post-list']);
         return false;
     }

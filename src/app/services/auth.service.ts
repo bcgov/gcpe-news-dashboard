@@ -22,14 +22,7 @@ export class AuthService {
   get identityClaims() { return this.oauthService.getIdentityClaims() || {}; }
 
   roleMatch(allowedRoles: Array<String>): boolean {
-    let isMatch = false;
     const userRoles = this.identityClaims['user_roles']  as Array<String> || [];
-
-    const found = allowedRoles.some(r => userRoles.indexOf(r) >= 0);
-    if (found) {
-      isMatch = true;
-    }
-
-    return isMatch;
+    return allowedRoles.some(r => userRoles.indexOf(r) >= 0);
   }
 }
