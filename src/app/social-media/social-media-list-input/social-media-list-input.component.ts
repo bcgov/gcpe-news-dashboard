@@ -20,7 +20,13 @@ export class SocialMediaListInputComponent implements OnInit, OnDestroy {
 
   socialMediaPostListForm: FormGroup;
   socialmedialist: SocialMediaPost[] = [];
-  constructor(public nav: NavmenuService, private formBuilder: FormBuilder, private router: Router, private route: ActivatedRoute, private socialMediaService: SocialMediaPostsService, private modal: NgbModal) {
+  constructor(
+    public nav: NavmenuService,
+    private formBuilder: FormBuilder,
+    private router: Router,
+    private route: ActivatedRoute,
+    private socialMediaService: SocialMediaPostsService,
+    private modal: NgbModal) {
   }
 
   ngOnInit() {
@@ -85,7 +91,7 @@ export class SocialMediaListInputComponent implements OnInit, OnDestroy {
               // console.log('delete post id ' + post.id + ' success');
             },
             () => {
-               alert("Failed to delete post " + post.id);
+               alert(`Failed to delete post: ${post.id}`);
             }
           );
         }
@@ -107,7 +113,7 @@ export class SocialMediaListInputComponent implements OnInit, OnDestroy {
 
     const currentGroup = formArray.at(currentIndex);
     formArray.removeAt(currentIndex);
-    formArray.insert(newIndex, currentGroup)
+    formArray.insert(newIndex, currentGroup);
   }
 
   submit() {
@@ -129,7 +135,8 @@ export class SocialMediaListInputComponent implements OnInit, OnDestroy {
         continue;
       }
 
-      updateFns.push(post.id ? this.socialMediaService.updateSocialMediaPost(post.id, post) : this.socialMediaService.addSocialMediaPost(post));
+      updateFns.push(post.id ? this.socialMediaService.updateSocialMediaPost(post.id, post)
+        : this.socialMediaService.addSocialMediaPost(post));
     }
     if (!updateFns.length) {
       this.close();

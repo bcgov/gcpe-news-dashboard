@@ -12,7 +12,7 @@ export class ThemeCardComponent {
   @Input() theme: Message;
   @Input() first: boolean;
   @Input() last: boolean;
-  @Input() admin: boolean = false;
+  @Input() admin = false;
   @Output() unpublishTheme = new EventEmitter<Message>();
   @Output() sort = new EventEmitter<SortEvent>();
 
@@ -29,7 +29,7 @@ export class ThemeCardComponent {
   moveUp() {
     this.sort.emit({ direction: 'up', themeId: this.theme.id });
   }
-  
+
   moveDown() {
     this.sort.emit({ direction: 'down', themeId: this.theme.id });
   }

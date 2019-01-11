@@ -76,63 +76,41 @@ describe('ThemeListComponent', () => {
 
   it('should handle a sort up event succesfully', () => {
     component.themes = themes;
-    spyOn(component, 'swapSortOrders');
+    spyOn(messagesService, 'updateMessage').and.returnValue(of({}));
     const themeToSort = themes[1];
     
     component.sortEventReceived({ direction: 'up', themeId: themeToSort.id });
 
-    expect(component.swapSortOrders).toHaveBeenCalledWith(1, 0);
+    expect(messagesService.updateMessage).toHaveBeenCalledWith(themeToSort.id, {...themeToSort, sortOrder: themeToSort.sortOrder - 1});
   });
 
   it('should ignore an invalid sort up event', () => {
     component.themes = themes;
-    spyOn(component, 'swapSortOrders');
+    spyOn(messagesService, 'updateMessage');
     const themeToSort = themes[0];
     
     component.sortEventReceived({ direction: 'up', themeId: themeToSort.id });
 
-    expect(component.swapSortOrders).not.toHaveBeenCalled();
+    expect(messagesService.updateMessage).not.toHaveBeenCalled();
   });
 
   it('should handle a sort down event succesfully', () => {
     component.themes = themes;
-    spyOn(component, 'swapSortOrders');
+    spyOn(messagesService, 'updateMessage').and.returnValue(of({}));
     const themeToSort = themes[0];
     
     component.sortEventReceived({ direction: 'down', themeId: themeToSort.id });
 
-    expect(component.swapSortOrders).toHaveBeenCalledWith(0, 1);
+    expect(messagesService.updateMessage).toHaveBeenCalledWith(themeToSort.id, {...themeToSort, sortOrder: themeToSort.sortOrder + 1});
   });
 
   it('should ignore an invalid sort down event', () => {
     component.themes = themes;
-    spyOn(component, 'swapSortOrders');
+    spyOn(messagesService, 'updateMessage');
     const themeToSort = themes[themes.length - 1];
     
     component.sortEventReceived({ direction: 'down', themeId: themeToSort.id });
 
-    expect(component.swapSortOrders).not.toHaveBeenCalled();
-  });
-
-  it('should swap sort orders of themes', () => {
-    component.themes = [...themes];
-    spyOn(messagesService, 'updateMessage').and.returnValues(of(themes[0]), of(themes[1]));
-
-    component.swapSortOrders(0, 1);
-
-    expect(messagesService.updateMessage).toHaveBeenCalledTimes(2);
-    expect(component.themes[0].id).toBe(themes[1].id);
-    expect(component.themes[1].id).toBe(themes[0].id);
-  });
-
-  it('should use messages service to swap sort orders of themes', () => {
-    component.themes = [...themes];
-    spyOn(messagesService, 'updateMessage').and.returnValue(throwError({message: "Failed to update"}));
-    spyOn(component, "handleError");
-
-    component.swapSortOrders(0, 1);
-
-    expect(messagesService.updateMessage).toHaveBeenCalledTimes(2);
-    expect(component.handleError).toHaveBeenCalledWith("Failed to change order of themes");
+    expect(messagesService.updateMessage).not.toHaveBeenCalled();
   });
 });

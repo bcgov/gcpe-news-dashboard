@@ -44,5 +44,4 @@ describe('AppComponent', () => {
     expect(app.title).toEqual('BC Gov News');
   });
 
-  
 });
