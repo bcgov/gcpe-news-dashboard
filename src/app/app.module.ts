@@ -1,5 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import { NgModule, APP_INITIALIZER } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
@@ -36,6 +36,13 @@ import { DeletePostConfirmationModalComponent } from './social-media/delete-post
 import { SocialMediaPostListComponent } from './social-media/social-media-post-list/social-media-post-list.component';
 import { AuthGuard } from './_guards/auth.guard';
 import { HasRoleDirective } from './_directives/hasRole.directive';
+import { AppConfigService } from './app-config.service';
+
+const appInitializerFn = (appConfig: AppConfigService) => {
+  return () => {
+      return appConfig.loadAppConfig();
+  }
+};
 
 @NgModule({
   declarations: [
@@ -68,6 +75,13 @@ import { HasRoleDirective } from './_directives/hasRole.directive';
     ReactiveFormsModule
   ],
   providers: [
+    AppConfigService,
+    {
+        provide: APP_INITIALIZER,
+        useFactory: appInitializerFn,
+        multi: true,
+        deps: [AppConfigService]
+    },
     ApiService,
     MessagesService,
     SocialMediaPostsService,
