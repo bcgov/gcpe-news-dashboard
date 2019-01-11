@@ -30,6 +30,7 @@ export class SocialMediaPostExtended implements SocialMediaPost {
         return type;
     }
 
+    // for facebook only, the html tag is different for post and video
     getPostType(url: string): string {
         let type: string;
         type = '';
@@ -42,6 +43,5 @@ export class SocialMediaPostExtended implements SocialMediaPost {
         }
         return type;
     }
-
-
 }
+
