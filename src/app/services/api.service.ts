@@ -1,10 +1,10 @@
-import { Injectable, Inject  } from '@angular/core';
+import { Injectable  } from '@angular/core';
 import { HttpClient} from  '@angular/common/http';
 import { Observable, of } from 'rxjs';
 import { Activity } from '../view-models/activity';
 import { Post } from '../view-models/post';
 import { SocialMediaType } from '../view-models/social-media-type';
-import { BASE_PATH } from '../variables';
+import { AppConfigService } from '../app-config.service';
 
 @Injectable({
   providedIn: 'root'
@@ -13,8 +13,8 @@ export class ApiService {
   API_URL = '';
   NEWS_API_URL = '';
 
-  constructor(private httpClient: HttpClient, @Inject(BASE_PATH) baseApiUrl: string) {
-    this.API_URL = baseApiUrl;
+  constructor(private httpClient: HttpClient, private environment: AppConfigService) {
+    this.API_URL = environment.config.API_URL;
   }
 
   // get the activities for 7 days forecast

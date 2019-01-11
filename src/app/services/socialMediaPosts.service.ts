@@ -22,6 +22,7 @@ import { SocialMediaPost } from '../view-models/socialMediaPost';
 
 import { BASE_PATH, COLLECTION_FORMATS }                     from '../variables';
 import { Configuration }                                     from '../configuration';
+import { AppConfigService } from '../app-config.service';
 
 
 @Injectable()
@@ -31,13 +32,10 @@ export class SocialMediaPostsService {
     public defaultHeaders = new HttpHeaders();
     public configuration = new Configuration();
 
-    constructor(protected httpClient: HttpClient, @Optional()@Inject(BASE_PATH) basePath: string, @Optional() configuration: Configuration) {
-        if (basePath) {
-            this.basePath = basePath;
-        }
+    constructor(protected httpClient: HttpClient, private env: AppConfigService, @Optional() configuration: Configuration) {
+        this.basePath = env.config.API_URL;
         if (configuration) {
             this.configuration = configuration;
-            this.basePath = basePath || configuration.basePath || this.basePath;
         }
     }
 
