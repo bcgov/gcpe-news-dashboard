@@ -90,7 +90,6 @@ describe('SocialMediaPostListComponent', () => {
     it('should get 3 Facebook social media posts', ()  => {
       component.ngOnInit();
       component.ngAfterViewInit();
-      console.log(div.querySelectorAll('.social-media-post'));
       expect(div.querySelectorAll('.social-media-post').length).toBe(3);
     });
   });
@@ -115,7 +114,6 @@ describe('SocialMediaPostListComponent', () => {
     it('should get 4 Twitter social media posts', ()  => {
       component.ngOnInit();
       component.ngAfterViewInit();
-      console.log(div.querySelectorAll('.social-media-post'));
       expect(div.querySelectorAll('.social-media-post').length).toBe(4);
     });
   });
@@ -140,7 +138,6 @@ describe('SocialMediaPostListComponent', () => {
     it('should get 3 Instagram social media posts', ()  => {
       component.ngOnInit();
       component.ngAfterViewInit();
-      console.log(div.querySelectorAll('.social-media-post'));
       expect(div.querySelectorAll('.social-media-post').length).toBe(5);
     });
   });

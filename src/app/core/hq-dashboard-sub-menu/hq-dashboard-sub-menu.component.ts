@@ -3,6 +3,7 @@ import { Router, NavigationEnd, ActivatedRoute } from '@angular/router';
 import { SocialMediaType } from '../../view-models/social-media-type';
 import { ApiService } from '../../services/api.service';
 
+
 @Component({
   selector: 'app-hq-dashboard-sub-menu',
   templateUrl: './hq-dashboard-sub-menu.component.html',
@@ -27,7 +28,7 @@ export class HqDashboardSubMenuComponent implements OnInit {
   }
 
   ngOnInit() {
-    if(this.activatedRoute.queryParams) {
+    if (this.activatedRoute.queryParams) {
       this.activatedRoute.queryParams.subscribe((queryParams: any) => {
         this.filterBySocialMediaType = queryParams.type;
       });

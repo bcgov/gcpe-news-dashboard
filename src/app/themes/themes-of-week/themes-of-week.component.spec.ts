@@ -11,6 +11,9 @@ import { ActivatedRoute } from '@angular/router';
 import { ThemeCardComponent } from '../theme-card/theme-card.component';
 import { BASE_PATH } from '../../variables';
 import { TimeAgoPipe } from 'time-ago-pipe';
+import { HasRoleDirective } from 'src/app/_directives/hasRole.directive';
+import { AuthService } from 'src/app/services/auth.service';
+import { OAuthService } from 'angular-oauth2-oidc';
 
 
 
@@ -30,10 +33,15 @@ describe('ThemesOfWeekComponent', () => {
         ThemesOfWeekComponent,
         HqDashboardSubMenuComponent,
         ThemeCardComponent,
-        TimeAgoPipe
+        TimeAgoPipe,
+        HasRoleDirective
       ],
       providers: [
-        { provide: BASE_PATH, useValue: environment.apiUrl }
+        { provide: BASE_PATH, useValue: environment.apiUrl },
+        AuthService,
+        {provide: OAuthService, useValue: {
+          getIdentityClaims: () => ['Administrators']
+        }}
       ],
     })
     .compileComponents();
@@ -43,7 +51,7 @@ describe('ThemesOfWeekComponent', () => {
     beforeEach(() => {
       TestBed.overrideProvider(ActivatedRoute, { useValue: { data: of({
         themes: FakeThemeData(10, 0, false)
-      })}})
+      })}});
       fixture = TestBed.createComponent(ThemesOfWeekComponent);
       component = fixture.componentInstance;
       fixture.detectChanges();
