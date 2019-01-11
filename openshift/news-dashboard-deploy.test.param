@@ -1,0 +1,22 @@
+#=========================================================
+# OpenShift template parameters for:
+# Component: .
+# Template File: templates/frontend/news-dashboard-deploy.yaml
+#=========================================================
+# NAME=news-dashboard
+# IMAGE_NAMESPACE=ntu9uh-tools
+# REAL_IP_FROM=172.51.0.0/16
+# API_URL=https://hub-api-ntu9uh-dev.pathfinder.gov.bc.ca/api/
+# API_SERVICE_NAME=hub-api
+# API_PATH=/api/
+# AdditionalRealIpFromRules=
+# IpFilterRules=
+APPLICATION_DOMAIN=news-dashboard-ntu9uh-test.pathfinder.gov.bc.ca
+TAG_NAME=test
+# HTTP_BASIC=
+# HTTP_BASIC_USERNAME=
+# HTTP_BASIC_PASSWORD=
+# CPU_LIMIT=500m
+# MEMORY_LIMIT=1Gi
+# CPU_REQUEST=100m
+# MEMORY_REQUEST=100Mi

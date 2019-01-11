@@ -1,0 +1,10 @@
+<app-theme-sub-menu></app-theme-sub-menu>
+<div id="admin-theme-list" class="row pl-0 pr-0 pt-3">
+  <div class="col-12">
+      <div *ngFor="let theme of themes; first as first; last as last">
+        <app-theme-card [theme]="theme" [first]="first" [last]="last"
+          admin="true" (unpublishTheme)="unpublishTheme($event)"
+          (sort)="sortEventReceived($event)"></app-theme-card>
+      </div>
+  </div>  
+</div>

@@ -1,0 +1,14 @@
+<app-hq-dashboard-sub-menu></app-hq-dashboard-sub-menu>
+<div id="post-list" class="card-columns pl-0 pr-0 pt-3">
+    <div *ngFor="let post of posts">
+        <div class="card">
+            <img *ngIf="post.assetUrl" class="card-img-top img-fluid" src="{{post.assetUrl}}" alt="Card image cap">
+            <div class="card-body">
+                <h6 *ngIf="post.leadMinistryKey" class="card-subtitle mb-2 text-muted card-ministry-label">{{post.leadMinistryName}}</h6>
+                <h5 *ngIf="post.documents" class="card-title">{{post.documents[0].headline}}</h5>
+                <p *ngIf="post.summary" class="card-text justify-content-between">{{post.summary}}</p>
+                <p class="card-text">{{post.publishDateTime | date:'mediumDate'}} <i class="fa fa-bookmark-o fa-lg pull-right pr-3"></i></p>
+            </div>
+        </div>
+    </div>
+</div>

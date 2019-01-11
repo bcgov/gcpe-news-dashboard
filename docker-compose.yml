@@ -1,0 +1,12 @@
+version: '3'
+services:
+  frontend:
+    container_name: news-dashboard
+    image: news-dashboard
+    build:
+      context: .
+    volumes:
+      - '.:/usr/src/app'
+      - '/usr/src/app/node_modules'
+    ports:
+      - '4200:4200'

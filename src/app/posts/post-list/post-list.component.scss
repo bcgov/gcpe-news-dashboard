@@ -1,0 +1,36 @@
+@import "../../../assets/styles/variables.scss";
+@import '../../../assets/styles/layout.scss';
+
+.card-ministry-label{
+    color: map-get($theme-colors, primary-nav)!important;
+}
+
+#post-list .card {
+    margin-bottom: 40px;
+}
+
+#post-list .card .card-text {
+    color: map-get($theme-colors, mediem) !important;
+}
+
+.card-columns {
+    @include media-breakpoint-only(xxl) {
+      column-count: 5;
+    }
+    @include media-breakpoint-only(xl) {
+      column-count: 3;
+    }
+    @include media-breakpoint-only(lg) {
+      column-count: 2;
+    }
+    @include media-breakpoint-only(md) {
+      column-count: 2;
+    }
+    @include media-breakpoint-only(sm) {
+      column-count: 1;
+    }
+    @include media-breakpoint-only(xs) {
+      column-count: 1;
+    }
+  }
+

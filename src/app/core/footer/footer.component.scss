@@ -1,0 +1,18 @@
+@import "../../../assets/styles/variables.scss";
+
+footer nav {
+    border-top: 2px solid map-get($theme-colors, light);
+}
+
+.footer {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    /* Set the fixed height of the footer here */
+    height: 60px;
+    //line-height: 40px; /* Vertically center the text there */
+}
+
+footer ul li a{
+    color: map-get($theme-colors, mediem)!important;
+}

@@ -1,0 +1,80 @@
+#!/bin/bash
+
+# Prevent running assemble in builders different than official STI image.
+# The official nodejs:8-onbuild already run npm install and use different
+# application folder.
+[ -d "/usr/src/app" ] && exit 0
+
+set -e
+
+safeLogging () {
+  if [[ $1 =~ http[s]?://.*@.*$ ]]; then
+    echo $1 | sed 's/^.*@/redacted@/'
+  else
+    echo $1
+  fi
+}
+
+shopt -s dotglob
+echo "---> Installing application source ..."
+mv /tmp/src/* ./
+
+if [ ! -z $HTTP_PROXY ]; then
+  echo "---> Setting npm http proxy to" $(safeLogging $HTTP_PROXY)
+  npm config set proxy $HTTP_PROXY
+fi
+
+if [ ! -z $http_proxy ]; then
+  echo "---> Setting npm http proxy to" $(safeLogging $http_proxy)
+  npm config set proxy $http_proxy
+fi
+
+if [ ! -z $HTTPS_PROXY ]; then
+  echo "---> Setting npm https proxy to" $(safeLogging $HTTPS_PROXY)
+  npm config set https-proxy $HTTPS_PROXY
+fi
+
+if [ ! -z $https_proxy ]; then
+  echo "---> Setting npm https proxy to" $(safeLogging $https_proxy)
+  npm config set https-proxy $https_proxy
+fi
+
+# Change the npm registry mirror if provided
+if [ -n "$NPM_MIRROR" ]; then
+  npm config set registry $NPM_MIRROR
+fi
+
+echo "---> Installing application dependencies"
+yarn install
+
+# Set the CI_BUILD to false by default.
+CI_BUILD=${CI_BUILD:-false}
+
+if [ "$CI_BUILD" == "true" ]; then
+  echo "---> Running Tests and building in production mode"
+  yarn ci
+else
+  echo "---> Building in production mode"
+  yarn build
+fi
+
+# Set the SNYK_TEST to false by default.
+SNYK_TEST=${SNYK_TEST:-false}
+
+if [ "$SNYK_TEST" == "true" ]; then
+  echo "---> Running Dependency Security scan"
+  npm install -g snyk
+  snyk test
+fi
+
+if [ "$SONAR_TOKEN" ]; then
+  echo "---> Running Code Quality scan"
+  npm install -g sonarqube-scanner
+  sonar-scanner -Dsonar.host.url=$SONAR_URL -Dsonar.login=$SONAR_TOKEN
+fi
+
+echo "---> Removing node modules from image"
+rm -rf ./node_modules
+
+# Fix source directory permissions
+fix-permissions ./
