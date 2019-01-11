@@ -8,6 +8,7 @@ import { FooterComponent } from './core/footer/footer.component';
 import { OAuthService, UrlHelperService, OAuthLogger } from 'angular-oauth2-oidc';
 import { HttpClientModule } from '@angular/common/http';
 import { environment } from '../environments/environment';
+import { HasRoleDirective } from './_directives/hasRole.directive';
 
 describe('AppComponent', () => {
   beforeEach(async(() => {
@@ -21,7 +22,8 @@ describe('AppComponent', () => {
       declarations: [
         AppComponent,
         NavMenuComponent,
-        FooterComponent
+        FooterComponent,
+        HasRoleDirective
       ],
       providers: [
         OAuthService,
