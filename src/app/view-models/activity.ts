@@ -23,7 +23,7 @@ export interface Activity {
     strategy?: string;
     comments?: string;
     leadOrganization?: string;
-    contactMinistryKey?: string;
+    contactMinistryAbbreviation?: string;
     venue?: string;
     cityName?: string;
     otherCity?: string;

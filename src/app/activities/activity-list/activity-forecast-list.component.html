@@ -7,11 +7,13 @@
               <div class="card-header bg-light">{{getStartDow(i)}}<div class="pull-right">{{getStartDay(i)}}</div></div>
             </div>  
             <div class="card" *ngFor="let activity of dayActivities">
-                <div class="card-body"  >
-                    <h6 class="card-subtitle mb-2 text-muted card-ministry-label">{{activity.contactMinistryKey}}</h6>
-                    <h5 class="card-title">{{activity.title}}</h5>
-                    <p class="card-text">{{activity.details}}</p>
-                  </div>
+              <div class="card-body">
+                <h5 class="card-title">{{activity.title}}</h5>
+                <p class="card-text">
+                  {{activity.details}}
+                  <span class="text-muted card-ministry-abbr">{{activity.contactMinistryAbbreviation}}</span>
+                </p>
+              </div>
             </div>
         </div>
   </div>

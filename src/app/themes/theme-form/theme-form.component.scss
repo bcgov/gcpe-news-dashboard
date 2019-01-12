@@ -48,7 +48,7 @@ nav {
 label {
     font-size: 0.8em;
     font-weight: bold;
-    color: map-get($theme-colors, mediem);
+    color: map-get($theme-colors, medium);
 }
 label.title-label {
     line-height: 50px;
@@ -82,5 +82,5 @@ label.description-label {
 .custom-control-label {
     padding-left: 8px;
     font-weight: normal;
-    color: map-get($theme-colors, mediem);
+    color: map-get($theme-colors, medium);
 }
