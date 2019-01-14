@@ -1,18 +1,27 @@
 <app-hq-dashboard-sub-menu [socialmediatypes]="socialmediatypes" ></app-hq-dashboard-sub-menu>
 <div id="social-media-list" class="card-columns">
   <div *ngFor="let item of selectedSocialMedia" [ngSwitch]="item.mediaType" class="social-media-post">
-    <blockquote *ngSwitchCase="'Twitter'" class="twitter-tweet" data-lang="en" id={{item.id}} data-width="400">
-      <a href="https://publish.twitter.com/oembed?
-                                                {{item.url}} | async"></a>
-    </blockquote>
-
-    <blockquote *ngSwitchCase="'Facebook'" class="fb-post" attr.data-href="{{item.url}} | async"
-    data-width="400"></blockquote>
-
-    <blockquote *ngSwitchCase="'Instagram'" class="responsive-social-media-post instagram-media" data-instgrm-captioned
-                attr.data-instgrm-permalink="{{item.url}}?OMITSCRIPT=true | async" data-instgrm-version="9"
-                id={{item.id}} style="width:400px">
-      <a href="{{item.url}}?OMITSCRIPT=true | async"></a>
-    </blockquote>
+    <!--
+      put a responsive wrapper around the social media post so that they will act in a similar responsive way;
+      cannot find the same wrapper since the posts from different social media platform act differently;
+      use card for twitter and instagram;
+      did not wrap facebook post since sometimes it does not show the post with certain browser
+      cannot use a css class for the style since the social media scripts are looking for certain classes as twitter-tweet, fb-post, fb-video, instagram-media
+    -->
+    <div class="card card-no-border" *ngSwitchCase="'Twitter'">
+      <blockquote class="twitter-tweet" data-width="99%" data-lang="en" id="{{item.id}}">
+        <a href="https://publish.twitter.com/oembed?{{item.url}} | async"></a>
+      </blockquote>
+    </div>
+    <div *ngSwitchCase="'Facebook'">
+      <blockquote style="width: 99%;" class="{{item.postType}}" attr.data-href="{{item.url}} | async" id="{{item.id}}"></blockquote>
+    </div>
+    <div class="card-no-border" *ngSwitchCase="'Instagram'">
+      <blockquote style="width: 99%; max-width: 99%;" class="instagram-media" data-instgrm-captioned
+      attr.data-instgrm-permalink="{{item.url}}?OMITSCRIPT=true | async" data-instgrm-version="9"
+      id="{{item.id}}">
+        <a href="{{item.url}}?OMITSCRIPT=true | async"></a>
+      </blockquote>
+    </div>  
   </div>
 </div>
