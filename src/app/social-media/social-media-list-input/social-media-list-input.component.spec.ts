@@ -7,23 +7,16 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { BASE_PATH } from '../../variables';
 import { environment } from '../../../environments/environment';
-<<<<<<< HEAD
 import { DeletePostConfirmationModalComponent } from '../delete-post-confirmation-modal/delete-post-confirmation-modal.component';
 import { By } from '@angular/platform-browser';
 import { FakeSocialMediaPostsData } from '../../test-helpers/social-media-posts';
 import { of } from 'rxjs';
 import { ActivatedRoute } from '@angular/router';
 import { FacebookPost } from 'src/app/view-models/facebook-post';
-||||||| merged common ancestors
-import { DeletePostConfirmationModalComponent } from '../delete-post-confirmation-modal/delete-post-confirmation-modal.component'
-=======
-import { DeletePostConfirmationModalComponent } from '../delete-post-confirmation-modal/delete-post-confirmation-modal.component';
->>>>>>> 97273cfc677f0906315125f6998610897fa5ed6f
 
 describe('SocialMediaListInputComponent', () => {
   let component: SocialMediaListInputComponent;
   let fixture: ComponentFixture<SocialMediaListInputComponent>;
-<<<<<<< HEAD
   let div: HTMLElement;
 
   class MockActivatedRoute {
@@ -31,11 +24,6 @@ describe('SocialMediaListInputComponent', () => {
       socialmedia: FakeSocialMediaPostsData(3)
     });
   }
-||||||| merged common ancestors
-  let formBuilder = new FormBuilder();
-=======
-  const formBuilder = new FormBuilder();
->>>>>>> 97273cfc677f0906315125f6998610897fa5ed6f
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
@@ -62,6 +50,8 @@ describe('SocialMediaListInputComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(SocialMediaListInputComponent);
     component = fixture.componentInstance;
+    spyOn(TestBed.get(NavmenuService), 'hide');
+    spyOn(TestBed.get(NavmenuService), 'show');
     fixture.detectChanges();
     div = fixture.nativeElement.querySelector('#postList');
   });
