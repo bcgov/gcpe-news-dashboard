@@ -102,7 +102,6 @@ export class SocialMediaListInputComponent implements OnInit, OnDestroy {
   }
 
   move(shift, currentIndex) {
-
     const formArray: FormArray = this.socialMediaPostForms;
     let newIndex: number = currentIndex + shift;
     if (newIndex === -1) {

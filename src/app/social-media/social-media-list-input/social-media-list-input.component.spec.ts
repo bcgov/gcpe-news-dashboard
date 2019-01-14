@@ -12,12 +12,12 @@ import { By } from '@angular/platform-browser';
 import { FakeSocialMediaPostsData } from '../../test-helpers/social-media-posts';
 import { of } from 'rxjs';
 import { ActivatedRoute } from '@angular/router';
-import { FacebookPost } from 'src/app/view-models/facebook-post';
 
 describe('SocialMediaListInputComponent', () => {
   let component: SocialMediaListInputComponent;
   let fixture: ComponentFixture<SocialMediaListInputComponent>;
   let div: HTMLElement;
+  let socialMediaPostsService: SocialMediaPostsService;
 
   class MockActivatedRoute {
     data = of({
@@ -29,7 +29,7 @@ describe('SocialMediaListInputComponent', () => {
     TestBed.configureTestingModule({
       declarations: [
         SocialMediaListInputComponent,
-        DeletePostConfirmationModalComponent
+        DeletePostConfirmationModalComponent,
       ],
       imports: [
         ReactiveFormsModule,
@@ -40,20 +40,26 @@ describe('SocialMediaListInputComponent', () => {
         SocialMediaPostsService,
         NavmenuService,
         FormBuilder,
-        { provide: BASE_PATH, useValue: environment.apiUrl },
-        { provide: ActivatedRoute, useClass: MockActivatedRoute }
+        { provide: BASE_PATH, useValue: environment.apiUrl }
       ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
+    TestBed.overrideProvider(ActivatedRoute,
+      { useValue: {
+        data: of({
+          socialmedia: FakeSocialMediaPostsData(3)
+        }),
+    }});
     fixture = TestBed.createComponent(SocialMediaListInputComponent);
     component = fixture.componentInstance;
     spyOn(TestBed.get(NavmenuService), 'hide');
     spyOn(TestBed.get(NavmenuService), 'show');
     fixture.detectChanges();
     div = fixture.nativeElement.querySelector('#postList');
+    socialMediaPostsService = TestBed.get(SocialMediaPostsService);
   });
 
   it('should create', ()  => {
@@ -91,19 +97,17 @@ describe('SocialMediaListInputComponent', () => {
     button.triggerEventHandler('click.preventDefault', null);
     fixture.detectChanges();
     expect(component.addSocialMediaPost).toHaveBeenCalled();
-    expect(div.querySelectorAll('.row').length).toBe(10);
   });
 
-  it('should call addSocialMediaPost', ()  => {
-    spyOn(component, 'addSocialMediaPost');
-    component.socialMediaPostListForm.get('postList').patchValue({url: 'Test'});
-    
-    component.submit();
-
-   
+  it('should call initFormArray', ()  => {
+    spyOn(component, 'initFormArray');
+    const post =  {
+      url: '',
+      sortOrder: 10,
+    };
+    component.initFormArray(FakeSocialMediaPostsData(4));
     fixture.detectChanges();
-
-    expect(component.submit).toHaveBeenCalled();
+    expect(component.initFormArray).toHaveBeenCalled();
   });
 
   it('should call close function', ()  => {
@@ -127,6 +131,51 @@ describe('SocialMediaListInputComponent', () => {
     fixture.detectChanges();
     component.close();
     expect(component.close).toHaveBeenCalled();
+  });
+
+  it('should call delete a post and confirmation modal will show', ()  => {
+    spyOn(component, 'deleteSocialMediaPost');
+    const button = fixture.debugElement.query(By.css('#deleteBtn_0'));
+    button.triggerEventHandler('click.preventDefault', null);
+    fixture.detectChanges();
+    expect(component.deleteSocialMediaPost).toHaveBeenCalled();
+  });
+
+  it('should add insert a row when click on Add button', () => {
+    spyOn(socialMediaPostsService, 'addSocialMediaPost');
+    component.addSocialMediaPost();
+    fixture.detectChanges();
+    expect(div.querySelectorAll('.row').length).toBe(10);
+  });
+
+  it('should add insert a row when click on Add button', () => {
+    spyOn(socialMediaPostsService, 'addSocialMediaPost');
+    component.addSocialMediaPost();
+    fixture.detectChanges();
+    expect(div.querySelectorAll('.row').length).toBe(10);
+  });
+
+  it('should display warning when entering a new post with invalid url format', () => {
+    spyOn(socialMediaPostsService, 'addSocialMediaPost');
+    component.addSocialMediaPost();
+    const newPostInput = fixture.debugElement.query(By.css('#rowPost_0 input'));
+    const el = newPostInput.nativeElement;
+    el.value = 'someValue';
+    el.dispatchEvent(new Event('input'));
+    expect(el.value).toBe('someValue');
+    fixture.detectChanges();
+    expect(fixture.debugElement.query(By.css('.alert-danger'))).toBeTruthy();
+  });
+
+  it('should handle a sort down post succesfully', () => {
+    const posts = FakeSocialMediaPostsData(4);
+    component.socialmedialist = FakeSocialMediaPostsData(3);
+    spyOn(socialMediaPostsService, 'updateSocialMediaPost');
+    const postToSort = posts[0];
+    component.move(-1, 1);
+    component.submit();
+    fixture.detectChanges();
+    expect(socialMediaPostsService.updateSocialMediaPost).toHaveBeenCalledWith();
   });
 
 });

@@ -11,6 +11,9 @@ import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { FakeSocialMediaPostsData } from '../../test-helpers/social-media-posts';
 import { ActivatedRoute } from '@angular/router';
 import { of } from 'rxjs';
+import { HasRoleDirective } from 'src/app/_directives/hasRole.directive';
+import { AuthService } from 'src/app/services/auth.service';
+import { OAuthService } from 'angular-oauth2-oidc';
 
 describe('SocialMediaPostListComponent', () => {
   let component: SocialMediaPostListComponent;
@@ -33,14 +36,19 @@ describe('SocialMediaPostListComponent', () => {
        ],
       declarations: [
         SocialMediaPostListComponent,
-        HqDashboardSubMenuComponent
+        HqDashboardSubMenuComponent,
+        HasRoleDirective
       ],
 
       providers: [
         ApiService,
         SocialMediaPostsService,
         { provide: BASE_PATH, useValue: environment.apiUrl },
-        { provide: ActivatedRoute, useClass: MockActivatedRoute }
+        { provide: ActivatedRoute, useClass: MockActivatedRoute },
+        AuthService,
+        { provide: OAuthService, useValue: {
+          getIdentityClaims: () => ['Administrators']
+        }}
       ]
     })
     .compileComponents();
