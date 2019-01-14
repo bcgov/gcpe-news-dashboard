@@ -74,7 +74,7 @@ describe('ThemeListComponent', () => {
     expect(component.themes.length).toEqual(9);
   });
 
-  it('should handle a sort up event succesfully', () => {
+  it('should handle a sort up event successfully', () => {
     component.themes = themes;
     spyOn(messagesService, 'updateMessage').and.returnValue(of({}));
     const themeToSort = themes[1];
@@ -94,7 +94,7 @@ describe('ThemeListComponent', () => {
     expect(messagesService.updateMessage).not.toHaveBeenCalled();
   });
 
-  it('should handle a sort down event succesfully', () => {
+  it('should handle a sort down event successfully', () => {
     component.themes = themes;
     spyOn(messagesService, 'updateMessage').and.returnValue(of({}));
     const themeToSort = themes[0];

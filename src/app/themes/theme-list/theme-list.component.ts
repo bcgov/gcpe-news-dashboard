@@ -40,18 +40,28 @@ export class ThemeListComponent implements OnInit {
     const index = this.themes.findIndex(x => x.id === event.themeId);
     if (event.direction === 'up') {
       if (index - 1 < 0) { return; }
-      this.messagesService.updateMessage(this.themes[index].id, {...this.themes[index], sortOrder: this.themes[index].sortOrder - 1})
-      .subscribe(result => {
-        this.themes[index] = this.themes[index - 1];
-        this.themes[index - 1] = result;
-      });
+      this.messagesService.updateMessage(this.themes[index].id, { ...this.themes[index], sortOrder: this.themes[index].sortOrder - 1 })
+        .subscribe(result => {
+          if (result.sortOrder >= this.themes[index].sortOrder) {
+            alert("Another user is also currently changing the order of themes");
+            return;
+          }
+          this.themes[index - 1].sortOrder = this.themes[index].sortOrder;
+          this.themes[index] = this.themes[index - 1];
+          this.themes[index - 1] = result;
+        });
     } else if (event.direction === 'down') {
       if (index + 1 >= this.themes.length) { return; }
-      this.messagesService.updateMessage(this.themes[index].id, {...this.themes[index], sortOrder: this.themes[index].sortOrder + 1})
-      .subscribe(result => {
-        this.themes[index] = this.themes[index + 1];
-        this.themes[index + 1] = result;
-      });
+      this.messagesService.updateMessage(this.themes[index].id, { ...this.themes[index], sortOrder: this.themes[index].sortOrder + 1 })
+        .subscribe(result => {
+          if (result.sortOrder <= this.themes[index].sortOrder) {
+            alert("Another user is also currently changing the order of themes");
+            return;
+          }
+          this.themes[index + 1].sortOrder = this.themes[index].sortOrder;
+          this.themes[index] = this.themes[index + 1];
+          this.themes[index + 1] = result;
+        });
     }
   }
 }

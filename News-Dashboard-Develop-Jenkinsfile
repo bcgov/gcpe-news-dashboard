@@ -6,19 +6,23 @@ node('master') {
         openshiftBuild bldCfg: 'frontend-nginx-runtime', showBuildLogs: 'true', waitTime: '900000'
         openshiftBuild bldCfg: 'news-dashboard', showBuildLogs: 'true', waitTime: '900000'
         openshiftBuild bldCfg: 'news-dashboard-static', showBuildLogs: 'true', waitTime: '900000'
+        openshiftTag destStream: 'news-dashboard-static', verbose: 'true', destTag: '$BUILD_ID', srcStream: 'news-dashboard-static', srcTag: 'latest'
     }
 
     stage('Deploy on Dev') {
         echo "Deploying to dev..."
-        openshiftTag destStream: 'news-dashboard-static', verbose: 'true', destTag: 'dev', srcStream: 'news-dashboard-static', srcTag: 'latest'
+        openshiftTag destStream: 'news-dashboard-static', verbose: 'true', destTag: 'dev', srcStream: 'news-dashboard-static', srcTag: '$BUILD_ID'
         // Sleeping for a while to wait deployment completes
 	    sh 'sleep 1m'
-    }   
-}
+    }
 
-stage('Deploy on Test') {
-        echo "Deploying to test..."
-        openshiftTag destStream: 'news-dashboard-static', verbose: 'true', destTag: 'test', srcStream: 'news-dashboard-static', srcTag: '$BUILD_ID'
-        // Sleeping for a while to wait deployment completes
-	    sh 'sleep 1m'
-    }   
+    timeout(60) {
+        stage('Deploy on Test') {
+            input "Deploy to test?"
+            echo "Deploying to test..."
+            openshiftTag destStream: 'news-dashboard-static', verbose: 'true', destTag: 'test', srcStream: 'news-dashboard-static', srcTag: '$BUILD_ID'
+            // Sleeping for a while to wait deployment completes
+            sh 'sleep 1m'
+        }
+    }
+}
