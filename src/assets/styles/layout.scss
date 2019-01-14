@@ -14,7 +14,7 @@ body {
 }
 
 .lighter-font{
-    color: map-get($theme-colors, mediem)!important;
+    color: map-get($theme-colors, medium)!important;
 }
 
 /* wider screen layout
@@ -39,7 +39,7 @@ main .jumbotron{
 }
 
 .list-inline .list-inline-item a{
-    color: map-get($theme-colors, mediem);
+    color: map-get($theme-colors, medium);
     padding-bottom: 10px;
     text-decoration: none;
 }
