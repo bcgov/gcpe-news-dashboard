@@ -9,6 +9,7 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { NgbDropdownModule } from '@ng-bootstrap/ng-bootstrap';
 import { NgbCollapseModule } from '@ng-bootstrap/ng-bootstrap';
 import { OAuthService, UrlHelperService, OAuthLogger } from 'angular-oauth2-oidc';
+import { HasRoleDirective } from 'src/app/_directives/hasRole.directive';
 
 describe('NavmenuComponent', () => {
   let component: NavMenuComponent;
@@ -26,7 +27,8 @@ describe('NavmenuComponent', () => {
         NgbCollapseModule.forRoot()
       ],
       declarations: [
-        NavMenuComponent
+        NavMenuComponent,
+        HasRoleDirective
       ],
       providers: [
         OAuthService,
