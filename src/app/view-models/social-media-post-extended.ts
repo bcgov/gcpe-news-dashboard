@@ -14,7 +14,7 @@ export class SocialMediaPostExtended implements SocialMediaPost {
         this.sortOrder = post.sortOrder;
         this.timestamp = post.timestamp;
         this.mediaType = this.getMediaType(post.url);
-        this.postType = this.getPostType(post.url);
+        this.postType = this.getFacebookPostType(post.url);
     }
 
     getMediaType(url: string): string {
@@ -31,7 +31,7 @@ export class SocialMediaPostExtended implements SocialMediaPost {
     }
 
     // for facebook only, the html tag is different for post and video
-    getPostType(url: string): string {
+    getFacebookPostType(url: string): string {
         let type: string;
         type = '';
         if (url.indexOf('facebook') >= 0) {
