@@ -139,6 +139,7 @@ describe('SocialMediaListInputComponent', () => {
     button.triggerEventHandler('click.preventDefault', null);
     fixture.detectChanges();
     expect(component.deleteSocialMediaPost).toHaveBeenCalled();
+    console.log(fixture.debugElement.query(By.css('.modal-header')));
   });
 
   it('should add insert a row when click on Add button', () => {
@@ -167,15 +168,47 @@ describe('SocialMediaListInputComponent', () => {
     expect(fixture.debugElement.query(By.css('.alert-danger'))).toBeTruthy();
   });
 
-  it('should handle a sort down post succesfully', () => {
-    const posts = FakeSocialMediaPostsData(4);
-    component.socialmedialist = FakeSocialMediaPostsData(3);
-    spyOn(socialMediaPostsService, 'updateSocialMediaPost');
-    const postToSort = posts[0];
-    component.move(-1, 1);
+  it('should add new post when entering the valid url', () => {
+    spyOn(component, 'close');
+    const observe = of({});
+    spyOn(socialMediaPostsService, 'addSocialMediaPost').and.returnValue(observe);
+    component.addSocialMediaPost();
+    const newPostInput = fixture.debugElement.query(By.css('#rowPost_0 input'));
+    const el = newPostInput.nativeElement;
+    el.value = 'https://twitter.com/BCGovNews/status/1080146634355417088';
+    el.dispatchEvent(new Event('input'));
+    expect(el.value).toBe('https://twitter.com/BCGovNews/status/1080146634355417088');
     component.submit();
     fixture.detectChanges();
-    expect(socialMediaPostsService.updateSocialMediaPost).toHaveBeenCalledWith();
+    expect(component.close).toHaveBeenCalled();
   });
 
+  it('should swap the 2 posts', () => {
+    const firstPost = fixture.debugElement.query(By.css('#rowPost_2 input')).nativeElement;
+    const secondPost = fixture.debugElement.query(By.css('#rowPost_3 input')).nativeElement;
+    component.move(1, 2);
+    fixture.detectChanges();
+    const newFirstPost = fixture.debugElement.query(By.css('#rowPost_2 input')).nativeElement;
+    const newsSecondPost = fixture.debugElement.query(By.css('#rowPost_3 input')).nativeElement;
+    expect(newFirstPost.value).toBe(secondPost.value);
+    expect(newsSecondPost.value).toBe(firstPost.value);
+  });
+
+  it('should handle a sort down post succesfully', () => {
+    spyOn(component, 'move');
+    spyOn(component, 'close');
+    const observe = of({});
+    spyOn(socialMediaPostsService, 'updateSocialMediaPost').and.returnValue(observe);
+    const buttonUp = fixture.debugElement.query(By.css('#moveUpBtn_0'));
+    buttonUp.triggerEventHandler('click.preventDefault', null);
+    fixture.detectChanges();
+    expect(component.move).toHaveBeenCalledWith(-1, 0);
+    const buttonDown = fixture.debugElement.query(By.css('#moveDownBtn_0'));
+    buttonDown.triggerEventHandler('click.preventDefault', null);
+    fixture.detectChanges();
+    expect(component.move).toHaveBeenCalledWith(1, 0);
+    component.submit();
+    fixture.detectChanges();
+    expect(component.close).toHaveBeenCalled();
+  });
 });

@@ -25,9 +25,9 @@
                             </div>
                             <div class="col-lg-4 col-xl-2 col-xxl-2 pull-right">
                                 <div class="btn-group" role="group" aria-label="Basic example">
-                                    <button type="submit" (click.preventDefault)="move(-1, i)" class="btn btn-link"><i
+                                    <button id="moveUpBtn_{{i}}" type="submit" (click.preventDefault)="move(-1, i)" class="btn btn-link"><i
                                             class="fa fa-arrow-up fa-2x"></i></button>
-                                    <button type="submit" (click.preventDefault)="move(1, i)" class="btn btn-link"><i
+                                    <button id="moveDownBtn_{{i}}" type="submit" (click.preventDefault)="move(1, i)" class="btn btn-link"><i
                                             class="fa fa-arrow-down fa-2x"></i></button>
                                     <button id="deleteBtn_{{i}}" type="submit" (click.preventDefault)="deleteSocialMediaPost(i)" class="btn btn-link"><i
                                             class="fa fa-trash fa-2x"></i></button>

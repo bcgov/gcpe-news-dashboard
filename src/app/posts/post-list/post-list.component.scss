@@ -14,6 +14,9 @@
 }
 
 .card-columns {
+    @include media-breakpoint-only(xxxl) {
+      column-count: 5;
+    }
     @include media-breakpoint-only(xxl) {
       column-count: 5;
     }
