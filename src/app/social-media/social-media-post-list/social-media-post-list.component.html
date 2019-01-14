@@ -5,7 +5,7 @@
       put a responsive wrapper around the social media post so that they will act in a similar responsive way;
       cannot find the same wrapper since the posts from different social media platform act differently;
       use card for twitter and instagram;
-      use embed-responsive for facebook;
+      did not wrap facebook post since sometimes it does not show the post with certain browser
       cannot use a css class for the style since the social media scripts are looking for certain classes as twitter-tweet, fb-post, fb-video, instagram-media
     -->
     <div class="card card-no-border" *ngSwitchCase="'Twitter'">
@@ -13,7 +13,7 @@
         <a href="https://publish.twitter.com/oembed?{{item.url}} | async"></a>
       </blockquote>
     </div>
-    <div class="embed-responsive" *ngSwitchCase="'Facebook'">
+    <div *ngSwitchCase="'Facebook'">
       <blockquote style="width: 99%;" class="{{item.postType}}" attr.data-href="{{item.url}} | async" id="{{item.id}}"></blockquote>
     </div>
     <div class="card-no-border" *ngSwitchCase="'Instagram'">
