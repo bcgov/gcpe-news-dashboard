@@ -4,7 +4,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { FormArray, FormControl, Validators, FormGroup, FormBuilder } from '@angular/forms';
 import { SocialMediaPost } from 'src/app/view-models/socialMediaPost';
 import { SocialMediaPostsService } from '../../services/socialMediaPosts.service';
-import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import { DeletePostConfirmationModalComponent } from '../delete-post-confirmation-modal/delete-post-confirmation-modal.component';
 import { forkJoin, Observable } from 'rxjs';
 
@@ -20,6 +20,7 @@ export class SocialMediaListInputComponent implements OnInit, OnDestroy {
 
   socialMediaPostListForm: FormGroup;
   socialmedialist: SocialMediaPost[] = [];
+  modalRef: NgbModalRef;
   constructor(
     public nav: NavmenuService,
     private formBuilder: FormBuilder,
@@ -78,11 +79,11 @@ export class SocialMediaListInputComponent implements OnInit, OnDestroy {
 
   deleteSocialMediaPost(index: number) {
     const post = this.socialMediaPostForms.at(index).value;
+    this.modalRef = this.modal.open(DeletePostConfirmationModalComponent, { size: 'lg' });
 
-    const modal = this.modal.open(DeletePostConfirmationModalComponent, { size: 'lg' });
-    modal.componentInstance.url = post.url;
+    this.modalRef.componentInstance.url = post.url;
 
-    modal.result.then((result) => {
+    this.modalRef.result.then((result) => {
       if (result === 'Confirm') {
         this.socialMediaPostForms.removeAt(index);
         if ((post.id !== 'undefined') && (post.id !== null)) {

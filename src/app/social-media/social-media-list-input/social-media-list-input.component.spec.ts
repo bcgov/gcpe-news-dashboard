@@ -101,10 +101,6 @@ describe('SocialMediaListInputComponent', () => {
 
   it('should call initFormArray', ()  => {
     spyOn(component, 'initFormArray');
-    const post =  {
-      url: '',
-      sortOrder: 10,
-    };
     component.initFormArray(FakeSocialMediaPostsData(4));
     fixture.detectChanges();
     expect(component.initFormArray).toHaveBeenCalled();
@@ -114,6 +110,13 @@ describe('SocialMediaListInputComponent', () => {
     spyOn(component, 'close');
     const button = fixture.debugElement.query(By.css('#cancelInputBtn'));
     button.triggerEventHandler('click.preventDefault', null);
+    fixture.detectChanges();
+    expect(component.close).toHaveBeenCalled();
+  });
+
+  it('should call close function after submit', ()  => {
+    spyOn(component, 'close');
+    component.submit();
     fixture.detectChanges();
     expect(component.close).toHaveBeenCalled();
   });
@@ -133,14 +136,28 @@ describe('SocialMediaListInputComponent', () => {
     expect(component.close).toHaveBeenCalled();
   });
 
-  it('should call delete a post and confirmation modal will show', ()  => {
+  it('should click the delete button', ()  => {
     spyOn(component, 'deleteSocialMediaPost');
     const button = fixture.debugElement.query(By.css('#deleteBtn_0'));
     button.triggerEventHandler('click.preventDefault', null);
     fixture.detectChanges();
     expect(component.deleteSocialMediaPost).toHaveBeenCalled();
-    console.log(fixture.debugElement.query(By.css('.modal-header')));
+    const modalDiv = fixture.debugElement.query(By.css('.modal-header'));
   });
+
+  it('should call delete a post and confirmation modal will show', ()  => {
+    spyOn(component, 'deleteSocialMediaPost');
+    //const observe = of({});
+    //spyOn(socialMediaPostsService, 'deleteSocialMediaPost').and.returnValue(observe);
+    component.deleteSocialMediaPost(0);
+    fixture.detectChanges();
+    expect(component.deleteSocialMediaPost).toHaveBeenCalled();
+    expect(component.modalRef.close).toHaveBeenCalled();
+    const modalDiv = fixture.debugElement.query(By.css('.modal-header'));
+    console.log(component.modalRef);
+    console.log(modalDiv);
+  });
+
 
   it('should add insert a row when click on Add button', () => {
     spyOn(socialMediaPostsService, 'addSocialMediaPost');
