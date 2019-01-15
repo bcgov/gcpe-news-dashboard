@@ -6,10 +6,13 @@
     </p>
     <div class="pt-3 router-style">
         <ul class="list-inline">
-            <li class="list-inline-item"><a [routerLink]="['/last-7-day-post-list']" routerLinkActive="active">{{'last 7 days' | uppercase}}</a></li>
-            <li class="list-inline-item"><a [routerLink]="['/next-7-day-activity-list']" routerLinkActive="active">{{'7 days forecast' | uppercase}}</a></li>
-            <li class="list-inline-item"><a [routerLink]="['/themes-of-the-week']" routerLinkActive="active">{{'themes of the week' | uppercase}}</a></li>
-            <li class="list-inline-item"><a [routerLink]="['/social-media-list']" [queryParams]="{ type: 'All'}" routerLinkActive="active">{{'social media' | uppercase}}</a></li>
+            <li class="list-inline-item" [ngClass]="{'open': submenuOpen}"><a [routerLink]="['/last-7-day-post-list']" routerLinkActive="active">{{'last 7 days' | uppercase}}</a></li>
+            <li class="list-inline-item" [ngClass]="{'open': submenuOpen}"><a [routerLink]="['/next-7-day-activity-list']" routerLinkActive="active">{{'7 day forecast' | uppercase}}</a></li>
+            <li class="list-inline-item" [ngClass]="{'open': submenuOpen}"><a [routerLink]="['/themes-of-the-week']" routerLinkActive="active">{{'themes of the week' | uppercase}}</a></li>
+            <li class="list-inline-item" [ngClass]="{'open': submenuOpen}"><a [routerLink]="['/social-media-list']" [queryParams]="{ type: 'All'}" routerLinkActive="active">{{'social media' | uppercase}}</a></li>
+            <li id="submenu-open-button" class="list-inline-item open pull-right">
+                <a class="btn-link" (click)="toggleSubmenu()"><i class="fa" [ngClass]="{'fa-angle-down': !submenuOpen, 'fa-angle-up': submenuOpen}"></i></a>
+            </li>
 
             <li id="social-media-filter" class="list-inline-item pull-right" [hidden]="hideSocialMediaFilter">
                 <div ngbDropdown placement="bottom-right">

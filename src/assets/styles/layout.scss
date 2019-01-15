@@ -27,6 +27,9 @@ body {
 
 main .jumbotron{
     background-color: #fff;
+    @include media-breakpoint-down(sm) {
+        padding: 2rem 0;
+    }
 }
   
 #hq-dashboard-body h2{
@@ -34,14 +37,20 @@ main .jumbotron{
 }
 
 .list-inline .list-inline-item{
-    padding-right:20px;
     color: map-get($theme-colors, light)!important;
+    padding-right:20px;
+    @include media-breakpoint-down(sm) {
+        padding-right: 0;
+    }
 }
 
 .list-inline .list-inline-item a{
     color: map-get($theme-colors, medium);
-    padding-bottom: 10px;
     text-decoration: none;
+    padding-bottom: 10px;
+    @include media-breakpoint-down(sm) {
+        padding-bottom: 0;
+    }
 }
   
 .list-inline .active {
@@ -52,6 +61,9 @@ main .jumbotron{
 .btn-print{
     border: 1px solid map-get($theme-colors, light)!important;
     color: map-get($theme-colors, primary-nav)!important;
+    @include media-breakpoint-down(sm) {
+        display: none !important;
+    }
 }
   
 .full-width{
