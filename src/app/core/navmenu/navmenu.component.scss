@@ -18,10 +18,32 @@ header .nav-item {
 header .nav-item {
     padding-left: 20px;
 }
+
+.navbar-brand.title {
+    display: flex;
+    align-items: center;
+}
+
+.navbar-brand {
+    margin-right: 0;
+}
+
+.navbar-toggler {
+    border: none;
+}
+
   
 #site-title a h4{
-    padding-top:25px;
     color: map-get($theme-colors, primary-nav)!important;
+    border-left: 1px solid map-get($theme-colors, secondary);
+    padding-left: 10px;
+    margin-bottom: 0;
+    height: 2.5rem;
+    line-height: 2.8rem;
+    @include media-breakpoint-down(sm) {
+        height: 1.5rem;
+        line-height: 1.8rem;
+    }
 }
   
 header .nav-item .active{
@@ -46,5 +68,8 @@ header .nav-item .active{
 
 .bc-logo-img {
     max-height: 80px;
+    @include media-breakpoint-down(sm) {
+        max-height: 50px;
+    }
 }
  
