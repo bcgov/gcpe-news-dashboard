@@ -2,41 +2,62 @@
   <nav *ngIf="visible" class="navbar fixed-top navbar-expand-lg bg-primary gov-navbar navbar-light pt-0 pb-0">
     <!-- Navbar content -->
     <div class="container-fluid full-width">
-      <!-- <div class="row row-eq-height "> -->
-        <a class="navbar-brand pt-0 pb-0 mt-0 mb-0" href="https://www2.gov.bc.ca">
-          <img class="bc-logo-img d-md-block" src="/assets/images/gov3_bc_logo_white_bg.png" alt="B.C. Government Logo">
-        </a>
-        <div class="navbar-brand title" id="site-title" >
-          <a [routerLink]="['/home']"><h4>BC Gov News</h4></a>
+      <a class="navbar-brand pt-0 pb-0 mt-0 mb-0" [routerLink]="['/home']">
+        <img class="bc-logo-img d-md-block" src="/assets/images/gov3_bc_logo_white_bg.png" alt="B.C. Government Logo">
+      </a>
+      <div class="navbar-brand title" id="site-title" >
+        <a [routerLink]="['/home']"><h4>BC Gov News</h4></a>
+      </div>
+      <div class="ml-auto">
+        <div class="nav-item" *ngIf="!isLoggedIn()">
+          <a class="nav-link" (click)="login()">Sign In</a> 
         </div>
-
-        <div class="ml-auto pr-2"><i class="fa fa-search"></i></div>
-        
-        <button class="navbar-toggler" type="button" (click)="isCollapsed = !isCollapsed" [attr.aria-expanded]="!isCollapsed"
-          aria-controls="navbarSupportedContent">
-          <span class="navbar-toggler-icon"></span>
-        </button>
-
-        <div class="collapse navbar-collapse flex-grow-0" id="navbarSupportedContent" [ngbCollapse]="isCollapsed">
-          <ul class="navbar-nav">
-            <li class="nav-item" style="position: initial;">
-              <div ngbDropdown >
-                <a id="topic-btn" class="nav-link">Topics</a>
+        <div class="nav-item" *ngIf="isLoggedIn()">
+          <div ngbDropdown class="image" placement="bottom-right">
+              <div class="user-image" id="profile-menu" ngbDropdownToggle [ngStyle]="{'background-color': getColor(getFirstLetter())}">{{getFirstLetter()}}</div>
+              
+              <div ngbDropdownMenu class="dropdown-menu" aria-labelledby="profile-menu">
+                <a *appHasRole="['Administrators']" class="dropdown-item" [routerLink]="['/theme/new']">New Theme</a>
+                <a class="dropdown-item" [routerLink]="['/themes']" [queryParams]="{ type: 'Published'}" routerLinkActive="active">Themes</a>
+                <a *appHasRole="['Administrators']" class="dropdown-item" [routerLink]="['/social-media-list-input']">Update Social Media</a>
+                <div class="dropdown-divider"></div>
+                <!-- <a class="dropdown-item" href="#">Subscriptions</a> -->
+                <a class="dropdown-item" href="#">Account Settings</a>
+                <a class="dropdown-item" (click)="logOut()">Sign out</a>
               </div>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link active" [routerLink]="['/last-7-day-post-list']" routerLinkActive="active">HQ Dashboard</a> 
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" >Just For You</a> 
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" >Bookmarks</a> 
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" >Trending</a> 
-            </li>
-            <li class="nav-item" *ngIf="!isLoggedIn()">
+          </div>
+        </div>
+      </div>
+      <!-- Disabled for MVP -->
+      <!-- <div class="ml-auto pr-2"><i class="fa fa-search"></i></div>
+      <button class="ml-auto navbar-toggler" type="button" (click)="isCollapsed = !isCollapsed" [attr.aria-expanded]="!isCollapsed"
+        aria-controls="navbarSupportedContent">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="mobile-nav-overlay" [ngbCollapse]="isCollapsed"></div>
+      <div class="ml-auto collapse navbar-collapse flex-grow-0" id="navbarSupportedContent" [ngbCollapse]="isCollapsed">
+        <ul class="navbar-nav">
+          <li class="mobile-only close-btn">
+            <a class="nav-link" (click)="isCollapsed=!isCollapsed"><i class="fa fa-times"></i></a> 
+          </li>
+          <li class="nav-item" style="position: initial;">
+            <div ngbDropdown >
+              <a id="topic-btn" class="nav-link">Topics</a>
+            </div>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link active" [routerLink]="['/last-7-day-post-list']" routerLinkActive="active">HQ Dashboard</a> 
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" >Just For You</a> 
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" >Bookmarks</a> 
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" >Trending</a> 
+          </li>
+          <li class="nav-item" *ngIf="!isLoggedIn()">
               <a class="nav-link" (click)="login()">Sign In</a> 
             </li>
             <li class="nav-item" *ngIf="isLoggedIn()">
@@ -54,9 +75,8 @@
                   </div>
               </div>
             </li>
-          </ul>
-        </div>
-      <!-- </div> -->
+        </ul>
+      </div> -->
     </div>
   </nav>
 </header>

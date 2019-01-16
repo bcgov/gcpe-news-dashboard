@@ -27,7 +27,8 @@
    }
  }
  #submenu-open-button {
-   margin-top: -25px;
+   width: 30px;
+   text-align: right;
    i {
       color: map-get($theme-colors, primary-nav);
    }
