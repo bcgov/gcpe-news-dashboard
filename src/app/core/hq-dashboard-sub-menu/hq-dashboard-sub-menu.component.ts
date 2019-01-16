@@ -12,7 +12,7 @@ import { ApiService } from '../../services/api.service';
 export class HqDashboardSubMenuComponent implements OnInit {
   hideSocialMediaFilter = false;
   @Input() socialmediatypes: SocialMediaType[];
-  filterBySocialMediaType = 'All';
+  filterBySocialMediaType: string;
   submenuOpen = false;
 
   constructor(private router: Router, private activatedRoute: ActivatedRoute, private apiService:  ApiService) {

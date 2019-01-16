@@ -7,7 +7,7 @@ import { catchError } from 'rxjs/operators';
 
 @Injectable()
 export class SociaMediaTypeListResolver implements Resolve<SocialMediaType[]> {
-    constructor(private apiService: ApiService,private router: Router) { }
+    constructor(private apiService: ApiService, private router: Router) { }
 
     resolve(route: ActivatedRouteSnapshot): Observable<SocialMediaType[]> {
         return this.apiService.getSocialMediaTypes()
