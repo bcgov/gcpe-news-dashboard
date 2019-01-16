@@ -60,20 +60,22 @@ describe('NavmenuComponent', () => {
     expect(element.textContent).toContain('BC Gov News');
   });
 
-  it('should display the `search` button', () => {
-      // There should a create button in the template
-      expect(element.innerHTML).toContain('fa-search');
-  });
+  // Tests commented out for MVP since the buttons are removed
+  
+  // it('should display the `search` button', () => {
+  //     // There should a create button in the template
+  //     expect(element.innerHTML).toContain('fa-search');
+  // });
 
-  it('should display the `Topics` button', () => {
-    // There should a create button in the template
-    expect(element.innerHTML).toContain('Topics');
-  });
+  // it('should display the `Topics` button', () => {
+  //   // There should a create button in the template
+  //   expect(element.innerHTML).toContain('Topics');
+  // });
 
-  it('should display the `hamburger` menu', () => {
-    // There should a create button in the template
-    expect(element.innerHTML).toContain('navbar-toggler-icon');
-  });
+  // it('should display the `hamburger` menu', () => {
+  //   // There should a create button in the template
+  //   expect(element.innerHTML).toContain('navbar-toggler-icon');
+  // });
 
   it('should have the user`s first initial', () => {
     spyOn(component, 'isLoggedIn').and.returnValue(true);
