@@ -15,7 +15,6 @@ header .nav-item {
     cursor: pointer;
     display: flex;
     padding-left: 20px;
-    color: map-get($theme-colors, light)!important;
 }
 
 .navbar .full-width {
@@ -103,6 +102,9 @@ header .nav-item {
     bottom: 0;
 }
 
+.btn-signin {
+    color: map-get($theme-colors, primary-nav)!important;
+}
   
 #site-title a h4{
     color: map-get($theme-colors, primary-nav)!important;
