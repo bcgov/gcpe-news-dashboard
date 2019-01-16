@@ -164,4 +164,3 @@ export class SocialMediaListInputComponent implements OnInit, OnDestroy {
     this.nav.show();
   }
 }
-

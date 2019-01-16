@@ -23,7 +23,7 @@ const appRoutes: Routes = [
   { path: 'social-media-list',
     component: SocialMediaPostListComponent,
     resolve: { socialmedia: SociaMediaPostListResolver, socialmediatype: SociaMediaTypeListResolver },
-    runGuardsAndResolvers: 'paramsOrQueryParamsChange', },
+    runGuardsAndResolvers: 'always', },
   { path: 'social-media-list-input', component: SocialMediaListInputComponent, resolve: { socialmedia: SociaMediaPostListResolver } },
   { path: '', redirectTo: 'last-7-day-post-list', pathMatch: 'full' },
   { path: 'themes',
