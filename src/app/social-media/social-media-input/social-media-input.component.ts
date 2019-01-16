@@ -30,7 +30,6 @@ export class SocialMediaInputComponent implements OnInit, AfterViewInit, OnDestr
     this.nav.hide();
     this.activatedRoute.data.subscribe(data => {
       this.socialmedia = data['socialmedia'];
-      console.log(this.socialmedia);
     });
   }
 
