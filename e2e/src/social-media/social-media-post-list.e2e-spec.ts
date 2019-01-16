@@ -1,6 +1,5 @@
 import { SocialMediaPostListPage } from './social-media-post-list.po';
-import { async } from '@angular/core/testing';
-import { browser, element, by } from 'protractor';
+import { browser } from 'protractor';
 
 describe('Social Media Post List Page', () => {
   let page: SocialMediaPostListPage;
@@ -8,7 +7,7 @@ describe('Social Media Post List Page', () => {
   beforeAll(() => {
     page = new SocialMediaPostListPage();
     page.navigateTo();
-    browser.driver.sleep(10000);
+    browser.driver.sleep(5000);
   });
 
   it('should display header text', () => {
@@ -27,7 +26,7 @@ describe('Social Media Post List Page', () => {
     page.selectSocialMediaTypeButton().click();
     expect(page.displayMediaTypeDropdownMenu().isPresent()).toBe(true);
     page.selectPostTypeButton('Twitter').click();
-    browser.driver.sleep(8000);
+    browser.driver.sleep(5000);
     expect(page.getSocialMediaFilterText()).toEqual('Twitter');
     expect(page.getFacebookPostCount().count()).toBe(0);
     expect(page.getInstagramPostCount().count()).toBe(0);
@@ -37,7 +36,17 @@ describe('Social Media Post List Page', () => {
     page.selectSocialMediaTypeButton().click();
     expect(page.displayMediaTypeDropdownMenu().isPresent()).toBe(true);
     page.selectPostTypeButton('Facebook').click();
-    browser.driver.sleep(8000);
+    browser.driver.sleep(5000);
+    expect(page.getSocialMediaFilterText()).toEqual('Facebook');
+    expect(page.getTwitterPostCount().count()).toBe(0);
+    expect(page.getInstagramPostCount().count()).toBe(0);
+  });
+
+  it('should display the social media type dropdown and select all Facebook post', () => {
+    page.selectSocialMediaTypeButton().click();
+    expect(page.displayMediaTypeDropdownMenu().isPresent()).toBe(true);
+    page.selectPostTypeButton('Facebook').click();
+    browser.driver.sleep(5000);
     expect(page.getSocialMediaFilterText()).toEqual('Facebook');
     expect(page.getTwitterPostCount().count()).toBe(0);
     expect(page.getInstagramPostCount().count()).toBe(0);
