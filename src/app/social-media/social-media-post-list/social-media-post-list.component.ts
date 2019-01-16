@@ -31,12 +31,13 @@ export class SocialMediaPostListComponent implements OnInit, AfterViewInit, OnDe
     });
 
     this.activatedRoute.queryParams.subscribe((queryParams: any) => {
-      if (queryParams.type === 'All') {
+      if (!queryParams.type || queryParams.type === 'All') {
         this.selectedSocialMedia = this.socialmedia;
       } else {
         this.selectedSocialMedia = this.socialmedia.filter(s => s.mediaType === queryParams.type);
       }
       this.filterBySocialMediaType = queryParams.type;
+
     });
   }
 
