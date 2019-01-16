@@ -72,6 +72,10 @@ header .nav-item {
     top: 45px !important;
 }
 
+ul.list-inline {
+    margin-bottom: 0;
+}
+
 .mobile-nav-overlay {
     opacity: 0.8;
     position: fixed;
@@ -82,8 +86,12 @@ header .nav-item {
     bottom: 0;
 }
 
-.btn-signin {
-    color: map-get($theme-colors, primary-nav)!important;
+.btn-nav, .list-inline-item:active{
+    color: map-get($theme-colors, dark)!important;
+    background-color: #fff;
+}
+.dropdown-item a {
+    padding-bottom: 0;
 }
   
 #site-title a h4{
