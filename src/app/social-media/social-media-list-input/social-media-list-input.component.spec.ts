@@ -136,28 +136,20 @@ describe('SocialMediaListInputComponent', () => {
     expect(component.close).toHaveBeenCalled();
   });
 
-  it('should click the delete button', ()  => {
+  it('should click the delete button and call deleteSocialMediaPost', ()  => {
     spyOn(component, 'deleteSocialMediaPost');
     const button = fixture.debugElement.query(By.css('#deleteBtn_0'));
     button.triggerEventHandler('click.preventDefault', null);
     fixture.detectChanges();
     expect(component.deleteSocialMediaPost).toHaveBeenCalled();
-    const modalDiv = fixture.debugElement.query(By.css('.modal-header'));
   });
 
   it('should call delete a post and confirmation modal will show', ()  => {
     spyOn(component, 'deleteSocialMediaPost');
-    //const observe = of({});
-    //spyOn(socialMediaPostsService, 'deleteSocialMediaPost').and.returnValue(observe);
     component.deleteSocialMediaPost(0);
     fixture.detectChanges();
     expect(component.deleteSocialMediaPost).toHaveBeenCalled();
-    expect(component.modalRef.close).toHaveBeenCalled();
-    const modalDiv = fixture.debugElement.query(By.css('.modal-header'));
-    console.log(component.modalRef);
-    console.log(modalDiv);
   });
-
 
   it('should add insert a row when click on Add button', () => {
     spyOn(socialMediaPostsService, 'addSocialMediaPost');

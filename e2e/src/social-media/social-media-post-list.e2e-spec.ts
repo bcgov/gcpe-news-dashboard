@@ -23,7 +23,23 @@ describe('Social Media Post List Page', () => {
     expect(page.displayMediaTypeDropdown()).toBe(true);
   });
 
-  it('should select Facebook from the social media type select dropdown', () => {
-    expect(page.selectSocialMediaType('')).toBeTruthy();
+  it('should display the social media type dropdown and select all Twitter post', () => {
+    page.selectSocialMediaTypeButton().click();
+    expect(page.displayMediaTypeDropdownMenu().isPresent()).toBe(true);
+    page.selectPostTypeButton('Twitter').click();
+    browser.driver.sleep(8000);
+    expect(page.getSocialMediaFilterText()).toEqual('Twitter');
+    expect(page.getFacebookPostCount().count()).toBe(0);
+    expect(page.getInstagramPostCount().count()).toBe(0);
+  });
+
+  it('should display the social media type dropdown and select all Facebook post', () => {
+    page.selectSocialMediaTypeButton().click();
+    expect(page.displayMediaTypeDropdownMenu().isPresent()).toBe(true);
+    page.selectPostTypeButton('Facebook').click();
+    browser.driver.sleep(8000);
+    expect(page.getSocialMediaFilterText()).toEqual('Facebook');
+    expect(page.getTwitterPostCount().count()).toBe(0);
+    expect(page.getInstagramPostCount().count()).toBe(0);
   });
 });

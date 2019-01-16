@@ -24,7 +24,35 @@ export class SocialMediaPostListPage {
         return element(by.id('dropdown-social-media-filter')).isDisplayed();
     }
 
-    selectSocialMediaType(type: string) {
-        return element(by.css("#dropdown-social-media-filter [value='All']")).click();
+    selectSocialMediaTypeButton() {
+        return element(by.id('dropdown-social-media-filter'));
+    }
+
+    displayMediaTypeDropdownMenu() {
+        return element(by.css('#social-media-filter-dropdown-menu.show'));
+    }
+
+    selectPostTypeButton(type: string) {
+        return element(by.cssContainingText('button.dropdown-item', type));
+    }
+
+    getSocialMediaFilterText() {
+        return element(by.css('#dropdown-social-media-filter.btn-link')).getText();
+    }
+
+    getSocialMediaPostCount() {
+        return element.all(by.css('.social-media-post'));
+    }
+
+    getFacebookPostCount() {
+        return element.all(by.css('.social-media-post .facebook-wrapper'));
+    }
+
+    getTwitterPostCount() {
+        return element.all(by.css('.social-media-post .twitter-wrapper'));
+    }
+
+    getInstagramPostCount() {
+        return element.all(by.css('.social-media-post .instagram-wrapper'));
     }
 }
