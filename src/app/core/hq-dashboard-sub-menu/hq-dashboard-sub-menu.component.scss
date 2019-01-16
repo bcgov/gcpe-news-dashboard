@@ -16,6 +16,27 @@
     font-size: 1.1em;
  }
 
+ .list-inline-item:not(.open) a:not(.active) {
+   @include media-breakpoint-down(sm) {
+      display: none;
+   }
+ }
+ .list-inline-item {
+   @include media-breakpoint-down(sm) {
+      display: block;
+   }
+ }
+ #submenu-open-button {
+   width: 30px;
+   text-align: right;
+   i {
+      color: map-get($theme-colors, primary-nav);
+   }
+   @include media-breakpoint-up(md) {
+      display: none;
+   }
+ }
+
 .dashboard-sub-menu-container {
    padding-left:0; 
    padding-right:0;
@@ -24,9 +45,12 @@
    }
 }
 @media screen {
-.dashboard-sub-menu-container {
-    padding-top: 80px;
-    }
+   .dashboard-sub-menu-container {
+      padding-top: 80px;
+      @include media-breakpoint-down(sm) {
+         padding-top: 50px;
+      }
+   }
 }
 
 
