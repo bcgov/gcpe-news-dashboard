@@ -1,5 +1,17 @@
-<app-hq-dashboard-sub-menu [socialmediatypes]="socialmediatypes" ></app-hq-dashboard-sub-menu>
-<div id="social-media-list" class="card-columns">
+<nav id="social-media-list-input-nav" class="navbar fixed-top navbar-expand-lg bg-primary navbar-light pt-0 pb-0">
+    <div class="container-fluid">
+        <div class="navbar-brand title mr-auto">
+            <h4>Update Social Media List</h4>
+        </div>
+        <ul class="navbar-nav navbar-right">
+            <li class="nav-item btn-link"><a href="#" (click.preventDefault)="addSocialMediaPost()" class="btn btn-link">Add</a></li>
+            <li class="nav-item btn-link"><a href="#" (click.preventDefault)="submit()" class="btn btn-link">Submit</a></li>
+            <li class="nav-item btn-link"><a href="#" (click.preventDefault)="close()" class="btn btn-link">Cancel</a></li>
+        </ul>
+    </div>
+</nav>
+
+<div id="social-media-input-list" class="card-columns">
   <div *ngFor="let item of selectedSocialMedia" [ngSwitch]="item.mediaType" class="social-media-post">
     <!--
       put a responsive wrapper around the social media post so that they will act in a similar responsive way;
@@ -8,7 +20,8 @@
       did not wrap facebook post since sometimes it does not show the post with certain browser
       cannot use a css class for the style since the social media scripts are looking for certain classes as twitter-tweet, fb-post, fb-video, instagram-media
     -->
-    <div class="embed-responsive" *ngSwitchCase="'Twitter'">
+    <div class="card" *ngSwitchCase="'Twitter'">
+      <span class="pull-right clickable" data-effect="fadeOut"><i class="fa fa-times"></i></span>
       <blockquote class="twitter-tweet" data-width="100%" data-lang="en" id="{{item.id}}">
         <a href="https://publish.twitter.com/oembed?{{item.url}} | async"></a>
       </blockquote>

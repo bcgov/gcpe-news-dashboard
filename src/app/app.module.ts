@@ -36,6 +36,7 @@ import { DeletePostConfirmationModalComponent } from './social-media/delete-post
 import { SocialMediaPostListComponent } from './social-media/social-media-post-list/social-media-post-list.component';
 import { AuthGuard } from './_guards/auth.guard';
 import { HasRoleDirective } from './_directives/hasRole.directive';
+import { SocialMediaInputComponent } from './social-media/social-media-input/social-media-input.component';
 
 @NgModule({
   declarations: [
@@ -56,7 +57,8 @@ import { HasRoleDirective } from './_directives/hasRole.directive';
     SocialMediaListInputComponent,
     DeletePostConfirmationModalComponent,
     SocialMediaPostListComponent,
-    HasRoleDirective
+    HasRoleDirective,
+    SocialMediaInputComponent
   ],
   imports: [
     BrowserModule,
