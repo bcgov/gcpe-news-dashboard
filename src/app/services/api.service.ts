@@ -13,22 +13,6 @@ export class ApiService {
   API_URL = '';
   NEWS_API_URL = '';
 
-  // mock data for the media types
-  private SocialMediaTypeList: SocialMediaType[] = [
-    {
-        id: 1,
-        name: 'Facebook'
-    },
-    {
-        id: 2,
-        name: 'Twitter'
-    },
-    {
-      id: 3,
-      name: 'Instagram'
-    }
-  ];
-
   constructor(private httpClient: HttpClient, @Inject(BASE_PATH) baseApiUrl: string) {
     this.API_URL = baseApiUrl;
   }
@@ -47,6 +31,6 @@ export class ApiService {
 
   // get the social media type list, used in the filter
   getSocialMediaTypes(): Observable<SocialMediaType[]> {
-    return of(this.SocialMediaTypeList);
+    return of(SocialMediaType.SocialMediaTypeList);
   }
 }

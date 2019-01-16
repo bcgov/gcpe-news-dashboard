@@ -58,9 +58,12 @@ main .jumbotron{
     border-bottom: 2px solid map-get($theme-colors, primary-nav)!important;
 }
 
-.btn-print{
+.btn-outline {
     border: 1px solid map-get($theme-colors, light)!important;
     color: map-get($theme-colors, primary-nav)!important;
+}
+
+.btn-print {
     @include media-breakpoint-down(sm) {
         display: none !important;
     }
