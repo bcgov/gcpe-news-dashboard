@@ -12,16 +12,109 @@ header nav {
 }
   
 header .nav-item {
+    cursor: pointer;
+    display: flex;
+    padding-left: 20px;
     color: map-get($theme-colors, light)!important;
 }
 
-header .nav-item {
-    padding-left: 20px;
+.navbar .full-width {
+    @include media-breakpoint-up(lg) {
+        padding: 0 44px 0 36px;
+    }
 }
+
+.navbar-brand.title {
+    display: flex;
+    align-items: center;
+}
+
+.navbar-brand {
+    margin-right: 0;
+}
+
+.navbar-toggler {
+    border: none;
+}
+
+.navbar-nav {
+    @include media-breakpoint-down(md) {
+        display: flex;
+        position: fixed;
+        background-color: #fff;
+        width: 350px;
+        height: 100vh;
+        right: 0;
+        top: 0;
+        border-left: 1px solid map-get($theme-colors, medium);
+        .nav-item {
+            order: 2;
+        }
+        .nav-item:last-of-type {
+            order: 1;
+            margin: 10px 0;
+        }
+    }
+}
+
+.mobile-only {
+    @include media-breakpoint-up(lg) {
+        display: none;
+    }
+}
+
+.close-btn {
+    position: absolute;
+    right: 0;
+    width: 30px;
+}
+.dropdown-menu::before {
+    content: '';
+    display: inline-block;
+    border-left: 10px solid transparent;
+    border-right: 10px solid transparent;
+    border-bottom: 7px solid #ccc;
+    border-bottom-color: rgba(0, 0, 0, 0.2);
+    position: absolute;
+    top: -7px;
+    right: 7px;
+}
+.dropdown-menu {
+    top: 45px !important;
+}
+.dropdown-menu::after {
+    content: '';
+    display: inline-block;
+    border-left: 9px solid transparent;
+    border-right: 9px solid transparent;
+    border-bottom: 6px solid #ffffff;
+    position: absolute;
+    top: -6px;
+    right: 8px;
+}
+
+.mobile-nav-overlay {
+    opacity: 0.8;
+    position: fixed;
+    background-color: #fff;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+}
+
   
 #site-title a h4{
-    padding-top:25px;
     color: map-get($theme-colors, primary-nav)!important;
+    border-left: 1px solid map-get($theme-colors, secondary);
+    padding-left: 10px;
+    margin-bottom: 0;
+    height: 2.5rem;
+    line-height: 2.8rem;
+    @include media-breakpoint-down(sm) {
+        height: 1.5rem;
+        line-height: 1.8rem;
+    }
 }
   
 header .nav-item .active{
@@ -46,5 +139,8 @@ header .nav-item .active{
 
 .bc-logo-img {
     max-height: 80px;
+    @include media-breakpoint-down(sm) {
+        max-height: 50px;
+    }
 }
  

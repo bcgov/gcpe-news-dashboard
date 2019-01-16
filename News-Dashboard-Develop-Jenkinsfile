@@ -16,12 +16,13 @@ node('master') {
 	    sh 'sleep 1m'
     }
 
-    stage('Deploy on Test') {
-        timeout time: 60, unit: 'MINUTES'
-        input "Deploy to test?"
-        echo "Deploying to test..."
-        openshiftTag destStream: 'news-dashboard-static', verbose: 'true', destTag: 'test', srcStream: 'news-dashboard-static', srcTag: '$BUILD_ID'
-        // Sleeping for a while to wait deployment completes
-        sh 'sleep 1m'
+    timeout(60) {
+        stage('Deploy on Test') {
+            input "Deploy to test?"
+            echo "Deploying to test..."
+            openshiftTag destStream: 'news-dashboard-static', verbose: 'true', destTag: 'test', srcStream: 'news-dashboard-static', srcTag: '$BUILD_ID'
+            // Sleeping for a while to wait deployment completes
+            sh 'sleep 1m'
+        }
     }
 }

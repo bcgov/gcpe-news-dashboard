@@ -13,6 +13,7 @@ export class HqDashboardSubMenuComponent implements OnInit {
   hideSocialMediaFilter = false;
   @Input() socialmediatypes: SocialMediaType[];
   filterBySocialMediaType: string;
+  submenuOpen = false;
 
   constructor(private router: Router, private activatedRoute: ActivatedRoute, private apiService:  ApiService) {
     // Only display the social media filter dropdown when social media link is active
@@ -41,5 +42,9 @@ export class HqDashboardSubMenuComponent implements OnInit {
 
   print() {
     window.print();
+  }
+
+  toggleSubmenu() {
+    this.submenuOpen = !this.submenuOpen;
   }
 }

@@ -16,7 +16,7 @@ $theme-colors: map-merge((
   secondary: #fcba19,
   light: $gray-300,
   dark: $gray-800,
-  mediem: $gray-500,
+  medium: $gray-500,
   primary-nav: #38598a,  // This is new
   secondary-nav: #5475a7 // This is new too
 ), $theme-colors);
@@ -36,3 +36,5 @@ $link-hover-color:      #00F;
 
 // Breadcrumbs
 $breadcrumb-bg: transparent;
+
+$navbar-padding-x: 0;
