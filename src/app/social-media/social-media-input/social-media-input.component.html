@@ -12,7 +12,7 @@
 </nav>
 
 <div id="social-media-input-list" class="card-columns">
-  <div *ngFor="let item of selectedSocialMedia" [ngSwitch]="item.mediaType" class="social-media-post">
+  <div *ngFor="let item of socialmedia" [ngSwitch]="item.mediaType" class="social-media-post">
     <!--
       put a responsive wrapper around the social media post so that they will act in a similar responsive way;
       cannot find the same wrapper since the posts from different social media platform act differently;

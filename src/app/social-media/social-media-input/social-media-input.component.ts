@@ -2,6 +2,7 @@ import { Component, OnInit, AfterViewInit, OnDestroy } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { SocialMediaType } from '../../view-models/social-media-type';
 import { SocialMediaPostExtended } from '../../view-models/social-media-post-extended';
+import { NavmenuService } from '../../services/navmenu.service';
 
 // the following readonly names need to match the names from the social media sdk
 declare const FB: any;
@@ -21,25 +22,15 @@ export class SocialMediaInputComponent implements OnInit, AfterViewInit, OnDestr
   socialmediatypes: SocialMediaType[];
   filterBySocialMediaType: string;
 
-  constructor(private router: Router, private activatedRoute: ActivatedRoute) {
+  constructor(private router: Router, private activatedRoute: ActivatedRoute, public nav: NavmenuService,) {
     this.router.routeReuseStrategy.shouldReuseRoute = () => false;
   }
 
   ngOnInit() {
+    this.nav.hide();
     this.activatedRoute.data.subscribe(data => {
       this.socialmedia = data['socialmedia'];
-      this.socialmediatypes = data['socialmediatype'];
-    });
-
-    this.activatedRoute.queryParams.subscribe((queryParams: any) => {
-      if (queryParams.type === 'All') {
-        this.selectedSocialMedia = this.socialmedia;
-      } else {
-        this.selectedSocialMedia = this.socialmedia.filter(s => s.mediaType === queryParams.type);
-      }
-      this.filterBySocialMediaType = queryParams.type;
-      console.log(this.filterBySocialMediaType);
-
+      console.log(this.socialmedia);
     });
   }
 

@@ -15,8 +15,8 @@
             <li class="list-inline-item" [ngClass]="{'open': submenuOpen}"><a [routerLink]="['/social-media-list']" [queryParams]="{ type: 'All'}" routerLinkActive="active">{{'social media' | uppercase}}</a></li>
 
             <li id="social-media-filter" class="list-inline-item pull-right open" [hidden]="hideSocialMediaFilter">
-                <div ngbDropdown placement="bottom-right">
-                    <a class="btn-link " id="dropdown-social-media-filter" ngbDropdownToggle>{{filterBySocialMediaType}} <i class="fa fa-angle-down" aria-hidden="true"></i></a>
+                <div ngbDropdown placement="bottom-right" id="social-media-filter-dropdown-menu">
+                    <a class="btn-link" id="dropdown-social-media-filter" ngbDropdownToggle>{{filterBySocialMediaType}} <i class="fa fa-angle-down" aria-hidden="true"></i></a>
                     <div ngbDropdownMenu aria-labelledby="dropdown-social-media-filter">
                         <button [routerLink]="['/social-media-list']" [queryParams]="{ type: 'All'}" class="dropdown-item" (click)="updateSocialMediaType('All')">All</button>
                         <button [routerLink]="['/social-media-list']" [queryParams]="{ type: socialmediatype.name}"

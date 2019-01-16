@@ -13,6 +13,7 @@ import { ThemeFormComponent } from './themes/theme-form/theme-form.component';
 import { SocialMediaListInputComponent } from './social-media/social-media-list-input/social-media-list-input.component';
 import { SociaMediaPostListResolver } from './_resolvers/social-media-post-list.resolver';
 import { SocialMediaPostListComponent } from './social-media/social-media-post-list/social-media-post-list.component';
+import { SocialMediaInputComponent } from './social-media/social-media-input/social-media-input.component';
 import { AuthGuard } from './_guards/auth.guard';
 
 const appRoutes: Routes = [
@@ -23,13 +24,17 @@ const appRoutes: Routes = [
   { path: 'social-media-list',
     component: SocialMediaPostListComponent,
     resolve: { socialmedia: SociaMediaPostListResolver, socialmediatype: SociaMediaTypeListResolver },
-    runGuardsAndResolvers: 'paramsOrQueryParamsChange', },
+    runGuardsAndResolvers: 'always', },
   { path: 'social-media-list-input', component: SocialMediaListInputComponent, resolve: { socialmedia: SociaMediaPostListResolver } },
   { path: '', redirectTo: 'last-7-day-post-list', pathMatch: 'full' },
   { path: 'themes',
     component: ThemeListComponent, resolve: { themelist: MessageListResolver }, runGuardsAndResolvers: 'paramsOrQueryParamsChange' },
   { path: 'theme/new', component: ThemeFormComponent },
-  { path: 'theme/edit/:id', component: ThemeFormComponent, resolve: { theme: MessageResolver } }
+  { path: 'theme/edit/:id', component: ThemeFormComponent, resolve: { theme: MessageResolver } },
+  { path: 'social-media-input',
+    component: SocialMediaInputComponent,
+    resolve: { socialmedia: SociaMediaPostListResolver },
+    runGuardsAndResolvers: 'always', },
 ];
 
 @NgModule({

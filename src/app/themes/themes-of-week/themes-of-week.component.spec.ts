@@ -79,7 +79,7 @@ describe('ThemesOfWeekComponent', () => {
     beforeEach(() => {
       TestBed.overrideProvider(ActivatedRoute, { useValue: { data: of({
         themes: FakeThemeData(20, 0, true)
-      })}})
+      })}});
       fixture = TestBed.createComponent(ThemesOfWeekComponent);
       component = fixture.componentInstance;
       fixture.detectChanges();
@@ -115,7 +115,7 @@ describe('ThemesOfWeekComponent', () => {
     beforeEach(() => {
       TestBed.overrideProvider(ActivatedRoute, { useValue: { data: of({
         themes: FakeThemeData(2, 1, false)
-      })}})
+      })}});
       fixture = TestBed.createComponent(ThemesOfWeekComponent);
       component = fixture.componentInstance;
       fixture.detectChanges();
