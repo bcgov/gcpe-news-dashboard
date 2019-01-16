@@ -30,6 +30,9 @@ nav {
     color: map-get($theme-colors, light);
     cursor: pointer;
 }
+.dropdown-menu {
+    left: -120px!important;
+}
 .dropdown-toggle::after{
     content:initial;
 }

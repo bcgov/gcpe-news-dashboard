@@ -7,15 +7,14 @@ describe('Themes of Week Page', () => {
     page = new ThemesOfWeekPage();
     page.navigateTo();
   });
-  
-  // Temporarily disabled to get build to work (Task 3173)
-  // it('should display header text', () => {
-  //   expect(page.getHeadingText()).toEqual('HQ Dashboard');
-  // });
 
-  // it('should have proper sub nav item selected', () => {
-  //   expect(page.getSelectedSubNavItem()).toEqual('THEMES OF THE WEEK');
-  // });
+  it('should display header text', () => {
+    expect(page.getHeadingText()).toEqual('HQ Dashboard');
+  });
+
+  it('should have proper sub nav item selected', () => {
+    expect(page.getSelectedSubNavItem()).toEqual('THEMES OF THE WEEK');
+  });
 
   it('should have theme list', () => {
     expect(page.getThemeList()).toBeTruthy();

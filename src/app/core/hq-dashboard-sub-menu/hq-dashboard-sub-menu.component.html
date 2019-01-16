@@ -1,25 +1,25 @@
 <div class="dashboard-sub-menu-container" >
     <h2>HQ Dashboard</h2>
-    <button class="btn btn-primary pull-right btn-print doNotPrint" (click)="print()"><i class="fa fa-print fa-lg"></i> Print</button>
+    <button class="btn btn-primary pull-right btn-outline btn-print doNotPrint" (click)="print()"><i class="fa fa-print fa-lg"></i> Print</button>
     <p class="lighter-font hq-dashboard-info">
         The most important news you should be aware of.
     </p>
     <div class="pt-3 router-style">
         <ul class="list-inline">
-            <li id="submenu-open-button" class="list-inline-item open pull-right" (click)="toggleSubmenu()">
+            <li id="submenu-open-button" class="open pull-right" (click)="toggleSubmenu()">
                 <i class="fa" [ngClass]="{'fa-angle-down': !submenuOpen, 'fa-angle-up': submenuOpen}"></i>
             </li>
-            <li class="list-inline-item" [ngClass]="{'open': submenuOpen}"><a [routerLink]="['/last-7-day-post-list']" routerLinkActive="active">{{'last 7 days' | uppercase}}</a></li>
-            <li class="list-inline-item" [ngClass]="{'open': submenuOpen}"><a [routerLink]="['/next-7-day-activity-list']" routerLinkActive="active">{{'7 day forecast' | uppercase}}</a></li>
-            <li class="list-inline-item" [ngClass]="{'open': submenuOpen}"><a [routerLink]="['/themes-of-the-week']" routerLinkActive="active">{{'themes of the week' | uppercase}}</a></li>
-            <li class="list-inline-item" [ngClass]="{'open': submenuOpen}"><a [routerLink]="['/social-media-list']" [queryParams]="{ type: 'All'}" routerLinkActive="active">{{'social media' | uppercase}}</a></li>
+            <li class="list-inline-item" [ngClass]="{'open': submenuOpen}"><a routerLink="/last-7-day-post-list" routerLinkActive="active">{{'last 7 days' | uppercase}}</a></li>
+            <li class="list-inline-item" [ngClass]="{'open': submenuOpen}"><a routerLink="/next-7-day-activity-list" routerLinkActive="active">{{'7 day forecast' | uppercase}}</a></li>
+            <li class="list-inline-item" [ngClass]="{'open': submenuOpen}"><a routerLink="/themes-of-the-week" routerLinkActive="active">{{'themes of the week' | uppercase}}</a></li>
+            <li class="list-inline-item" [ngClass]="{'open': submenuOpen}"><a routerLink="/social-media-list" routeLinkActiveOptions="{exact: false}" routerLinkActive="active">{{'social media' | uppercase}}</a></li>
 
-            <li id="social-media-filter" class="list-inline-item pull-right open" [hidden]="hideSocialMediaFilter">
-                <div ngbDropdown placement="bottom-right">
-                    <a class="btn-link " id="dropdown-social-media-filter" ngbDropdownToggle>{{filterBySocialMediaType}} <i class="fa fa-angle-down" aria-hidden="true"></i></a>
+            <li id="social-media-filter" class="list-inline-item ml-auto open" [hidden]="hideSocialMediaFilter">
+                <div ngbDropdown placement="bottom-right" id="social-media-filter-dropdown-menu">
+                    <a class="btn-link" id="dropdown-social-media-filter" ngbDropdownToggle>{{filterBySocialMediaType}} <i class="fa fa-angle-down" aria-hidden="true"></i></a>
                     <div ngbDropdownMenu aria-labelledby="dropdown-social-media-filter">
-                        <button [routerLink]="['/social-media-list']" [queryParams]="{ type: 'All'}" class="dropdown-item" (click)="updateSocialMediaType('All')">All</button>
-                        <button [routerLink]="['/social-media-list']" [queryParams]="{ type: socialmediatype.name}"
+                        <button routerLink="/social-media-list" [queryParams]="{ type: 'All'}" class="dropdown-item" (click)="updateSocialMediaType('All')">All</button>
+                        <button routerLink="/social-media-list" [queryParams]="{ type: socialmediatype.name}"
                             class="dropdown-item" 
                             *ngFor="let socialmediatype of socialmediatypes" (click)="updateSocialMediaType(socialmediatype.name)">
                             {{socialmediatype.name}}

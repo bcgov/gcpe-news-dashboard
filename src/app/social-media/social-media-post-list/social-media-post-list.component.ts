@@ -31,13 +31,12 @@ export class SocialMediaPostListComponent implements OnInit, AfterViewInit, OnDe
     });
 
     this.activatedRoute.queryParams.subscribe((queryParams: any) => {
-      if (queryParams.type === 'All') {
+      if (!queryParams.type || queryParams.type === 'All') {
         this.selectedSocialMedia = this.socialmedia;
       } else {
         this.selectedSocialMedia = this.socialmedia.filter(s => s.mediaType === queryParams.type);
       }
       this.filterBySocialMediaType = queryParams.type;
-      console.log(this.filterBySocialMediaType);
 
     });
   }
@@ -79,14 +78,15 @@ export class SocialMediaPostListComponent implements OnInit, AfterViewInit, OnDe
   }
 
   ngAfterViewInit() {
-    const selectedSocialmediatypes = [];
-
-    this.socialmedia.forEach(post => {
-      if (selectedSocialmediatypes.indexOf(post.mediaType) === -1) {
-        selectedSocialmediatypes.push(post.mediaType);
-        this.loadWidgets(post.mediaType);
-      }
-    });
+    let selectedSocialmediatypes = [];
+    if (this.selectedSocialMedia !== undefined) {
+      this.selectedSocialMedia.forEach(post => {
+        if (selectedSocialmediatypes.indexOf(post.mediaType) === -1) {
+          selectedSocialmediatypes.push(post.mediaType);
+          this.loadWidgets(post.mediaType);
+        }
+      });
+    }
   }
 
   ngOnDestroy() {

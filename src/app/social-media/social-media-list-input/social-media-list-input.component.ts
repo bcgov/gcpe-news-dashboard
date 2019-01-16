@@ -8,7 +8,7 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { DeletePostConfirmationModalComponent } from '../delete-post-confirmation-modal/delete-post-confirmation-modal.component';
 import { forkJoin, Observable } from 'rxjs';
 
-const reg = '(https?://)?([\\da-z.-]+)\\.([a-z.]{2,6})[/\\w .-]*/?';
+const reg = '(https?://)?([\\da-z.-]+)\\.([a-z.]{2,6})[/\\w .-=\\?\\&]*/?';
 
 @Component({
   selector: 'app-social-media-list-input',
@@ -164,4 +164,3 @@ export class SocialMediaListInputComponent implements OnInit, OnDestroy {
     this.nav.show();
   }
 }
-
