@@ -11,6 +11,10 @@ nav {
     border-bottom: 1px solid map-get($theme-colors, light);
     margin-bottom: 20px;
 }
+
+.navbar-nav {
+    flex-direction: row;
+}
 #theme-nav #site-title h4{
     padding-top:25px;
     padding-bottom: 9px;
@@ -31,7 +35,9 @@ nav {
     cursor: pointer;
 }
 .dropdown-menu {
-    left: -120px!important;
+    left: -128px!important;
+    top: 50px!important;
+    position: absolute;
 }
 .dropdown-toggle::after{
     content:initial;
@@ -58,6 +64,11 @@ label.title-label {
 }
 label.description-label {
     line-height: 25px;
+}
+label.description-label, label.title-label {
+    @include media-breakpoint-down(sm) {
+        text-align: left!important;
+    }
 }
 .hidden {
     visibility: hidden;
