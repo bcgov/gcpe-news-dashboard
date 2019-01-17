@@ -45,6 +45,9 @@ export class HqDashboardSubMenuComponent implements OnInit {
   }
 
   toggleSubmenu() {
+    if(this.submenuOpen) {
+      return;
+    }
     this.submenuOpen = !this.submenuOpen;
   }
 }
