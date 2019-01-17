@@ -78,7 +78,7 @@ export class SocialMediaPostListComponent implements OnInit, AfterViewInit, OnDe
   }
 
   ngAfterViewInit() {
-    let selectedSocialmediatypes = [];
+    const selectedSocialmediatypes = [];
     if (this.selectedSocialMedia !== undefined) {
       this.selectedSocialMedia.forEach(post => {
         if (selectedSocialmediatypes.indexOf(post.mediaType) === -1) {
