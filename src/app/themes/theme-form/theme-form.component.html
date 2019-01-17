@@ -9,8 +9,14 @@
           •••
         </a>
         <div aria-labelledby="navbarDropdown" ngbDropdownMenu>
-          <a class="dropdown-item" href="#" (click.preventDefault)="save()">Save and Close</a>
-          <a class="dropdown-item" href="#" (click.preventDefault)="delete()">Delete</a>
+          <ul class="list-inline">
+            <li class="list-inline-item dropdown-item">
+              <a href="#" (click.preventDefault)="save()">Save and Close</a>
+            </li>
+            <li class="list-inline-item dropdown-item">
+              <a href="#" (click.preventDefault)="delete()">Delete</a>
+            </li>
+          </ul>
         </div>
       </li>
       <ng-template #cancel><li class="nav-item my-auto cancel-btn"><a href="#" (click.preventDefault)="close()" class="btn btn-link">Cancel</a></li></ng-template>
