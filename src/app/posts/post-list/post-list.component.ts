@@ -1,7 +1,10 @@
-import { Component, OnInit, Inject } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Post } from '../../view-models/post';
+import { SocialMediaType } from '../../view-models/social-media-type';
 import { Router, ActivatedRoute } from '@angular/router';
 import { ApiService } from '../../services/api.service';
+
+declare const FB: any;
 
 @Component({
   selector: 'app-post-list',
@@ -16,13 +19,21 @@ export class PostListComponent implements OnInit {
 
   ngOnInit() {
     this.route.data.subscribe(data => {
+      var hasFacebookAssets = false;
+      data['posts'].forEach(p => {
+        if (p.assetUrl.indexOf("facebook") >= 0) {
+          (<any>p).fbAssetClass = SocialMediaType.getFacebookClass(p.assetUrl);
+          hasFacebookAssets = true;
+        }
+      });
       this.posts = data['posts'];
+      if (hasFacebookAssets) {
+        FB.init({
+          xfbml: true,
+          version: 'v3.2'
+        });
+        FB.XFBML.parse();
+      }
     });
-  }
-
-  getPosts() {
-    this.apiService.getPosts().subscribe((data) => {
-      this.posts = data;
-    }, error => console.error(error));
   }
 }

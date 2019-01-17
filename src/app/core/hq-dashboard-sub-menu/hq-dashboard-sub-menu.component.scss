@@ -1,33 +1,56 @@
 @import '../../../assets/styles/variables.scss';
 
 .dropdown-toggle::after {
-    content:initial;
- }
+   content:initial;
+}
 
- #social-media-filter a {
-     color: map-get($theme-colors, primary-nav)!important;
- }
+#social-media-filter a {
+   cursor: pointer;
+   color: map-get($theme-colors, primary-nav)!important;
+}
 
- .hq-dashboard-info {
-    font-size: 1.2em;
- }
+#social-media-filter {
+   @include media-breakpoint-down(sm) {
+      text-align: right;
+      margin-top: 5px;
+      margin-right: 0;
+   }
+}
 
- .router-style {
-    font-size: 1.1em;
- }
+.dropdown-menu {
+   top: 30px !important;
+}
 
- .list-inline-item:not(.open) a:not(.active) {
+.hq-dashboard-info {
+   font-size: 1.2em;
+}
+
+.router-style {
+   font-size: 1.1em;
+}
+
+.list-inline {
+   @include media-breakpoint-up(md) {
+      display: flex;
+   }
+}
+
+.list-inline-item:not(.open) a:not(.active) {
    @include media-breakpoint-down(sm) {
       display: none;
    }
- }
- .list-inline-item {
+}
+.list-inline-item {
+   flex-shrink: 0;
+   margin-right: 0;
    @include media-breakpoint-down(sm) {
+      text-align: right;
       display: block;
+      margin-right: 16px;
    }
- }
- #submenu-open-button {
-   width: 30px;
+}
+#submenu-open-button {
+   width: 12px;
    text-align: right;
    i {
       color: map-get($theme-colors, primary-nav);
@@ -35,7 +58,7 @@
    @include media-breakpoint-up(md) {
       display: none;
    }
- }
+}
 
 .dashboard-sub-menu-container {
    padding-left:0; 

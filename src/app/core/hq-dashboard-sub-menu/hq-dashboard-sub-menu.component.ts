@@ -31,7 +31,7 @@ export class HqDashboardSubMenuComponent implements OnInit {
   ngOnInit() {
     if (this.activatedRoute.queryParams) {
       this.activatedRoute.queryParams.subscribe((queryParams: any) => {
-        this.filterBySocialMediaType = queryParams.type;
+        this.filterBySocialMediaType = queryParams.type || 'All';
       });
     }
   }

@@ -8,7 +8,7 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { DeletePostConfirmationModalComponent } from '../delete-post-confirmation-modal/delete-post-confirmation-modal.component';
 import { forkJoin, Observable } from 'rxjs';
 
-const reg = '(https?://)?([\\da-z.-]+)\\.([a-z.]{2,6})[/\\w .-]*/?';
+const reg = '(https?://)?([\\da-z.-]+)\\.([a-z.]{2,6})[/\\w .-=\\?\\&]*/?';
 
 @Component({
   selector: 'app-social-media-list-input',
@@ -120,7 +120,7 @@ export class SocialMediaListInputComponent implements OnInit, OnDestroy {
     const formArray: FormArray = this.socialMediaPostForms;
     if (!formArray.valid) {
       /// TODO: if submit failed, do something
-      alert('not valid');
+      console.error('not valid');
       this.close();
       return;
     }

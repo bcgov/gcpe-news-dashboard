@@ -1,47 +1,26 @@
 import { SocialMediaPost } from './socialMediaPost';
+import { SocialMediaType } from './social-media-type';
 
 export class SocialMediaPostExtended implements SocialMediaPost {
-    id?: string;
-    url: string;
-    sortOrder?: number;
-    timestamp?: Date;
-    mediaType: string;
-    postType: string;
+  id?: string;
+  url: string;
+  sortOrder?: number;
+  timestamp?: Date;
+  mediaType: string;
+  postType: string;
 
-    constructor(post: SocialMediaPost) {
-        this.id = post.id;
-        this.url = post.url;
-        this.sortOrder = post.sortOrder;
-        this.timestamp = post.timestamp;
-        this.mediaType = this.getMediaType(post.url);
-        this.postType = this.getFacebookPostType(post.url);
+  constructor(post: SocialMediaPost) {
+    this.id = post.id;
+    this.url = post.url;
+    this.sortOrder = post.sortOrder;
+    this.timestamp = post.timestamp;
+    var socialMediaType = SocialMediaType.get(post.url);
+    if (socialMediaType) {
+      this.mediaType = socialMediaType.name;
+      if (this.mediaType == 'Facebook') {
+        this.postType = SocialMediaType.getFacebookClass(post.url);
+      }
     }
-
-    getMediaType(url: string): string {
-        let type: string;
-        type = '';
-        if (url.indexOf('facebook') >= 0) {
-            type = 'Facebook';
-        } else if (url.indexOf('twitter') >= 0 ) {
-            type = 'Twitter';
-        } else if (url.indexOf('instagram') >= 0) {
-            type = 'Instagram';
-        }
-        return type;
-    }
-
-    // for facebook only, the html tag is different for post and video
-    getFacebookPostType(url: string): string {
-        let type: string;
-        type = '';
-        if (url.indexOf('facebook') >= 0) {
-            if (url.indexOf('post') >= 0) {
-                type = 'fb-post';
-            } else if (url.indexOf('video') >= 0) {
-                type = 'fb-video';
-            }
-        }
-        return type;
-    }
+  }
 }
 
