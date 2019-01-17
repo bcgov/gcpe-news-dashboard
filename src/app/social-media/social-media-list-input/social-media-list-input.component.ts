@@ -120,7 +120,7 @@ export class SocialMediaListInputComponent implements OnInit, OnDestroy {
     const formArray: FormArray = this.socialMediaPostForms;
     if (!formArray.valid) {
       /// TODO: if submit failed, do something
-      alert('not valid');
+      console.error('not valid');
       this.close();
       return;
     }
