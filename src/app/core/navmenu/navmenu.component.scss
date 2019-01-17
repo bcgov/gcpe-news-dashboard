@@ -86,12 +86,9 @@ ul.list-inline {
     bottom: 0;
 }
 
-.btn-nav, .list-inline-item:active{
+.btn-nav {
     color: map-get($theme-colors, dark)!important;
     background-color: #fff;
-}
-.dropdown-item a {
-    padding-bottom: 0;
 }
   
 #site-title a h4{

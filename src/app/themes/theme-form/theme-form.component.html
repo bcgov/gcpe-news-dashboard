@@ -15,7 +15,7 @@
       </li>
       <ng-template #cancel><li class="nav-item my-auto cancel-btn"><a href="#" (click.preventDefault)="close()" class="btn btn-link">Cancel</a></li></ng-template>
       <li class="nav-item my-auto">
-        <button class="nav-link btn btn-primary btn-publish" (click)="togglePublished()" [disabled]="themeForm.invalid" [class.publish]="!theme.isPublished">
+        <button class="nav-link btn btn-publish" (click)="togglePublished()" [disabled]="themeForm.invalid" [class.publish]="!theme.isPublished">
           {{theme.isPublished ? 'Unpublish' : 'Publish'}}
         </button>
       </li>

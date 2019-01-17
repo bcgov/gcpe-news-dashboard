@@ -20,13 +20,13 @@
                 <ul class="list-inline">
                   <div *appHasRole="['Administrators']">
                     <li class="list-inline-item dropdown-item">
-                      <a routerLink="/theme/new" class="btn-nav">New Theme</a>
+                      <a routerLink="/theme/new" class="btn-nav"><span>New Theme</span></a>
                     </li>
                     <li class="list-inline-item dropdown-item">
-                      <a routerLink="/themes" [queryParams]="{ type: 'Published'}" routeLinkActiveOptions="{exact: false}" routerLinkActive="active" class="btn-nav">Themes</a>
+                      <a routerLink="/themes" [queryParams]="{ type: 'Published'}" routeLinkActiveOptions="{exact: false}" routerLinkActive="active" class="btn-nav"><span>Themes</span></a>
                     </li>
                     <li class="list-inline-item dropdown-item">
-                      <a routerLink="/social-media-list-input" class="btn-nav">Update Social Media</a>
+                      <a routerLink="/social-media-list-input" class="btn-nav"><span>Update Social Media</span></a>
                     </li>
                     <div class="dropdown-divider"></div>
                   </div>
