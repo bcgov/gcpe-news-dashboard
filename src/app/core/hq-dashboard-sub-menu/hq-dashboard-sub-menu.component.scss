@@ -29,18 +29,18 @@
    font-size: 1.1em;
 }
 
-.list-inline {
+.subnav-list.list-inline {
    @include media-breakpoint-up(md) {
       display: flex;
    }
 }
 
-.list-inline-item:not(.open) a:not(.active) {
+.subnav-list>.list-inline-item:not(.open) a:not(.active) {
    @include media-breakpoint-down(sm) {
       display: none;
    }
 }
-.list-inline-item {
+.subnav-list>.list-inline-item {
    flex-shrink: 0;
    margin-right: 0;
    @include media-breakpoint-down(sm) {

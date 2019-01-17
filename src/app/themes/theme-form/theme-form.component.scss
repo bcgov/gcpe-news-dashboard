@@ -21,7 +21,7 @@ nav {
     border: 1px solid map-get($theme-colors, light);
     color: map-get($theme-colors, primary-nav);
     &.publish:not([disabled]) {
-        background-color: map-get($theme-colors, primary-nav);
+        background-color: map-get($theme-colors, secondary-nav);
         color: map-get($theme-colors, light);
     }
 }
