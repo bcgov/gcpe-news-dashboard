@@ -3,7 +3,6 @@ import { Post } from '../../view-models/post';
 import { SocialMediaType } from '../../view-models/social-media-type';
 import { ActivatedRoute } from '@angular/router';
 import { AppConfigService } from 'src/app/app-config.service';
-import { I18nPluralPipe } from '@angular/common';
 
 declare const FB: any;
 
