@@ -88,7 +88,11 @@ REPLACE_VARS="
   RealIpFrom API_URL
 "
 
-sed "s/<<API_URL>>/${API_URL}" /tmp/app/dist/assets/config/appConfig.json.template > /tmp/app/dist/assets/appConfig.json
+JSON_APP_CONFIG_REPLACE_VARS="
+  NEWS_URL
+"
+
+sed "$(getReplacementPattern $JSON_APP_CONFIG_REPLACE_VARS" /tmp/app/dist/assets/config/appConfig.json.template > /tmp/app/dist/assets/appConfig.json
 sed "$(getReplacementPattern $REPLACE_VARS)" /tmp/nginx.conf.template > /etc/nginx/nginx.conf
 
 echo "---> Starting nginx ..."

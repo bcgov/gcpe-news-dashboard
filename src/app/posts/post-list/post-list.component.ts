@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { Post } from '../../view-models/post';
 import { SocialMediaType } from '../../view-models/social-media-type';
 import { ActivatedRoute } from '@angular/router';
+import { AppConfigService } from 'src/app/app-config.service';
+import { I18nPluralPipe } from '@angular/common';
 
 declare const FB: any;
 
@@ -13,11 +15,15 @@ declare const FB: any;
 
 export class PostListComponent implements OnInit {
   public posts: Post[];
+  private BASE_NEWS_URL: string;
 
-  constructor(private route: ActivatedRoute) { }
+  constructor(private route: ActivatedRoute, private appConfig: AppConfigService) {
+    this.BASE_NEWS_URL = appConfig.config.NEWS_URL;
+  }
 
   ngOnInit() {
     this.route.data.subscribe(data => {
+      if(typeof data['posts'] === 'undefined') return;
       let hasFacebookAssets = false;
       data['posts'].forEach(p => {
         if (p.assetUrl.indexOf('facebook') >= 0) {

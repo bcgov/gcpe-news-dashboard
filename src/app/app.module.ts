@@ -37,6 +37,7 @@ import { SocialMediaPostListComponent } from './social-media/social-media-post-l
 import { AuthGuard } from './_guards/auth.guard';
 import { HasRoleDirective } from './_directives/hasRole.directive';
 import { AppConfigService } from './app-config.service';
+import { PluralizeKindPipe } from './_pipes/pluralize-kind.pipe';
 
 const appInitializerFn = (appConfig: AppConfigService) => {
   return () => {
@@ -63,7 +64,8 @@ const appInitializerFn = (appConfig: AppConfigService) => {
     SocialMediaListInputComponent,
     DeletePostConfirmationModalComponent,
     SocialMediaPostListComponent,
-    HasRoleDirective
+    HasRoleDirective,
+    PluralizeKindPipe
   ],
   imports: [
     BrowserModule,
