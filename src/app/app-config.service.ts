@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { environment } from '../environments/environment';
+import { config } from '../environments/backupConfig';
 
 @Injectable()
 export class AppConfigService {
@@ -15,9 +15,7 @@ export class AppConfigService {
         this.appConfig = data;
       })
       .catch(data => {
-        this.appConfig = {
-            "API_URL": environment.apiUrl
-        }
+        this.appConfig = config
       });
   }
 
