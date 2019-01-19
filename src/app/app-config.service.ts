@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { config } from '../environments/backupConfig';
+import { config } from './backup.config';
 
 @Injectable()
 export class AppConfigService {
