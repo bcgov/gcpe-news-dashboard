@@ -1,12 +1,21 @@
 version: '3'
 services:
-  frontend:
+  news-dashboard:
     container_name: news-dashboard
     image: news-dashboard
-    build:
-      context: .
-    volumes:
-      - '.:/usr/src/app'
-      - '/usr/src/app/node_modules'
+    environment:
+      - API_URL=${API_URL}
+      - IpFilterRules=${IpFilterRules}
+      - RealIpFrom=${RealIpFrom}
+    depends_on:
+      - hub-api
     ports:
-      - '4200:4200'
+      - '8080:8080'
+  hub-api:
+    container_name: hub-api
+    image: hub-api
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Production
+      - HubDbContext=%HubDBContextEnvVar%
+    ports:
+    - '8081:8080'
