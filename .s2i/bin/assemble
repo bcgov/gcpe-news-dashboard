@@ -44,18 +44,18 @@ if [ -n "$NPM_MIRROR" ]; then
   npm config set registry $NPM_MIRROR
 fi
 
-echo "---> Installing application dependencies"
-yarn install
-
 # Set the CI_BUILD to false by default.
 CI_BUILD=${CI_BUILD:-false}
 
+echo "---> Installing application dependencies"
+npm install
+
 if [ "$CI_BUILD" == "true" ]; then
   echo "---> Running Tests and building in production mode"
-  yarn ci
+  npm run ci
 else
   echo "---> Building in production mode"
-  yarn build
+  npm run build
 fi
 
 # Set the SNYK_TEST to false by default.
@@ -76,5 +76,7 @@ fi
 echo "---> Removing node modules from image"
 rm -rf ./node_modules
 
-# Fix source directory permissions
+echo "---> Fix source directory permissions"
 fix-permissions ./
+
+echo "---> Done assemble"
