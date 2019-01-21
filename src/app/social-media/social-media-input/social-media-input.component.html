@@ -11,6 +11,7 @@
     </div>
 </nav>
 
+<div id="admin-social-media-list-input-form" class="container-fluid pl-0 pr-0 pt-5">
 <div id="social-media-input-list" class="card-columns">
   <div *ngFor="let item of socialmedia" [ngSwitch]="item.mediaType" class="social-media-post">
     <!--
@@ -21,16 +22,18 @@
       cannot use a css class for the style since the social media scripts are looking for certain classes as twitter-tweet, fb-post, fb-video, instagram-media
     -->
     <div class="card" *ngSwitchCase="'Twitter'">
-      <span class="pull-right clickable" data-effect="fadeOut"><i class="fa fa-times"></i></span>
-      <blockquote class="twitter-tweet" data-width="100%" data-lang="en" id="{{item.id}}">
+      <span class="pull-right pr-2"><button class="btn btn-link" type="submit" (click.preventDefault)="deleteSocialMediaPost(item)"><i class="fa fa-times"></i></button></span>
+      <blockquote class="twitter-tweet" data-width="100%" data-lang="en">
         <a href="https://publish.twitter.com/oembed?{{item.url}} | async"></a>
       </blockquote>
     </div>
-    <div *ngSwitchCase="'Facebook'" class="card card-no-border">
+    <div *ngSwitchCase="'Facebook'" class="card">
+      <span class="pull-right pr-2"><button class="btn btn-link" type="submit" (click.preventDefault)="deleteSocialMediaPost(item)"><i class="fa fa-times"></i></button></span>
       <blockquote style="width: 98%;" class="{{item.postType}}" attr.data-href="{{item.url}} | async" id="{{item.id}}"></blockquote>
     </div>
-    <div class="card-no-border" *ngSwitchCase="'Instagram'">
-      <blockquote style="width: 99%; max-width: 99%;" class="instagram-media" data-instgrm-captioned
+    <div class="card" *ngSwitchCase="'Instagram'">
+      <span class="pull-right pr-2"><button class="btn btn-link" type="submit" (click.preventDefault)="deleteSocialMediaPost(item)"><i class="fa fa-times"></i></button></span>
+      <blockquote style="width: 100%; max-width: 100%;" class="instagram-media" data-instgrm-captioned
       attr.data-instgrm-permalink="{{item.url}}?OMITSCRIPT=true | async" data-instgrm-version="9"
       id="{{item.id}}">
         <a href="{{item.url}}?OMITSCRIPT=true | async"></a>
@@ -38,3 +41,5 @@
     </div>  
   </div>
 </div>
+</div>
+

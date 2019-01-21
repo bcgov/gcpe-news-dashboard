@@ -5,7 +5,25 @@
   </button>
 </div>
 <div class="modal-body">
-  <p>Are you sure you want to delete the following social media post:  {{url}}</p>
+  <p>Please confirm you would like to delete the following social media post.</p>
+  <div *ngIf="postExt">
+      <div ngSwitch="{{postExt.mediaType}}" class="social-media-post">
+          <div class="card card-no-border twitter-wrapper" *ngSwitchCase="'Twitter'">
+              <blockquote class="twitter-tweet" data-width="99%" data-lang="en">
+                <a href="https://publish.twitter.com/oembed?{{postExt.url}} | async"></a>
+              </blockquote>
+            </div>
+            <div *ngSwitchCase="'Facebook'" class="card card-no-border facebook-wrapper">
+              <blockquote style="width: 99%;" class="{{postExt.postType}}" attr.data-href="{{postExt.url}} | async"></blockquote>
+            </div>
+            <div class="card card-no-border instagram-wrapper" *ngSwitchCase="'Instagram'">
+              <blockquote style="width: 99%; max-width: 99%;" class="instagram-media" data-instgrm-captioned
+              attr.data-instgrm-permalink="{{postExt.url}}?OMITSCRIPT=true | async" data-instgrm-version="9">
+                <a href="{{postExt.url}}?OMITSCRIPT=true | async"></a>
+              </blockquote>
+            </div>  
+      </div>
+    </div>
 </div>
 <div class="modal-footer">
   <button type="button" class="btn btn-primary" (click)="activeModal.close('Confirm')">Confirm</button>

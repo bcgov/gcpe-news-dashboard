@@ -1,29 +1,38 @@
-import { Component, OnInit, Input, AfterViewInit } from '@angular/core';
-import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
+import { Component, OnInit, Input, ViewContainerRef } from '@angular/core';
 import { SocialMediaPostExtended } from '../../view-models/social-media-post-extended';
+import { url } from 'inspector';
 
+// the following readonly names need to match the names from the social media sdk
 declare const FB: any;
 declare const twttr: any;
 declare const instgrm: any;
 
 @Component({
-  selector: 'app-delete-post-confirmation-modal',
-  templateUrl: './delete-post-confirmation-modal.component.html',
-  styleUrls: ['./delete-post-confirmation-modal.component.scss']
+  selector: 'app-social-media-post-preview',
+  templateUrl: './social-media-post-preview.component.html',
+  styleUrls: ['./social-media-post-preview.component.scss']
 })
-export class DeletePostConfirmationModalComponent implements OnInit, AfterViewInit {
-
+export class SocialMediaPostPreviewComponent implements OnInit, AfterViewInit {
   @Input() url;
   postExt: SocialMediaPostExtended;
 
-  constructor( public activeModal: NgbActiveModal ) { }
+  initSocialMediaPostInfo(postUrl: string) {
+    const postExt = new SocialMediaPostExtended({ url: "https://twitter.com/BCGovNews/status/1083504133670236161" });
+    console.log(postExt);
+    postExt.mediaType = 'Twitter';
+  }
+
+  constructor() {
+    console.log(this.url);
+    this.initSocialMediaPostInfo('');
+  }
 
   ngOnInit() {
-    this.postExt = new SocialMediaPostExtended({url: this.url});
+    this.initSocialMediaPostInfo('');
   }
 
   ngAfterViewInit() {
-    this.loadWidgets(this.postExt.mediaType);
+    this.loadTwitterWidgets();
   }
 
   loadTwitterWidgets() {
@@ -49,16 +58,5 @@ export class DeletePostConfirmationModalComponent implements OnInit, AfterViewIn
     instgrm.Embeds.process();
   }
 
-  loadWidgets(mediaType: any) {
-    switch (mediaType) {
-      case 'Facebook':
-        this.loadFacebookWidgets();
-        break;
-      case 'Twitter':
-        this.loadTwitterWidgets();
-        break;
-      case 'Instagram':
-        this.loadInstagramWidgets();
-    }
-  }
+
 }

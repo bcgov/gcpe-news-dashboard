@@ -37,6 +37,9 @@ import { SocialMediaPostListComponent } from './social-media/social-media-post-l
 import { AuthGuard } from './_guards/auth.guard';
 import { HasRoleDirective } from './_directives/hasRole.directive';
 import { SocialMediaInputComponent } from './social-media/social-media-input/social-media-input.component';
+import { AddSocialMediaPostModalComponent } from './social-media/add-social-media-post-modal/add-social-media-post-modal.component';
+import { SocialMediaPostPreviewComponent } from './social-media/social-media-post-preview/social-media-post-preview.component';
+import { SocialMediaRenderService } from './services/socialMediaRender.service';
 
 @NgModule({
   declarations: [
@@ -58,7 +61,9 @@ import { SocialMediaInputComponent } from './social-media/social-media-input/soc
     DeletePostConfirmationModalComponent,
     SocialMediaPostListComponent,
     HasRoleDirective,
-    SocialMediaInputComponent
+    SocialMediaInputComponent,
+    AddSocialMediaPostModalComponent,
+    SocialMediaPostPreviewComponent
   ],
   imports: [
     BrowserModule,
@@ -81,10 +86,13 @@ import { SocialMediaInputComponent } from './social-media/social-media-input/soc
     SociaMediaTypeListResolver,
     MessageResolver,
     SociaMediaPostListResolver,
-    AuthGuard
+    AuthGuard,
+    SocialMediaRenderService
   ],
   entryComponents: [
-    DeletePostConfirmationModalComponent
+    DeletePostConfirmationModalComponent,
+    AddSocialMediaPostModalComponent,
+    SocialMediaPostPreviewComponent
   ],
   bootstrap: [AppComponent]
 })

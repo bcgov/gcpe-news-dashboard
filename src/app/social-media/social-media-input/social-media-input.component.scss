@@ -5,6 +5,27 @@
   border: none;
 }
 
+.navbar-brand h4{
+    padding-top:25px;
+    padding-bottom: 9px;
+    color: map-get($theme-colors, dark)!important;
+}
+
+nav {
+    background-color: map-get($theme-colors, primary-alt);;
+    border-bottom: 1px solid map-get($theme-colors, light);
+    margin-bottom: 20px;
+}
+.navbar-brand h4{
+    padding-top:25px;
+    padding-bottom: 9px;
+    color: map-get($theme-colors, dark);
+}
+
+iframe{
+    padding-bottom: 0 !important;
+}
+
 .card-columns {
     @include media-breakpoint-only(xxxl) {
       column-count: 5;

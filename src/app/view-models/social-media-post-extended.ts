@@ -17,7 +17,7 @@ export class SocialMediaPostExtended implements SocialMediaPost {
     var socialMediaType = SocialMediaType.get(post.url);
     if (socialMediaType) {
       this.mediaType = socialMediaType.name;
-      if (this.mediaType == 'Facebook') {
+      if (this.mediaType === 'Facebook') {
         this.postType = SocialMediaType.getFacebookClass(post.url);
       }
     }
