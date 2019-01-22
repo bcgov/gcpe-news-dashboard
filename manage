@@ -116,7 +116,6 @@ build-web() {
   
   SECONDS=0
   ${S2I_EXE} build \
-    --incremental=true \
     -e "NPM_CONFIG_COLOR=${NPM_COLOR}" \
     -e "NPM_CONFIG_LOGLEVEL=timing" \
     -e "HTTP_PROXY=${HTTP_PROXY}" \
