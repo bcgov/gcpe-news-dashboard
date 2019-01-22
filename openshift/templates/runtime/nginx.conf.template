@@ -58,7 +58,7 @@ http {
 
         # serve our app here
         location / {
-            root   /tmp/app/dist/dist;
+            root   /tmp/app/dist;
             index  index.html index.htm;
             try_files $uri $uri/ /index.html;
             gzip            on;
