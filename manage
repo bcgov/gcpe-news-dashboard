@@ -125,7 +125,7 @@ build-web() {
     --copy \
     --volume "${COMPOSE_PROJECT_NAME}_gnd-npm-cache:/opt/app-root/src/.npm" \
     --runtime-image frontend-nginx-runtime \
-    -a /opt/app-root/src/dist:app/dist \
+    -a /opt/app-root/src/dist:app \
     . frontend-yarn-builder news-dashboard
 
   duration=$SECONDS
