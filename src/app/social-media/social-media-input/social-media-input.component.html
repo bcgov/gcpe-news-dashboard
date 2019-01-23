@@ -35,9 +35,9 @@
       </span>
           -->
       
-      <blockquote class="twitter-tweet" data-width="100%" data-lang="en">
-        <a href="https://publish.twitter.com/oembed?{{item.url}} | async"></a>
-      </blockquote>
+          <blockquote class="twitter-tweet" data-width="99%" data-lang="en" id="{{item.id}}">
+            <a href="https://publish.twitter.com/oembed?{{item.url}} | async"></a>
+          </blockquote>
     </div>
     <div *ngSwitchCase="'Facebook'" class="card">
       <span class="pull-right pr-2"><button class="btn btn-link" type="submit" (click.preventDefault)="deleteSocialMediaPost(item)"><i class="fa fa-times fa-lg"></i></button></span>
