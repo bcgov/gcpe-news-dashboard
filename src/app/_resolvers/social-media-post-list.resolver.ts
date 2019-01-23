@@ -7,16 +7,16 @@ import { catchError, map } from 'rxjs/operators';
 
 @Injectable()
 export class SociaMediaPostListResolver implements Resolve<SocialMediaPostExtended[]> {
-    constructor(private socialMediaPostsService: SocialMediaPostsService,private router: Router) { }
+    constructor(private socialMediaPostsService: SocialMediaPostsService, private router: Router) { }
 
     resolve(route: ActivatedRouteSnapshot): Observable<SocialMediaPostExtended[]> {
-        return this.socialMediaPostsService.getAllSocialMediaPosts()
+      return this.socialMediaPostsService.getAllSocialMediaPosts()
         .pipe(
-            map(res => res.map(item => ( new SocialMediaPostExtended(item)))),
-            catchError(error => {
-                this.router.navigate(['/']);
-                return of(null);
-            })
-        )
+          map(res => res.map(item => (new SocialMediaPostExtended(item)))),
+          catchError(error => {
+            this.router.navigate(['/']);
+            return of(null);
+          })
+        );
     }
 }

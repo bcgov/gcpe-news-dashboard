@@ -1,5 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import { NgModule, APP_INITIALIZER } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
@@ -39,6 +39,14 @@ import { HasRoleDirective } from './_directives/hasRole.directive';
 import { SocialMediaInputComponent } from './social-media/social-media-input/social-media-input.component';
 import { AddSocialMediaPostModalComponent } from './social-media/add-social-media-post-modal/add-social-media-post-modal.component';
 import { SocialMediaRenderService } from './services/socialMediaRender.service';
+import { AppConfigService } from './app-config.service';
+import { PluralizeKindPipe } from './_pipes/pluralize-kind.pipe';
+
+const appInitializerFn = (appConfig: AppConfigService) => {
+  return () => {
+      return appConfig.loadAppConfig();
+  }
+};
 
 @NgModule({
   declarations: [
@@ -59,9 +67,10 @@ import { SocialMediaRenderService } from './services/socialMediaRender.service';
     SocialMediaListInputComponent,
     DeletePostConfirmationModalComponent,
     SocialMediaPostListComponent,
-    HasRoleDirective,
     SocialMediaInputComponent,
-    AddSocialMediaPostModalComponent
+    AddSocialMediaPostModalComponent,
+    HasRoleDirective,
+    PluralizeKindPipe
   ],
   imports: [
     BrowserModule,
@@ -73,6 +82,13 @@ import { SocialMediaRenderService } from './services/socialMediaRender.service';
     ReactiveFormsModule
   ],
   providers: [
+    AppConfigService,
+    {
+        provide: APP_INITIALIZER,
+        useFactory: appInitializerFn,
+        multi: true,
+        deps: [AppConfigService]
+    },
     ApiService,
     MessagesService,
     SocialMediaPostsService,

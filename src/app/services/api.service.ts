@@ -11,7 +11,6 @@ import { BASE_PATH } from '../variables';
 })
 export class ApiService {
   API_URL = '';
-  NEWS_API_URL = '';
 
   constructor(private httpClient: HttpClient, @Inject(BASE_PATH) baseApiUrl: string) {
     this.API_URL = baseApiUrl;

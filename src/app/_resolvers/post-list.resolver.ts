@@ -7,7 +7,7 @@ import { catchError } from 'rxjs/operators';
 
 @Injectable()
 export class PostListResolver implements Resolve<Post[]> {
-    constructor(private entryService: ApiService,private router: Router) { }
+    constructor(private entryService: ApiService, private router: Router) { }
 
     resolve(route: ActivatedRouteSnapshot): Observable<Post[]> {
         return this.entryService.getPosts()
