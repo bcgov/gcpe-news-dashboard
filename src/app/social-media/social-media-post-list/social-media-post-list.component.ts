@@ -4,9 +4,6 @@ import { SocialMediaType } from '../../view-models/social-media-type';
 import { SocialMediaPostExtended } from '../../view-models/social-media-post-extended';
 import { SocialMediaRenderService } from '../../services/socialMediaRender.service';
 
-// the following readonly names need to match the names from the social media sdk
-
-
 @Component({
   selector: 'app-social-media-post-list',
   templateUrl: './social-media-post-list.component.html',
@@ -46,7 +43,6 @@ export class SocialMediaPostListComponent implements OnInit, AfterViewInit, OnDe
       this.selectedSocialMedia.forEach(post => {
         if (selectedSocialmediatypes.indexOf(post.mediaType) === -1) {
           selectedSocialmediatypes.push(post.mediaType);
-          //this.loadWidgets(post.mediaType);
           this.socialMediaRenderService.loadWidgets(post.mediaType);
         }
       });

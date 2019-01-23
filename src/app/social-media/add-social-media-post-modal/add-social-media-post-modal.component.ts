@@ -1,15 +1,9 @@
-import { Component, OnInit, AfterViewInit, ViewContainerRef, Output, ChangeDetectorRef, TemplateRef } from '@angular/core';
+import { Component, OnInit, ViewContainerRef, ChangeDetectorRef, TemplateRef } from '@angular/core';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { FormGroup, FormBuilder } from '@angular/forms';
-import { ElementRef, Renderer2, ViewChild, ComponentFactoryResolver } from '@angular/core';
+import { ViewChild } from '@angular/core';
 import { SocialMediaPostExtended } from '../../view-models/social-media-post-extended';
-import { SocialMediaPostPreviewComponent } from '../social-media-post-preview/social-media-post-preview.component';
-import { SocialMediaPostItem } from '../social-media-post-item';
-import { SocialMediaPostPreviewDirective } from '../social-media-post-preview.directive';
-
-declare const FB: any;
-declare const twttr: any;
-declare const instgrm: any;
+import { SocialMediaRenderService } from '../../services/socialMediaRender.service';
 
 @Component({
   selector: 'app-add-social-media-post-modal',
@@ -17,7 +11,7 @@ declare const instgrm: any;
   styleUrls: ['./add-social-media-post-modal.component.scss']
 })
 
-export class AddSocialMediaPostModalComponent implements OnInit, AfterViewInit {
+export class AddSocialMediaPostModalComponent implements OnInit {
   @ViewChild('previewPost', { read: ViewContainerRef }) previewPost: ViewContainerRef;
   @ViewChild('preview') tpl: TemplateRef<any>;
 
@@ -29,54 +23,13 @@ export class AddSocialMediaPostModalComponent implements OnInit, AfterViewInit {
   constructor(
     public activeModal: NgbActiveModal,
     private formBuilder: FormBuilder,
-    private renderer: Renderer2,
-    private resolver: ComponentFactoryResolver,
-    private cd: ChangeDetectorRef ) {
+    private cd: ChangeDetectorRef,
+    private socialMediaRenderService: SocialMediaRenderService ) {
     this.createForm();
     this.previewHidden = true;
   }
 
   ngOnInit() {
-  }
-
-  ngAfterViewInit() {
-    this.loadTwitterWidgets();
-  }
-
-  loadTwitterWidgets() {
-    if (twttr.ready()) {
-      twttr.widgets.load();
-    }
-  }
-
-  loadFacebookWidgets() {
-    // remove the fb-post class from the posts that have already been rendered so they don't flicker when we parse/render the next one
-    const fbPosts = document.getElementsByClassName('fb-post');
-    for (let i = fbPosts.length - 1; i >= 0; i--) {
-      fbPosts[i].className = fbPosts[i].className.replace('fb-post ', '');
-    }
-    FB.init({
-      xfbml: true,
-      version: 'v3.2'
-    });
-    FB.XFBML.parse();
-  }
-
-  loadInstagramWidgets() {
-    instgrm.Embeds.process();
-  }
-
-  loadWidgets(mediaType: any) {
-    switch (mediaType) {
-      case 'Facebook':
-        this.loadFacebookWidgets();
-        break;
-      case 'Twitter':
-        this.loadTwitterWidgets();
-        break;
-      case 'Instagram':
-        this.loadInstagramWidgets();
-    }
   }
 
   createForm() {
@@ -97,22 +50,8 @@ export class AddSocialMediaPostModalComponent implements OnInit, AfterViewInit {
         const view = this.tpl.createEmbeddedView(null);
         this.previewPost.insert(view);
         this.cd.detectChanges();
-        this.loadWidgets(this.postExt.mediaType);
-        /*
-        this.initSocialMediaPostInfo(postUrl);
-        this.previewHidden = false;
-        this.previewPost.clear();
-        const factory = this.resolver.resolveComponentFactory(SocialMediaPostPreviewComponent);
-        const componentRef = this.previewPost.createComponent(factory);
-        componentRef.instance.url = postUrl;
-        this.cd.detectChanges();
-        */
+        this.socialMediaRenderService.loadWidgets(this.postExt.mediaType);
       }
     }
-    //console.log(this.addSocialMediaPostForm.controls['url'].value);
-  }
-
-  initSocialMediaPostInfo(postUrl: string) {
-    const postExt = new SocialMediaPostExtended({ url: postUrl });
   }
 }

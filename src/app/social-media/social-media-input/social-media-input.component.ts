@@ -1,4 +1,4 @@
-import { Component, OnInit, AfterViewInit, OnDestroy, Input } from '@angular/core';
+import { Component, OnInit, AfterViewInit, OnDestroy } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { SocialMediaType } from '../../view-models/social-media-type';
 import { SocialMediaPostExtended } from '../../view-models/social-media-post-extended';
@@ -7,11 +7,7 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { DeletePostConfirmationModalComponent } from '../delete-post-confirmation-modal/delete-post-confirmation-modal.component';
 import { AddSocialMediaPostModalComponent } from '../add-social-media-post-modal/add-social-media-post-modal.component';
 import { SocialMediaPostsService } from '../../services/socialMediaPosts.service';
-
-// the following readonly names need to match the names from the social media sdk
-declare const FB: any;
-declare const twttr: any;
-declare const instgrm: any;
+import { SocialMediaRenderService } from '../../services/socialMediaRender.service';
 
 @Component({
   selector: 'app-social-media-input',
@@ -31,7 +27,8 @@ export class SocialMediaInputComponent implements OnInit, AfterViewInit, OnDestr
     private activatedRoute: ActivatedRoute,
     public nav: NavmenuService,
     private modal: NgbModal,
-    private socialMediaService: SocialMediaPostsService) {
+    private socialMediaService: SocialMediaPostsService,
+    private socialMediaRenderService: SocialMediaRenderService) {
     this.router.routeReuseStrategy.shouldReuseRoute = () => false;
   }
 
@@ -45,42 +42,9 @@ export class SocialMediaInputComponent implements OnInit, AfterViewInit, OnDestr
     this.socialmedia.forEach(post => {
       if (selectedSocialmediatypes.indexOf(post.mediaType) === -1) {
         selectedSocialmediatypes.push(post.mediaType);
-        this.loadWidgets(post.mediaType);
+        this.socialMediaRenderService.loadWidgets(post.mediaType);
       }
     });
-  }
-
-  loadTwitterWidgets() {
-    if (twttr.ready()) {
-      twttr.widgets.load();
-    }
-  }
-
-  loadFacebookWidgets() {
-    FB.init({
-      xfbml: true,
-      version: 'v3.2'
-    });
-    Array.from(document.getElementsByClassName('fb-post')).forEach(function(item) {
-      FB.XFBML.parse(item);
-   });
-  }
-
-  loadInstagramWidgets() {
-    instgrm.Embeds.process();
-  }
-
-  loadWidgets(mediaType: any) {
-    switch (mediaType) {
-      case 'Facebook':
-        this.loadFacebookWidgets();
-        break;
-      case 'Twitter':
-        this.loadTwitterWidgets();
-        break;
-      case 'Instagram':
-        this.loadInstagramWidgets();
-    }
   }
 
   ngAfterViewInit() {
@@ -89,7 +53,7 @@ export class SocialMediaInputComponent implements OnInit, AfterViewInit, OnDestr
     this.socialmedia.forEach(post => {
       if (selectedSocialmediatypes.indexOf(post.mediaType) === -1) {
         selectedSocialmediatypes.push(post.mediaType);
-        this.loadWidgets(post.mediaType);
+        this.socialMediaRenderService.loadWidgets(post.mediaType);
       }
     });
   }
@@ -105,7 +69,7 @@ export class SocialMediaInputComponent implements OnInit, AfterViewInit, OnDestr
 
   deleteSocialMediaPost(post: SocialMediaPostExtended) {
     const deleteModal = this.modal.open(DeletePostConfirmationModalComponent, { size: 'lg', centered: true });
-    deleteModal.componentInstance.url = post.url;
+    deleteModal.componentInstance.postExt = post;
 
     deleteModal.result.then((result) => {
       if (result === 'Confirm') {
@@ -127,7 +91,6 @@ export class SocialMediaInputComponent implements OnInit, AfterViewInit, OnDestr
 
   addSocialMediaPost() {
     const addModal = this.modal.open(AddSocialMediaPostModalComponent, { size: 'lg', centered: true });
-
     addModal.result.then((result) => {
       if ( result.url !== 'underfined' || result.url !== null ) {
         console.log(result);

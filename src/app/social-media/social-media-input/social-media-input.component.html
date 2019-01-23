@@ -22,17 +22,29 @@
       cannot use a css class for the style since the social media scripts are looking for certain classes as twitter-tweet, fb-post, fb-video, instagram-media
     -->
     <div class="card" *ngSwitchCase="'Twitter'">
-      <span class="pull-right pr-2"><button class="btn btn-link" type="submit" (click.preventDefault)="deleteSocialMediaPost(item)"><i class="fa fa-times"></i></button></span>
+        <div class="btn-toolbar pull-right" role="toolbar" aria-label="Toolbar with button groups">
+            <div class="btn-group mr-2" role="group" aria-label="First group">
+              <button class="btn btn-link" type="submit"><i class="fa fa-thumb-tack fa-lg"></i></button>
+              <button class="btn btn-link" type="submit" (click.preventDefault)="deleteSocialMediaPost(item)"><i class="fa fa-times fa-lg"></i></button>
+            </div>
+          </div>
+          <!--
+<span class="pull-right pr-2">
+        <button class="btn btn-link" type="submit" (click.preventDefault)="deleteSocialMediaPost(item)"><i class="fa fa-times fa-lg"></i></button>
+        <button class="btn btn-link" type="submit"><i class="fa fa-thumb-tack fa-lg"></i></button>
+      </span>
+          -->
+      
       <blockquote class="twitter-tweet" data-width="100%" data-lang="en">
         <a href="https://publish.twitter.com/oembed?{{item.url}} | async"></a>
       </blockquote>
     </div>
     <div *ngSwitchCase="'Facebook'" class="card">
-      <span class="pull-right pr-2"><button class="btn btn-link" type="submit" (click.preventDefault)="deleteSocialMediaPost(item)"><i class="fa fa-times"></i></button></span>
+      <span class="pull-right pr-2"><button class="btn btn-link" type="submit" (click.preventDefault)="deleteSocialMediaPost(item)"><i class="fa fa-times fa-lg"></i></button></span>
       <blockquote style="width: 98%;" class="{{item.postType}}" attr.data-href="{{item.url}} | async" id="{{item.id}}"></blockquote>
     </div>
     <div class="card" *ngSwitchCase="'Instagram'">
-      <span class="pull-right pr-2"><button class="btn btn-link" type="submit" (click.preventDefault)="deleteSocialMediaPost(item)"><i class="fa fa-times"></i></button></span>
+      <span class="pull-right pr-2"><button class="btn btn-link" type="submit" (click.preventDefault)="deleteSocialMediaPost(item)"><i class="fa fa-times fa-lg"></i></button></span>
       <blockquote style="width: 100%; max-width: 100%;" class="instagram-media" data-instgrm-captioned
       attr.data-instgrm-permalink="{{item.url}}?OMITSCRIPT=true | async" data-instgrm-version="9"
       id="{{item.id}}">
