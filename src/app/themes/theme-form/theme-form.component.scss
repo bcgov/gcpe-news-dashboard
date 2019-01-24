@@ -40,7 +40,7 @@ nav {
     position: absolute;
 }
 .dropdown-toggle::after{
-    content:initial;
+    display: none !important;
 }
 #title {
     font-size: 2em;

@@ -2,8 +2,6 @@
 FROM frontend-yarn-builder:latest as builder
 FROM nginx-runtime:latest
 
-RUN echo "TEST"
-
 # Copy the build artifacts from the 'builder' image
 # to the distribution folder on the runtime image.
 COPY --from=builder /opt/app-root/src/dist/. /tmp/app/dist/
