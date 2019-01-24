@@ -1,11 +1,6 @@
 <div class="modal-header">
   <h4 class="modal-title">Add Social Media Post</h4>
-  <button
-    type="button"
-    class="close"
-    aria-label="Close"
-    (click)="activeModal.dismiss('Cross click')"
-  >
+  <button type="button" class="close" aria-label="Close" (click)="activeModal.dismiss('Cross click')">
     <span aria-hidden="true">&times;</span>
   </button>
 </div>
@@ -17,13 +12,14 @@
           <label for="url">URL</label>
           <div class="input-group">
             <input type="text" class="form-control" formControlName="url" />
-            <button type="submit" (click.preventDefault)="previewSocialMediaPost()">Preview</button>
+            <button type="button" (click.preventDefault)="previewSocialMediaPost()">Preview</button>
           </div>
+          <div *ngIf="get_url(i).invalid && get_url(i).dirty" class="alert alert-danger mt-1">Url Format Error</div>
         </div>
       </div>
       <div>
-        <ng-template #preview>
-            <div ngSwitch="{{postExt.mediaType}}" class="social-media-post">
+      <ng-template #preview>
+            <div ngSwitch="{{postExt.mediaType}}" class="social-media-post d-flex align-items-center justify-content-center" id="add-social-media-post">
                 <div *ngSwitchCase="'Twitter'">
                     <blockquote class="twitter-tweet" data-width="99%" data-lang="en" data-conversation="none">
                       <a href="https://publish.twitter.com/oembed?{{postExt.url}} | async"></a>
@@ -40,16 +36,12 @@
                   </div>  
             </div>
         </ng-template>
-        <ng-container 
-          *ngTemplateOutlet="headerTemplate ? headerTemplate: defaultTabButtons">
-            
-        </ng-container>
         <ng-container #previewPost></ng-container>
       </div>
     </div>
     <div class="modal-footer">
-      <button type="button" class="btn btn-default" (click)="activeModal.close('Cancel')">Cancel</button>
-      <button type="submit" class="btn btn-primary">Submit</button>
+      <button type="button" class="btn btn-default" (click.preventDefault)="activeModal.close('Cancel')">Cancel</button>
+      <button type="submit" class="btn btn-primary" [disabled]="!addSocialMediaPostForm.valid">Submit</button>
     </div>
   </form>
 </div>

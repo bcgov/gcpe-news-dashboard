@@ -1,9 +1,11 @@
 import { Component, OnInit, ViewContainerRef, ChangeDetectorRef, TemplateRef } from '@angular/core';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
-import { FormGroup, FormBuilder } from '@angular/forms';
+import { FormGroup, FormBuilder, FormControl, Validators } from '@angular/forms';
 import { ViewChild } from '@angular/core';
 import { SocialMediaPostExtended } from '../../view-models/social-media-post-extended';
 import { SocialMediaRenderService } from '../../services/socialMediaRender.service';
+
+const reg = '(https?://)?([\\da-z.-]+)\\.([a-z.]{2,6})[/\\w .-=\\?\\&]*/?';
 
 @Component({
   selector: 'app-add-social-media-post-modal',
@@ -16,9 +18,9 @@ export class AddSocialMediaPostModalComponent implements OnInit {
   @ViewChild('preview') tpl: TemplateRef<any>;
 
   addSocialMediaPostForm: FormGroup;
-  previewHidden: boolean;
   url: string;
   postExt: SocialMediaPostExtended;
+  disableSubmitBtn: boolean;
 
   constructor(
     public activeModal: NgbActiveModal,
@@ -26,7 +28,7 @@ export class AddSocialMediaPostModalComponent implements OnInit {
     private cd: ChangeDetectorRef,
     private socialMediaRenderService: SocialMediaRenderService ) {
     this.createForm();
-    this.previewHidden = true;
+    this.disableSubmitBtn = true;
   }
 
   ngOnInit() {
@@ -34,11 +36,15 @@ export class AddSocialMediaPostModalComponent implements OnInit {
 
   createForm() {
     this.addSocialMediaPostForm = this.formBuilder.group({
-      url: '',
+      url: new FormControl('', [Validators.required, Validators.pattern(reg)]),
     });
   }
   submitForm() {
     this.activeModal.close(this.addSocialMediaPostForm.value);
+  }
+
+  get_url(index: number): any {
+    return this.addSocialMediaPostForm.controls['url'];
   }
 
   previewSocialMediaPost() {
@@ -50,7 +56,7 @@ export class AddSocialMediaPostModalComponent implements OnInit {
         const view = this.tpl.createEmbeddedView(null);
         this.previewPost.insert(view);
         this.cd.detectChanges();
-        this.socialMediaRenderService.loadWidgets(this.postExt.mediaType);
+        this.socialMediaRenderService.loadWidget(this.postExt.mediaType, document.getElementById('add-social-media-post'));
       }
     }
   }

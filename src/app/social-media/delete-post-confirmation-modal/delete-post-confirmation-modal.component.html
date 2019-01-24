@@ -6,7 +6,7 @@
 </div>
 <div class="modal-body">
   <div *ngIf="postExt">
-      <div ngSwitch="{{postExt.mediaType}}" class="social-media-post">
+      <div ngSwitch="{{postExt.mediaType}}" class="social-media-post d-flex align-items-center justify-content-center" >
           <div *ngSwitchCase="'Twitter'">
               <blockquote class="twitter-tweet" data-width="99%" data-lang="en" data-conversation="none">
                 <a href="https://publish.twitter.com/oembed?{{postExt.url}} | async"></a>

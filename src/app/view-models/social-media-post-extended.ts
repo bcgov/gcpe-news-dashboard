@@ -14,7 +14,7 @@ export class SocialMediaPostExtended implements SocialMediaPost {
     this.url = post.url;
     this.sortOrder = post.sortOrder;
     this.timestamp = post.timestamp;
-    let socialMediaType = SocialMediaType.get(post.url);
+    const socialMediaType = SocialMediaType.get(post.url);
     if (socialMediaType) {
       this.mediaType = socialMediaType.name;
       if (this.mediaType === 'Facebook') {

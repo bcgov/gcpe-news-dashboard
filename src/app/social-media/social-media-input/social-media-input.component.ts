@@ -67,6 +67,37 @@ export class SocialMediaInputComponent implements OnInit, AfterViewInit, OnDestr
     this.router.navigate(['social-media-input']);
   }
 
+  backToSocialMediaList() {
+    this.router.onSameUrlNavigation = 'reload';
+    this.router.navigate(['social-media-list']);
+  }
+
+  pinSocialMediaPost(post: SocialMediaPostExtended) {
+    const updatedPost = post;
+    if (updatedPost.sortOrder === 0) {
+      updatedPost.sortOrder = 1;
+    } else {
+      updatedPost.sortOrder = 0;
+    }
+
+    this.socialMediaService.updateSocialMediaPost(updatedPost.id, updatedPost).subscribe(
+      (res) => {
+        this.close();
+      },
+      (err) => {
+        alert('Failed to update or create post - Error: ' + JSON.stringify(err.error));
+      }
+    );
+  }
+
+  getPinColor(sortOrder: number): string {
+    if (sortOrder === 0) {
+      return '#fcba19';
+    } else {
+      return '#1a5a96';
+    }
+  }
+
   deleteSocialMediaPost(post: SocialMediaPostExtended) {
     const deleteModal = this.modal.open(DeletePostConfirmationModalComponent, { size: 'lg', centered: true });
     deleteModal.componentInstance.postExt = post;
@@ -86,7 +117,6 @@ export class SocialMediaInputComponent implements OnInit, AfterViewInit, OnDestr
       }
     }, (reason) => {
     });
-
   }
 
   addSocialMediaPost() {
@@ -94,7 +124,7 @@ export class SocialMediaInputComponent implements OnInit, AfterViewInit, OnDestr
     addModal.result.then((result) => {
       if ( result.url !== 'underfined' || result.url !== null ) {
         console.log(result);
-        this.socialMediaService.addSocialMediaPost({url: result.url}).subscribe(
+        this.socialMediaService.addSocialMediaPost({url: result.url, sortOrder: 1}).subscribe(
           () => {
             this.close();
           },
