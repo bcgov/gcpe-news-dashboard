@@ -80,7 +80,6 @@ export class SocialMediaInputComponent implements OnInit, AfterViewInit, OnDestr
     } else {
       updatedPost.sortOrder = 0;
     }
-
     this.socialMediaService.updateSocialMediaPost(updatedPost.id, updatedPost).subscribe(
       (res) => {
         this.close();
@@ -96,7 +95,7 @@ export class SocialMediaInputComponent implements OnInit, AfterViewInit, OnDestr
     if (sortOrder === 0) {
       return '#1a5a96';
     } else {
-      return 'grey-800';
+      return 'grey';
     }
   }
 
@@ -124,16 +123,18 @@ export class SocialMediaInputComponent implements OnInit, AfterViewInit, OnDestr
   addSocialMediaPost() {
     const addModal = this.modal.open(AddSocialMediaPostModalComponent, { size: 'lg', centered: true });
     addModal.result.then((result) => {
-      if ( result.url !== 'underfined' || result.url !== null ) {
-        this.socialMediaService.addSocialMediaPost({url: result.url, sortOrder: 1}).subscribe(
-          () => {
-            this.close();
-          },
-          (err) => {
-             //// TODO: alert componment to dispaly error.
-             console.log(`Failed to add post - Error: ` + + JSON.stringify(err.error));
-          }
-        );
+      if ( result !== 'Cancel' ) {
+        if ( result.url !== 'underfined' || result.url !== null ) {
+          this.socialMediaService.addSocialMediaPost({url: result.url, sortOrder: 1}).subscribe(
+            () => {
+              this.close();
+            },
+            (err) => {
+               //// TODO: alert componment to dispaly error.
+               console.log(`Failed to add post - Error: ` + + JSON.stringify(err.error));
+            }
+          );
+        }
       }
     });
   }
