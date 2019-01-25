@@ -16,11 +16,11 @@
     <div class="card" *ngSwitchCase="'Twitter'">
       <div class="btn-toolbar pull-right" role="toolbar" aria-label="Toolbar with button groups">
         <div class="btn-group mr-2" role="group" aria-label="First group">
-          <button class="btn btn-link" type="submit" (click.preventDefault)="pinSocialMediaPost(item)"><i class="fa fa-thumb-tack fa-lg"></i></button>
+          <button class="btn btn-link" type="submit" (click.preventDefault)="pinSocialMediaPost(item)"><i class="fa fa-thumb-tack fa-lg" [ngStyle]="{'color': getPinColor(item.sortOrder)}"></i></button>
           <button class="btn btn-link" type="submit" (click.preventDefault)="deleteSocialMediaPost(item)"><i class="fa fa-times fa-lg"></i></button>
         </div>
       </div>
-      <div class="container-fluid align-items-center justify-content-center">
+      <div class="container d-flex align-items-center justify-content-center">
         <blockquote class="twitter-tweet" data-width="100%" data-lang="en" id="{{item.id}}" style="margin:0;padding:0;">
           <a href="https://publish.twitter.com/oembed?{{item.url}} | async"></a>
         </blockquote>
@@ -29,14 +29,13 @@
     <div *ngSwitchCase="'Facebook'" class="card">
       <div class="btn-toolbar pull-right" role="toolbar" aria-label="Toolbar with button groups">
         <div class="btn-group mr-2" role="group" aria-label="First group">
-          <button class="btn btn-link" type="submit" (click.preventDefault)="pinSocialMediaPost(item)"><i class="fa fa-thumb-tack fa-lg"></i></button>
+          <button class="btn btn-link" type="submit" (click.preventDefault)="pinSocialMediaPost(item)"><i class="fa fa-thumb-tack fa-lg" [ngStyle]="{'color': getPinColor(item.sortOrder)}"></i></button>
           <button class="btn btn-link" type="submit" (click.preventDefault)="deleteSocialMediaPost(item)"><i class="fa fa-times fa-lg"></i></button>
         </div>
       </div>
-      <div class="container-fluid mobile-card d-flex align-items-center justify-content-center">
-        <blockquote style="width: auto" class="{{item.postType}}" attr.data-href="{{item.url}} | async" id="{{item.id}}"></blockquote>
+      <div class="fb-wrapper">
+        <blockquote style="width: 100%;" class="{{item.postType}}" attr.data-href="{{item.url}} | async" id="{{item.id}}"></blockquote>
       </div>
-      
     </div>
     <div class="card" *ngSwitchCase="'Instagram'">
       <div class="btn-toolbar pull-right" role="toolbar" aria-label="Toolbar with button groups">

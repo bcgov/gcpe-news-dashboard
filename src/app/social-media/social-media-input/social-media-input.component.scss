@@ -1,89 +1,79 @@
 @import "../../../assets/styles/variables.scss";
-@import '../../../assets/styles/layout.scss';
+@import "../../../assets/styles/layout.scss";
 
 .card-no-border {
-  border: none;
+    border: none;
 }
 
-.navbar-brand h4{
-    padding-top:25px;
+.navbar-brand h4 {
+    padding-top: 25px;
     padding-bottom: 9px;
-    color: map-get($theme-colors, dark)!important;
+    color: map-get($theme-colors, dark) !important;
 }
 
 nav {
-    background-color: map-get($theme-colors, primary-alt);;
+    background-color: map-get($theme-colors, primary-alt);
     border-bottom: 1px solid map-get($theme-colors, light);
     margin-bottom: 20px;
 }
-.navbar-brand h4{
-    padding-top:25px;
+.navbar-brand h4 {
+    padding-top: 25px;
     padding-bottom: 9px;
     color: map-get($theme-colors, dark);
 }
 
-iframe{
+iframe {
     padding-bottom: 0 !important;
 }
 
 .card-columns {
     @include media-breakpoint-only(xxxl) {
-      column-count: 5;
+        column-count: 5;
     }
     @include media-breakpoint-only(xxl) {
-      column-count: 4;
+        column-count: 4;
     }
     @include media-breakpoint-only(xl) {
-      column-count: 3;
+        column-count: 3;
     }
     @include media-breakpoint-only(lg) {
-      column-count: 2;
+        column-count: 2;
     }
     @include media-breakpoint-only(md) {
-      column-count: 2;
+        column-count: 2;
     }
     @include media-breakpoint-only(sm) {
-      column-count: 1;
+        column-count: 1;
     }
     @include media-breakpoint-only(xs) {
-      column-count: 1;
+        column-count: 1;
     }
-  }
+}
 
-  .mobile-card {
+.mobile-card {
     @include media-breakpoint-only(xs) {
-      margin-left:0;
-      margin-right:0;
-      padding-left:0;
-      padding-right:0;
-  }
+        margin-left: 0;
+        margin-right: 0;
+        padding-left: 0;
+        padding-right: 0;
+    }
 }
 
 .card-columns .card {
-  @include media-breakpoint-only(xs) {
-    margin-left:0;
-    margin-right:0;
-    padding-left:0;
-    padding-right:0;
-  }
+    @include media-breakpoint-only(xs) {
+        margin-left: 0;
+        margin-right: 0;
+        padding-left: 0;
+        padding-right: 0;
+    }
 }
 
-.card .container-fluid {
-  padding-bottom: 0 !important;
-  margin-bottom: 0 !important;
+.fb-wrapper {
+    padding-left: 15px;
+    padding-right: 15px;
 }
 
-.fb-post span {
-  max-width: 100% !important;
-  width: auto !important;
-}
-.fb-post iframe {
-  border: 0;
-  display: block;
-  margin: 0 auto;
-  max-width: 100%;
-  width: auto !important;
+.fa-times {
+    color: grey;
 }
 
-.fb-post iframe {
-  transform:scale(0.5,0.5);}

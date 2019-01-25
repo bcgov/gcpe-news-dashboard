@@ -1,6 +1,6 @@
-import { async, ComponentFixture, TestBed, fakeAsync } from '@angular/core/testing';
+import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { SocialMediaListInputComponent } from './social-media-list-input.component';
-import { ReactiveFormsModule, FormBuilder, FormArray, FormGroup} from '@angular/forms';
+import { ReactiveFormsModule, FormBuilder, FormGroup} from '@angular/forms';
 import { SocialMediaPostsService } from '../../services/socialMediaPosts.service';
 import { NavmenuService } from 'src/app/services/navmenu.service';
 import { RouterTestingModule } from '@angular/router/testing';

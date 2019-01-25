@@ -18,6 +18,8 @@ export class DeletePostConfirmationModalComponent implements OnInit, AfterViewIn
   }
 
   ngAfterViewInit() {
-    this.socialMediaRenderService.loadWidgets(this.postExt.mediaType);
+    if ( this.postExt !== null && this.postExt.mediaType !== 'undefined' ) {
+      this.socialMediaRenderService.loadWidgets(this.postExt.mediaType);
+    }
   }
 }

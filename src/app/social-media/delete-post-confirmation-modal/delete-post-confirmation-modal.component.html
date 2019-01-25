@@ -5,7 +5,7 @@
   </button>
 </div>
 <div class="modal-body">
-  <div *ngIf="postExt">
+  <div *ngIf="postExt && postExt.mediaType">
       <div ngSwitch="{{postExt.mediaType}}" class="social-media-post d-flex align-items-center justify-content-center" >
           <div *ngSwitchCase="'Twitter'">
               <blockquote class="twitter-tweet" data-width="99%" data-lang="en" data-conversation="none">

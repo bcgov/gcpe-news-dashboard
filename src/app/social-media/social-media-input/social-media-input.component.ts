@@ -49,13 +49,14 @@ export class SocialMediaInputComponent implements OnInit, AfterViewInit, OnDestr
 
   ngAfterViewInit() {
     const selectedSocialmediatypes = [];
-
-    this.socialmedia.forEach(post => {
-      if (selectedSocialmediatypes.indexOf(post.mediaType) === -1) {
-        selectedSocialmediatypes.push(post.mediaType);
-        this.socialMediaRenderService.loadWidgets(post.mediaType);
-      }
-    });
+    if (this.socialmedia !== null || this.socialmedia.length > 0) {
+      this.socialmedia.forEach(post => {
+        if (selectedSocialmediatypes.indexOf(post.mediaType) === -1) {
+          selectedSocialmediatypes.push(post.mediaType);
+          this.socialMediaRenderService.loadWidgets(post.mediaType);
+        }
+      });
+    }
   }
 
   ngOnDestroy() {
@@ -85,16 +86,17 @@ export class SocialMediaInputComponent implements OnInit, AfterViewInit, OnDestr
         this.close();
       },
       (err) => {
-        alert('Failed to update or create post - Error: ' + JSON.stringify(err.error));
+        //// TODO: alert componment to dispaly error.
+        console.log('Failed to update or create post - Error: ' + JSON.stringify(err.error));
       }
     );
   }
 
   getPinColor(sortOrder: number): string {
     if (sortOrder === 0) {
-      return '#fcba19';
-    } else {
       return '#1a5a96';
+    } else {
+      return 'grey-800';
     }
   }
 
@@ -109,13 +111,13 @@ export class SocialMediaInputComponent implements OnInit, AfterViewInit, OnDestr
             () => {
               this.close();
             },
-            () => {
-               alert(`Failed to delete post: ${post.id}`);
+            (err) => {
+              //// TODO: alert componment to dispaly error.
+               console.log(`Failed to delete post: ${post.id} - Error: ` + JSON.stringify(err.error));
             }
           );
         }
       }
-    }, (reason) => {
     });
   }
 
@@ -123,19 +125,16 @@ export class SocialMediaInputComponent implements OnInit, AfterViewInit, OnDestr
     const addModal = this.modal.open(AddSocialMediaPostModalComponent, { size: 'lg', centered: true });
     addModal.result.then((result) => {
       if ( result.url !== 'underfined' || result.url !== null ) {
-        console.log(result);
         this.socialMediaService.addSocialMediaPost({url: result.url, sortOrder: 1}).subscribe(
           () => {
             this.close();
           },
-          () => {
-             alert(`Failed to add post`);
+          (err) => {
+             //// TODO: alert componment to dispaly error.
+             console.log(`Failed to add post - Error: ` + + JSON.stringify(err.error));
           }
         );
       }
-      if (result === 'Cancel') {
-      }
-    }, (reason) => {
     });
   }
 

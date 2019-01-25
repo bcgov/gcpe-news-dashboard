@@ -16,7 +16,6 @@ export class SocialMediaRenderService {
       twttr.widgets.load();
     }
     twttr.events.bind('rendered', function(event) {
-      console.log('lots rendered');
     });
   }
 
@@ -54,7 +53,6 @@ export class SocialMediaRenderService {
         break;
       case 'Twitter':
         const res = this.loadTwitterWidget(DOM);
-        console.log(res);
         break;
       case 'Instagram':
         this.loadInstagramWidgets();

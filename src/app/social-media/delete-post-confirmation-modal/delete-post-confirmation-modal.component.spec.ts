@@ -1,7 +1,8 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { DeletePostConfirmationModalComponent } from './delete-post-confirmation-modal.component';
-import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import {  NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
+import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
+import { SocialMediaRenderService } from '../../services/socialMediaRender.service';
+import { FakeSocialMediaPostsData } from '../../test-helpers/social-media-posts';
 
 describe('DeletePostConfirmationModalComponent', () => {
   let component: DeletePostConfirmationModalComponent;
@@ -11,9 +12,9 @@ describe('DeletePostConfirmationModalComponent', () => {
     TestBed.configureTestingModule({
       declarations: [ DeletePostConfirmationModalComponent ],
       providers: [
-       NgbActiveModal
+       NgbActiveModal,
+       SocialMediaRenderService
       ],
-
     })
     .compileComponents();
   }));
@@ -21,6 +22,7 @@ describe('DeletePostConfirmationModalComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(DeletePostConfirmationModalComponent);
     component = fixture.componentInstance;
+    component.postExt = FakeSocialMediaPostsData(1)[0];
     fixture.detectChanges();
   });
 
