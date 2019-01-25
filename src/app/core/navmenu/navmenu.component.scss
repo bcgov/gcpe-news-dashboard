@@ -121,7 +121,7 @@ header .nav-item .active{
 
 // remove the profile menu dropdown arrow
 .dropdown-toggle::after{
-    content:initial;
+    display: none !important;
  }
 
 .bc-logo-img {

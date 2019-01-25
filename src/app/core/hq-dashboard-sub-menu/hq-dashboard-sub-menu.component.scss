@@ -1,7 +1,7 @@
 @import '../../../assets/styles/variables.scss';
 
 .dropdown-toggle::after {
-   content:initial;
+   display: none !important;
 }
 
 #social-media-filter a {
