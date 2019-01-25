@@ -20,7 +20,6 @@ export class AddSocialMediaPostModalComponent implements OnInit {
   addSocialMediaPostForm: FormGroup;
   url: string;
   postExt: SocialMediaPostExtended;
-  disableSubmitBtn: boolean;
 
   constructor(
     public activeModal: NgbActiveModal,
@@ -28,7 +27,6 @@ export class AddSocialMediaPostModalComponent implements OnInit {
     private cd: ChangeDetectorRef,
     private socialMediaRenderService: SocialMediaRenderService ) {
     this.createForm();
-    this.disableSubmitBtn = true;
   }
 
   ngOnInit() {
@@ -56,7 +54,7 @@ export class AddSocialMediaPostModalComponent implements OnInit {
         const view = this.tpl.createEmbeddedView(null);
         this.previewPost.insert(view);
         this.cd.detectChanges();
-        this.socialMediaRenderService.loadWidget(this.postExt.mediaType, document.getElementById('add-social-media-post'));
+        this.socialMediaRenderService.loadWidgets(this.postExt.mediaType);
       }
     }
   }

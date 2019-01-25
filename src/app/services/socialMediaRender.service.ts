@@ -45,38 +45,4 @@ export class SocialMediaRenderService {
         this.loadInstagramWidgets();
     }
   }
-
-  loadWidget(mediaType: any, DOM: any): any {
-    switch (mediaType) {
-      case 'Facebook':
-        this.loadFacebookWidget(DOM);
-        break;
-      case 'Twitter':
-        const res = this.loadTwitterWidget(DOM);
-        break;
-      case 'Instagram':
-        this.loadInstagramWidgets();
-    }
-  }
-
-  loadTwitterWidget(DOM: any) {
-    if (twttr.ready()) {
-      twttr.widgets.load(DOM);
-    }
-    twttr.events.bind('rendered', function(event) {
-    });
-  }
-
-  loadFacebookWidget(DOM: any) {
-    FB.init({
-      xfbml: true,
-      version: 'v3.2'
-    });
-    FB.XFBML.parse(DOM);
-  }
-
-  loadInstagramWidget() {
-    instgrm.Embeds.process();
-  }
-
 }
