@@ -11,7 +11,9 @@ export class AlertComponent implements OnInit {
   alertClass: string;
   alertVisible: boolean = false;
 
-  constructor(private alerts: AlertsService) {
+  constructor(private alerts: AlertsService) { }
+
+  ngOnInit() {
     this.alerts.visible.subscribe(visible => {
       if (visible) {
         this.alertMessage = this.alerts.message;
@@ -21,9 +23,6 @@ export class AlertComponent implements OnInit {
         this.alertVisible = false;
       }
     });
-  }
-
-  ngOnInit() {
   }
 
   clearAlerts() {

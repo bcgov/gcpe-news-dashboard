@@ -173,7 +173,7 @@ export class MessagesService {
         let consumes: string[] = [
         ];
 
-        return this.httpClient.get<Array<Message>>(`${this.basePath}/api/Messages`,
+        return this.httpClient.get<Array<Message>>(`${this.basePath}/api/dMessages`,
             {
                 params: queryParameters,
                 withCredentials: this.configuration.withCredentials,

@@ -9,6 +9,8 @@ import { OAuthService, UrlHelperService, OAuthLogger } from 'angular-oauth2-oidc
 import { HttpClientModule } from '@angular/common/http';
 import { environment } from '../environments/environment';
 import { HasRoleDirective } from './_directives/hasRole.directive';
+import { AlertsService } from './services/alerts.service';
+import { AlertComponent } from './core/alert/alert.component';
 
 describe('AppComponent', () => {
   beforeEach(async(() => {
@@ -23,7 +25,8 @@ describe('AppComponent', () => {
         AppComponent,
         NavMenuComponent,
         FooterComponent,
-        HasRoleDirective
+        HasRoleDirective,
+        AlertComponent
       ],
       providers: [
         OAuthService,

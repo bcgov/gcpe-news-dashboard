@@ -21,7 +21,7 @@ export class ActivityForecastListComponent implements OnInit {
   ngOnInit() {
     this.route.data.subscribe(data => {
       if(typeof data['activities'] === 'undefined' || data['activities'] === null) {
-        setTimeout(() => {this.alerts.showError('An error occurred while retrieving activities')});
+        this.alerts.showError('An error occurred while retrieving activities');
         return;
       };
       let todayDow = this.today.getDay();

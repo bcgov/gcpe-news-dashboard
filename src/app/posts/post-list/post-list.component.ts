@@ -24,7 +24,7 @@ export class PostListComponent implements OnInit {
   ngOnInit() {
     this.route.data.subscribe(data => {
       if(typeof data['posts'] === 'undefined' || data['posts'] === null) {
-        setTimeout(() => {this.alerts.showError('An error occurred while retrieving posts')});
+        this.alerts.showError('An error occurred while retrieving posts');
         return;
       };
       let hasFacebookAssets = false;

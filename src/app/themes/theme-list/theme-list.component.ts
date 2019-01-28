@@ -17,12 +17,16 @@ export class ThemeListComponent implements OnInit {
 
   ngOnInit() {
     this.route.data.subscribe(data => {
-      if(typeof data['themelist'] === 'undefined' || data['themelist'] === null) {
-        this.handleError('An error occurred while retrieving themes');
-        return;
-      };
-      this.themes = data['themelist'];
+      this.parseThemes(data);
     });
+  }
+
+  parseThemes(data) {
+    if(typeof data['themelist'] === 'undefined' || data['themelist'] === null) {
+      this.handleError('An error occurred while retrieving themes');
+      return;
+    };
+    this.themes = data['themelist'];
   }
 
   unpublishTheme(theme: Message) {
@@ -34,7 +38,7 @@ export class ThemeListComponent implements OnInit {
   }
 
   handleError(message: string) {
-    setTimeout(() => {this.alerts.showError(message)});
+    this.alerts.showError(message);
   }
 
   removeThemeFromList(themeId: string) {
