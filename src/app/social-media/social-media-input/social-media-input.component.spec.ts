@@ -47,10 +47,21 @@ describe('SocialMediaInputComponent', () => {
     }});
     fixture = TestBed.createComponent(SocialMediaInputComponent);
     component = fixture.componentInstance;
+    spyOn(TestBed.get(NavmenuService), 'hide');
+    spyOn(TestBed.get(NavmenuService), 'show');
     fixture.detectChanges();
   });
 
   it('should create', () => {
     expect(component).toBeTruthy();
+  });
+
+  it('should hide nav', () => {
+    expect(TestBed.get(NavmenuService).hide).toHaveBeenCalled();
+  });
+
+  it('should show nav when destroyed', () => {
+    fixture.destroy();
+    expect(TestBed.get(NavmenuService).show).toHaveBeenCalled();
   });
 });

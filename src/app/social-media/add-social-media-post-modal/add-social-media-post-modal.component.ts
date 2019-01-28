@@ -41,21 +41,18 @@ export class AddSocialMediaPostModalComponent implements OnInit {
     this.activeModal.close(this.addSocialMediaPostForm.value);
   }
 
-  get_url(index: number): any {
+  get_url(): any {
     return this.addSocialMediaPostForm.controls['url'];
   }
 
   previewSocialMediaPost() {
-    if ( this.addSocialMediaPostForm.controls['url'] !== null &&  this.addSocialMediaPostForm.controls['url'].valid ) {
-      const postUrl = this.addSocialMediaPostForm.controls['url'].value;
-      if ( postUrl !== null || postUrl !== 'undefined' ) {
-        this.previewPost.clear();
-        this.postExt = new SocialMediaPostExtended({url: postUrl});
-        const view = this.tpl.createEmbeddedView(null);
-        this.previewPost.insert(view);
-        this.cd.detectChanges();
-        this.socialMediaRenderService.loadWidgets(this.postExt.mediaType);
-      }
-    }
+    const postUrl = this.addSocialMediaPostForm.controls['url'].value;
+    this.previewPost.clear();
+    this.postExt = new SocialMediaPostExtended({url: postUrl});
+    const view = this.tpl.createEmbeddedView(null);
+    this.previewPost.insert(view);
+    this.cd.detectChanges();
+    this.socialMediaRenderService.loadWidgets(this.postExt.mediaType);
   }
 }
+
