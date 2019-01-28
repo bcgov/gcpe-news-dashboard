@@ -3,6 +3,7 @@ import { Message } from '../../view-models/message';
 import { ActivatedRoute } from '@angular/router';
 import { MessagesService } from 'src/app/services/messages.service';
 import { forkJoin } from 'rxjs';
+import { AlertsService } from 'src/app/services/alerts.service';
 
 @Component({
   selector: 'app-theme-list',
@@ -12,10 +13,14 @@ import { forkJoin } from 'rxjs';
 export class ThemeListComponent implements OnInit {
   themes: Message[];
 
-  constructor(private route: ActivatedRoute,  private messagesService: MessagesService) { }
+  constructor(private route: ActivatedRoute,  private messagesService: MessagesService, private alerts: AlertsService) { }
 
   ngOnInit() {
     this.route.data.subscribe(data => {
+      if(typeof data['themelist'] === 'undefined' || data['themelist'] === null) {
+        this.handleError('An error occurred while retrieving themes');
+        return;
+      };
       this.themes = data['themelist'];
     });
   }
@@ -29,7 +34,7 @@ export class ThemeListComponent implements OnInit {
   }
 
   handleError(message: string) {
-    console.log(message);
+    setTimeout(() => {this.alerts.showError(message)});
   }
 
   removeThemeFromList(themeId: string) {

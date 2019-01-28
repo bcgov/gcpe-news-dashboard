@@ -3,6 +3,7 @@ import { Post } from '../../view-models/post';
 import { SocialMediaType } from '../../view-models/social-media-type';
 import { ActivatedRoute } from '@angular/router';
 import { AppConfigService } from 'src/app/app-config.service';
+import { AlertsService } from 'src/app/services/alerts.service';
 
 declare const FB: any;
 
@@ -13,16 +14,19 @@ declare const FB: any;
 })
 
 export class PostListComponent implements OnInit {
-  public posts: Post[];
+  public posts: Post[] = [];
   private BASE_NEWS_URL: string;
 
-  constructor(private route: ActivatedRoute, private appConfig: AppConfigService) {
+  constructor(private route: ActivatedRoute, private appConfig: AppConfigService, private alerts: AlertsService) {
     this.BASE_NEWS_URL = appConfig.config.NEWS_URL;
   }
 
   ngOnInit() {
     this.route.data.subscribe(data => {
-      if(typeof data['posts'] === 'undefined') return;
+      if(typeof data['posts'] === 'undefined' || data['posts'] === null) {
+        setTimeout(() => {this.alerts.showError('An error occurred while retrieving posts')});
+        return;
+      };
       let hasFacebookAssets = false;
       data['posts'].forEach(p => {
         if (p.assetUrl.indexOf('facebook') >= 0) {

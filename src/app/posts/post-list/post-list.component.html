@@ -1,5 +1,5 @@
 <app-hq-dashboard-sub-menu></app-hq-dashboard-sub-menu>
-<div id="post-list" class="card-columns pl-0 pr-0 pt-3">
+<div *ngIf="posts.length > 0; else elseBlock" id="post-list" class="card-columns pl-0 pr-0 pt-3">
   <div *ngFor="let post of posts" class="card">
     <blockquote *ngIf="post.fbAssetClass" class="{{post.fbAssetClass}}" attr.data-href="{{post.assetUrl}} | async" id="{{post.key}}"></blockquote>
     <img *ngIf="post.assetUrl && !post.fbAssetClass" class="card-img-top img-fluid" src="{{post.assetUrl}}" alt="Card image cap">
@@ -12,3 +12,12 @@
     </div>
   </div>
 </div>
+<ng-template #elseBlock>
+  <div id="post-list" class="card-columdns pl-0 pr-0 pt-3 pb-3">
+    <div class="card">
+      <div class="card-body">
+        <h5 class="card-title mb-0">No posts available</h5>
+      </div>
+    </div>
+  </div>
+</ng-template>

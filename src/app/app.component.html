@@ -2,7 +2,8 @@
 <main role="main">
     <div class="jumbotron">
         <div class="container-fluid full-width">
-            <router-outlet></router-outlet>
+            <app-alert></app-alert>
+            <router-outlet (activate)="clearAlerts()"></router-outlet>
         </div>
     </div>
 </main>

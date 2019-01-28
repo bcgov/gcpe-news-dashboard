@@ -3,6 +3,7 @@ import { ApiService } from '../../services/api.service';
 import { Activity } from '../../view-models/activity';
 import { ActivatedRoute } from '@angular/router';
 import { WeekDay } from '@angular/common';
+import { AlertsService } from 'src/app/services/alerts.service';
 
 @Component({
   selector: 'app-activity-forecast-list',
@@ -15,18 +16,21 @@ export class ActivityForecastListComponent implements OnInit {
   today: Date = new Date();
   msInaDay: number = 24 * 3600 * 1000;
 
-  constructor(private apiService:  ApiService, private route: ActivatedRoute) { }
+  constructor(private apiService:  ApiService, private route: ActivatedRoute, private alerts: AlertsService) { }
 
   ngOnInit() {
     this.route.data.subscribe(data => {
-      const inst = this;
+      if(typeof data['activities'] === 'undefined' || data['activities'] === null) {
+        setTimeout(() => {this.alerts.showError('An error occurred while retrieving activities')});
+        return;
+      };
       let todayDow = this.today.getDay();
       if (todayDow === 6) { todayDow = 0; } // group Sunday with Saturday
       data['activities'].forEach(v => {
         v.startDateTime = new Date(v.startDateTime);
         let dow = v.startDateTime.getDay();
         if (dow === 6) { dow = 0; } // group Sunday with Saturday
-        inst.activitiesPerDays[dow >= todayDow ? dow - todayDow : dow + 6 - todayDow].push(v);
+        this.activitiesPerDays[dow >= todayDow ? dow - todayDow : dow + 6 - todayDow].push(v);
       });
     });
   }

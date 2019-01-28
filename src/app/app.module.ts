@@ -41,6 +41,7 @@ import { SocialMediaRenderService } from './services/socialMediaRender.service';
 import { AppConfigService } from './app-config.service';
 import { PluralizeKindPipe } from './_pipes/pluralize-kind.pipe';
 import { SocialMediaPostComponent } from './social-media/social-media-post/social-media-post.component';
+import { AlertComponent } from './core/alert/alert.component';
 
 const appInitializerFn = (appConfig: AppConfigService) => {
   return () => {
@@ -70,7 +71,8 @@ const appInitializerFn = (appConfig: AppConfigService) => {
     AddSocialMediaPostModalComponent,
     HasRoleDirective,
     PluralizeKindPipe,
-    SocialMediaPostComponent
+    SocialMediaPostComponent,
+    AlertComponent
   ],
   imports: [
     BrowserModule,

@@ -125,9 +125,9 @@ header .nav-item .active{
  }
 
 .bc-logo-img {
-    max-height: 80px;
+    max-height: $heading-large-height;
     @include media-breakpoint-down(sm) {
-        max-height: 50px;
+        max-height: $heading-small-height;
     }
 }
  
