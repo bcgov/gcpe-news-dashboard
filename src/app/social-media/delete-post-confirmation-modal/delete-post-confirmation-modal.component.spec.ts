@@ -3,6 +3,7 @@ import { DeletePostConfirmationModalComponent } from './delete-post-confirmation
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { SocialMediaRenderService } from '../../services/socialMediaRender.service';
 import { FakeSocialMediaPostsData } from '../../test-helpers/social-media-posts';
+import { SocialMediaPostComponent } from '../social-media-post/social-media-post.component';
 
 describe('DeletePostConfirmationModalComponent', () => {
   let component: DeletePostConfirmationModalComponent;
@@ -10,7 +11,10 @@ describe('DeletePostConfirmationModalComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ DeletePostConfirmationModalComponent ],
+      declarations: [
+        DeletePostConfirmationModalComponent,
+        SocialMediaPostComponent
+      ],
       providers: [
        NgbActiveModal,
        SocialMediaRenderService

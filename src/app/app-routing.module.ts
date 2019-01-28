@@ -10,7 +10,6 @@ import { SociaMediaTypeListResolver } from './_resolvers/social-media-type-list.
 import { ThemeListComponent } from './themes/theme-list/theme-list.component';
 import { MessageResolver } from './_resolvers/message.resolver';
 import { ThemeFormComponent } from './themes/theme-form/theme-form.component';
-import { SocialMediaListInputComponent } from './social-media/social-media-list-input/social-media-list-input.component';
 import { SociaMediaPostListResolver } from './_resolvers/social-media-post-list.resolver';
 import { SocialMediaPostListComponent } from './social-media/social-media-post-list/social-media-post-list.component';
 import { SocialMediaInputComponent } from './social-media/social-media-input/social-media-input.component';
@@ -25,7 +24,10 @@ const appRoutes: Routes = [
     component: SocialMediaPostListComponent,
     resolve: { socialmedia: SociaMediaPostListResolver, socialmediatype: SociaMediaTypeListResolver },
     runGuardsAndResolvers: 'always', },
-  { path: 'social-media-list-input', component: SocialMediaListInputComponent, resolve: { socialmedia: SociaMediaPostListResolver } },
+  { path: 'social-media-input',
+    component: SocialMediaInputComponent,
+    resolve: { socialmedia: SociaMediaPostListResolver },
+    runGuardsAndResolvers: 'always', },
   { path: '', redirectTo: 'last-7-day-post-list', pathMatch: 'full' },
   { path: 'themes',
     component: ThemeListComponent, resolve: { themelist: MessageListResolver }, runGuardsAndResolvers: 'paramsOrQueryParamsChange' },

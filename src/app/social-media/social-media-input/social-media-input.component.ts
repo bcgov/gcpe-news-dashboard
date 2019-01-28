@@ -37,14 +37,6 @@ export class SocialMediaInputComponent implements OnInit, AfterViewInit, OnDestr
     this.activatedRoute.data.subscribe(data => {
       this.socialmedia = data['socialmedia'];
     });
-    const selectedSocialmediatypes = [];
-
-    this.socialmedia.forEach(post => {
-      if (selectedSocialmediatypes.indexOf(post.mediaType) === -1) {
-        selectedSocialmediatypes.push(post.mediaType);
-        this.socialMediaRenderService.loadWidgets(post.mediaType);
-      }
-    });
   }
 
   ngAfterViewInit() {
@@ -74,13 +66,13 @@ export class SocialMediaInputComponent implements OnInit, AfterViewInit, OnDestr
   }
 
   pinSocialMediaPost(post: SocialMediaPostExtended) {
-    const updatedPost = post;
-    if (updatedPost.sortOrder === 0) {
-      updatedPost.sortOrder = 1;
+    let newOrder = 0;
+    if (post.sortOrder === 0) {
+      newOrder = 1;
     } else {
-      updatedPost.sortOrder = 0;
+      newOrder = 0;
     }
-    this.socialMediaService.updateSocialMediaPost(updatedPost.id, updatedPost).subscribe(
+    this.socialMediaService.updateSocialMediaPost(post.id, { sortOrder: newOrder, url: post.url }).subscribe(
       (res) => {
         this.close();
       },

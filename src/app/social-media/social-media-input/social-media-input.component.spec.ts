@@ -10,10 +10,12 @@ import { SocialMediaRenderService } from '../../services/socialMediaRender.servi
 import { of } from 'rxjs';
 import { ActivatedRoute } from '@angular/router';
 import { FakeSocialMediaPostsData } from '../../test-helpers/social-media-posts';
+import { By } from '@angular/platform-browser';
 
 describe('SocialMediaInputComponent', () => {
   let component: SocialMediaInputComponent;
   let fixture: ComponentFixture<SocialMediaInputComponent>;
+  let div: HTMLElement;
 
   class MockActivatedRoute {
     data = of({
@@ -23,7 +25,9 @@ describe('SocialMediaInputComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ SocialMediaInputComponent ],
+      declarations: [
+        SocialMediaInputComponent,
+      ],
       imports: [
         RouterTestingModule,
         HttpClientTestingModule
@@ -32,7 +36,8 @@ describe('SocialMediaInputComponent', () => {
         SocialMediaPostsService,
         NavmenuService,
         SocialMediaRenderService,
-        { provide: BASE_PATH, useValue: environment.apiUrl }
+        { provide: BASE_PATH, useValue: environment.apiUrl },
+        { provide: ActivatedRoute, useClass: MockActivatedRoute }
       ]
     })
     .compileComponents();
@@ -49,6 +54,7 @@ describe('SocialMediaInputComponent', () => {
     component = fixture.componentInstance;
     spyOn(TestBed.get(NavmenuService), 'hide');
     spyOn(TestBed.get(NavmenuService), 'show');
+    div = fixture.nativeElement.querySelector('#social-media-input-list');
     fixture.detectChanges();
   });
 
@@ -64,4 +70,42 @@ describe('SocialMediaInputComponent', () => {
     fixture.destroy();
     expect(TestBed.get(NavmenuService).show).toHaveBeenCalled();
   });
+
+  it('should create 9 social media post input entries', ()  => {
+    component.ngOnInit();
+    expect(div.querySelectorAll('.social-media-post').length).toBe(9);
+  });
+
+  it('should call addSocialMediaPost when clicking on the add button', ()  => {
+    spyOn(component, 'addSocialMediaPost');
+    const button = fixture.debugElement.query(By.css('#addSocialMediaPostBtn'));
+    button.triggerEventHandler('click.preventDefault', null);
+    fixture.detectChanges();
+    expect(component.addSocialMediaPost).toHaveBeenCalled();
+  });
+
+  it('should call backToSocialMediaList when clicking on the back button', ()  => {
+    spyOn(component, 'backToSocialMediaList');
+    const button = fixture.debugElement.query(By.css('#backToListBtn'));
+    button.triggerEventHandler('click.preventDefault', null);
+    fixture.detectChanges();
+    expect(component.backToSocialMediaList).toHaveBeenCalled();
+  });
+
+  it('should call deleteSocialMediaPost when clicking on the delete post button', ()  => {
+    spyOn(component, 'deleteSocialMediaPost');
+    const button = fixture.debugElement.query(By.css('.btn.btn-link.delete-social-media-post-btn'));
+    button.triggerEventHandler('click.preventDefault', null);
+    fixture.detectChanges();
+    expect(component.deleteSocialMediaPost).toHaveBeenCalled();
+  });
+
+  it('should call pinSocialMediaPost when clicking on the pin post button', ()  => {
+    spyOn(component, 'pinSocialMediaPost');
+    const button = fixture.debugElement.query(By.css('.btn.btn-link.pin-social-media-post-btn'));
+    button.triggerEventHandler('click', null);
+    fixture.detectChanges();
+    expect(component.pinSocialMediaPost).toHaveBeenCalled();
+  });
+
 });

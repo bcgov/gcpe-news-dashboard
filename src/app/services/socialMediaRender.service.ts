@@ -15,8 +15,6 @@ export class SocialMediaRenderService {
     if (twttr.ready()) {
       twttr.widgets.load();
     }
-    twttr.events.bind('rendered', function(event) {
-    });
   }
 
   loadFacebookWidgets() {
@@ -33,7 +31,7 @@ export class SocialMediaRenderService {
     instgrm.Embeds.process();
   }
 
-  loadWidgets(mediaType: any) {
+  loadWidgets(mediaType: string) {
     switch (mediaType) {
       case 'Facebook':
         this.loadFacebookWidgets();

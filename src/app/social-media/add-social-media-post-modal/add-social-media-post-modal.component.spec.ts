@@ -4,6 +4,7 @@ import { AddSocialMediaPostModalComponent } from './add-social-media-post-modal.
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { SocialMediaRenderService } from '../../services/socialMediaRender.service';
 import { By } from '@angular/platform-browser';
+import { SocialMediaPostComponent } from '../social-media-post/social-media-post.component';
 
 describe('AddSocialMediaPostModalComponent', () => {
   let component: AddSocialMediaPostModalComponent;
@@ -11,7 +12,10 @@ describe('AddSocialMediaPostModalComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ AddSocialMediaPostModalComponent ],
+      declarations: [
+        AddSocialMediaPostModalComponent,
+        SocialMediaPostComponent
+      ],
       imports: [
         ReactiveFormsModule
       ],
@@ -35,12 +39,12 @@ describe('AddSocialMediaPostModalComponent', () => {
     expect(component.addSocialMediaPostForm.valid).toBeFalsy();
   });
 
-  it('url field validity', () => {
+  it('should start with an invalid url', () => {
     const url = component.addSocialMediaPostForm.controls['url'];
     expect(url.valid).toBeFalsy();
   });
 
-  it('enable submit button if url input is valid', () => {
+  it('should enable submit button if url input is valid', () => {
     const button = fixture.debugElement.query(By.css('#addSocialMediaPostBtn'));
     spyOn(component, 'submitForm');
     expect(component.addSocialMediaPostForm.valid).toBeFalsy();
@@ -50,7 +54,7 @@ describe('AddSocialMediaPostModalComponent', () => {
     expect(button.nativeElement.disabled).toBeFalsy();
   });
 
-  it('disable submit button if url input is invalid', () => {
+  it('should disable submit button if url input is invalid', () => {
     const button = fixture.debugElement.query(By.css('#addSocialMediaPostBtn'));
     spyOn(component, 'submitForm');
     expect(component.addSocialMediaPostForm.valid).toBeFalsy();
