@@ -16,7 +16,7 @@
     <div class="card" *ngSwitchCase="'Twitter'">
       <div class="btn-toolbar pull-right" role="toolbar" aria-label="Toolbar with button groups">
         <div class="btn-group mr-2" role="group" aria-label="First group">
-          <button class="btn btn-link pin-social-media-post-btn" type="button" (click)="pinSocialMediaPost(item)"><i class="fa fa-thumb-tack fa-lg" [ngStyle]="{'color': getPinColor(item.sortOrder)}"></i></button>
+          <button class="btn btn-link pin-social-media-post-btn" type="button" (click)="pinSocialMediaPost(item)"><i [className]="item.sortOrder!==0 ? 'fa fa-thumb-tack fa-lg fa-rotate-180': 'fa fa-thumb-tack fa-lg'" [ngStyle]="{'color': getPinColor(item.sortOrder)}"></i></button>
           <button class="btn btn-link delete-social-media-post-btn" type="submit" (click.preventDefault)="deleteSocialMediaPost(item)"><i class="fa fa-times fa-lg"></i></button>
         </div>
       </div>
@@ -29,7 +29,7 @@
     <div *ngSwitchCase="'Facebook'" class="card">
       <div class="btn-toolbar pull-right" role="toolbar" aria-label="Toolbar with button groups">
         <div class="btn-group mr-2" role="group" aria-label="First group">
-          <button class="btn btn-link pin-social-media-post-btn" type="button" (click)="pinSocialMediaPost(item)"><i class="fa fa-thumb-tack fa-lg" [ngStyle]="{'color': getPinColor(item.sortOrder)}"></i></button>
+          <button class="btn btn-link pin-social-media-post-btn" type="button" (click)="pinSocialMediaPost(item)"><i [className]="item.sortOrder!==0 ? 'fa fa-thumb-tack fa-lg fa-rotate-180': 'fa fa-thumb-tack fa-lg'" [ngStyle]="{'color': getPinColor(item.sortOrder)}"></i></button>
           <button class="btn btn-link delete-social-media-post-btn" type="submit" (click.preventDefault)="deleteSocialMediaPost(item)"><i class="fa fa-times fa-lg"></i></button>
         </div>
       </div>
@@ -40,7 +40,7 @@
     <div class="card" *ngSwitchCase="'Instagram'">
       <div class="btn-toolbar pull-right" role="toolbar" aria-label="Toolbar with button groups">
         <div class="btn-group mr-2" role="group" aria-label="First group">
-          <button class="btn btn-link pin-social-media-post-btn" type="button" (click)="pinSocialMediaPost(item)"><i class="fa fa-thumb-tack fa-lg" [ngStyle]="{'color': getPinColor(item.sortOrder)}"></i></button>
+          <button class="btn btn-link pin-social-media-post-btn" type="button" (click)="pinSocialMediaPost(item)"><i [className]="item.sortOrder!==0 ? 'fa fa-thumb-tack fa-lg fa-rotate-180': 'fa fa-thumb-tack fa-lg'" [ngStyle]="{'color': getPinColor(item.sortOrder)}"></i></button>
           <button class="btn btn-link delete-social-media-post-btn" type="submit" (click.preventDefault)="deleteSocialMediaPost(item)"><i class="fa fa-times fa-lg"></i></button>
         </div>
       </div>
