@@ -68,7 +68,7 @@ describe('AddSocialMediaPostModalComponent', () => {
     spyOn(component, 'previewSocialMediaPost');
     component.addSocialMediaPostForm.patchValue({url: 'https://www.instagram.com/p/BswQLHvBNVo/?utm_source=ig_web_copy_link'});
     const button = fixture.debugElement.query(By.css('#previewSocialMediaPostBtn'));
-    button.triggerEventHandler('click.preventDefault', null);
+    button.triggerEventHandler('click', null);
     fixture.detectChanges();
     expect(component.previewSocialMediaPost).toHaveBeenCalled();
   });

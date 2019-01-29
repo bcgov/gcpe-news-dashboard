@@ -12,7 +12,7 @@
           <label for="url">URL</label>
           <div class="input-group">
             <input type="text" class="form-control" formControlName="url" />
-            <button type="button" (click.preventDefault)="previewSocialMediaPost()" [disabled]="!addSocialMediaPostForm.valid" id="previewSocialMediaPostBtn">Preview</button>
+            <button type="button" (click)="previewSocialMediaPost()" [disabled]="!addSocialMediaPostForm.valid" id="previewSocialMediaPostBtn">Preview</button>
           </div>
           <div *ngIf="get_url(i).invalid && get_url(i).dirty" class="alert alert-danger mt-1">Url Format Error</div>
         </div>
@@ -25,7 +25,7 @@
       </div>
     </div>
     <div class="modal-footer">
-      <button type="button" class="btn btn-default" (click.preventDefault)="activeModal.close('Cancel')">Cancel</button>
+      <button type="button" class="btn btn-default" (click)="activeModal.close('Cancel')">Cancel</button>
       <button type="submit" class="btn btn-primary" [disabled]="!addSocialMediaPostForm.valid" id="addSocialMediaPostBtn">Submit</button>
     </div>
   </form>
