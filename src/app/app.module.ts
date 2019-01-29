@@ -41,6 +41,7 @@ import { SocialMediaRenderService } from './services/socialMediaRender.service';
 import { AppConfigService } from './app-config.service';
 import { PluralizeKindPipe } from './_pipes/pluralize-kind.pipe';
 import { SocialMediaPostComponent } from './social-media/social-media-post/social-media-post.component';
+import { AccountSettingsComponent } from './account-settings/account-settings.component';
 
 const appInitializerFn = (appConfig: AppConfigService) => {
   return () => {
@@ -55,6 +56,7 @@ const appInitializerFn = (appConfig: AppConfigService) => {
     PostListComponent,
     FooterComponent,
     ActivityForecastListComponent,
+    AccountSettingsComponent,
     ThemesOfWeekComponent,
     ThemeListComponent,
     HqDashboardSubMenuComponent,
