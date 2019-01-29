@@ -28,7 +28,6 @@ import { ThemeFormComponent } from './themes/theme-form/theme-form.component';
 import { AutosizeDirective } from './_directives/autosize.directive';
 import { ClickPreventDefaultDirective } from './_directives/click-preventdefault.directive';
 import { TimeAgoPipe } from 'time-ago-pipe';
-import { SocialMediaListInputComponent } from './social-media/social-media-list-input/social-media-list-input.component';
 import { SociaMediaPostListResolver } from './_resolvers/social-media-post-list.resolver';
 import { SocialMediaPostsService } from './services/socialMediaPosts.service';
 // tslint:disable-next-line:max-line-length
@@ -36,8 +35,12 @@ import { DeletePostConfirmationModalComponent } from './social-media/delete-post
 import { SocialMediaPostListComponent } from './social-media/social-media-post-list/social-media-post-list.component';
 import { AuthGuard } from './_guards/auth.guard';
 import { HasRoleDirective } from './_directives/hasRole.directive';
+import { SocialMediaInputComponent } from './social-media/social-media-input/social-media-input.component';
+import { AddSocialMediaPostModalComponent } from './social-media/add-social-media-post-modal/add-social-media-post-modal.component';
+import { SocialMediaRenderService } from './services/socialMediaRender.service';
 import { AppConfigService } from './app-config.service';
 import { PluralizeKindPipe } from './_pipes/pluralize-kind.pipe';
+import { SocialMediaPostComponent } from './social-media/social-media-post/social-media-post.component';
 
 const appInitializerFn = (appConfig: AppConfigService) => {
   return () => {
@@ -61,11 +64,13 @@ const appInitializerFn = (appConfig: AppConfigService) => {
     AutosizeDirective,
     ClickPreventDefaultDirective,
     TimeAgoPipe,
-    SocialMediaListInputComponent,
     DeletePostConfirmationModalComponent,
     SocialMediaPostListComponent,
+    SocialMediaInputComponent,
+    AddSocialMediaPostModalComponent,
     HasRoleDirective,
-    PluralizeKindPipe
+    PluralizeKindPipe,
+    SocialMediaPostComponent
   ],
   imports: [
     BrowserModule,
@@ -95,10 +100,12 @@ const appInitializerFn = (appConfig: AppConfigService) => {
     SociaMediaTypeListResolver,
     MessageResolver,
     SociaMediaPostListResolver,
-    AuthGuard
+    AuthGuard,
+    SocialMediaRenderService
   ],
   entryComponents: [
-    DeletePostConfirmationModalComponent
+    DeletePostConfirmationModalComponent,
+    AddSocialMediaPostModalComponent
   ],
   bootstrap: [AppComponent]
 })

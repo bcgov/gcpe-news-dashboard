@@ -14,6 +14,7 @@ import { of } from 'rxjs';
 import { HasRoleDirective } from 'src/app/_directives/hasRole.directive';
 import { AuthService } from 'src/app/services/auth.service';
 import { OAuthService } from 'angular-oauth2-oidc';
+import { SocialMediaRenderService } from '../../services/socialMediaRender.service';
 
 describe('SocialMediaPostListComponent', () => {
   let component: SocialMediaPostListComponent;
@@ -39,13 +40,13 @@ describe('SocialMediaPostListComponent', () => {
         HqDashboardSubMenuComponent,
         HasRoleDirective
       ],
-
       providers: [
         ApiService,
         SocialMediaPostsService,
         { provide: BASE_PATH, useValue: environment.apiUrl },
         { provide: ActivatedRoute, useClass: MockActivatedRoute },
         AuthService,
+        SocialMediaRenderService,
         { provide: OAuthService, useValue: {
           getIdentityClaims: () => ['Administrators']
         }}

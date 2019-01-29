@@ -1,0 +1,16 @@
+<div *ngIf="postExt" ngSwitch="{{postExt.mediaType}}" class="social-media-post d-flex align-items-center justify-content-center">
+  <div *ngSwitchCase="'Twitter'">
+      <blockquote class="twitter-tweet" data-width="99%" data-lang="en" data-conversation="none">
+        <a href="https://publish.twitter.com/oembed?{{postExt.url}} | async"></a>
+      </blockquote>
+    </div>
+    <div *ngSwitchCase="'Facebook'" >
+      <blockquote style="width: 99%;" class="{{postExt.postType}}" attr.data-href="{{postExt.url}} | async"></blockquote>
+    </div>
+    <div *ngSwitchCase="'Instagram'">
+      <blockquote style="width: 99%; max-width: 99%;" class="instagram-media" data-instgrm-captioned
+      attr.data-instgrm-permalink="{{postExt.url}}?OMITSCRIPT=true&hidecaption=true | async" data-instgrm-version="9">
+        <a href="{{postExt.url}}?OMITSCRIPT=true&hidecaption=true | async"></a>
+      </blockquote>
+    </div>  
+</div>

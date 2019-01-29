@@ -1,0 +1,32 @@
+<div class="modal-header">
+  <h4 class="modal-title">Add Social Media Post</h4>
+  <button type="button" class="close" aria-label="Close" (click.preventDefault)="activeModal.close('Cancel')">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+<div *ngIf="addSocialMediaPostForm">
+  <form [formGroup]="addSocialMediaPostForm" (ngSubmit)="submitForm()">
+    <div class="modal-body">
+      <div class="container">
+        <div class="form-group">
+          <label for="url">URL</label>
+          <div class="input-group">
+            <input type="text" class="form-control" formControlName="url" />
+            <button type="button" (click)="previewSocialMediaPost()" [disabled]="!addSocialMediaPostForm.valid" id="previewSocialMediaPostBtn">Preview</button>
+          </div>
+          <div *ngIf="get_url(i).invalid && get_url(i).dirty" class="alert alert-danger mt-1">Url Format Error</div>
+        </div>
+      </div>
+      <div>
+      <ng-template #preview>
+        <app-social-media-post [postExt]="postExt"></app-social-media-post>
+      </ng-template>
+        <ng-container #previewPost></ng-container>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-default" (click)="activeModal.close('Cancel')">Cancel</button>
+      <button type="submit" class="btn btn-primary" [disabled]="!addSocialMediaPostForm.valid" id="addSocialMediaPostBtn">Submit</button>
+    </div>
+  </form>
+</div>

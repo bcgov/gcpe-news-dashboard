@@ -1,0 +1,57 @@
+<nav id="social-media-list-input-nav" class="navbar fixed-top navbar-expand-lg bg-primary navbar-light pt-0 pb-0">
+    <div class="container-fluid">
+        <div class="navbar-brand title mr-auto">
+            <h4>Update Social Media List</h4>
+        </div>
+        <ul class="navbar-nav navbar-right">
+            <li class="nav-item btn-link"><a href="#" (click.preventDefault)="addSocialMediaPost()" class="btn btn-link" id="addSocialMediaPostBtn">Add</a></li>
+            <li class="nav-item btn-link"><a href="#" (click.preventDefault)="backToSocialMediaList()" class="btn btn-link" id="backToListBtn">Back To List</a></li>
+        </ul>
+    </div>
+</nav>
+
+<div id="admin-social-media-list-input-form" class="container-fluid pl-0 pr-0 pt-5">
+<div id="social-media-input-list" class="card-columns">
+  <div *ngFor="let item of socialmedia" [ngSwitch]="item.mediaType" class="social-media-post">
+    <div class="card" *ngSwitchCase="'Twitter'">
+      <div class="btn-toolbar pull-right" role="toolbar" aria-label="Toolbar with button groups">
+        <div class="btn-group mr-2" role="group" aria-label="First group">
+          <button class="btn btn-link pin-social-media-post-btn" type="button" (click)="pinSocialMediaPost(item)"><i [className]="item.sortOrder!==0 ? 'fa fa-thumb-tack fa-lg fa-rotate-180': 'fa fa-thumb-tack fa-lg'" [ngStyle]="{'color': getPinColor(item.sortOrder)}"></i></button>
+          <button class="btn btn-link delete-social-media-post-btn" type="button" (click)="deleteSocialMediaPost(item)"><i class="fa fa-times fa-lg"></i></button>
+        </div>
+      </div>
+      <div class="container d-flex align-items-center justify-content-center">
+        <blockquote class="twitter-tweet" data-width="100%" data-lang="en" id="{{item.id}}" style="margin:0;padding:0;">
+          <a href="https://publish.twitter.com/oembed?{{item.url}} | async"></a>
+        </blockquote>
+      </div>
+    </div>
+    <div *ngSwitchCase="'Facebook'" class="card">
+      <div class="btn-toolbar pull-right" role="toolbar" aria-label="Toolbar with button groups">
+        <div class="btn-group mr-2" role="group" aria-label="First group">
+          <button class="btn btn-link pin-social-media-post-btn" type="button" (click)="pinSocialMediaPost(item)"><i [className]="item.sortOrder!==0 ? 'fa fa-thumb-tack fa-lg fa-rotate-180': 'fa fa-thumb-tack fa-lg'" [ngStyle]="{'color': getPinColor(item.sortOrder)}"></i></button>
+          <button class="btn btn-link delete-social-media-post-btn" type="button" (click)="deleteSocialMediaPost(item)"><i class="fa fa-times fa-lg"></i></button>
+        </div>
+      </div>
+      <div class="fb-wrapper">
+        <blockquote style="width: 100%;" class="{{item.postType}}" attr.data-href="{{item.url}} | async" id="{{item.id}}"></blockquote>
+      </div>
+    </div>
+    <div class="card" *ngSwitchCase="'Instagram'">
+      <div class="btn-toolbar pull-right" role="toolbar" aria-label="Toolbar with button groups">
+        <div class="btn-group mr-2" role="group" aria-label="First group">
+          <button class="btn btn-link pin-social-media-post-btn" type="button" (click)="pinSocialMediaPost(item)"><i [className]="item.sortOrder!==0 ? 'fa fa-thumb-tack fa-lg fa-rotate-180': 'fa fa-thumb-tack fa-lg'" [ngStyle]="{'color': getPinColor(item.sortOrder)}"></i></button>
+          <button class="btn btn-link delete-social-media-post-btn" type="button" (click)="deleteSocialMediaPost(item)"><i class="fa fa-times fa-lg"></i></button>
+        </div>
+      </div>
+      <div class="container-fluid mobile-card align-items-center justify-content-center">
+        <blockquote style="width: 100%; max-width: 100%;" class="instagram-media" data-instgrm-captioned
+        attr.data-instgrm-permalink="{{item.url}}?OMITSCRIPT=true | async" data-instgrm-version="9" id="{{item.id}}">
+        <a href="{{item.url}}?OMITSCRIPT=true | async"></a>
+      </blockquote>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+
