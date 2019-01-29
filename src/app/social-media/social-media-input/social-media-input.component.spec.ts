@@ -95,7 +95,7 @@ describe('SocialMediaInputComponent', () => {
   it('should call deleteSocialMediaPost when clicking on the delete post button', ()  => {
     spyOn(component, 'deleteSocialMediaPost');
     const button = fixture.debugElement.query(By.css('.btn.btn-link.delete-social-media-post-btn'));
-    button.triggerEventHandler('click.preventDefault', null);
+    button.triggerEventHandler('click', null);
     fixture.detectChanges();
     expect(component.deleteSocialMediaPost).toHaveBeenCalled();
   });
