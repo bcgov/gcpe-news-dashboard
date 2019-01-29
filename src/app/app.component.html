@@ -3,7 +3,12 @@
     <div class="jumbotron">
         <div class="container-fluid full-width">
             <app-alert></app-alert>
-            <router-outlet (activate)="clearAlerts()"></router-outlet>
+            <div *ngIf="isLoading" id="loading-spinner" class="text-center mt-5">
+                <div class="spinner-border text-secondary" role="status">
+                    <span class="sr-only">Loading...</span>
+                </div>
+            </div>
+            <router-outlet *ngIf="!isLoading" (activate)="clearAlerts()"></router-outlet>
         </div>
     </div>
 </main>
