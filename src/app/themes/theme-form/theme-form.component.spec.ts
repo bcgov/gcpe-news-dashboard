@@ -5,7 +5,8 @@ import { MessagesService } from 'src/app/services/messages.service';
 import { NavmenuService } from 'src/app/services/navmenu.service';
 import { Injectable } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
-import { of } from 'rxjs';
+import { of, throwError } from 'rxjs';
+import { AlertsService } from 'src/app/services/alerts.service';
 
 @Injectable()
 class MockMessagesService {
@@ -41,6 +42,7 @@ describe('ThemeFormComponent', () => {
       imports: [ ReactiveFormsModule ],
       declarations: [ ThemeFormComponent ],
       providers: [
+        AlertsService,
         NavmenuService,
         FormBuilder,
         { provide: MessagesService, useClass: MockMessagesService },
@@ -53,6 +55,7 @@ describe('ThemeFormComponent', () => {
   describe('New Theme', () => {
     beforeEach(() => {
       fixture = TestBed.createComponent(ThemeFormComponent);
+      spyOn(TestBed.get(AlertsService), 'showError');
       spyOn(TestBed.get(NavmenuService), 'hide');
       spyOn(TestBed.get(NavmenuService), 'show');
       messagesService = TestBed.get(MessagesService);
@@ -144,6 +147,15 @@ describe('ThemeFormComponent', () => {
       expect(component.close).toHaveBeenCalled();
       expect(messagesService.deleteMessage).not.toHaveBeenCalled();
     });
+
+    it('should show alert on create error', () => {
+      spyOn(component, 'handleError');
+      spyOn(messagesService, 'addMessage').and.returnValue(throwError('error'));
+      
+      component.create({title: 'title'})
+      
+      expect(component.handleError).toHaveBeenCalled();
+    });
   });
 
   describe('Edit Theme', () => {
@@ -205,6 +217,24 @@ describe('ThemeFormComponent', () => {
 
       expect(component.close).toHaveBeenCalled();
       expect(TestBed.get(MessagesService).deleteMessage).toHaveBeenCalledWith(component.theme.id);
+    });
+
+    it('should show alert on delete error', () => {
+      spyOn(component, 'handleError');
+      spyOn(TestBed.get(MessagesService), 'deleteMessage').and.returnValue(throwError('error'));
+      
+      component.delete()
+      
+      expect(component.handleError).toHaveBeenCalled();
+    });
+
+    it('should show alert on update error', () => {
+      spyOn(component, 'handleError');
+      spyOn(TestBed.get(MessagesService), 'updateMessage').and.returnValue(throwError('error'));
+      
+      component.update({title: 'title'})
+      
+      expect(component.handleError).toHaveBeenCalled();
     });
   });
 });

@@ -13,11 +13,13 @@ import { ThemeCardComponent } from '../theme-card/theme-card.component';
 import { TimeAgoPipe } from 'time-ago-pipe';
 import { MessagesService } from 'src/app/services/messages.service';
 import { Message } from '../../view-models/message';
+import { AlertsService } from 'src/app/services/alerts.service';
 
 describe('ThemeListComponent', () => {
   let component: ThemeListComponent;
   let fixture: ComponentFixture<ThemeListComponent>;
   let messagesService: MessagesService;
+  let alerts: AlertsService;
   let themes: Message[] = FakeThemeData(10, 0, false);
 
   beforeEach(async(() => {
@@ -34,6 +36,7 @@ describe('ThemeListComponent', () => {
         TimeAgoPipe
       ],
       providers: [
+        AlertsService,
         MessagesService,
         { provide: BASE_PATH, useValue: environment.apiUrl }
       ],
@@ -45,6 +48,7 @@ describe('ThemeListComponent', () => {
       themes: FakeThemeData(10, 0, false)
     })}});
     fixture = TestBed.createComponent(ThemeListComponent);
+    alerts = TestBed.get(AlertsService);
     messagesService = TestBed.get(MessagesService);
     component = fixture.componentInstance;
     fixture.detectChanges();
@@ -112,5 +116,18 @@ describe('ThemeListComponent', () => {
     component.sortEventReceived({ direction: 'down', themeId: themeToSort.id });
 
     expect(messagesService.updateMessage).not.toHaveBeenCalled();
+  });
+
+  it('should show error alert if failure to retrieve themes', () => {
+    spyOn(alerts, 'showError');
+    component.parseThemes({});
+    expect(alerts.showError).toHaveBeenCalled();
+  });
+
+  it('should show error alert if theme fails to unpublish', () => {
+    spyOn(messagesService, 'updateMessage').and.returnValue(throwError('error'));
+    spyOn(alerts, 'showError');
+    component.unpublishTheme({title: 'theme'});
+    expect(alerts.showError).toHaveBeenCalled();
   });
 });

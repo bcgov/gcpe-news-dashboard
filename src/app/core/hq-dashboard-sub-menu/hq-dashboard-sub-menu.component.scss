@@ -69,9 +69,9 @@
 }
 @media screen {
    .dashboard-sub-menu-container {
-      padding-top: 80px;
+      margin-top: 60px;
       @include media-breakpoint-down(sm) {
-         padding-top: 50px;
+         margin-top: 40px;
       }
    }
 }

@@ -14,6 +14,7 @@ import { TimeAgoPipe } from 'time-ago-pipe';
 import { HasRoleDirective } from 'src/app/_directives/hasRole.directive';
 import { AuthService } from 'src/app/services/auth.service';
 import { OAuthService } from 'angular-oauth2-oidc';
+import { AlertsService } from 'src/app/services/alerts.service';
 
 
 
@@ -37,6 +38,7 @@ describe('ThemesOfWeekComponent', () => {
         HasRoleDirective
       ],
       providers: [
+        AlertsService,
         { provide: BASE_PATH, useValue: environment.apiUrl },
         AuthService,
         {provide: OAuthService, useValue: {
@@ -138,4 +140,19 @@ describe('ThemesOfWeekComponent', () => {
       expect(themeList.querySelectorAll('app-theme-card').length).toBe(2);
     });
   });
+
+  describe('with an error retrieving themes', () => {
+    beforeEach(() => {
+      fixture = TestBed.createComponent(ThemesOfWeekComponent);
+      spyOn(TestBed.get(AlertsService), 'showError');
+      component = fixture.componentInstance;
+      fixture.detectChanges();
+    });
+
+    it('should show error alert', () => {
+      TestBed.overrideProvider(ActivatedRoute, { useValue: { data: of(null)}});
+      fixture.detectChanges();
+      expect(TestBed.get(AlertsService).showError).toHaveBeenCalled();
+    });
+  })
 });

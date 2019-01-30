@@ -13,7 +13,6 @@ export class ActivityListResolver implements Resolve<Activity[]> {
       return this.activityService.getActivityForecast()
         .pipe(
             catchError(error => {
-                this.router.navigate(['/']);
                 return of(null);
             })
         );

@@ -5,6 +5,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { NavmenuService } from '../../services/navmenu.service';
 import { MessagesService } from '../../services/messages.service';
 import { Message } from 'src/app/view-models/message';
+import { AlertsService } from 'src/app/services/alerts.service';
 
 @Component({
   selector: 'app-theme-form',
@@ -27,7 +28,8 @@ export class ThemeFormComponent implements OnInit, OnDestroy {
     private messagesService: MessagesService,
     private fb: FormBuilder,
     private router: Router,
-    private route: ActivatedRoute) {
+    private route: ActivatedRoute,
+    private alerts: AlertsService) {
     this.resetForm();
   }
 
@@ -59,8 +61,8 @@ export class ThemeFormComponent implements OnInit, OnDestroy {
     this.nav.show();
   }
 
-  handleError(message) {
-    console.log(message);
+  handleError(message: string) {
+    this.alerts.showError(message);
   }
 
   save() {
