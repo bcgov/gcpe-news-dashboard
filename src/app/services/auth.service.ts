@@ -21,6 +21,17 @@ export class AuthService {
 
   get identityClaims() { return this.oauthService.getIdentityClaims() || {}; }
 
+  get userMinistry() {
+    let ministry = '';
+
+    const displayName = this.oauthService.getIdentityClaims()['display_name'];
+    if (displayName) {
+      ministry = displayName.split(' ')[2];
+    }
+
+    return ministry;
+  }
+
   roleMatch(allowedRoles: Array<String>): boolean {
     const userRoles = this.identityClaims['user_roles']  as Array<String> || [];
     return allowedRoles.some(r => userRoles.indexOf(r) >= 0);

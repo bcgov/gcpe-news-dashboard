@@ -42,6 +42,7 @@ import { AppConfigService } from './app-config.service';
 import { PluralizeKindPipe } from './_pipes/pluralize-kind.pipe';
 import { SocialMediaPostComponent } from './social-media/social-media-post/social-media-post.component';
 import { AccountSettingsComponent } from './account-settings/account-settings.component';
+import { CheckboxComponent } from './core/checkbox/checkbox.component';
 
 const appInitializerFn = (appConfig: AppConfigService) => {
   return () => {
@@ -72,7 +73,8 @@ const appInitializerFn = (appConfig: AppConfigService) => {
     AddSocialMediaPostModalComponent,
     HasRoleDirective,
     PluralizeKindPipe,
-    SocialMediaPostComponent
+    SocialMediaPostComponent,
+    CheckboxComponent
   ],
   imports: [
     BrowserModule,
