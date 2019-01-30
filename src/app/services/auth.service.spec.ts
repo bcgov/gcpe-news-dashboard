@@ -25,7 +25,7 @@ describe('AuthService', () => {
   it('should return true given a valid auth token',
     inject([AuthService], (service: AuthService) => {
     const spy = spyOn(service, 'loggedIn').and.returnValue(!!fakeToken);
-    const rvl = service.loggedIn();
+    const rvl = service.loggedIn;
     expect(spy).toHaveBeenCalled();
     expect(rvl).toEqual(true);
   }));
@@ -33,7 +33,7 @@ describe('AuthService', () => {
   it('should return false given a null or invalid token',
     inject([AuthService], (service: AuthService) => {
     const spy = spyOn(service, 'loggedIn').and.returnValue(!!null);
-    const rvl = service.loggedIn();
+    const rvl = service.loggedIn;
     expect(spy).toHaveBeenCalled();
     expect(rvl).toEqual(false);
   }));

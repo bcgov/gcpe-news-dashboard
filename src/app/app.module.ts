@@ -42,6 +42,7 @@ import { AppConfigService } from './app-config.service';
 import { PluralizeKindPipe } from './_pipes/pluralize-kind.pipe';
 import { SocialMediaPostComponent } from './social-media/social-media-post/social-media-post.component';
 import { AlertComponent } from './core/alert/alert.component';
+import { ApiModule, getApiConfig } from './api.module';
 
 const appInitializerFn = (appConfig: AppConfigService) => {
   return () => {
@@ -81,7 +82,8 @@ const appInitializerFn = (appConfig: AppConfigService) => {
     OAuthModule.forRoot(),
     AppRoutingModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    ApiModule.forRoot(getApiConfig)
   ],
   providers: [
     AppConfigService,
