@@ -8,6 +8,7 @@ import { DeletePostConfirmationModalComponent } from '../delete-post-confirmatio
 import { AddSocialMediaPostModalComponent } from '../add-social-media-post-modal/add-social-media-post-modal.component';
 import { SocialMediaPostsService } from '../../services/socialMediaPosts.service';
 import { SocialMediaRenderService } from '../../services/socialMediaRender.service';
+import { AlertsService } from 'src/app/services/alerts.service';
 
 @Component({
   selector: 'app-social-media-input',
@@ -28,7 +29,8 @@ export class SocialMediaInputComponent implements OnInit, AfterViewInit, OnDestr
     public nav: NavmenuService,
     private modal: NgbModal,
     private socialMediaService: SocialMediaPostsService,
-    private socialMediaRenderService: SocialMediaRenderService) {
+    private socialMediaRenderService: SocialMediaRenderService,
+    private alerts: AlertsService) {
     this.router.routeReuseStrategy.shouldReuseRoute = () => false;
   }
 
@@ -77,8 +79,7 @@ export class SocialMediaInputComponent implements OnInit, AfterViewInit, OnDestr
         this.close();
       },
       (err) => {
-        //// TODO: alert componment to dispaly error.
-        console.log('Failed to update or create post - Error: ' + JSON.stringify(err.error));
+        this.alerts.showError('Failed to pin post');
       }
     );
   }
@@ -103,8 +104,7 @@ export class SocialMediaInputComponent implements OnInit, AfterViewInit, OnDestr
               this.close();
             },
             (err) => {
-              //// TODO: alert componment to dispaly error.
-               console.log(`Failed to delete post: ${post.id} - Error: ` + JSON.stringify(err.error));
+              this.alerts.showError('Failed to delete post');
             }
           );
         }
@@ -122,8 +122,7 @@ export class SocialMediaInputComponent implements OnInit, AfterViewInit, OnDestr
               this.close();
             },
             (err) => {
-               //// TODO: alert componment to dispaly error.
-               console.log(`Failed to add post - Error: ` + + JSON.stringify(err.error));
+              this.alerts.showError('Failed to create post');
             }
           );
         }

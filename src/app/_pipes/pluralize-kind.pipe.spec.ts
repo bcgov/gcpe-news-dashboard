@@ -3,7 +3,7 @@
 import { TestBed, async } from '@angular/core/testing';
 import { PluralizeKindPipe } from './pluralize-kind.pipe';
 
-describe('Pipe: PluralizeKinde', () => {
+describe('Pipe: PluralizeKind', () => {
   it('create an instance', () => {
     let pipe = new PluralizeKindPipe();
     expect(pipe).toBeTruthy();

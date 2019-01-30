@@ -73,7 +73,7 @@ describe('AppComponent', () => {
     expect(app.title).toEqual('BC Gov News');
   });
 
-  fit('should show loading spinner while navigating', () => {
+  it('should show loading spinner while navigating', () => {
     let router = TestBed.get(Router);
     expect(component.isLoading).toBeTruthy();
     router.triggerNavStart('http://localhost/test');
