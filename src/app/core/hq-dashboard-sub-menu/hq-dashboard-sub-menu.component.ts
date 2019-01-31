@@ -10,23 +10,11 @@ import { ApiService } from '../../services/api.service';
   styleUrls: ['./hq-dashboard-sub-menu.component.scss']
 })
 export class HqDashboardSubMenuComponent implements OnInit {
-  hideSocialMediaFilter = false;
   @Input() socialmediatypes: SocialMediaType[];
   filterBySocialMediaType: string;
   submenuOpen = false;
 
-  constructor(private router: Router, private activatedRoute: ActivatedRoute, private apiService:  ApiService) {
-    // Only display the social media filter dropdown when social media link is active
-    this.router.events.subscribe((event) => {
-      if (event instanceof NavigationEnd) {
-        if ( event.url.indexOf('/social-media-list') > -1 ) {
-          this.hideSocialMediaFilter = false;
-        }  else {
-          this.hideSocialMediaFilter = true;
-        }
-      }
-    });
-  }
+  constructor(private router: Router, private activatedRoute: ActivatedRoute, private apiService:  ApiService) {}
 
   ngOnInit() {
     if (this.activatedRoute.queryParams) {
