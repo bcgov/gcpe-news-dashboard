@@ -71,6 +71,19 @@ describe('AccountSettingsComponent', () => {
     });
 
     it('should allow the user to de-select all ministries', () => {
-        expect(1).toEqual(1);
+        component.ngOnInit();
+        component.allSelected = false;
+        component.selectAll();
+
+        component.ministries.forEach(label => {
+            expect(component.selectedMinistries[label]).toBeTruthy();
+        });
+
+        component.allSelected = true;
+        component.selectAll();
+
+        component.ministries.forEach(label => {
+            expect(component.selectedMinistries[label]).toBeFalsy();
+        });
     });
 });
