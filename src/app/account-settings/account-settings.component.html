@@ -2,44 +2,24 @@
    <div class="col-12">
         <h2>Account Settings</h2>
         <form>
-                <div class="form-group">
-                    <label for="userMinistry">My Ministry</label>
-                    <input type="text" class="form-control" [(ngModel)]="userMinistry" name="userMinistry" readonly>
+            <div class="form-group">
+                <label for="userMinistry">My Ministry</label>
+                <input type="text" class="form-control" [(ngModel)]="userMinistry" name="userMinistry" readonly>
+            </div>
+            <h3>Ministries I'm Following</h3>
+            <div>
+                <app-checkbox (change)="selectAll()" label="All"></app-checkbox>
+            </div>
+            <hr>
+            <div class="row">
+                <div class="col md-6">
+                    <app-checkbox *ngFor="let ministry of ministries | slice:0:ministriesListMidPoint" [events]="eventsSubject.asObservable()" (checkboxChanged)="handleCheckboxChanged($event)" label="{{ministry}}"></app-checkbox>
                 </div>
-                <h3>Ministries I'm Following</h3>
-                <div>
-                    <app-checkbox (change)="selectAll()" label="All"></app-checkbox>
+                <div class="col-md-6">
+                    <app-checkbox *ngFor="let ministry of ministries | slice:ministriesListMidPoint" [events]="eventsSubject.asObservable()" (checkboxChanged)="handleCheckboxChanged($event)" label="{{ministry}}"></app-checkbox>
                 </div>
-                <hr>
-                <div class="row">
-                    <div class="col md-6">
-                        <app-checkbox [events]="eventsSubject.asObservable()" (checkboxChanged)="handleCheckboxChanged($event)" label="Premier's Office"></app-checkbox>
-                        <app-checkbox [events]="eventsSubject.asObservable()" (checkboxChanged)="handleCheckboxChanged($event)" label="Intergovernmental Relations Secretariat"></app-checkbox>
-                        <app-checkbox [events]="eventsSubject.asObservable()" (checkboxChanged)="handleCheckboxChanged($event)" label="Advanced Education, Skills and Training"></app-checkbox>
-                        <app-checkbox [events]="eventsSubject.asObservable()" (checkboxChanged)="handleCheckboxChanged($event)" label="Agriculture"></app-checkbox>
-                        <app-checkbox [events]="eventsSubject.asObservable()" (checkboxChanged)="handleCheckboxChanged($event)" label="Attorney General"></app-checkbox>
-                        <app-checkbox [events]="eventsSubject.asObservable()" (checkboxChanged)="handleCheckboxChanged($event)" label="Children and Family Development"></app-checkbox>
-                        <app-checkbox [events]="eventsSubject.asObservable()" (checkboxChanged)="handleCheckboxChanged($event)" label="Citizen's Services"></app-checkbox>
-                        <app-checkbox [events]="eventsSubject.asObservable()" (checkboxChanged)="handleCheckboxChanged($event)" label="Education"></app-checkbox>
-                        <app-checkbox [events]="eventsSubject.asObservable()" (checkboxChanged)="handleCheckboxChanged($event)" label="Energy, Mines and Petroleum Resources"></app-checkbox>
-                        <app-checkbox [events]="eventsSubject.asObservable()" (checkboxChanged)="handleCheckboxChanged($event)" label="Environment and Climate Change Strategy"></app-checkbox>
-                        <app-checkbox [events]="eventsSubject.asObservable()" (checkboxChanged)="handleCheckboxChanged($event)" label="Finance"></app-checkbox>
-                    </div>
-                    <div class="col-md-6">
-                        <app-checkbox [events]="eventsSubject.asObservable()" (checkboxChanged)="handleCheckboxChanged($event)" label="Forests, Lands, Natrual Resource Operations and Rural Development"></app-checkbox>
-                        <app-checkbox [events]="eventsSubject.asObservable()" (checkboxChanged)="handleCheckboxChanged($event)" label="Health"></app-checkbox>
-                        <app-checkbox [events]="eventsSubject.asObservable()" (checkboxChanged)="handleCheckboxChanged($event)" label="Indigenous Relations and Reconciliation"></app-checkbox>
-                        <app-checkbox [events]="eventsSubject.asObservable()" (checkboxChanged)="handleCheckboxChanged($event)" label="Jobs, Trade, Technology"></app-checkbox>
-                        <app-checkbox [events]="eventsSubject.asObservable()" (checkboxChanged)="handleCheckboxChanged($event)" label="Labour"></app-checkbox>
-                        <app-checkbox [events]="eventsSubject.asObservable()" (checkboxChanged)="handleCheckboxChanged($event)" label="Mental Health Addictions"></app-checkbox>
-                        <app-checkbox [events]="eventsSubject.asObservable()" (checkboxChanged)="handleCheckboxChanged($event)" label="Municipal Affairs and Housing"></app-checkbox>
-                        <app-checkbox [events]="eventsSubject.asObservable()" (checkboxChanged)="handleCheckboxChanged($event)" label="Public Safety and Solicitor General"></app-checkbox>
-                        <app-checkbox [events]="eventsSubject.asObservable()" (checkboxChanged)="handleCheckboxChanged($event)" label="Social Development and Poverty Reduction"></app-checkbox>
-                        <app-checkbox [events]="eventsSubject.asObservable()" (checkboxChanged)="handleCheckboxChanged($event)" label="Tourism, Arts and Culture"></app-checkbox>
-                        <app-checkbox [events]="eventsSubject.asObservable()" (checkboxChanged)="handleCheckboxChanged($event)" label="Transportation and Infrastructure"></app-checkbox>
-                    </div>
-                </div>
-                <button (click)="updateSettings()" type="submit" class="btn btn-primary">Update Settings</button>
+            </div>
+            <button (click)="updateSettings()" type="submit" class="btn btn-primary">Update Settings</button>
             </form>
     </div>    
 </div>

@@ -1,0 +1,12 @@
+@import "../../../assets/styles/variables.scss";
+
+.alert {
+    margin-top: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+button i {
+    color: map-get($theme-colors, 'medium');
+}

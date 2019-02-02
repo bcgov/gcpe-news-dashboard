@@ -27,8 +27,9 @@ body {
 
 main .jumbotron{
     background-color: #fff;
+    padding: $heading-large-height 0;
     @include media-breakpoint-down(sm) {
-        padding: 2rem 0;
+        padding: $heading-small-height 0;
     }
 }
   

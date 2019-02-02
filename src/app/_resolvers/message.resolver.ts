@@ -13,7 +13,6 @@ export class MessageResolver implements Resolve<Message> {
         return this.messagesService.getMessage(route.params.id)
         .pipe(
             catchError(error => {
-                this.router.navigate(['/']);
                 return of(null);
             })
         );

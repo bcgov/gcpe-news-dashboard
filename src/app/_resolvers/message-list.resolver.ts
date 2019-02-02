@@ -14,7 +14,6 @@ export class MessageListResolver implements Resolve<Message[]> {
         return this.messagesService.getAllMessages(isPublished)
         .pipe(
             catchError(error => {
-                this.router.navigate(['/']);
                 return of(null);
             })
         );
