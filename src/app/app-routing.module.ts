@@ -15,13 +15,14 @@ import { SocialMediaPostListComponent } from './social-media/social-media-post-l
 import { SocialMediaInputComponent } from './social-media/social-media-input/social-media-input.component';
 import { AuthGuard } from './_guards/auth.guard';
 import { AccountSettingsComponent } from './account-settings/account-settings.component';
+import { MinsitriesResolver } from './_resolvers/ministries.resolver';
 
 const appRoutes: Routes = [
   { path: 'last-7-day-post-list', component: PostListComponent, resolve: { posts: PostListResolver } },
   { path: 'next-7-day-activity-list', component: ActivityForecastListComponent, resolve: { activities: ActivityListResolver } },
   { path: 'themes-of-the-week', runGuardsAndResolvers: 'always', component: ThemesOfWeekComponent, resolve: { themes: MessageListResolver }
   },
-  { path: 'account-settings', component: AccountSettingsComponent },
+  { path: 'account-settings', component: AccountSettingsComponent, resolve: { ministries: MinsitriesResolver } },
   { path: 'social-media-list',
     component: SocialMediaPostListComponent,
     resolve: { socialmedia: SociaMediaPostListResolver, socialmediatype: SociaMediaTypeListResolver },

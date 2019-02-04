@@ -1,11 +1,11 @@
 <div class="row account-settings-container">
    <div class="col-12">
-        <h2>Account Settings</h2>
+        <!-- <h2>Account Settings</h2> -->
         <form>
-            <div class="form-group">
+            <!-- <div class="form-group">
                 <label for="userMinistry">My Ministry</label>
                 <input type="text" class="form-control" [(ngModel)]="userMinistry" name="userMinistry" readonly>
-            </div>
+            </div> -->
             <h3>Ministries I'm Following</h3>
             <div>
                 <app-checkbox (change)="selectAll()" label="All"></app-checkbox>
@@ -13,13 +13,13 @@
             <hr>
             <div class="row">
                 <div class="col md-6">
-                    <app-checkbox *ngFor="let ministry of ministries | slice:0:ministriesListMidPoint" [events]="eventsSubject.asObservable()" (checkboxChanged)="handleCheckboxChanged($event)" label="{{ministry}}"></app-checkbox>
+                    <app-checkbox *ngFor="let ministry of ministries | slice:0:ministriesListMidPoint" [events]="eventsSubject.asObservable()" (checkboxChanged)="handleCheckboxChanged($event)" label="{{ministry.displayName}}"></app-checkbox>
                 </div>
                 <div class="col-md-6">
-                    <app-checkbox *ngFor="let ministry of ministries | slice:ministriesListMidPoint" [events]="eventsSubject.asObservable()" (checkboxChanged)="handleCheckboxChanged($event)" label="{{ministry}}"></app-checkbox>
+                    <app-checkbox *ngFor="let ministry of ministries | slice:ministriesListMidPoint" [events]="eventsSubject.asObservable()" (checkboxChanged)="handleCheckboxChanged($event)" label="{{ministry.displayName}}"></app-checkbox>
                 </div>
             </div>
-            <button (click)="updateSettings()" type="submit" class="btn btn-primary">Update Settings</button>
             </form>
+            <button type="button" (click)="updateSettings()" class="btn-update">Update Settings</button>
     </div>    
 </div>

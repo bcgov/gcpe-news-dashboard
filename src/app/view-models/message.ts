@@ -11,7 +11,7 @@
  */
 
 
-export interface Message {
+export interface Message { 
     id?: string;
     title: string;
     description?: string;

@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../services/auth.service';
 import { Subject } from 'rxjs';
 import { IHash } from '../interfaces/IHash';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
     selector: 'app-account-settings',
@@ -16,35 +17,15 @@ export class AccountSettingsComponent implements OnInit {
     ministries = [];
     ministriesListMidPoint = 0;
 
-    constructor(private authService: AuthService) { }
+    constructor(private authService: AuthService, private route: ActivatedRoute) { }
 
     ngOnInit() {
         this.userMinistry = this.authService.userMinistry;
-        this.ministries = [
-            'Premier\'s Office',
-            'Intergovernmental Relations Secretariat',
-            'Advanced Education, Skills and Training',
-            'Agriculture',
-            'Attorney General',
-            'Children and Family Development',
-            'Citizen\'s Services',
-            'Education',
-            'Energy, Mines and Petroleum Resources',
-            'Environment and Climate Change Strategy',
-            'Finance',
-            'Forests, Lands, Natrual Resource Operations and Rural Development',
-            'Health',
-            'Indigenous Relations and Reconciliation',
-            'Jobs, Trade, Technology',
-            'Labour',
-            'Mental Health Addictions',
-            'Municipal Affairs and Housing',
-            'Public Safety and Solicitor General',
-            'Social Development and Poverty Reduction',
-            'Tourism, Arts and Culture',
-            'Transportation and Infrastructure'
-        ];
-        this.ministriesListMidPoint = this.ministries.length / 2;
+        this.route.data.subscribe(data => {
+            this.ministries = data['ministries'];
+            this.ministriesListMidPoint = this.ministries.length / 2;
+        });
+
     }
 
     handleCheckboxChanged(label: string): void {

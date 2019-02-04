@@ -4,22 +4,36 @@ import { AccountSettingsComponent } from './account-settings.component';
 import { AuthService } from '../services/auth.service';
 import { OAuthService } from 'angular-oauth2-oidc';
 import { FormsModule } from '@angular/forms';
-import { IHash } from '../interfaces/IHash';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
+import { of } from 'rxjs';
+import { FakeMinistryData } from '../test-helpers/ministries';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { MinistriesService } from '../services/ministries.service';
+import { ActivatedRoute } from '@angular/router';
 
 describe('AccountSettingsComponent', () => {
     let component: AccountSettingsComponent;
     let fixture: ComponentFixture<AccountSettingsComponent>;
 
+    class MockActivatedRoute {
+        queryParams = of({ type: 'All'});
+        data = of({
+          ministries: FakeMinistryData(22)
+        });
+      }
+
     beforeEach(async(() => {
         TestBed.configureTestingModule({
           imports: [
-              FormsModule
+            FormsModule,
+            HttpClientTestingModule
           ],
           declarations: [
               AccountSettingsComponent
           ],
           providers: [
+            MinistriesService,
+            { provide: ActivatedRoute, useClass: MockActivatedRoute },
             AuthService,
             {provide: OAuthService, useValue: {
               getIdentityClaims: () => ['Administrators'],
@@ -32,6 +46,13 @@ describe('AccountSettingsComponent', () => {
       }));
 
     beforeEach(() => {
+        TestBed.overrideProvider(ActivatedRoute,
+            { useValue: {
+              data: of({
+                ministries: FakeMinistryData(22)
+              }),
+              queryParams: of({ type: 'All'})
+          }});
         fixture = TestBed.createComponent(AccountSettingsComponent);
         component = fixture.componentInstance;
         fixture.detectChanges();

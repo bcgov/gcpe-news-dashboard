@@ -81,5 +81,5 @@ var download = function (url, models2get) {
 }
 
 //generate services for message and socialMediaPost, but not activities
-downloadCB(["/message", "/socialMediaPost", "/activity.ts", "/post.ts", "/document"]);
+downloadCB(["/message", "/socialMediaPost", "/activity.ts", "/post.ts", "/document", "/ministries"]);
 //download(hubApiUrl, ["/message", "/socialMediaPost", "/activity.ts", "/post.ts", "/document"]);

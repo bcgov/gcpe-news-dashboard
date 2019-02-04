@@ -47,7 +47,7 @@ export class SocialMediaPostsService {
      */
     private canConsumeForm(consumes: string[]): boolean {
         const form = 'multipart/form-data';
-        for (let consume of consumes) {
+        for (const consume of consumes) {
             if (form === consume) {
                 return true;
             }
@@ -68,27 +68,28 @@ export class SocialMediaPostsService {
     public addSocialMediaPost(socialMediaPost?: SocialMediaPost, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<SocialMediaPost>>;
     public addSocialMediaPost(socialMediaPost?: SocialMediaPost, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
 
+
         let headers = this.defaultHeaders;
 
         // to determine the Accept header
         let httpHeaderAccepts: string[] = [
             'application/json'
         ];
-        let httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
         if (httpHeaderAcceptSelected != undefined) {
-            headers = headers.set("Accept", httpHeaderAcceptSelected);
+            headers = headers.set('Accept', httpHeaderAcceptSelected);
         }
 
         // to determine the Content-Type header
-        let consumes: string[] = [
+        const consumes: string[] = [
             'application/json-patch+json',
             'application/json',
             'text/json',
             'application/_*+json'
         ];
-        let httpContentTypeSelected:string | undefined = this.configuration.selectHeaderContentType(consumes);
+        const httpContentTypeSelected: string | undefined = this.configuration.selectHeaderContentType(consumes);
         if (httpContentTypeSelected != undefined) {
-            headers = headers.set("Content-Type", httpContentTypeSelected);
+            headers = headers.set('Content-Type', httpContentTypeSelected);
         }
 
         return this.httpClient.post<SocialMediaPost>(`${this.basePath}/api/SocialMediaPosts`,
@@ -113,6 +114,7 @@ export class SocialMediaPostsService {
     public deleteSocialMediaPost(id: string, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<any>>;
     public deleteSocialMediaPost(id: string, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<any>>;
     public deleteSocialMediaPost(id: string, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+
         if (id === null || id === undefined) {
             throw new Error('Required parameter id was null or undefined when calling deleteSocialMediaPost.');
         }
@@ -121,14 +123,15 @@ export class SocialMediaPostsService {
 
         // to determine the Accept header
         let httpHeaderAccepts: string[] = [
+            'application/json'
         ];
-        let httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
         if (httpHeaderAcceptSelected != undefined) {
-            headers = headers.set("Accept", httpHeaderAcceptSelected);
+            headers = headers.set('Accept', httpHeaderAcceptSelected);
         }
 
         // to determine the Content-Type header
-        let consumes: string[] = [
+        const consumes: string[] = [
         ];
 
         return this.httpClient.delete<any>(`${this.basePath}/api/SocialMediaPosts/${encodeURIComponent(String(id))}`,
@@ -156,17 +159,14 @@ export class SocialMediaPostsService {
 
         // to determine the Accept header
         let httpHeaderAccepts: string[] = [
-            'text/plain',
-            'application/json',
-            'text/json'
         ];
-        let httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
         if (httpHeaderAcceptSelected != undefined) {
-            headers = headers.set("Accept", httpHeaderAcceptSelected);
+            headers = headers.set('Accept', httpHeaderAcceptSelected);
         }
 
         // to determine the Content-Type header
-        let consumes: string[] = [
+        const consumes: string[] = [
         ];
 
         return this.httpClient.get<Array<SocialMediaPost>>(`${this.basePath}/api/SocialMediaPosts`,
@@ -190,6 +190,7 @@ export class SocialMediaPostsService {
     public getSocialMediaPost(id: string, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<SocialMediaPost>>;
     public getSocialMediaPost(id: string, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<SocialMediaPost>>;
     public getSocialMediaPost(id: string, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+
         if (id === null || id === undefined) {
             throw new Error('Required parameter id was null or undefined when calling getSocialMediaPost.');
         }
@@ -198,17 +199,14 @@ export class SocialMediaPostsService {
 
         // to determine the Accept header
         let httpHeaderAccepts: string[] = [
-            'text/plain',
-            'application/json',
-            'text/json'
         ];
-        let httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
         if (httpHeaderAcceptSelected != undefined) {
-            headers = headers.set("Accept", httpHeaderAcceptSelected);
+            headers = headers.set('Accept', httpHeaderAcceptSelected);
         }
 
         // to determine the Content-Type header
-        let consumes: string[] = [
+        const consumes: string[] = [
         ];
 
         return this.httpClient.get<SocialMediaPost>(`${this.basePath}/api/SocialMediaPosts/${encodeURIComponent(String(id))}`,
@@ -233,33 +231,32 @@ export class SocialMediaPostsService {
     public updateSocialMediaPost(id: string, socialMediaPost?: SocialMediaPost, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<SocialMediaPost>>;
     public updateSocialMediaPost(id: string, socialMediaPost?: SocialMediaPost, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<SocialMediaPost>>;
     public updateSocialMediaPost(id: string, socialMediaPost?: SocialMediaPost, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+
         if (id === null || id === undefined) {
             throw new Error('Required parameter id was null or undefined when calling updateSocialMediaPost.');
         }
+
 
         let headers = this.defaultHeaders;
 
         // to determine the Accept header
         let httpHeaderAccepts: string[] = [
-            'text/plain',
-            'application/json',
-            'text/json'
         ];
-        let httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
         if (httpHeaderAcceptSelected != undefined) {
-            headers = headers.set("Accept", httpHeaderAcceptSelected);
+            headers = headers.set('Accept', httpHeaderAcceptSelected);
         }
 
         // to determine the Content-Type header
-        let consumes: string[] = [
+        const consumes: string[] = [
             'application/json-patch+json',
             'application/json',
             'text/json',
             'application/_*+json'
         ];
-        let httpContentTypeSelected:string | undefined = this.configuration.selectHeaderContentType(consumes);
+        const httpContentTypeSelected: string | undefined = this.configuration.selectHeaderContentType(consumes);
         if (httpContentTypeSelected != undefined) {
-            headers = headers.set("Content-Type", httpContentTypeSelected);
+            headers = headers.set('Content-Type', httpContentTypeSelected);
         }
 
         return this.httpClient.put<SocialMediaPost>(`${this.basePath}/api/SocialMediaPosts/${encodeURIComponent(String(id))}`,

@@ -44,6 +44,7 @@ import { SocialMediaPostComponent } from './social-media/social-media-post/socia
 import { AccountSettingsComponent } from './account-settings/account-settings.component';
 import { CheckboxComponent } from './core/checkbox/checkbox.component';
 import { AlertComponent } from './core/alert/alert.component';
+import { MinistriesService } from './services/ministries.service';
 
 const appInitializerFn = (appConfig: AppConfigService) => {
   return () => {
@@ -97,6 +98,7 @@ const appInitializerFn = (appConfig: AppConfigService) => {
     },
     ApiService,
     MessagesService,
+    MinistriesService,
     SocialMediaPostsService,
     AuthService,
     ActivityListResolver,
