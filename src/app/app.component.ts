@@ -28,7 +28,7 @@ export class AppComponent implements OnInit{
     if (event instanceof NavigationStart) {
       this.isLoading = true;
     } else if (event instanceof NavigationEnd || event instanceof NavigationCancel || event instanceof NavigationError) {
-      this.isLoading = false; 
+      this.isLoading = false;
     }
   }
 

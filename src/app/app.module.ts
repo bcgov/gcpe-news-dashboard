@@ -43,6 +43,7 @@ import { PluralizeKindPipe } from './_pipes/pluralize-kind.pipe';
 import { SocialMediaPostComponent } from './social-media/social-media-post/social-media-post.component';
 import { AlertComponent } from './core/alert/alert.component';
 import { ApiModule, getApiConfig } from './api.module';
+import { RoleGuard } from './_guards/role.guard';
 
 const appInitializerFn = (appConfig: AppConfigService) => {
   return () => {
@@ -105,7 +106,8 @@ const appInitializerFn = (appConfig: AppConfigService) => {
     MessageResolver,
     SociaMediaPostListResolver,
     AuthGuard,
-    SocialMediaRenderService
+    SocialMediaRenderService,
+    RoleGuard
   ],
   entryComponents: [
     DeletePostConfirmationModalComponent,

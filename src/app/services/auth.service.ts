@@ -17,17 +17,23 @@ export class AuthService {
     this.oauthService.events.subscribe(e => {
       switch (e.type) {
         case 'token_received':
-          this.configuration.apiKeys['Authorization'] = this.oauthService.getAccessToken();
+          this.configureAccessToken();
           break;
       }
     });
+    this.configureAccessToken();
   }
 
+  configureAccessToken() {
+    this.configuration.accessToken = this.accessToken;
+  }
+
+  get accessToken() { return this.oauthService.getAccessToken(); }
   get loggedIn() { return this.oauthService.hasValidAccessToken(); }
   get identityClaims() { return this.oauthService.getIdentityClaims() || {}; }
 
   login() {
-    this.oauthService.initImplicitFlow(); // redirection is configured in the app component
+    this.oauthService.initImplicitFlow();
   }
 
   logOut() {
@@ -35,7 +41,10 @@ export class AuthService {
   }
 
   roleMatch(allowedRoles: Array<String>): boolean {
+    if (!this.loggedIn) {
+      return false;
+    }
     const userRoles = this.identityClaims['user_roles']  as Array<String> || [];
-    return allowedRoles.some(r => userRoles.indexOf(r) >= 0);
+    return allowedRoles.some(r => userRoles.includes(r));
   }
 }

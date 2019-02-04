@@ -14,29 +14,77 @@ import { SociaMediaPostListResolver } from './_resolvers/social-media-post-list.
 import { SocialMediaPostListComponent } from './social-media/social-media-post-list/social-media-post-list.component';
 import { SocialMediaInputComponent } from './social-media/social-media-input/social-media-input.component';
 import { AuthGuard } from './_guards/auth.guard';
+import { RoleGuard } from './_guards/role.guard';
 
 const appRoutes: Routes = [
-  { path: 'last-7-day-post-list', component: PostListComponent, resolve: { posts: PostListResolver } },
-  { path: 'next-7-day-activity-list', component: ActivityForecastListComponent, resolve: { activities: ActivityListResolver } },
-  { path: 'themes-of-the-week', runGuardsAndResolvers: 'always', component: ThemesOfWeekComponent, resolve: { themes: MessageListResolver }
+  {
+    path: 'last-7-day-post-list',
+    component: PostListComponent,
+    resolve: { posts: PostListResolver }
   },
-  { path: 'social-media-list',
+  {
+    path: 'next-7-day-activity-list',
+    component: ActivityForecastListComponent,
+    resolve: { activities: ActivityListResolver }
+  },
+  {
+    path: 'themes-of-the-week',
+    runGuardsAndResolvers: 'always',
+    component: ThemesOfWeekComponent,
+    resolve: { themes: MessageListResolver }
+  },
+  {
+    path: 'social-media-list',
     component: SocialMediaPostListComponent,
     resolve: { socialmedia: SociaMediaPostListResolver, socialmediatype: SociaMediaTypeListResolver },
-    runGuardsAndResolvers: 'always', },
-  { path: 'social-media-input',
+    runGuardsAndResolvers: 'always'
+  },
+  {
+    path: 'social-media-input',
     component: SocialMediaInputComponent,
     resolve: { socialmedia: SociaMediaPostListResolver },
-    runGuardsAndResolvers: 'always', },
-  { path: '', redirectTo: 'last-7-day-post-list', pathMatch: 'full' },
-  { path: 'themes',
-    component: ThemeListComponent, resolve: { themelist: MessageListResolver }, runGuardsAndResolvers: 'paramsOrQueryParamsChange' },
-  { path: 'theme/new', component: ThemeFormComponent },
-  { path: 'theme/edit/:id', component: ThemeFormComponent, resolve: { theme: MessageResolver } },
-  { path: 'social-media-input',
-    component: SocialMediaInputComponent,
-    resolve: { socialmedia: SociaMediaPostListResolver },
-    runGuardsAndResolvers: 'always', },
+    canActivate: [AuthGuard, RoleGuard],
+    data: {
+      roles: ['Administrators', 'Contributors']
+    },
+    runGuardsAndResolvers: 'always'
+  },
+  {
+    path: 'themes',
+    component: ThemeListComponent,
+    canActivate: [AuthGuard, RoleGuard],
+    data: {
+      roles: ['Administrators', 'Contributors']
+    },
+    resolve: { themelist: MessageListResolver },
+    runGuardsAndResolvers: 'paramsOrQueryParamsChange'
+  },
+  {
+    path: 'theme/new',
+    component: ThemeFormComponent,
+    canActivate: [AuthGuard, RoleGuard],
+    data: {
+      roles: ['Administrators', 'Contributors']
+    }
+  },
+  {
+    path: 'theme/edit/:id',
+    component: ThemeFormComponent,
+    canActivate: [AuthGuard, RoleGuard],
+    data: {
+      roles: ['Administrators', 'Contributors']
+    },
+    resolve: { theme: MessageResolver }
+  },
+  {
+    path: '',
+    redirectTo: 'last-7-day-post-list',
+    pathMatch: 'full'
+  },
+  {
+    path: '**',
+    redirectTo: 'last-7-day-post-list'
+  }
 ];
 
 @NgModule({

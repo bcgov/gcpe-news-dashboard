@@ -12,6 +12,8 @@ import { HasRoleDirective } from './_directives/hasRole.directive';
 import { AlertComponent } from './core/alert/alert.component';
 import { Router, NavigationEnd, NavigationStart } from '@angular/router';
 import { Subject } from 'rxjs';
+import { Configuration } from './configuration';
+import { AuthService } from './services/auth.service';
 
 class MockRouterService {
   private subject = new Subject();
@@ -28,7 +30,7 @@ class MockRouterService {
   }
 }
 
-describe('AppComponent', () => {
+fdescribe('AppComponent', () => {
   let component: AppComponent;
   let fixture: ComponentFixture<AppComponent>;
 
@@ -75,6 +77,7 @@ describe('AppComponent', () => {
 
   it('should show loading spinner while navigating', () => {
     let router = TestBed.get(Router);
+
     expect(component.isLoading).toBeTruthy();
     router.triggerNavStart('http://localhost/test');
     expect(component.isLoading).toBeTruthy();

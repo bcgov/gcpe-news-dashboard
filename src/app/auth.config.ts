@@ -9,7 +9,6 @@ export const authConfig: AuthConfig = {
   redirectUri: window.location.origin,
 
   silentRefreshRedirectUri: window.location.origin + '/silent-refresh.html',
-
   // The SPA's id.
   // The SPA is registerd with this id at the auth-server
   clientId: 'demo-app',

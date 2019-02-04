@@ -1,6 +1,11 @@
 <div class="dashboard-sub-menu-container" >
     <h2>HQ Dashboard</h2>
-    <button class="btn btn-primary pull-right btn-outline btn-print doNotPrint" (click)="print()"><i class="fa fa-print fa-lg"></i> Print</button>
+    <div class="button-group pull-right">
+        <div *ngIf="router.url === '/themes-of-the-week'" class="new-theme-button mr-2 d-inline-block">
+            <a *appHasRole="['Administrators','Contributors']" routerLink="/theme/new" class="btn btn-primary btn-outline doNotPrint">New Theme</a>
+        </div>
+        <button class="btn btn-primary btn-outline btn-print doNotPrint" (click)="print()"><i class="fa fa-print fa-lg"></i> Print</button>
+    </div>
     <p class="lighter-font hq-dashboard-info">
         The most important news you should be aware of.
     </p>

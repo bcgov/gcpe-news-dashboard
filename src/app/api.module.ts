@@ -4,9 +4,7 @@ import { HttpClient } from '@angular/common/http';
 
 const apiConfig = new Configuration({
     withCredentials: true,
-    apiKeys: {
-        Authorization: ''
-    }
+    accessToken: ''
 });
 
 export const getApiConfig = ()  => apiConfig;
