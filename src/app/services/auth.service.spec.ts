@@ -5,14 +5,12 @@ import { Configuration } from '../configuration';
 import { HttpClient, HttpHandler } from '@angular/common/http';
 
 describe('AuthService', () => {
-  const fakeToken = {};
   const fakeRoles = ['Administrators', 'Contributors'];
-  const fakeRoleWithoutUsers = ['Foo'];
   let oauth: any;
 
   beforeEach(() => {
-     TestBed.configureTestingModule({
-       providers: [
+    TestBed.configureTestingModule({
+      providers: [
         HttpClient,
         HttpHandler,
         UrlHelperService,
@@ -20,12 +18,12 @@ describe('AuthService', () => {
         AuthService,
         { provide: Configuration, useValue: new Configuration({ withCredentials: true, accessToken: ''})},
         OAuthService
-       ]
-     });
+      ]
+    });
     oauth = TestBed.get(OAuthService);
-     spyOn(oauth, 'configure').and.returnValue(true);
-     spyOn(oauth, 'setupAutomaticSilentRefresh').and.returnValue(true);
-     spyOn(oauth, 'loadDiscoveryDocumentAndTryLogin').and.returnValue(true);
+    spyOn(oauth, 'configure').and.returnValue(true);
+    spyOn(oauth, 'setupAutomaticSilentRefresh').and.returnValue(true);
+    spyOn(oauth, 'loadDiscoveryDocumentAndTryLogin').and.returnValue(true);
   });
 
   it('should be created', inject([AuthService], (service: AuthService) => {
@@ -63,6 +61,15 @@ describe('AuthService', () => {
     inject([AuthService], (service: AuthService) => {
       spyOnProperty(service, 'loggedIn').and.returnValue(true);
       spyOnProperty(service, 'identityClaims').and.returnValue({user_roles: []});
+      const rvl = service.roleMatch(fakeRoles);
+      expect(rvl).toEqual(false);
+    }
+  ));
+
+  it('should fail role match given user isnt logged in',
+    inject([AuthService], (service: AuthService) => {
+      spyOnProperty(service, 'loggedIn').and.returnValue(false);
+      spyOnProperty(service, 'identityClaims').and.returnValue({user_roles: fakeRoles});
       const rvl = service.roleMatch(fakeRoles);
       expect(rvl).toEqual(false);
     }

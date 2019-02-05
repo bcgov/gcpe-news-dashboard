@@ -5,7 +5,6 @@ import {
   ActivatedRouteSnapshot
 } from '@angular/router';
 import { AuthService } from '../services/auth.service';
-import decode from 'jwt-decode';
 import { AlertsService } from '../services/alerts.service';
 
 @Injectable({
