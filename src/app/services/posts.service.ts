@@ -18,14 +18,14 @@ import { CustomHttpUrlEncodingCodec }                        from '../encoder';
 
 import { Observable }                                        from 'rxjs';
 
-import { SocialMediaPost } from '../view-models/socialMediaPost';
+import { Post } from '../view-models/post';
 
 import { BASE_PATH, COLLECTION_FORMATS }                     from '../variables';
 import { Configuration }                                     from '../configuration';
 
 
 @Injectable()
-export class SocialMediaPostsService {
+export class PostsService {
 
     protected basePath = 'https://localhost';
     public defaultHeaders = new HttpHeaders();
@@ -59,14 +59,14 @@ export class SocialMediaPostsService {
     /**
      * 
      * 
-     * @param socialMediaPost 
+     * @param post 
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public addSocialMediaPost(socialMediaPost?: SocialMediaPost, observe?: 'body', reportProgress?: boolean): Observable<SocialMediaPost>;
-    public addSocialMediaPost(socialMediaPost?: SocialMediaPost, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<SocialMediaPost>>;
-    public addSocialMediaPost(socialMediaPost?: SocialMediaPost, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<SocialMediaPost>>;
-    public addSocialMediaPost(socialMediaPost?: SocialMediaPost, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+    public addPost(post?: Post, observe?: 'body', reportProgress?: boolean): Observable<Post>;
+    public addPost(post?: Post, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<Post>>;
+    public addPost(post?: Post, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<Post>>;
+    public addPost(post?: Post, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
 
 
         let headers = this.defaultHeaders;
@@ -100,8 +100,8 @@ export class SocialMediaPostsService {
             headers = headers.set('Content-Type', httpContentTypeSelected);
         }
 
-        return this.httpClient.post<SocialMediaPost>(`${this.basePath}/api/SocialMediaPosts`,
-            socialMediaPost,
+        return this.httpClient.post<Post>(`${this.basePath}/api/Posts`,
+            post,
             {
                 withCredentials: this.configuration.withCredentials,
                 headers: headers,
@@ -114,101 +114,24 @@ export class SocialMediaPostsService {
     /**
      * 
      * 
-     * @param id 
+     * @param pageNumber 
+     * @param pageSize 
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public deleteSocialMediaPost(id: string, observe?: 'body', reportProgress?: boolean): Observable<any>;
-    public deleteSocialMediaPost(id: string, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<any>>;
-    public deleteSocialMediaPost(id: string, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<any>>;
-    public deleteSocialMediaPost(id: string, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+    public getAllPosts(pageNumber?: number, pageSize?: number, observe?: 'body', reportProgress?: boolean): Observable<Array<Post>>;
+    public getAllPosts(pageNumber?: number, pageSize?: number, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<Array<Post>>>;
+    public getAllPosts(pageNumber?: number, pageSize?: number, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<Array<Post>>>;
+    public getAllPosts(pageNumber?: number, pageSize?: number, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
 
-        if (id === null || id === undefined) {
-            throw new Error('Required parameter id was null or undefined when calling deleteSocialMediaPost.');
+
+
+        let queryParameters = new HttpParams({encoder: new CustomHttpUrlEncodingCodec()});
+        if (pageNumber !== undefined && pageNumber !== null) {
+            queryParameters = queryParameters.set('PageNumber', <any>pageNumber);
         }
-
-        let headers = this.defaultHeaders;
-
-        // authentication (oauth2) required
-        if (this.configuration.accessToken) {
-            const accessToken = typeof this.configuration.accessToken === 'function'
-                ? this.configuration.accessToken()
-                : this.configuration.accessToken;
-            headers = headers.set('Authorization', 'Bearer ' + accessToken);
-        }
-
-        // to determine the Accept header
-        let httpHeaderAccepts: string[] = [
-            'application/json'
-        ];
-        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
-        if (httpHeaderAcceptSelected != undefined) {
-            headers = headers.set('Accept', httpHeaderAcceptSelected);
-        }
-
-        // to determine the Content-Type header
-        const consumes: string[] = [
-        ];
-
-        return this.httpClient.delete<any>(`${this.basePath}/api/SocialMediaPosts/${encodeURIComponent(String(id))}`,
-            {
-                withCredentials: this.configuration.withCredentials,
-                headers: headers,
-                observe: observe,
-                reportProgress: reportProgress
-            }
-        );
-    }
-
-    /**
-     * 
-     * 
-     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
-     * @param reportProgress flag to report request and response progress.
-     */
-    public getAllSocialMediaPosts(observe?: 'body', reportProgress?: boolean): Observable<Array<SocialMediaPost>>;
-    public getAllSocialMediaPosts(observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<Array<SocialMediaPost>>>;
-    public getAllSocialMediaPosts(observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<Array<SocialMediaPost>>>;
-    public getAllSocialMediaPosts(observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
-
-        let headers = this.defaultHeaders;
-
-        // to determine the Accept header
-        let httpHeaderAccepts: string[] = [
-        ];
-        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
-        if (httpHeaderAcceptSelected != undefined) {
-            headers = headers.set('Accept', httpHeaderAcceptSelected);
-        }
-
-        // to determine the Content-Type header
-        const consumes: string[] = [
-        ];
-
-        return this.httpClient.get<Array<SocialMediaPost>>(`${this.basePath}/api/SocialMediaPosts`,
-            {
-                withCredentials: this.configuration.withCredentials,
-                headers: headers,
-                observe: observe,
-                reportProgress: reportProgress
-            }
-        );
-    }
-
-    /**
-     * 
-     * 
-     * @param id 
-     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
-     * @param reportProgress flag to report request and response progress.
-     */
-    public getSocialMediaPost(id: string, observe?: 'body', reportProgress?: boolean): Observable<SocialMediaPost>;
-    public getSocialMediaPost(id: string, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<SocialMediaPost>>;
-    public getSocialMediaPost(id: string, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<SocialMediaPost>>;
-    public getSocialMediaPost(id: string, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
-
-        if (id === null || id === undefined) {
-            throw new Error('Required parameter id was null or undefined when calling getSocialMediaPost.');
+        if (pageSize !== undefined && pageSize !== null) {
+            queryParameters = queryParameters.set('PageSize', <any>pageSize);
         }
 
         let headers = this.defaultHeaders;
@@ -225,7 +148,48 @@ export class SocialMediaPostsService {
         const consumes: string[] = [
         ];
 
-        return this.httpClient.get<SocialMediaPost>(`${this.basePath}/api/SocialMediaPosts/${encodeURIComponent(String(id))}`,
+        return this.httpClient.get<Array<Post>>(`${this.basePath}/api/Posts`,
+            {
+                params: queryParameters,
+                withCredentials: this.configuration.withCredentials,
+                headers: headers,
+                observe: observe,
+                reportProgress: reportProgress
+            }
+        );
+    }
+
+    /**
+     * 
+     * 
+     * @param numDays 
+     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+     * @param reportProgress flag to report request and response progress.
+     */
+    public getLatestPosts(numDays: number, observe?: 'body', reportProgress?: boolean): Observable<Array<Post>>;
+    public getLatestPosts(numDays: number, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<Array<Post>>>;
+    public getLatestPosts(numDays: number, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<Array<Post>>>;
+    public getLatestPosts(numDays: number, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+
+        if (numDays === null || numDays === undefined) {
+            throw new Error('Required parameter numDays was null or undefined when calling getLatestPosts.');
+        }
+
+        let headers = this.defaultHeaders;
+
+        // to determine the Accept header
+        let httpHeaderAccepts: string[] = [
+        ];
+        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+        if (httpHeaderAcceptSelected != undefined) {
+            headers = headers.set('Accept', httpHeaderAcceptSelected);
+        }
+
+        // to determine the Content-Type header
+        const consumes: string[] = [
+        ];
+
+        return this.httpClient.get<Array<Post>>(`${this.basePath}/api/Posts/Latest/${encodeURIComponent(String(numDays))}`,
             {
                 withCredentials: this.configuration.withCredentials,
                 headers: headers,
@@ -238,18 +202,58 @@ export class SocialMediaPostsService {
     /**
      * 
      * 
-     * @param id 
-     * @param socialMediaPost 
+     * @param key 
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public updateSocialMediaPost(id: string, socialMediaPost?: SocialMediaPost, observe?: 'body', reportProgress?: boolean): Observable<SocialMediaPost>;
-    public updateSocialMediaPost(id: string, socialMediaPost?: SocialMediaPost, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<SocialMediaPost>>;
-    public updateSocialMediaPost(id: string, socialMediaPost?: SocialMediaPost, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<SocialMediaPost>>;
-    public updateSocialMediaPost(id: string, socialMediaPost?: SocialMediaPost, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+    public getPost(key: string, observe?: 'body', reportProgress?: boolean): Observable<Post>;
+    public getPost(key: string, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<Post>>;
+    public getPost(key: string, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<Post>>;
+    public getPost(key: string, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
 
-        if (id === null || id === undefined) {
-            throw new Error('Required parameter id was null or undefined when calling updateSocialMediaPost.');
+        if (key === null || key === undefined) {
+            throw new Error('Required parameter key was null or undefined when calling getPost.');
+        }
+
+        let headers = this.defaultHeaders;
+
+        // to determine the Accept header
+        let httpHeaderAccepts: string[] = [
+        ];
+        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+        if (httpHeaderAcceptSelected != undefined) {
+            headers = headers.set('Accept', httpHeaderAcceptSelected);
+        }
+
+        // to determine the Content-Type header
+        const consumes: string[] = [
+        ];
+
+        return this.httpClient.get<Post>(`${this.basePath}/api/Posts/${encodeURIComponent(String(key))}`,
+            {
+                withCredentials: this.configuration.withCredentials,
+                headers: headers,
+                observe: observe,
+                reportProgress: reportProgress
+            }
+        );
+    }
+
+    /**
+     * 
+     * 
+     * @param key 
+     * @param post 
+     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+     * @param reportProgress flag to report request and response progress.
+     */
+    public updatePost(key: string, post?: Post, observe?: 'body', reportProgress?: boolean): Observable<Post>;
+    public updatePost(key: string, post?: Post, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<Post>>;
+    public updatePost(key: string, post?: Post, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<Post>>;
+    public updatePost(key: string, post?: Post, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+
+        if (key === null || key === undefined) {
+            throw new Error('Required parameter key was null or undefined when calling updatePost.');
         }
 
 
@@ -283,8 +287,8 @@ export class SocialMediaPostsService {
             headers = headers.set('Content-Type', httpContentTypeSelected);
         }
 
-        return this.httpClient.put<SocialMediaPost>(`${this.basePath}/api/SocialMediaPosts/${encodeURIComponent(String(id))}`,
-            socialMediaPost,
+        return this.httpClient.put<Post>(`${this.basePath}/api/Posts/${encodeURIComponent(String(key))}`,
+            post,
             {
                 withCredentials: this.configuration.withCredentials,
                 headers: headers,

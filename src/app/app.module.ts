@@ -13,7 +13,6 @@ import { FooterComponent } from './core/footer/footer.component';
 import { ActivityForecastListComponent } from './activities/activity-list/activity-forecast-list.component';
 import { ActivityListResolver } from './_resolvers/activity-list.resolver';
 import { PostListResolver } from './_resolvers/post-list.resolver';
-import { ApiService } from './services/api.service';
 import { AuthService } from './services/auth.service';
 import { MessagesService } from './services/messages.service';
 import { ThemesOfWeekComponent } from './themes/themes-of-week/themes-of-week.component';
@@ -44,6 +43,8 @@ import { SocialMediaPostComponent } from './social-media/social-media-post/socia
 import { AlertComponent } from './core/alert/alert.component';
 import { ApiModule, getApiConfig } from './api.module';
 import { RoleGuard } from './_guards/role.guard';
+import { ActivitiesService } from './services/activities.service';
+import { PostsService } from './services/posts.service';
 
 const appInitializerFn = (appConfig: AppConfigService) => {
   return () => {
@@ -94,9 +95,10 @@ const appInitializerFn = (appConfig: AppConfigService) => {
         multi: true,
         deps: [AppConfigService]
     },
-    ApiService,
     MessagesService,
     SocialMediaPostsService,
+    ActivitiesService,
+    PostsService,
     AuthService,
     ActivityListResolver,
     MessagesService,

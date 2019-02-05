@@ -11,7 +11,7 @@
  */
 
 
-export interface SocialMediaPost {
+export interface SocialMediaPost { 
     id?: string;
     url: string;
     sortOrder?: number;

@@ -11,7 +11,7 @@
  */
 
 
-export interface Activity {
+export interface Activity { 
     id?: number;
     startDateTime?: Date;
     endDateTime?: Date;

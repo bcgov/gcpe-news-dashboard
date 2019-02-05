@@ -1,6 +1,5 @@
 import { ComponentFixture, async, TestBed } from '@angular/core/testing';
 import { SocialMediaPostListComponent } from './social-media-post-list.component';
-import { ApiService } from '../../services/api.service';
 import { SocialMediaPostsService } from '../../services/socialMediaPosts.service';
 import { RouterModule } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
@@ -41,7 +40,6 @@ describe('SocialMediaPostListComponent', () => {
         HasRoleDirective
       ],
       providers: [
-        ApiService,
         SocialMediaPostsService,
         { provide: BASE_PATH, useValue: environment.apiUrl },
         { provide: ActivatedRoute, useClass: MockActivatedRoute },
