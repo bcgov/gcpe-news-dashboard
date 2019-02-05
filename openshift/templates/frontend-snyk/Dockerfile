@@ -3,7 +3,6 @@ FROM centos/nodejs-8-centos7
 
 ENV PATH="/opt/rh/rh-nodejs8/root/usr/bin/:$PATH"
 
-RUN npm i npm@6.4.1 -g
 RUN npm install -g snyk
 
 # Switch to root for package installs
