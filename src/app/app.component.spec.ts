@@ -13,7 +13,6 @@ import { AlertComponent } from './core/alert/alert.component';
 import { Router, NavigationEnd, NavigationStart } from '@angular/router';
 import { Subject } from 'rxjs';
 import { Configuration } from './configuration';
-import { AuthService } from './services/auth.service';
 
 class MockRouterService {
   private subject = new Subject();
@@ -30,7 +29,7 @@ class MockRouterService {
   }
 }
 
-fdescribe('AppComponent', () => {
+describe('AppComponent', () => {
   let component: AppComponent;
   let fixture: ComponentFixture<AppComponent>;
 
@@ -54,6 +53,7 @@ fdescribe('AppComponent', () => {
         OAuthService,
         UrlHelperService,
         OAuthLogger,
+        { provide: Configuration, useValue: new Configuration({ withCredentials: true, accessToken: ''})},
         { provide: Router, useValue: mockRouterService },
         { provide: 'BASE_API_URL', useValue: environment.apiUrl }
       ],
@@ -77,7 +77,6 @@ fdescribe('AppComponent', () => {
 
   it('should show loading spinner while navigating', () => {
     let router = TestBed.get(Router);
-
     expect(component.isLoading).toBeTruthy();
     router.triggerNavStart('http://localhost/test');
     expect(component.isLoading).toBeTruthy();

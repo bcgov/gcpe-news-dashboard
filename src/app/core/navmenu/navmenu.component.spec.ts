@@ -10,6 +10,8 @@ import { NgbDropdownModule } from '@ng-bootstrap/ng-bootstrap';
 import { NgbCollapseModule } from '@ng-bootstrap/ng-bootstrap';
 import { OAuthService, UrlHelperService, OAuthLogger } from 'angular-oauth2-oidc';
 import { HasRoleDirective } from 'src/app/_directives/hasRole.directive';
+import { AuthService } from 'src/app/services/auth.service';
+import { Configuration } from 'src/app/configuration';
 
 describe('NavmenuComponent', () => {
   let component: NavMenuComponent;
@@ -33,7 +35,9 @@ describe('NavmenuComponent', () => {
       providers: [
         OAuthService,
         UrlHelperService,
-        OAuthLogger
+        OAuthLogger,
+        AuthService,
+        { provide: Configuration, useValue: new Configuration({ withCredentials: true, accessToken: ''})},
       ],
     })
     .compileComponents();
