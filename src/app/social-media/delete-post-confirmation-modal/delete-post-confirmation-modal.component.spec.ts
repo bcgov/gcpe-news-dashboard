@@ -26,8 +26,7 @@ describe('DeletePostConfirmationModalComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(DeletePostConfirmationModalComponent);
     component = fixture.componentInstance;
-    // this isnt being found and this test doesn't do anything
-    // component.postExt = FakeSocialMediaPostsData(1)[0];
+    component.postExt = FakeSocialMediaPostsData(1)[0];
     fixture.detectChanges();
   });
 
