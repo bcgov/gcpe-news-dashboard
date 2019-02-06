@@ -1,18 +1,17 @@
 import { TestBed, async, ComponentFixture } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
-import { AppComponent } from './app.component';
-import { NavMenuComponent } from './core/navmenu/navmenu.component';
-import { NgbDropdownModule } from '@ng-bootstrap/ng-bootstrap';
-import { NgbCollapseModule } from '@ng-bootstrap/ng-bootstrap';
-import { FooterComponent } from './core/footer/footer.component';
-import { OAuthService, UrlHelperService, OAuthLogger } from 'angular-oauth2-oidc';
 import { HttpClientModule } from '@angular/common/http';
-import { environment } from '../environments/environment';
-import { HasRoleDirective } from './_directives/hasRole.directive';
-import { AlertComponent } from './core/alert/alert.component';
 import { Router, NavigationEnd, NavigationStart } from '@angular/router';
+import { NavMenuComponent } from './core/navmenu/navmenu.component';
+import { NgbDropdownModule, NgbCollapseModule } from '@ng-bootstrap/ng-bootstrap';
+import { OAuthService, UrlHelperService, OAuthLogger } from 'angular-oauth2-oidc';
 import { Subject } from 'rxjs';
+import { AppComponent } from './app.component';
+import { AlertComponent } from './core/alert/alert.component';
 import { Configuration } from './configuration';
+import { environment } from '../environments/environment';
+import { FooterComponent } from './core/footer/footer.component';
+import { HasRoleDirective } from './_directives/hasRole.directive';
 
 class MockRouterService {
   private subject = new Subject();

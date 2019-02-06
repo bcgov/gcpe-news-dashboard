@@ -54,66 +54,71 @@ const appInitializerFn = (appConfig: AppConfigService) => {
 
 @NgModule({
   declarations: [
-    AppComponent,
-    NavMenuComponent,
-    PostListComponent,
-    FooterComponent,
+    // Components
     ActivityForecastListComponent,
+    AddSocialMediaPostModalComponent,
+    AlertComponent,
+    AppComponent,
+    DeletePostConfirmationModalComponent,
+    FooterComponent,
+    HqDashboardSubMenuComponent,
     ThemesOfWeekComponent,
     ThemeListComponent,
-    HqDashboardSubMenuComponent,
     ThemeSubMenuComponent,
     ThemeCardComponent,
     ThemeFormComponent,
+    NavMenuComponent,
+    PostListComponent,
+    SocialMediaInputComponent,
+    SocialMediaPostListComponent,
+    SocialMediaPostComponent,
+    // Directives
     AutosizeDirective,
     ClickPreventDefaultDirective,
-    TimeAgoPipe,
-    DeletePostConfirmationModalComponent,
-    SocialMediaPostListComponent,
-    SocialMediaInputComponent,
-    AddSocialMediaPostModalComponent,
     HasRoleDirective,
-    PluralizeKindPipe,
-    SocialMediaPostComponent,
-    AlertComponent
+    // Pipes
+    TimeAgoPipe,
+    PluralizeKindPipe
   ],
   imports: [
+    AppRoutingModule,
+    ApiModule.forRoot(getApiConfig),
     BrowserModule,
+    FormsModule,
     HttpClientModule,
     NgbModule.forRoot(),
-    OAuthModule.forRoot(),
-    AppRoutingModule,
-    FormsModule,
     ReactiveFormsModule,
-    ApiModule.forRoot(getApiConfig)
+    OAuthModule.forRoot()
   ],
   providers: [
     AppConfigService,
     {
-        provide: APP_INITIALIZER,
-        useFactory: appInitializerFn,
-        multi: true,
-        deps: [AppConfigService]
+      provide: APP_INITIALIZER,
+      useFactory: appInitializerFn,
+      multi: true,
+      deps: [AppConfigService]
     },
+    // Services
+    ActivitiesService,
+    AuthService,
     MessagesService,
     SocialMediaPostsService,
-    ActivitiesService,
     PostsService,
-    AuthService,
+    SocialMediaRenderService,
+    // Resolvers
     ActivityListResolver,
-    MessagesService,
     PostListResolver,
     MessageListResolver,
     SociaMediaTypeListResolver,
     MessageResolver,
     SociaMediaPostListResolver,
+    // Guards
     AuthGuard,
-    SocialMediaRenderService,
     RoleGuard
   ],
   entryComponents: [
-    DeletePostConfirmationModalComponent,
-    AddSocialMediaPostModalComponent
+    AddSocialMediaPostModalComponent,
+    DeletePostConfirmationModalComponent
   ],
   bootstrap: [AppComponent]
 })

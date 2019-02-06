@@ -57,7 +57,7 @@ describe('AuthService', () => {
     }
   ));
 
-  it('should fail role match given user doesnt have role',
+  it('should fail role match given user does not have role',
     inject([AuthService], (service: AuthService) => {
       spyOnProperty(service, 'loggedIn').and.returnValue(true);
       spyOnProperty(service, 'identityClaims').and.returnValue({user_roles: []});
@@ -66,7 +66,7 @@ describe('AuthService', () => {
     }
   ));
 
-  it('should fail role match given user isnt logged in',
+  it('should fail role match given user is not logged in',
     inject([AuthService], (service: AuthService) => {
       spyOnProperty(service, 'loggedIn').and.returnValue(false);
       spyOnProperty(service, 'identityClaims').and.returnValue({user_roles: fakeRoles});
