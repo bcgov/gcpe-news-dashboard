@@ -12,7 +12,7 @@
 # AdditionalRealIpFromRules=
 # IpFilterRules=
 APPLICATION_DOMAIN=news-dashboard-ntu9uh-prod.pathfinder.gov.bc.ca
-NEWS_URL=https://dev.news.gov.bc.ca
+NEWS_URL=https://news.gov.bc.ca
 TAG_NAME=prod
 # HTTP_BASIC=
 # HTTP_BASIC_USERNAME=
