@@ -8,7 +8,7 @@
 # REAL_IP_FROM=172.51.0.0/16
 # API_URL=https://hub-api-ntu9uh-dev.pathfinder.gov.bc.ca/api/
 # API_SERVICE_NAME=hub-api
-# API_PATH=/api/
+# API_PATH=/api
 # AdditionalRealIpFromRules=
 # IpFilterRules=
 APPLICATION_DOMAIN=news-dashboard-ntu9uh-dev.pathfinder.gov.bc.ca
