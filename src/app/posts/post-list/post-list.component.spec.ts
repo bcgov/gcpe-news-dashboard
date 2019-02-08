@@ -12,7 +12,7 @@ import { PluralizeKindPipe } from 'src/app/_pipes/pluralize-kind.pipe';
 import { AppConfigService } from 'src/app/app-config.service';
 import { AlertsService } from 'src/app/services/alerts.service';
 import { of } from 'rxjs';
-import { mockAuth } from 'src/app/mockAuth';
+import { mockAuth } from 'src/app/test-helpers/mock-auth';
 
 describe('PostListComponent', () => {
   let component: PostListComponent;

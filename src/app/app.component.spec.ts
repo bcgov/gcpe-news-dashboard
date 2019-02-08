@@ -4,7 +4,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { Router, NavigationEnd, NavigationStart } from '@angular/router';
 import { NavMenuComponent } from './core/navmenu/navmenu.component';
 import { NgbDropdownModule, NgbCollapseModule } from '@ng-bootstrap/ng-bootstrap';
-import { OAuthService, UrlHelperService, OAuthLogger } from 'angular-oauth2-oidc';
+import { UrlHelperService } from 'angular-oauth2-oidc';
 import { Subject } from 'rxjs';
 import { AppComponent } from './app.component';
 import { AlertComponent } from './core/alert/alert.component';
@@ -13,7 +13,7 @@ import { environment } from '../environments/environment';
 import { FooterComponent } from './core/footer/footer.component';
 import { HasRoleDirective } from './_directives/hasRole.directive';
 import { AuthService } from './services/auth.service';
-import { mockAuth } from './mockAuth';
+import { mockAuth } from './test-helpers/mock-auth';
 
 class MockRouterService {
   private subject = new Subject();

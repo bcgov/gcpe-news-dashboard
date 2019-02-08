@@ -11,7 +11,7 @@ import { AuthService } from 'src/app/services/auth.service';
 import { AlertComponent } from 'src/app/core/alert/alert.component';
 import { of } from 'rxjs';
 import { AlertsService } from 'src/app/services/alerts.service';
-import { mockAuth } from 'src/app/mockAuth';
+import { mockAuth } from 'src/app/test-helpers/mock-auth';
 
 describe('ActivityForecastListComponent', () => {
   let component: ActivityForecastListComponent;

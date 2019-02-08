@@ -3,7 +3,7 @@ import { HasRoleDirective } from './hasRole.directive';
 import { ViewContainerRef, Component, TemplateRef } from '@angular/core';
 import { AuthService } from '../services/auth.service';
 import { By } from '@angular/platform-browser';
-import { mockAuth } from '../mockAuth';
+import { mockAuth } from '../test-helpers/mock-auth';
 
 @Component({template: ''})
 class TestAdminDiv {}

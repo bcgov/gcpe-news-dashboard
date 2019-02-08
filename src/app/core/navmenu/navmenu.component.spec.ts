@@ -12,7 +12,7 @@ import { UrlHelperService } from 'angular-oauth2-oidc';
 import { HasRoleDirective } from 'src/app/_directives/hasRole.directive';
 import { AuthService } from 'src/app/services/auth.service';
 import { Configuration } from 'src/app/configuration';
-import { mockAuth } from 'src/app/mockAuth';
+import { mockAuth } from 'src/app/test-helpers/mock-auth';
 
 describe('NavmenuComponent', () => {
   let component: NavMenuComponent;

@@ -3,12 +3,7 @@ import { AuthService } from '../services/auth.service';
 import { TestBed, inject } from '@angular/core/testing';
 import { Configuration } from '../configuration';
 import { AlertsService } from '../services/alerts.service';
-
-class mockAuth {
-    get loggedIn() {
-        return null;
-    }
-}
+import { mockAuth } from '../test-helpers/mock-auth';
 
 describe('AuthGuard', () => {
   let auth: any;
