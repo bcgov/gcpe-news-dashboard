@@ -5,6 +5,10 @@
   border: none;
 }
 
+#social-media-list {
+  padding-top: 30px;
+}
+
 .card-columns {
     @include media-breakpoint-only(xxxl) {
       column-count: 5;

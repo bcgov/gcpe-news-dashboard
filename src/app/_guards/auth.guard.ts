@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
-import { CanActivate, Router } from '@angular/router';
+import { CanActivate } from '@angular/router';
 import { AuthService } from '../services/auth.service';
+import { AlertsService } from '../services/alerts.service';
 
 @Injectable({
     providedIn: 'root'
@@ -8,14 +9,12 @@ import { AuthService } from '../services/auth.service';
 export class AuthGuard implements CanActivate {
     constructor(
         private authService: AuthService,
-        private router: Router) {}
+        private alerts: AlertsService) {}
 
     canActivate(): boolean {
-        if (this.authService.loggedIn()) {
-            return true;
+        if (!this.authService.loggedIn) {
+            this.alerts.showError('Access Denied - Must be logged in');
         }
-
-        this.router.navigate(['last-7-day-post-list']);
-        return false;
+        return this.authService.loggedIn;
     }
 }

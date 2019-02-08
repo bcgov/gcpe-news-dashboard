@@ -17,12 +17,6 @@ header .nav-item {
     padding-left: 20px;
 }
 
-.navbar .full-width {
-    @include media-breakpoint-up(lg) {
-        padding: 0 44px 0 36px;
-    }
-}
-
 .navbar-brand.title {
     display: flex;
     align-items: center;

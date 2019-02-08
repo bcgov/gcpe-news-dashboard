@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Message } from '../../view-models/message';
 import { Router, ActivatedRoute } from '@angular/router';
-import { ApiService } from '../../services/api.service';
 import { AlertsService } from 'src/app/services/alerts.service';
 
 @Component({
@@ -14,7 +13,7 @@ export class ThemesOfWeekComponent implements OnInit {
   themes: Message[];
   highlightedTheme: Message;
 
-  constructor(private router: Router, private  apiService:  ApiService, private route: ActivatedRoute, private alerts: AlertsService) { }
+  constructor(private router: Router, private route: ActivatedRoute, private alerts: AlertsService) { }
 
   ngOnInit() {
     this.route.data.subscribe(data => {

@@ -11,7 +11,7 @@
  */
 
 
-export interface DocumentContact {
+export interface DocumentContact { 
     title?: string;
     details?: string;
 }

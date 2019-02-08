@@ -12,7 +12,7 @@
 import { DocumentContact } from './documentContact';
 
 
-export interface Document {
+export interface Document { 
     pageTitle?: string;
     languageId?: number;
     headline?: string;

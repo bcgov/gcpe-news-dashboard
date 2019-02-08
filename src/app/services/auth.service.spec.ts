@@ -1,60 +1,81 @@
 import { AuthService } from './auth.service';
 import { TestBed, inject } from '@angular/core/testing';
-import { OAuthService } from 'angular-oauth2-oidc';
+import { OAuthService, UrlHelperService, OAuthLogger } from 'angular-oauth2-oidc';
+import { Configuration } from '../configuration';
+import { HttpClient, HttpHandler } from '@angular/common/http';
 
 describe('AuthService', () => {
-  const fakeToken = {};
-  const fakeRoles = ['Administrators'];
-  const fakeRoleWithoutUsers = ['Foo'];
+  const fakeRoles = ['Administrators', 'Contributors'];
+  let oauth: any;
+  let getIdentityClaimsSpy: any;
 
   beforeEach(() => {
-     TestBed.configureTestingModule({
-       providers: [
+    TestBed.configureTestingModule({
+      providers: [
+        HttpClient,
+        HttpHandler,
+        UrlHelperService,
+        OAuthLogger,
         AuthService,
-        {provide: OAuthService, useValue: {
-          getIdentityClaims: () => fakeRoles
-        }}
-       ]
-     });
+        { provide: Configuration, useValue: new Configuration({ withCredentials: true, accessToken: ''})},
+        OAuthService
+      ]
+    });
+    oauth = TestBed.get(OAuthService);
+    spyOn(oauth, 'configure').and.returnValue(true);
+    spyOn(oauth, 'setupAutomaticSilentRefresh').and.returnValue(true);
+    spyOn(oauth, 'loadDiscoveryDocumentAndTryLogin').and.returnValue(true);
+    getIdentityClaimsSpy = spyOn(oauth, 'getIdentityClaims').and.returnValue({user_roles: []});
   });
 
   it('should be created', inject([AuthService], (service: AuthService) => {
     expect(service).toBeTruthy();
   }));
 
-  it('should return true given a valid auth token',
+  it('should be logged in given a valid auth token',
     inject([AuthService], (service: AuthService) => {
-    const spy = spyOn(service, 'loggedIn').and.returnValue(!!fakeToken);
-    const rvl = service.loggedIn();
-    expect(spy).toHaveBeenCalled();
-    expect(rvl).toEqual(true);
-  }));
+      const spy = spyOn(oauth, 'hasValidAccessToken').and.returnValue(true);
+      const rvl = service.loggedIn;
+      expect(spy).toHaveBeenCalled();
+      expect(rvl).toEqual(true);
+    }
+  ));
 
-  it('should return false given a null or invalid token',
+  it('should be logged out given a null or invalid token',
     inject([AuthService], (service: AuthService) => {
-    const spy = spyOn(service, 'loggedIn').and.returnValue(!!null);
-    const rvl = service.loggedIn();
-    expect(spy).toHaveBeenCalled();
-    expect(rvl).toEqual(false);
-  }));
+      const spy = spyOn(oauth, 'hasValidAccessToken').and.returnValue(false);
+      const rvl = service.loggedIn;
+      expect(rvl).toEqual(false);
+      expect(spy).toHaveBeenCalled();
+    }
+  ));
 
-  it('should return true given that a user has the required role to access a feature of the app',
+  it('should pass role match given user has role',
     inject([AuthService], (service: AuthService) => {
-    const spy = spyOn(service, 'roleMatch').and.returnValue(true);
-    spyOn(service, 'identityClaims').and.returnValue(fakeRoles);
-    const rvl = service.roleMatch(fakeRoles);
-    expect(spy).toHaveBeenCalled();
-    expect(spy).toHaveBeenCalledWith(fakeRoles);
-    expect(rvl).toEqual(true);
-  }));
+      getIdentityClaimsSpy.and.returnValue({user_roles: ['Administrators']});
+      spyOnProperty(service, 'loggedIn').and.returnValue(true);
+      service.setAuthUser();
+      const rvl = service.roleMatch(fakeRoles);
+      expect(rvl).toEqual(true);
+    }
+  ));
 
-  it('should return false given that a user does not have the required role to access a feature of the app',
+  it('should fail role match given user does not have role',
     inject([AuthService], (service: AuthService) => {
-    const spy = spyOn(service, 'roleMatch').and.returnValue(false);
-    spyOn(service, 'identityClaims').and.returnValue(fakeRoleWithoutUsers);
-    const rvl = service.roleMatch(fakeRoleWithoutUsers);
-    expect(spy).toHaveBeenCalled();
-    expect(spy).toHaveBeenCalledWith(fakeRoleWithoutUsers);
-    expect(rvl).toEqual(false);
-  }));
+      spyOnProperty(service, 'loggedIn').and.returnValue(true);
+      service.setAuthUser();
+      const rvl = service.roleMatch(fakeRoles);
+      expect(rvl).toEqual(false);
+    }
+  ));
+
+  it('should fail role match given user is not logged in',
+    inject([AuthService], (service: AuthService) => {
+      getIdentityClaimsSpy.and.returnValue({user_roles: fakeRoles});
+      spyOnProperty(service, 'loggedIn').and.returnValue(false);
+      service.setAuthUser();
+      const rvl = service.roleMatch(fakeRoles);
+      expect(rvl).toEqual(false);
+    }
+  ));
 });
