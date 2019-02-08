@@ -11,11 +11,13 @@ import { SocialMediaType } from '../../view-models/social-media-type';
 export class HqDashboardSubMenuComponent implements OnInit {
   @Input() socialmediatypes: SocialMediaType[];
   filterBySocialMediaType: string;
+  currentUrl = '';
   submenuOpen = false;
 
   constructor(private router: Router, private activatedRoute: ActivatedRoute) {}
 
   ngOnInit() {
+    this.currentUrl = this.router.url;
     if (this.activatedRoute.queryParams) {
       this.activatedRoute.queryParams.subscribe((queryParams: any) => {
         this.filterBySocialMediaType = queryParams.type || 'All';

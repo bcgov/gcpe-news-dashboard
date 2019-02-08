@@ -7,7 +7,9 @@ const apiConfig = new Configuration({
     accessToken: ''
 });
 
-export const getApiConfig = ()  => apiConfig;
+export function getApiConfig() {
+    return apiConfig;
+}
 
 @NgModule({
   imports:      [],
