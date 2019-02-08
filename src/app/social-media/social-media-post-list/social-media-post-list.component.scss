@@ -7,6 +7,11 @@
 
 #social-media-list {
   padding-top: 30px;
+  @include media-breakpoint-down(md) {
+    margin-left: -20px;
+    margin-right: -20px;
+    text-align: center;
+  }
 }
 
 .card-columns {
