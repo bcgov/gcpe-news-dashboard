@@ -3,7 +3,7 @@
 # Component: .
 # Template File: templates/builder/frontend-master-builder.yaml
 #=========================================================
-BUILDER_IMAGE_NAME=frontend-yarn-builder
+BUILDER_IMAGE_NAME=frontend-npm-master-builder
 GIT_REPO_URL=https://github.com/bcgov/gcpe-news-dashboard.git
 GIT_REF=master
 SOURCE_CONTEXT_DIR=openshift/templates/builder/

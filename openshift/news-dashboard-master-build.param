@@ -4,9 +4,9 @@
 # Template File: templates/frontend/news-dashboard-master-build.yaml
 #=========================================================
 NAME=news-dashboard-master
-BUILDER_IMAGE=frontend-yarn-builder
+BUILDER_IMAGE=frontend-npm-master-builder
 CI_BUILD=true
-RUNTIME_IMAGE=frontend-nginx-runtime
+RUNTIME_IMAGE=frontend-nginx-master-runtime
 GIT_REPO_URL=https://github.com/bcgov/gcpe-news-dashboard.git
 GIT_REF=master
 SOURCE_CONTEXT_DIR=
