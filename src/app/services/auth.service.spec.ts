@@ -7,6 +7,7 @@ import { HttpClient, HttpHandler } from '@angular/common/http';
 describe('AuthService', () => {
   const fakeRoles = ['Administrators', 'Contributors'];
   let oauth: any;
+  let getIdentityClaimsSpy: any;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
@@ -24,6 +25,7 @@ describe('AuthService', () => {
     spyOn(oauth, 'configure').and.returnValue(true);
     spyOn(oauth, 'setupAutomaticSilentRefresh').and.returnValue(true);
     spyOn(oauth, 'loadDiscoveryDocumentAndTryLogin').and.returnValue(true);
+    getIdentityClaimsSpy = spyOn(oauth, 'getIdentityClaims').and.returnValue({user_roles: []});
   });
 
   it('should be created', inject([AuthService], (service: AuthService) => {
@@ -50,8 +52,9 @@ describe('AuthService', () => {
 
   it('should pass role match given user has role',
     inject([AuthService], (service: AuthService) => {
+      getIdentityClaimsSpy.and.returnValue({user_roles: ['Administrators']});
       spyOnProperty(service, 'loggedIn').and.returnValue(true);
-      spyOnProperty(service, 'identityClaims').and.returnValue({user_roles: ['Administrators']});
+      service.setAuthUser();
       const rvl = service.roleMatch(fakeRoles);
       expect(rvl).toEqual(true);
     }
@@ -60,7 +63,7 @@ describe('AuthService', () => {
   it('should fail role match given user does not have role',
     inject([AuthService], (service: AuthService) => {
       spyOnProperty(service, 'loggedIn').and.returnValue(true);
-      spyOnProperty(service, 'identityClaims').and.returnValue({user_roles: []});
+      service.setAuthUser();
       const rvl = service.roleMatch(fakeRoles);
       expect(rvl).toEqual(false);
     }
@@ -68,8 +71,9 @@ describe('AuthService', () => {
 
   it('should fail role match given user is not logged in',
     inject([AuthService], (service: AuthService) => {
+      getIdentityClaimsSpy.and.returnValue({user_roles: fakeRoles});
       spyOnProperty(service, 'loggedIn').and.returnValue(false);
-      spyOnProperty(service, 'identityClaims').and.returnValue({user_roles: fakeRoles});
+      service.setAuthUser();
       const rvl = service.roleMatch(fakeRoles);
       expect(rvl).toEqual(false);
     }

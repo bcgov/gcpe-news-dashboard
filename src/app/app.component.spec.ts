@@ -12,6 +12,8 @@ import { Configuration } from './configuration';
 import { environment } from '../environments/environment';
 import { FooterComponent } from './core/footer/footer.component';
 import { HasRoleDirective } from './_directives/hasRole.directive';
+import { AuthService } from './services/auth.service';
+import { mockAuth } from './mockAuth';
 
 class MockRouterService {
   private subject = new Subject();
@@ -49,12 +51,11 @@ describe('AppComponent', () => {
         AlertComponent
       ],
       providers: [
-        OAuthService,
         UrlHelperService,
-        OAuthLogger,
         { provide: Configuration, useValue: new Configuration({ withCredentials: true, accessToken: ''})},
         { provide: Router, useValue: mockRouterService },
-        { provide: 'BASE_API_URL', useValue: environment.apiUrl }
+        { provide: 'BASE_API_URL', useValue: environment.apiUrl },
+        { provide: AuthService, useClass: mockAuth }
       ],
     }).compileComponents();
   }));

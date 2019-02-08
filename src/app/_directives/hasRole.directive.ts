@@ -6,6 +6,7 @@ import { AuthService } from '../services/auth.service';
 })
 export class HasRoleDirective implements OnInit {
   @Input() appHasRole: string[];
+  isVisible = false;
 
   constructor(
     private viewContainerRef: ViewContainerRef,
@@ -13,10 +14,14 @@ export class HasRoleDirective implements OnInit {
     private authService: AuthService) {}
 
   ngOnInit() {
-    if (this.authService.roleMatch(this.appHasRole)) {
-      this.viewContainerRef.createEmbeddedView(this.templateRef);
-    } else {
-      this.viewContainerRef.clear();
-    }
+    this.authService.currentUser.subscribe((user) => {
+      if(this.authService.roleMatch(this.appHasRole) && !this.isVisible) {
+        this.viewContainerRef.createEmbeddedView(this.templateRef);
+        this.isVisible = true;
+      } else if (!this.authService.roleMatch(this.appHasRole) && this.isVisible){
+        this.viewContainerRef.clear();
+        this.isVisible = false
+      }
+    });
   }
 }

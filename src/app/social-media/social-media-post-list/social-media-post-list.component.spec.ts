@@ -12,8 +12,8 @@ import { ActivatedRoute } from '@angular/router';
 import { of } from 'rxjs';
 import { HasRoleDirective } from 'src/app/_directives/hasRole.directive';
 import { AuthService } from 'src/app/services/auth.service';
-import { OAuthService } from 'angular-oauth2-oidc';
 import { SocialMediaRenderService } from '../../services/socialMediaRender.service';
+import { mockAuth } from 'src/app/mockAuth';
 
 describe('SocialMediaPostListComponent', () => {
   let component: SocialMediaPostListComponent;
@@ -43,11 +43,8 @@ describe('SocialMediaPostListComponent', () => {
         SocialMediaPostsService,
         { provide: BASE_PATH, useValue: environment.apiUrl },
         { provide: ActivatedRoute, useClass: MockActivatedRoute },
-        AuthService,
         SocialMediaRenderService,
-        { provide: OAuthService, useValue: {
-          getIdentityClaims: () => ['Administrators']
-        }}
+        { provide: AuthService, useClass: mockAuth }
       ]
     })
     .compileComponents();

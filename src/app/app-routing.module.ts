@@ -25,18 +25,30 @@ const appRoutes: Routes = [
   {
     path: 'next-7-day-activity-list',
     component: ActivityForecastListComponent,
-    resolve: { activities: ActivityListResolver }
+    resolve: { activities: ActivityListResolver },
+    canActivate: [AuthGuard, RoleGuard],
+    data: {
+      roles: ['Viewers', 'Administrators', 'Contributors']
+    }
   },
   {
     path: 'themes-of-the-week',
     runGuardsAndResolvers: 'always',
     component: ThemesOfWeekComponent,
-    resolve: { themes: MessageListResolver }
+    resolve: { themes: MessageListResolver },
+    canActivate: [AuthGuard, RoleGuard],
+    data: {
+      roles: ['Viewers', 'Administrators', 'Contributors']
+    }
   },
   {
     path: 'social-media-list',
     component: SocialMediaPostListComponent,
     resolve: { socialmedia: SociaMediaPostListResolver, socialmediatype: SociaMediaTypeListResolver },
+    canActivate: [AuthGuard, RoleGuard],
+    data: {
+      roles: ['Viewers', 'Administrators', 'Contributors']
+    },
     runGuardsAndResolvers: 'always'
   },
   {

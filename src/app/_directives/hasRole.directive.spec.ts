@@ -3,16 +3,11 @@ import { HasRoleDirective } from './hasRole.directive';
 import { ViewContainerRef, Component, TemplateRef } from '@angular/core';
 import { AuthService } from '../services/auth.service';
 import { By } from '@angular/platform-browser';
+import { mockAuth } from '../mockAuth';
 
 @Component({template: ''})
 class TestAdminDiv {}
 
-class mockAuth {
-  get loggedIn() {
-      return null;
-  }
-  roleMatch(roles) {}
-}
 
 describe('Directive: HasRole', () => {
   beforeEach(async() => {

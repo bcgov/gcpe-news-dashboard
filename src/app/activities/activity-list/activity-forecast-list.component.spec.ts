@@ -8,10 +8,10 @@ import { HttpClientModule } from '@angular/common/http';
 import { BASE_PATH } from '../../variables';
 import { HasRoleDirective } from 'src/app/_directives/hasRole.directive';
 import { AuthService } from 'src/app/services/auth.service';
-import { OAuthService } from 'angular-oauth2-oidc';
 import { AlertComponent } from 'src/app/core/alert/alert.component';
 import { of } from 'rxjs';
 import { AlertsService } from 'src/app/services/alerts.service';
+import { mockAuth } from 'src/app/mockAuth';
 
 describe('ActivityForecastListComponent', () => {
   let component: ActivityForecastListComponent;
@@ -34,10 +34,7 @@ describe('ActivityForecastListComponent', () => {
         AlertsService,
         AlertComponent,
         { provide: BASE_PATH, useValue: environment.apiUrl },
-        AuthService,
-        {provide: OAuthService, useValue: {
-          getIdentityClaims: () => ['Administrators']
-        }}
+        { provide: AuthService, useClass: mockAuth }
       ],
     })
     .compileComponents();

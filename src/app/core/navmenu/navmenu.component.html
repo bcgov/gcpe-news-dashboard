@@ -14,7 +14,7 @@
         </div>
         <div class="nav-item" *ngIf="isLoggedIn()">
           <div ngbDropdown class="image" placement="bottom-right">
-              <div class="user-image" id="profile-menu" ngbDropdownToggle [ngStyle]="{'background-color': getColor(getFirstLetter())}">{{getFirstLetter()}}</div>
+              <div class="user-image" id="profile-menu" ngbDropdownToggle [ngStyle]="{'background-color': getColor(firstLetter)}">{{firstLetter}}</div>
               
               <div ngbDropdownMenu class="dropdown-menu" aria-labelledby="profile-menu">
                 <ul class="list-inline">
