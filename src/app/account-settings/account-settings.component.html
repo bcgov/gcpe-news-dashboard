@@ -1,25 +1,26 @@
-<div class="row account-settings-container">
-   <div class="col-12">
-        <!-- <h2>Account Settings</h2> -->
-        <form>
-            <!-- <div class="form-group">
-                <label for="userMinistry">My Ministry</label>
-                <input type="text" class="form-control" [(ngModel)]="userMinistry" name="userMinistry" readonly>
-            </div> -->
-            <h3>Ministries I'm Following</h3>
-            <div>
-                <app-checkbox (change)="selectAll()" label="All"></app-checkbox>
-            </div>
-            <hr>
-            <div class="row">
-                <div class="col md-6">
-                    <app-checkbox *ngFor="let ministry of ministries | slice:0:ministriesListMidPoint" [events]="eventsSubject.asObservable()" (checkboxChanged)="handleCheckboxChanged($event)" label="{{ministry.displayName}}"></app-checkbox>
+<app-settings-page>
+    <h2 settings-page-title>Account Settings</h2>
+        <div settings-page-content>
+            <app-settings-group>
+                <div item-group-header>
+                    <h3>My Ministries</h3>
+                    <div>
+                        <app-checkbox (change)="selectAll()" label="All"></app-checkbox>
+                    </div>
                 </div>
-                <div class="col-md-6">
-                    <app-checkbox *ngFor="let ministry of ministries | slice:ministriesListMidPoint" [events]="eventsSubject.asObservable()" (checkboxChanged)="handleCheckboxChanged($event)" label="{{ministry.displayName}}"></app-checkbox>
+                <div item-group-items>
+                    <div class="row">
+                        <div class="col md-6">
+                            <app-checkbox *ngFor="let ministry of ministries | slice:0:ministriesListMidPoint" [events]="eventsSubject.asObservable()" (checkboxChanged)="handleCheckboxChanged($event)" label="{{ministry.displayName}}"></app-checkbox>
+                        </div>
+                        <div class="col-md-6">
+                            <app-checkbox *ngFor="let ministry of ministries | slice:ministriesListMidPoint" [events]="eventsSubject.asObservable()" (checkboxChanged)="handleCheckboxChanged($event)" label="{{ministry.displayName}}"></app-checkbox>
+                        </div>
+                    </div>
                 </div>
-            </div>
-            </form>
-            <button type="button" (click)="updateSettings()" class="btn-update">Update Settings</button>
-    </div>    
-</div>
+            </app-settings-group>
+        </div>
+        <div class="text-center" settings-page-save-button>
+            <button type="button" class="btn-update text-center">Update Settings</button>
+        </div>
+</app-settings-page>

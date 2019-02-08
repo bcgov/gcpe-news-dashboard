@@ -45,6 +45,8 @@ import { AccountSettingsComponent } from './account-settings/account-settings.co
 import { CheckboxComponent } from './core/checkbox/checkbox.component';
 import { AlertComponent } from './core/alert/alert.component';
 import { MinistriesService } from './services/ministries.service';
+import { SettingsGroupComponent } from './settings-group/settings-group.component';
+import { SettingsPageComponent } from './settings-page/settings-page.component';
 
 const appInitializerFn = (appConfig: AppConfigService) => {
   return () => {
@@ -77,7 +79,9 @@ const appInitializerFn = (appConfig: AppConfigService) => {
     PluralizeKindPipe,
     SocialMediaPostComponent,
     CheckboxComponent,
-    AlertComponent
+    AlertComponent,
+    SettingsGroupComponent,
+    SettingsPageComponent
   ],
   imports: [
     BrowserModule,
