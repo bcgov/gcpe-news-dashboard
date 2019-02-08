@@ -2,10 +2,10 @@ kind: Template
 apiVersion: v1
 labels:
   app: "${NAME}"
-  template: "${NAME}-master-build-template"
+  template: "${NAME}-build-template"
   tier: frontend
 metadata:
-  name: "${NAME}-master-build-template"
+  name: "${NAME}-build-template"
   annotations:
     tags: "angular,nginx"
     iconClass: icon-angularjs
@@ -71,7 +71,7 @@ objects:
   - kind: ImageStream
     apiVersion: v1
     metadata:
-      name: "${NAME}-master-static"
+      name: "${NAME}-static"
       labels:
         build: runtime
       annotations:
@@ -81,7 +81,7 @@ objects:
   - kind: BuildConfig
     apiVersion: v1
     metadata:
-      name: "${NAME}-master-static"
+      name: "${NAME}-static"
       labels:
         build: runtime
       annotations:
@@ -122,7 +122,7 @@ objects:
       output:
         to:
           kind: ImageStreamTag
-          name: "${NAME}-master-static:latest"
+          name: "${NAME}-static:latest"
       resources:
         requests:
           cpu: "${CPU_REQUEST}"
