@@ -13,7 +13,6 @@ import { FooterComponent } from './core/footer/footer.component';
 import { ActivityForecastListComponent } from './activities/activity-list/activity-forecast-list.component';
 import { ActivityListResolver } from './_resolvers/activity-list.resolver';
 import { PostListResolver } from './_resolvers/post-list.resolver';
-import { ApiService } from './services/api.service';
 import { AuthService } from './services/auth.service';
 import { MessagesService } from './services/messages.service';
 import { ThemesOfWeekComponent } from './themes/themes-of-week/themes-of-week.component';
@@ -42,6 +41,10 @@ import { AppConfigService } from './app-config.service';
 import { PluralizeKindPipe } from './_pipes/pluralize-kind.pipe';
 import { SocialMediaPostComponent } from './social-media/social-media-post/social-media-post.component';
 import { AlertComponent } from './core/alert/alert.component';
+import { ApiModule, getApiConfig } from './api.module';
+import { RoleGuard } from './_guards/role.guard';
+import { ActivitiesService } from './services/activities.service';
+import { PostsService } from './services/posts.service';
 
 const appInitializerFn = (appConfig: AppConfigService) => {
   return () => {
@@ -51,63 +54,71 @@ const appInitializerFn = (appConfig: AppConfigService) => {
 
 @NgModule({
   declarations: [
-    AppComponent,
-    NavMenuComponent,
-    PostListComponent,
-    FooterComponent,
+    // Components
     ActivityForecastListComponent,
+    AddSocialMediaPostModalComponent,
+    AlertComponent,
+    AppComponent,
+    DeletePostConfirmationModalComponent,
+    FooterComponent,
+    HqDashboardSubMenuComponent,
     ThemesOfWeekComponent,
     ThemeListComponent,
-    HqDashboardSubMenuComponent,
     ThemeSubMenuComponent,
     ThemeCardComponent,
     ThemeFormComponent,
+    NavMenuComponent,
+    PostListComponent,
+    SocialMediaInputComponent,
+    SocialMediaPostListComponent,
+    SocialMediaPostComponent,
+    // Directives
     AutosizeDirective,
     ClickPreventDefaultDirective,
-    TimeAgoPipe,
-    DeletePostConfirmationModalComponent,
-    SocialMediaPostListComponent,
-    SocialMediaInputComponent,
-    AddSocialMediaPostModalComponent,
     HasRoleDirective,
-    PluralizeKindPipe,
-    SocialMediaPostComponent,
-    AlertComponent
+    // Pipes
+    TimeAgoPipe,
+    PluralizeKindPipe
   ],
   imports: [
+    AppRoutingModule,
+    ApiModule.forRoot(getApiConfig),
     BrowserModule,
+    FormsModule,
     HttpClientModule,
     NgbModule.forRoot(),
-    OAuthModule.forRoot(),
-    AppRoutingModule,
-    FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    OAuthModule.forRoot()
   ],
   providers: [
     AppConfigService,
     {
-        provide: APP_INITIALIZER,
-        useFactory: appInitializerFn,
-        multi: true,
-        deps: [AppConfigService]
+      provide: APP_INITIALIZER,
+      useFactory: appInitializerFn,
+      multi: true,
+      deps: [AppConfigService]
     },
-    ApiService,
+    // Services
+    ActivitiesService,
+    AuthService,
     MessagesService,
     SocialMediaPostsService,
-    AuthService,
+    PostsService,
+    SocialMediaRenderService,
+    // Resolvers
     ActivityListResolver,
-    MessagesService,
     PostListResolver,
     MessageListResolver,
     SociaMediaTypeListResolver,
     MessageResolver,
     SociaMediaPostListResolver,
+    // Guards
     AuthGuard,
-    SocialMediaRenderService
+    RoleGuard
   ],
   entryComponents: [
-    DeletePostConfirmationModalComponent,
-    AddSocialMediaPostModalComponent
+    AddSocialMediaPostModalComponent,
+    DeletePostConfirmationModalComponent
   ],
   bootstrap: [AppComponent]
 })

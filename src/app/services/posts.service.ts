@@ -18,14 +18,14 @@ import { CustomHttpUrlEncodingCodec }                        from '../encoder';
 
 import { Observable }                                        from 'rxjs';
 
-import { Message } from '../view-models/message';
+import { Post } from '../view-models/post';
 
 import { BASE_PATH, COLLECTION_FORMATS }                     from '../variables';
 import { Configuration }                                     from '../configuration';
 
 
 @Injectable()
-export class MessagesService {
+export class PostsService {
 
     protected basePath = 'https://localhost';
     public defaultHeaders = new HttpHeaders();
@@ -59,14 +59,14 @@ export class MessagesService {
     /**
      * 
      * 
-     * @param message 
+     * @param post 
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public addMessage(message?: Message, observe?: 'body', reportProgress?: boolean): Observable<Message>;
-    public addMessage(message?: Message, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<Message>>;
-    public addMessage(message?: Message, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<Message>>;
-    public addMessage(message?: Message, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+    public addPost(post?: Post, observe?: 'body', reportProgress?: boolean): Observable<Post>;
+    public addPost(post?: Post, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<Post>>;
+    public addPost(post?: Post, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<Post>>;
+    public addPost(post?: Post, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
 
 
         let headers = this.defaultHeaders;
@@ -100,8 +100,8 @@ export class MessagesService {
             headers = headers.set('Content-Type', httpContentTypeSelected);
         }
 
-        return this.httpClient.post<Message>(`${this.basePath}/api/Messages`,
-            message,
+        return this.httpClient.post<Post>(`${this.basePath}/api/Posts`,
+            post,
             {
                 withCredentials: this.configuration.withCredentials,
                 headers: headers,
@@ -114,79 +114,27 @@ export class MessagesService {
     /**
      * 
      * 
-     * @param id 
+     * @param pageNumber 
+     * @param pageSize 
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public deleteMessage(id: string, observe?: 'body', reportProgress?: boolean): Observable<any>;
-    public deleteMessage(id: string, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<any>>;
-    public deleteMessage(id: string, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<any>>;
-    public deleteMessage(id: string, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+    public getAllPosts(pageNumber?: number, pageSize?: number, observe?: 'body', reportProgress?: boolean): Observable<Array<Post>>;
+    public getAllPosts(pageNumber?: number, pageSize?: number, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<Array<Post>>>;
+    public getAllPosts(pageNumber?: number, pageSize?: number, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<Array<Post>>>;
+    public getAllPosts(pageNumber?: number, pageSize?: number, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
 
-        if (id === null || id === undefined) {
-            throw new Error('Required parameter id was null or undefined when calling deleteMessage.');
-        }
-
-        let headers = this.defaultHeaders;
-
-        // authentication (oauth2) required
-        if (this.configuration.accessToken) {
-            const accessToken = typeof this.configuration.accessToken === 'function'
-                ? this.configuration.accessToken()
-                : this.configuration.accessToken;
-            headers = headers.set('Authorization', 'Bearer ' + accessToken);
-        }
-
-        // to determine the Accept header
-        let httpHeaderAccepts: string[] = [
-            'application/json'
-        ];
-        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
-        if (httpHeaderAcceptSelected != undefined) {
-            headers = headers.set('Accept', httpHeaderAcceptSelected);
-        }
-
-        // to determine the Content-Type header
-        const consumes: string[] = [
-        ];
-
-        return this.httpClient.delete<any>(`${this.basePath}/api/Messages/${encodeURIComponent(String(id))}`,
-            {
-                withCredentials: this.configuration.withCredentials,
-                headers: headers,
-                observe: observe,
-                reportProgress: reportProgress
-            }
-        );
-    }
-
-    /**
-     * 
-     * 
-     * @param isPublished 
-     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
-     * @param reportProgress flag to report request and response progress.
-     */
-    public getAllMessages(isPublished?: boolean, observe?: 'body', reportProgress?: boolean): Observable<Array<Message>>;
-    public getAllMessages(isPublished?: boolean, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<Array<Message>>>;
-    public getAllMessages(isPublished?: boolean, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<Array<Message>>>;
-    public getAllMessages(isPublished?: boolean, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
 
 
         let queryParameters = new HttpParams({encoder: new CustomHttpUrlEncodingCodec()});
-        if (isPublished !== undefined && isPublished !== null) {
-            queryParameters = queryParameters.set('IsPublished', <any>isPublished);
+        if (pageNumber !== undefined && pageNumber !== null) {
+            queryParameters = queryParameters.set('PageNumber', <any>pageNumber);
+        }
+        if (pageSize !== undefined && pageSize !== null) {
+            queryParameters = queryParameters.set('PageSize', <any>pageSize);
         }
 
         let headers = this.defaultHeaders;
-
-        // authentication (oauth2) required
-        if (this.configuration.accessToken) {
-            const accessToken = typeof this.configuration.accessToken === 'function'
-                ? this.configuration.accessToken()
-                : this.configuration.accessToken;
-            headers = headers.set('Authorization', 'Bearer ' + accessToken);
-        }
 
         // to determine the Accept header
         let httpHeaderAccepts: string[] = [
@@ -200,7 +148,7 @@ export class MessagesService {
         const consumes: string[] = [
         ];
 
-        return this.httpClient.get<Array<Message>>(`${this.basePath}/api/Messages`,
+        return this.httpClient.get<Array<Post>>(`${this.basePath}/api/Posts`,
             {
                 params: queryParameters,
                 withCredentials: this.configuration.withCredentials,
@@ -214,28 +162,20 @@ export class MessagesService {
     /**
      * 
      * 
-     * @param id 
+     * @param numDays 
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public getMessage(id: string, observe?: 'body', reportProgress?: boolean): Observable<Message>;
-    public getMessage(id: string, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<Message>>;
-    public getMessage(id: string, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<Message>>;
-    public getMessage(id: string, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+    public getLatestPosts(numDays: number, observe?: 'body', reportProgress?: boolean): Observable<Array<Post>>;
+    public getLatestPosts(numDays: number, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<Array<Post>>>;
+    public getLatestPosts(numDays: number, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<Array<Post>>>;
+    public getLatestPosts(numDays: number, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
 
-        if (id === null || id === undefined) {
-            throw new Error('Required parameter id was null or undefined when calling getMessage.');
+        if (numDays === null || numDays === undefined) {
+            throw new Error('Required parameter numDays was null or undefined when calling getLatestPosts.');
         }
 
         let headers = this.defaultHeaders;
-
-        // authentication (oauth2) required
-        if (this.configuration.accessToken) {
-            const accessToken = typeof this.configuration.accessToken === 'function'
-                ? this.configuration.accessToken()
-                : this.configuration.accessToken;
-            headers = headers.set('Authorization', 'Bearer ' + accessToken);
-        }
 
         // to determine the Accept header
         let httpHeaderAccepts: string[] = [
@@ -249,7 +189,7 @@ export class MessagesService {
         const consumes: string[] = [
         ];
 
-        return this.httpClient.get<Message>(`${this.basePath}/api/Messages/${encodeURIComponent(String(id))}`,
+        return this.httpClient.get<Array<Post>>(`${this.basePath}/api/Posts/Latest/${encodeURIComponent(String(numDays))}`,
             {
                 withCredentials: this.configuration.withCredentials,
                 headers: headers,
@@ -262,18 +202,58 @@ export class MessagesService {
     /**
      * 
      * 
-     * @param id 
-     * @param message 
+     * @param key 
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public updateMessage(id: string, message?: Message, observe?: 'body', reportProgress?: boolean): Observable<Message>;
-    public updateMessage(id: string, message?: Message, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<Message>>;
-    public updateMessage(id: string, message?: Message, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<Message>>;
-    public updateMessage(id: string, message?: Message, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+    public getPost(key: string, observe?: 'body', reportProgress?: boolean): Observable<Post>;
+    public getPost(key: string, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<Post>>;
+    public getPost(key: string, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<Post>>;
+    public getPost(key: string, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
 
-        if (id === null || id === undefined) {
-            throw new Error('Required parameter id was null or undefined when calling updateMessage.');
+        if (key === null || key === undefined) {
+            throw new Error('Required parameter key was null or undefined when calling getPost.');
+        }
+
+        let headers = this.defaultHeaders;
+
+        // to determine the Accept header
+        let httpHeaderAccepts: string[] = [
+        ];
+        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+        if (httpHeaderAcceptSelected != undefined) {
+            headers = headers.set('Accept', httpHeaderAcceptSelected);
+        }
+
+        // to determine the Content-Type header
+        const consumes: string[] = [
+        ];
+
+        return this.httpClient.get<Post>(`${this.basePath}/api/Posts/${encodeURIComponent(String(key))}`,
+            {
+                withCredentials: this.configuration.withCredentials,
+                headers: headers,
+                observe: observe,
+                reportProgress: reportProgress
+            }
+        );
+    }
+
+    /**
+     * 
+     * 
+     * @param key 
+     * @param post 
+     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+     * @param reportProgress flag to report request and response progress.
+     */
+    public updatePost(key: string, post?: Post, observe?: 'body', reportProgress?: boolean): Observable<Post>;
+    public updatePost(key: string, post?: Post, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<Post>>;
+    public updatePost(key: string, post?: Post, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<Post>>;
+    public updatePost(key: string, post?: Post, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+
+        if (key === null || key === undefined) {
+            throw new Error('Required parameter key was null or undefined when calling updatePost.');
         }
 
 
@@ -307,8 +287,8 @@ export class MessagesService {
             headers = headers.set('Content-Type', httpContentTypeSelected);
         }
 
-        return this.httpClient.put<Message>(`${this.basePath}/api/Messages/${encodeURIComponent(String(id))}`,
-            message,
+        return this.httpClient.put<Post>(`${this.basePath}/api/Posts/${encodeURIComponent(String(key))}`,
+            post,
             {
                 withCredentials: this.configuration.withCredentials,
                 headers: headers,

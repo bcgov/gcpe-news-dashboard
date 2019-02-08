@@ -1,7 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { Router, NavigationEnd, ActivatedRoute } from '@angular/router';
 import { SocialMediaType } from '../../view-models/social-media-type';
-import { ApiService } from '../../services/api.service';
 
 
 @Component({
@@ -12,11 +11,13 @@ import { ApiService } from '../../services/api.service';
 export class HqDashboardSubMenuComponent implements OnInit {
   @Input() socialmediatypes: SocialMediaType[];
   filterBySocialMediaType: string;
+  currentUrl = '';
   submenuOpen = false;
 
-  constructor(private router: Router, private activatedRoute: ActivatedRoute, private apiService:  ApiService) {}
+  constructor(private router: Router, private activatedRoute: ActivatedRoute) {}
 
   ngOnInit() {
+    this.currentUrl = this.router.url;
     if (this.activatedRoute.queryParams) {
       this.activatedRoute.queryParams.subscribe((queryParams: any) => {
         this.filterBySocialMediaType = queryParams.type || 'All';

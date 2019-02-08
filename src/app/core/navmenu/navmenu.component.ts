@@ -11,6 +11,7 @@ import { NavmenuService } from 'src/app/services/navmenu.service';
 export class NavMenuComponent implements OnInit {
   isCollapsed = true;
   visible = true;
+  firstLetter: String = '';
 
   constructor(private authService: AuthService, public nav: NavmenuService) {}
 
@@ -18,10 +19,10 @@ export class NavMenuComponent implements OnInit {
     this.nav.visible.subscribe(n => {
       this.visible = n;
     });
-  }
-
-  getFirstLetter() {
-    return this.authService.identityClaims ? this.authService.identityClaims['name'][0] : 'A';
+    this.authService.currentUser.subscribe((user) => {
+      const name = user.name || '';
+      this.firstLetter = name[0];
+    });
   }
 
   getColor(letter: string) {
@@ -30,7 +31,7 @@ export class NavMenuComponent implements OnInit {
   }
 
   isLoggedIn() {
-    return this.authService.loggedIn();
+    return this.authService.loggedIn;
   }
 
   login() {

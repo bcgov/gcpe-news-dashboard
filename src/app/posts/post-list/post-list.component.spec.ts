@@ -8,11 +8,11 @@ import { HttpClientModule } from '@angular/common/http';
 import { BASE_PATH } from '../../variables';
 import { HasRoleDirective } from 'src/app/_directives/hasRole.directive';
 import { AuthService } from 'src/app/services/auth.service';
-import { OAuthService } from 'angular-oauth2-oidc';
 import { PluralizeKindPipe } from 'src/app/_pipes/pluralize-kind.pipe';
 import { AppConfigService } from 'src/app/app-config.service';
 import { AlertsService } from 'src/app/services/alerts.service';
 import { of } from 'rxjs';
+import { mockAuth } from 'src/app/test-helpers/mock-auth';
 
 describe('PostListComponent', () => {
   let component: PostListComponent;
@@ -35,10 +35,7 @@ describe('PostListComponent', () => {
         AlertsService,
         { provide: AppConfigService, useValue: { config: { NEWS_URL: "" } } },
         { provide: BASE_PATH, useValue: environment.apiUrl },
-        AuthService,
-        {provide: OAuthService, useValue: {
-          getIdentityClaims: () => ['Administrators']
-        }}
+        { provide: AuthService, useClass: mockAuth }
       ],
     })
     .compileComponents();

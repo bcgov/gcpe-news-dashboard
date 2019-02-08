@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { ApiService } from '../../services/api.service';
 import { Activity } from '../../view-models/activity';
 import { ActivatedRoute } from '@angular/router';
 import { WeekDay } from '@angular/common';
@@ -16,7 +15,7 @@ export class ActivityForecastListComponent implements OnInit {
   today: Date = new Date();
   msInaDay: number = 24 * 3600 * 1000;
 
-  constructor(private apiService:  ApiService, private route: ActivatedRoute, private alerts: AlertsService) { }
+  constructor(private route: ActivatedRoute, private alerts: AlertsService) { }
 
   ngOnInit() {
     this.route.data.subscribe(data => {
@@ -58,10 +57,4 @@ export class ActivityForecastListComponent implements OnInit {
     if (i + this.today.getDay() > 6) { i++; } // for the week-end
     return new Date(this.today.valueOf() + i * this.msInaDay);
   }
-
-  /*getActivities() {
-    this.apiService.getActivityForecast().subscribe((data) => {
-      this.activityList = data;
-    }, error => console.error(error));
-  }*/
 }

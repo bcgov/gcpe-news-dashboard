@@ -1,7 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
-import { SocialMediaType } from '../../view-models/social-media-type';
-import { ApiService } from '../../services/api.service';
 
 @Component({
   selector: 'app-theme-sub-menu',
@@ -10,7 +8,7 @@ import { ApiService } from '../../services/api.service';
 })
 export class ThemeSubMenuComponent implements OnInit {
 
-  constructor(private router: Router, private route: ActivatedRoute, private apiService:  ApiService) {
+  constructor(private router: Router, private route: ActivatedRoute) {
   }
 
   ngOnInit() {
