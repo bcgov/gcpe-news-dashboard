@@ -49,10 +49,8 @@ podTemplate(label: 'owasp-zap', name: 'owasp-zap', serviceAccount: 'jenkins', cl
 }
 
 stage('Deploy on Test') {
-        echo "Deploying to test..."
-        node('master') {
-          openshiftTag destStream: 'news-dashboard-static', verbose: 'true', destTag: 'test', srcStream: 'news-dashboard-static', srcTag: '$BUILD_ID'
-          // Sleeping for a while to wait deployment completes
-	        sh 'sleep 1m'
-        }
-    }   
+  input "Deploying to test?"
+  node('master') {
+    openshiftTag destStream: 'news-dashboard-static', verbose: 'true', destTag: 'test', srcStream: 'news-dashboard-static', srcTag: '$BUILD_ID'
+  }
+}   
