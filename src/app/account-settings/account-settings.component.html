@@ -2,13 +2,13 @@
     <h2 settings-page-title>Account Settings</h2>
         <div settings-page-content>
             <app-settings-group>
-                <div item-group-header>
-                    <h3>My Ministries</h3>
+                <div class="header" item-group-header>
+                    <h4>Ministries</h4>
                     <div>
                         <app-checkbox (change)="selectAll()" label="All"></app-checkbox>
                     </div>
                 </div>
-                <div item-group-items>
+                <div class="items" item-group-items>
                     <div class="row">
                         <div class="col md-6">
                             <app-checkbox *ngFor="let ministry of ministries | slice:0:ministriesListMidPoint" [events]="eventsSubject.asObservable()" (checkboxChanged)="handleCheckboxChanged($event)" label="{{ministry.displayName}}"></app-checkbox>
