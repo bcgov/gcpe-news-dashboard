@@ -1,4 +1,4 @@
-import { Component, OnInit, AfterViewInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, AfterViewInit, OnDestroy, ViewContainerRef } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { SocialMediaType } from '../../view-models/social-media-type';
 import { SocialMediaPostExtended } from '../../view-models/social-media-post-extended';
@@ -15,6 +15,8 @@ export class SocialMediaPostListComponent implements OnInit, AfterViewInit, OnDe
 
   socialmediatypes: SocialMediaType[];
   filterBySocialMediaType: string;
+
+  isLoading: boolean = true;
 
   constructor(private router: Router, private activatedRoute: ActivatedRoute, private socialMediaRenderService: SocialMediaRenderService) {
     this.router.routeReuseStrategy.shouldReuseRoute = () => false;
@@ -33,8 +35,10 @@ export class SocialMediaPostListComponent implements OnInit, AfterViewInit, OnDe
         this.selectedSocialMedia = this.socialmedia.filter(s => s.mediaType === queryParams.type);
       }
       this.filterBySocialMediaType = queryParams.type;
-
     });
+    setTimeout(() => {
+      this.isLoading = false;
+    }, 1500);
   }
 
   ngAfterViewInit() {

@@ -24,6 +24,7 @@ import { ThemeSubMenuComponent } from './core/theme-sub-menu/theme-sub-menu.comp
 import { MessageResolver } from './_resolvers/message.resolver';
 import { ThemeCardComponent } from './themes/theme-card/theme-card.component';
 import { ThemeFormComponent } from './themes/theme-form/theme-form.component';
+import { LoadingSpinnerComponent } from './core/loading-spinner/loading-spinner.component';
 import { AutosizeDirective } from './_directives/autosize.directive';
 import { ClickPreventDefaultDirective } from './_directives/click-preventdefault.directive';
 import { TimeAgoPipe } from 'time-ago-pipe';
@@ -72,6 +73,7 @@ const appInitializerFn = (appConfig: AppConfigService) => {
     SocialMediaInputComponent,
     SocialMediaPostListComponent,
     SocialMediaPostComponent,
+    LoadingSpinnerComponent,
     // Directives
     AutosizeDirective,
     ClickPreventDefaultDirective,
