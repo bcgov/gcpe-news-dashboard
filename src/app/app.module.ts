@@ -42,16 +42,16 @@ import { AppConfigService } from './app-config.service';
 import { PluralizeKindPipe } from './_pipes/pluralize-kind.pipe';
 import { SocialMediaPostComponent } from './social-media/social-media-post/social-media-post.component';
 import { AccountSettingsComponent } from './account-settings/account-settings.component';
-import { CheckboxComponent } from './core/checkbox/checkbox.component';
 import { AlertComponent } from './core/alert/alert.component';
 import { MinistriesService } from './services/ministries.service';
 import { SettingsGroupComponent } from './settings-group/settings-group.component';
 import { SettingsPageComponent } from './settings-page/settings-page.component';
+import { GcpeSharedModule } from 'gcpe-shared';
 
 const appInitializerFn = (appConfig: AppConfigService) => {
   return () => {
       return appConfig.loadAppConfig();
-  }
+  };
 };
 
 @NgModule({
@@ -78,7 +78,6 @@ const appInitializerFn = (appConfig: AppConfigService) => {
     HasRoleDirective,
     PluralizeKindPipe,
     SocialMediaPostComponent,
-    CheckboxComponent,
     AlertComponent,
     SettingsGroupComponent,
     SettingsPageComponent
@@ -86,6 +85,7 @@ const appInitializerFn = (appConfig: AppConfigService) => {
   imports: [
     BrowserModule,
     HttpClientModule,
+    GcpeSharedModule,
     NgbModule.forRoot(),
     OAuthModule.forRoot(),
     AppRoutingModule,

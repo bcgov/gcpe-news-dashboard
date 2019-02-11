@@ -1,21 +1,21 @@
 import { ComponentFixture, TestBed, async } from '@angular/core/testing';
-import { CheckboxComponent } from './checkbox.component';
+import { GcpeCheckboxComponent } from './gcpe-checkbox.component';
 
 describe('AccountSettingsComponent', () => {
-    let component: CheckboxComponent;
-    let fixture: ComponentFixture<CheckboxComponent>;
+    let component: GcpeCheckboxComponent;
+    let fixture: ComponentFixture<GcpeCheckboxComponent>;
 
     beforeEach(async(() => {
         TestBed.configureTestingModule({
           declarations: [
-            CheckboxComponent
+            GcpeCheckboxComponent
           ],
         })
         .compileComponents();
       }));
 
     beforeEach(() => {
-        fixture = TestBed.createComponent(CheckboxComponent);
+        fixture = TestBed.createComponent(GcpeCheckboxComponent);
         component = fixture.componentInstance;
         component.label = 'Test Label';
         fixture.detectChanges();

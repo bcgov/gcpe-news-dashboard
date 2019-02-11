@@ -1,12 +1,13 @@
-import { Component, OnInit, Input, Output, EventEmitter, OnDestroy } from '@angular/core';
+import { Component, Input, Output, EventEmitter, OnInit, OnDestroy } from '@angular/core';
 import { Observable } from 'rxjs';
 
 @Component({
-    selector: 'app-checkbox',
-    templateUrl: './checkbox.component.html',
-    styleUrls: ['./checkbox.component.scss']
+    selector: 'lib-gcpe-checkbox',
+    templateUrl: './gcpe-checkbox.component.html',
+    styleUrls: ['./gcpe-checkbox.component.scss']
 })
-export class CheckboxComponent implements OnInit, OnDestroy {
+export class GcpeCheckboxComponent implements OnInit, OnDestroy {
+
     private eventsSubscription: any;
 
     @Input() label: string;

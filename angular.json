@@ -144,6 +144,41 @@
           }
         }
       }
+    },
+    "gcpe-shared": {
+      "root": "projects/gcpe-shared",
+      "sourceRoot": "projects/gcpe-shared/src",
+      "projectType": "library",
+      "prefix": "lib",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-ng-packagr:build",
+          "options": {
+            "tsConfig": "projects/gcpe-shared/tsconfig.lib.json",
+            "project": "projects/gcpe-shared/ng-package.json"
+          }
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "projects/gcpe-shared/src/test.ts",
+            "tsConfig": "projects/gcpe-shared/tsconfig.spec.json",
+            "karmaConfig": "projects/gcpe-shared/karma.conf.js"
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "projects/gcpe-shared/tsconfig.lib.json",
+              "projects/gcpe-shared/tsconfig.spec.json"
+            ],
+            "exclude": [
+              "**/node_modules/**"
+            ]
+          }
+        }
+      }
     }
   },
   "defaultProject": "news-dashboard"
