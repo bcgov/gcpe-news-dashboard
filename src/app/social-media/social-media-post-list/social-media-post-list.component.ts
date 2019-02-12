@@ -36,9 +36,6 @@ export class SocialMediaPostListComponent implements OnInit, AfterViewInit, OnDe
       }
       this.filterBySocialMediaType = queryParams.type;
     });
-    setTimeout(() => {
-      this.isLoading = false;
-    }, 1500);
   }
 
   ngAfterViewInit() {
@@ -51,6 +48,11 @@ export class SocialMediaPostListComponent implements OnInit, AfterViewInit, OnDe
         }
       });
     }
+
+    // Social media embeds don't have events to hook into.. about 1.5 seconds should do it
+    setTimeout(() => {
+      this.isLoading = false;
+    }, 1500);
   }
 
   ngOnDestroy() {

@@ -23,6 +23,8 @@ export class SocialMediaInputComponent implements OnInit, AfterViewInit, OnDestr
   socialmediatypes: SocialMediaType[];
   filterBySocialMediaType: string;
 
+  isLoading: boolean = true;
+
   constructor(
     private router: Router,
     private activatedRoute: ActivatedRoute,
@@ -51,6 +53,11 @@ export class SocialMediaInputComponent implements OnInit, AfterViewInit, OnDestr
         }
       });
     }
+
+    // Social media embeds don't have events to hook into.. about 1.8 seconds seems to be the sweet spot
+    setTimeout(() => {
+      this.isLoading = false;
+    }, 1800);
   }
 
   ngOnDestroy() {

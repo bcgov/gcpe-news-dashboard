@@ -22,10 +22,6 @@ nav {
     color: map-get($theme-colors, dark);
 }
 
-iframe {
-    padding-bottom: 0 !important;
-}
-
 .card-columns {
     @include media-breakpoint-only(xxxl) {
         column-count: 5;
@@ -49,13 +45,22 @@ iframe {
         column-count: 1;
     }
 }
+.hidden:before {
+    position: absolute;
+    content: '';
+    background: rgba(256, 256, 256, 1);
+    width: 100%;
+    height: 100%;
+    left: 0;
+    pointer-events: none;
+    z-index: 100;
+}
 
-.mobile-card {
-    @include media-breakpoint-only(xs) {
-        margin-left: 0;
-        margin-right: 0;
-        padding-left: 0;
-        padding-right: 0;
+.back-btn {
+    margin-bottom: 10px;
+    @include media-breakpoint-down(md) {
+        margin-left: -20px;
+        margin-right: -20px;
     }
 }
 
@@ -66,11 +71,11 @@ iframe {
         padding-left: 0;
         padding-right: 0;
     }
-}
-
-.fb-wrapper {
-    padding-left: 15px;
-    padding-right: 15px;
+    @include media-breakpoint-down(md) {
+        margin-left: -20px;
+        margin-right: -20px;
+        text-align: center;
+    }
 }
 
 .fa-times {
