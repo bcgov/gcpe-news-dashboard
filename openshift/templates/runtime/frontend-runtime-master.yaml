@@ -63,7 +63,7 @@ parameters:
       The name assigned to the Nginx runtime image defined in this template. You
       should keep this as default unless you know what you are doing.
     required: true
-    value: frontend-nginx-runtime
+    value: frontend-nginx-master-runtime
   - name: GIT_REPO_URL
     displayName: Git Repository URL
     description: The URL of the repository with your application source code.
