@@ -1,41 +1,12 @@
-@import "../../assets/styles/variables.scss";
-
-
-.btn-update{
-    padding: 0.5em .563em;
+.account-settings-container {
     margin-top: 3em;
-    border: 1px solid map-get($theme-colors, light); // TODO(al): set this manually
-    background-color: map-get($theme-colors, primary-nav); // TODO(al): set this manually
-    color: #ffffff;
+    width: 75em;
+    margin: 0 auto;
 }
 
-.header {
-    h4 {
-        float: left;
-    }
-
-    div {
-        float: right;
-    }
-}
-
-h2 {
-    margin-top: 1em;
-    margin-bottom: 1em;
-}
-
-.items {
-    clear: both;
-}
-
-@media (max-width: 87.500em) {
-    .header {
-        h4 {
-            float: none;
-        }
-    
-        div {
-            float: none;
-        }
+@media (max-width: 53.750em) {
+    .account-settings-container {
+        width: 100%;
+        margin: 0 auto;
     }
 }

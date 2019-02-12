@@ -44,9 +44,8 @@ import { SocialMediaPostComponent } from './social-media/social-media-post/socia
 import { AccountSettingsComponent } from './account-settings/account-settings.component';
 import { AlertComponent } from './core/alert/alert.component';
 import { MinistriesService } from './services/ministries.service';
-import { SettingsGroupComponent } from './settings-group/settings-group.component';
-import { SettingsPageComponent } from './settings-page/settings-page.component';
-import { GcpeSharedModule } from 'gcpe-shared';
+import { GcpeSharedModule } from '../../projects/gcpe-shared/src/public_api';
+
 
 const appInitializerFn = (appConfig: AppConfigService) => {
   return () => {
@@ -78,9 +77,7 @@ const appInitializerFn = (appConfig: AppConfigService) => {
     HasRoleDirective,
     PluralizeKindPipe,
     SocialMediaPostComponent,
-    AlertComponent,
-    SettingsGroupComponent,
-    SettingsPageComponent
+    AlertComponent
   ],
   imports: [
     BrowserModule,

@@ -1,11 +1,11 @@
-<app-settings-page>
+<lib-gcpe-settings-page>
     <h2 settings-page-title>Account Settings</h2>
         <div settings-page-content>
-            <app-settings-group>
+            <lib-gcpe-settings-group>
                 <div class="header" item-group-header>
                     <h4>Ministries</h4>
                     <div>
-                        <app-checkbox (change)="selectAll()" label="All"></app-checkbox>
+                        <lib-gcpe-checkbox (change)="selectAll()" label="All"></lib-gcpe-checkbox>
                     </div>
                 </div>
                 <div class="items" item-group-items>
@@ -18,9 +18,9 @@
                         </div>
                     </div>
                 </div>
-            </app-settings-group>
+            </lib-gcpe-settings-group>
         </div>
         <div class="text-center" settings-page-save-button>
             <button type="button" class="btn-update text-center">Update Settings</button>
         </div>
-</app-settings-page>
+</lib-gcpe-settings-page>

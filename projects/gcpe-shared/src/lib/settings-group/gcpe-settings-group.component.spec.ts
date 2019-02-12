@@ -1,21 +1,21 @@
 import { ComponentFixture, TestBed, async } from '@angular/core/testing';
-import { GcpeSettingsPageComponent } from './gcpe-settings-page.component';
+import { GcpeSettingsGroupComponent } from './gcpe-settings-group.component';
 
-describe('GcpeSettingsPageComponent', () => {
-    let component: GcpeSettingsPageComponent;
-    let fixture: ComponentFixture<GcpeSettingsPageComponent>;
+describe('GcpeSettingsGroupComponent', () => {
+    let component: GcpeSettingsGroupComponent;
+    let fixture: ComponentFixture<GcpeSettingsGroupComponent>;
 
     beforeEach(async(() => {
         TestBed.configureTestingModule({
           declarations: [
-            GcpeSettingsPageComponent
+            GcpeSettingsGroupComponent
           ],
         })
         .compileComponents();
       }));
 
     beforeEach(() => {
-        fixture = TestBed.createComponent(GcpeSettingsPageComponent);
+        fixture = TestBed.createComponent(GcpeSettingsGroupComponent);
         component = fixture.componentInstance;
         fixture.detectChanges();
     });
