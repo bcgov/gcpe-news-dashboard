@@ -1,19 +1,19 @@
 import { async, ComponentFixture, TestBed, tick, fakeAsync } from '@angular/core/testing';
 import { ReactiveFormsModule, FormBuilder } from '@angular/forms';
-import { AddSocialMediaPostModalComponent } from './add-social-media-post-modal.component';
+import { AddSocialMediaPostComponent } from './add-social-media-post.component';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { SocialMediaRenderService } from '../../services/socialMediaRender.service';
 import { By } from '@angular/platform-browser';
 import { SocialMediaPostComponent } from '../social-media-post/social-media-post.component';
 
-describe('AddSocialMediaPostModalComponent', () => {
-  let component: AddSocialMediaPostModalComponent;
-  let fixture: ComponentFixture<AddSocialMediaPostModalComponent>;
+describe('AddSocialMediaPostComponent', () => {
+  let component: AddSocialMediaPostComponent;
+  let fixture: ComponentFixture<AddSocialMediaPostComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [
-        AddSocialMediaPostModalComponent,
+        AddSocialMediaPostComponent,
         SocialMediaPostComponent
       ],
       imports: [
@@ -29,7 +29,7 @@ describe('AddSocialMediaPostModalComponent', () => {
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(AddSocialMediaPostModalComponent);
+    fixture = TestBed.createComponent(AddSocialMediaPostComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

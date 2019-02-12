@@ -5,7 +5,6 @@ import { SocialMediaPostExtended } from '../../view-models/social-media-post-ext
 import { NavmenuService } from '../../services/navmenu.service';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { DeletePostConfirmationModalComponent } from '../delete-post-confirmation-modal/delete-post-confirmation-modal.component';
-import { AddSocialMediaPostModalComponent } from '../add-social-media-post-modal/add-social-media-post-modal.component';
 import { SocialMediaPostsService } from '../../services/socialMediaPosts.service';
 import { SocialMediaRenderService } from '../../services/socialMediaRender.service';
 import { AlertsService } from 'src/app/services/alerts.service';
@@ -119,22 +118,22 @@ export class SocialMediaInputComponent implements OnInit, AfterViewInit, OnDestr
     });
   }
 
-  addSocialMediaPost() {
-    const addModal = this.modal.open(AddSocialMediaPostModalComponent, { size: 'lg', centered: true });
-    addModal.result.then((result) => {
-      if ( result !== 'Cancel' ) {
-        if ( result.url !== 'underfined' || result.url !== null ) {
-          this.socialMediaService.addSocialMediaPost({url: result.url, sortOrder: 1}).subscribe(
-            () => {
-              this.close();
-            },
-            (err) => {
-              this.alerts.showError('Failed to create post');
-            }
-          );
-        }
-      }
-    });
-  }
+  // addSocialMediaPost() {
+  //   const addModal = this.modal.open(AddSocialMediaPostModalComponent, { size: 'lg', centered: true });
+  //   addModal.result.then((result) => {
+  //     if ( result !== 'Cancel' ) {
+  //       if ( result.url !== 'underfined' || result.url !== null ) {
+  //         this.socialMediaService.addSocialMediaPost({url: result.url, sortOrder: 1}).subscribe(
+  //           () => {
+  //             this.close();
+  //           },
+  //           (err) => {
+  //             this.alerts.showError('Failed to create post');
+  //           }
+  //         );
+  //       }
+  //     }
+  //   });
+  // }
 
 }

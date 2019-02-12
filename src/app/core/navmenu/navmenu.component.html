@@ -10,7 +10,7 @@
       </div>
       <div class="ml-auto">
         <div class="nav-item" *ngIf="!isLoggedIn()">
-          <a class="btn btn-nav" (click)="login()">Sign In</a> 
+          <a class="btn btn-link" (click.preventDefault)="login()" href="#">Sign In</a> 
         </div>
         <div class="nav-item" *ngIf="isLoggedIn()">
           <div ngbDropdown class="image" placement="bottom-right">

@@ -36,7 +36,6 @@ import { SocialMediaPostListComponent } from './social-media/social-media-post-l
 import { AuthGuard } from './_guards/auth.guard';
 import { HasRoleDirective } from './_directives/hasRole.directive';
 import { SocialMediaInputComponent } from './social-media/social-media-input/social-media-input.component';
-import { AddSocialMediaPostModalComponent } from './social-media/add-social-media-post-modal/add-social-media-post-modal.component';
 import { SocialMediaRenderService } from './services/socialMediaRender.service';
 import { AppConfigService } from './app-config.service';
 import { PluralizeKindPipe } from './_pipes/pluralize-kind.pipe';
@@ -46,6 +45,7 @@ import { ApiModule, getApiConfig } from './api.module';
 import { RoleGuard } from './_guards/role.guard';
 import { ActivitiesService } from './services/activities.service';
 import { PostsService } from './services/posts.service';
+import { AddSocialMediaPostComponent } from './social-media/add-social-media-post/add-social-media-post.component';
 
 const appInitializerFn = (appConfig: AppConfigService) => {
   return () => {
@@ -57,7 +57,6 @@ const appInitializerFn = (appConfig: AppConfigService) => {
   declarations: [
     // Components
     ActivityForecastListComponent,
-    AddSocialMediaPostModalComponent,
     AlertComponent,
     AppComponent,
     DeletePostConfirmationModalComponent,
@@ -74,6 +73,7 @@ const appInitializerFn = (appConfig: AppConfigService) => {
     SocialMediaPostListComponent,
     SocialMediaPostComponent,
     LoadingSpinnerComponent,
+    AddSocialMediaPostComponent,
     // Directives
     AutosizeDirective,
     ClickPreventDefaultDirective,
@@ -119,7 +119,6 @@ const appInitializerFn = (appConfig: AppConfigService) => {
     RoleGuard
   ],
   entryComponents: [
-    AddSocialMediaPostModalComponent,
     DeletePostConfirmationModalComponent
   ],
   bootstrap: [AppComponent]
