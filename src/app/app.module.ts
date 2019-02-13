@@ -24,18 +24,17 @@ import { ThemeSubMenuComponent } from './core/theme-sub-menu/theme-sub-menu.comp
 import { MessageResolver } from './_resolvers/message.resolver';
 import { ThemeCardComponent } from './themes/theme-card/theme-card.component';
 import { ThemeFormComponent } from './themes/theme-form/theme-form.component';
+import { LoadingSpinnerComponent } from './core/loading-spinner/loading-spinner.component';
 import { AutosizeDirective } from './_directives/autosize.directive';
 import { ClickPreventDefaultDirective } from './_directives/click-preventdefault.directive';
 import { TimeAgoPipe } from 'time-ago-pipe';
 import { SociaMediaPostListResolver } from './_resolvers/social-media-post-list.resolver';
 import { SocialMediaPostsService } from './services/socialMediaPosts.service';
 // tslint:disable-next-line:max-line-length
-import { DeletePostConfirmationModalComponent } from './social-media/delete-post-confirmation-modal/delete-post-confirmation-modal.component';
 import { SocialMediaPostListComponent } from './social-media/social-media-post-list/social-media-post-list.component';
 import { AuthGuard } from './_guards/auth.guard';
 import { HasRoleDirective } from './_directives/hasRole.directive';
 import { SocialMediaInputComponent } from './social-media/social-media-input/social-media-input.component';
-import { AddSocialMediaPostModalComponent } from './social-media/add-social-media-post-modal/add-social-media-post-modal.component';
 import { SocialMediaRenderService } from './services/socialMediaRender.service';
 import { AppConfigService } from './app-config.service';
 import { PluralizeKindPipe } from './_pipes/pluralize-kind.pipe';
@@ -45,6 +44,7 @@ import { ApiModule, getApiConfig } from './api.module';
 import { RoleGuard } from './_guards/role.guard';
 import { ActivitiesService } from './services/activities.service';
 import { PostsService } from './services/posts.service';
+import { AddSocialMediaPostComponent } from './social-media/add-social-media-post/add-social-media-post.component';
 
 const appInitializerFn = (appConfig: AppConfigService) => {
   return () => {
@@ -56,10 +56,8 @@ const appInitializerFn = (appConfig: AppConfigService) => {
   declarations: [
     // Components
     ActivityForecastListComponent,
-    AddSocialMediaPostModalComponent,
     AlertComponent,
     AppComponent,
-    DeletePostConfirmationModalComponent,
     FooterComponent,
     HqDashboardSubMenuComponent,
     ThemesOfWeekComponent,
@@ -72,6 +70,8 @@ const appInitializerFn = (appConfig: AppConfigService) => {
     SocialMediaInputComponent,
     SocialMediaPostListComponent,
     SocialMediaPostComponent,
+    LoadingSpinnerComponent,
+    AddSocialMediaPostComponent,
     // Directives
     AutosizeDirective,
     ClickPreventDefaultDirective,
@@ -115,10 +115,6 @@ const appInitializerFn = (appConfig: AppConfigService) => {
     // Guards
     AuthGuard,
     RoleGuard
-  ],
-  entryComponents: [
-    AddSocialMediaPostModalComponent,
-    DeletePostConfirmationModalComponent
   ],
   bootstrap: [AppComponent]
 })

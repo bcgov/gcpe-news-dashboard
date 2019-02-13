@@ -14,6 +14,7 @@ import { FooterComponent } from './core/footer/footer.component';
 import { HasRoleDirective } from './_directives/hasRole.directive';
 import { AuthService } from './services/auth.service';
 import { mockAuth } from './test-helpers/mock-auth';
+import { LoadingSpinnerComponent } from './core/loading-spinner/loading-spinner.component';
 
 class MockRouterService {
   private subject = new Subject();
@@ -48,7 +49,8 @@ describe('AppComponent', () => {
         NavMenuComponent,
         FooterComponent,
         HasRoleDirective,
-        AlertComponent
+        AlertComponent,
+        LoadingSpinnerComponent
       ],
       providers: [
         UrlHelperService,
@@ -70,7 +72,7 @@ describe('AppComponent', () => {
     expect(app).toBeTruthy();
   });
 
-  it(`should have as title 'BC Gov News'`, () => {
+  it("should have as title 'BC Gov News'", () => {
     const app = fixture.debugElement.componentInstance;
     expect(app.title).toEqual('BC Gov News');
   });

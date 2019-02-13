@@ -11,6 +11,8 @@ import { of } from 'rxjs';
 import { ActivatedRoute } from '@angular/router';
 import { FakeSocialMediaPostsData } from '../../test-helpers/social-media-posts';
 import { By } from '@angular/platform-browser';
+import { LoadingSpinnerComponent } from 'src/app/core/loading-spinner/loading-spinner.component';
+import { SocialMediaPostComponent } from '../social-media-post/social-media-post.component';
 
 describe('SocialMediaInputComponent', () => {
   let component: SocialMediaInputComponent;
@@ -27,6 +29,8 @@ describe('SocialMediaInputComponent', () => {
     TestBed.configureTestingModule({
       declarations: [
         SocialMediaInputComponent,
+        LoadingSpinnerComponent,
+        SocialMediaPostComponent
       ],
       imports: [
         RouterTestingModule,
@@ -62,34 +66,9 @@ describe('SocialMediaInputComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  it('should hide nav', () => {
-    expect(TestBed.get(NavmenuService).hide).toHaveBeenCalled();
-  });
-
-  it('should show nav when destroyed', () => {
-    fixture.destroy();
-    expect(TestBed.get(NavmenuService).show).toHaveBeenCalled();
-  });
-
   it('should create 9 social media post input entries', ()  => {
     component.ngOnInit();
     expect(div.querySelectorAll('.social-media-post').length).toBe(9);
-  });
-
-  it('should call addSocialMediaPost when clicking on the add button', ()  => {
-    spyOn(component, 'addSocialMediaPost');
-    const button = fixture.debugElement.query(By.css('#addSocialMediaPostBtn'));
-    button.triggerEventHandler('click.preventDefault', null);
-    fixture.detectChanges();
-    expect(component.addSocialMediaPost).toHaveBeenCalled();
-  });
-
-  it('should call backToSocialMediaList when clicking on the back button', ()  => {
-    spyOn(component, 'backToSocialMediaList');
-    const button = fixture.debugElement.query(By.css('#backToListBtn'));
-    button.triggerEventHandler('click.preventDefault', null);
-    fixture.detectChanges();
-    expect(component.backToSocialMediaList).toHaveBeenCalled();
   });
 
   it('should call deleteSocialMediaPost when clicking on the delete post button', ()  => {

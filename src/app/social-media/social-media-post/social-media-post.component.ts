@@ -8,7 +8,10 @@ import { SocialMediaPostExtended } from '../../view-models/social-media-post-ext
 })
 export class SocialMediaPostComponent implements OnInit {
   @Input() postExt: SocialMediaPostExtended;
-  constructor() { }
+  @Input() isLoading: boolean = false;
+
+  constructor() {
+  }
 
   ngOnInit() {
   }

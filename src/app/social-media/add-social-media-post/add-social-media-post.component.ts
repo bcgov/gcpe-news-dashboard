@@ -1,19 +1,22 @@
 import { Component, OnInit, ViewContainerRef, ChangeDetectorRef, TemplateRef } from '@angular/core';
-import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { FormGroup, FormBuilder, FormControl, Validators } from '@angular/forms';
 import { ViewChild } from '@angular/core';
 import { SocialMediaPostExtended } from '../../view-models/social-media-post-extended';
 import { SocialMediaRenderService } from '../../services/socialMediaRender.service';
+import { SocialMediaPostsService } from 'src/app/services/socialMediaPosts.service';
+import { Router } from '@angular/router';
+import { AlertsService } from 'src/app/services/alerts.service';
+import { NavmenuService } from 'src/app/services/navmenu.service';
 
 const reg = '(https?://)?([\\da-z.-]+)\\.([a-z.]{2,6})[/\\w .-=\\?\\&]*/?';
 
 @Component({
-  selector: 'app-add-social-media-post-modal',
-  templateUrl: './add-social-media-post-modal.component.html',
-  styleUrls: ['./add-social-media-post-modal.component.scss']
+  selector: 'app-add-social-media-post',
+  templateUrl: './add-social-media-post.component.html',
+  styleUrls: ['./add-social-media-post.component.scss']
 })
 
-export class AddSocialMediaPostModalComponent implements OnInit {
+export class AddSocialMediaPostComponent implements OnInit {
   @ViewChild('previewPost', { read: ViewContainerRef }) previewPost: ViewContainerRef;
   @ViewChild('preview') tpl: TemplateRef<any>;
 
@@ -22,23 +25,42 @@ export class AddSocialMediaPostModalComponent implements OnInit {
   postExt: SocialMediaPostExtended;
 
   constructor(
-    public activeModal: NgbActiveModal,
     private formBuilder: FormBuilder,
+    private router: Router,
     private cd: ChangeDetectorRef,
+    private socialMediaService: SocialMediaPostsService,
+    private alerts: AlertsService,
+    private nav: NavmenuService,
     private socialMediaRenderService: SocialMediaRenderService ) {
     this.createForm();
   }
 
   ngOnInit() {
+    this.nav.hide();
+  }
+
+  ngOnDestroy(): void {
+    this.nav.show();
   }
 
   createForm() {
     this.addSocialMediaPostForm = this.formBuilder.group({
       url: new FormControl('', [Validators.required, Validators.pattern(reg)]),
     });
+    this.addSocialMediaPostForm.valueChanges.subscribe((value) => {
+      this.previewSocialMediaPost();
+    });
   }
+
   submitForm() {
-    this.activeModal.close(this.addSocialMediaPostForm.value);
+    this.socialMediaService.addSocialMediaPost({url: this.addSocialMediaPostForm.value.url, sortOrder: 1}).subscribe(
+      () => {
+        this.router.navigateByUrl('/social-media-input');
+      },
+      (err) => {
+        this.alerts.showError('Failed to create post');
+      }
+    );
   }
 
   get_url(): any {

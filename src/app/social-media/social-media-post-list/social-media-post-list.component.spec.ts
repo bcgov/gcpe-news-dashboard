@@ -14,6 +14,8 @@ import { HasRoleDirective } from 'src/app/_directives/hasRole.directive';
 import { AuthService } from 'src/app/services/auth.service';
 import { SocialMediaRenderService } from '../../services/socialMediaRender.service';
 import { mockAuth } from 'src/app/test-helpers/mock-auth';
+import { LoadingSpinnerComponent } from 'src/app/core/loading-spinner/loading-spinner.component';
+import { SocialMediaPostComponent } from '../social-media-post/social-media-post.component';
 
 describe('SocialMediaPostListComponent', () => {
   let component: SocialMediaPostListComponent;
@@ -37,7 +39,9 @@ describe('SocialMediaPostListComponent', () => {
       declarations: [
         SocialMediaPostListComponent,
         HqDashboardSubMenuComponent,
-        HasRoleDirective
+        HasRoleDirective,
+        LoadingSpinnerComponent,
+        SocialMediaPostComponent
       ],
       providers: [
         SocialMediaPostsService,
