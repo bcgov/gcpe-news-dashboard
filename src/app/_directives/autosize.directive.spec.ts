@@ -125,7 +125,7 @@ describe('Autosize', () => {
 
   it('shouldnt grow and shrink when not necessary', () => {
     const initialHeight = textareaEl.nativeElement.clientHeight;
-    const spy = spyOn(autosizeDirective, 'resize').and.callThrough();
+    spyOn(autosizeDirective, 'resize').and.callThrough();
 
     textareaEl.nativeElement.value = 'test';
     textareaEl.nativeElement.dispatchEvent(new Event('input'));
