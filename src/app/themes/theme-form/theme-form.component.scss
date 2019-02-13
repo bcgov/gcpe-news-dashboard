@@ -97,3 +97,11 @@ label.description-label, label.title-label {
     font-weight: normal;
     color: map-get($theme-colors, medium);
 }
+
+.character-count {
+    color: map-get($theme-colors, medium);
+}
+
+.alert {
+    color: red;
+}

@@ -36,7 +36,7 @@ export class ThemeFormComponent implements OnInit, OnDestroy {
   resetForm() {
     this.themeForm = this.fb.group({
       title: [this.theme.title, Validators.required],
-      description: [this.theme.description],
+      description: [this.theme.description, Validators.maxLength(4000)],
       isHighlighted: [this.theme.isHighlighted],
       isPublished: [this.theme.isPublished]
     });
@@ -96,7 +96,7 @@ export class ThemeFormComponent implements OnInit, OnDestroy {
         this.close();
       },
       () => {
-        this.handleError('Failed to create theme');
+        this.handleError('Failed to update theme');
       }
     );
   }
