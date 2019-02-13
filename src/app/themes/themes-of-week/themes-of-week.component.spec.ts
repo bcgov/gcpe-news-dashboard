@@ -128,12 +128,6 @@ describe('ThemesOfWeekComponent', () => {
       const themeList = div.querySelector('#theme-list');
       expect(themeList.querySelectorAll('app-theme-card').length).toBe(2);
     });
-
-    it('should not have a message', () => {
-      component.ngOnInit();
-      const themeList = div.querySelector('#theme-list');
-      expect(themeList.querySelectorAll('app-theme-card').length).toBe(2);
-    });
   });
 
   describe('with an error retrieving themes', () => {
@@ -149,5 +143,5 @@ describe('ThemesOfWeekComponent', () => {
       fixture.detectChanges();
       expect(TestBed.get(AlertsService).showError).toHaveBeenCalled();
     });
-  })
+  });
 });
