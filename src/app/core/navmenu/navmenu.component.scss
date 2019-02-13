@@ -70,6 +70,10 @@ ul.list-inline {
     margin-bottom: 0;
 }
 
+.indent {
+    padding-left: 10px!important;
+}
+
 .mobile-nav-overlay {
     opacity: 0.8;
     position: fixed;
@@ -99,7 +103,8 @@ ul.list-inline {
 }
   
 header .nav-item .active{
-    border-bottom: 2px solid map-get($theme-colors, primary-nav)!important;
+    text-decoration: underline;
+    border: none!important;
 }
   
 .user-image{

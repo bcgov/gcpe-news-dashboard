@@ -9,7 +9,7 @@
     <p class="lighter-font hq-dashboard-info">
         The most important news you should be aware of.
     </p>
-    <div class="pt-3 router-style" *appHasRole="['Administrators','Contributors','Viewers']">
+    <div class="pt-3 router-style">
         <ul class="list-inline subnav-list">
             <li id="submenu-open-button" class="open pull-right" (click)="toggleSubmenu()">
                 <i class="fa" [ngClass]="{'fa-angle-down': !submenuOpen, 'fa-angle-up': submenuOpen}"></i>

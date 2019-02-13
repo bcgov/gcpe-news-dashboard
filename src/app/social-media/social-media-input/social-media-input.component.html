@@ -1,4 +1,4 @@
-<nav id="social-media-list-input-nav" class="navbar fixed-top navbar-expand-lg bg-primary navbar-light pt-0 pb-0">
+<!-- <nav id="social-media-list-input-nav" class="navbar fixed-top navbar-expand-lg bg-primary navbar-light pt-0 pb-0">
   <div class="container-fluid">
     <div class="navbar-brand title mr-auto">
       <h4>Edit Social Media</h4>
@@ -7,11 +7,17 @@
       <li class="nav-item"><a routerLink="/social-media/new" class="btn btn-link" id="addSocialMediaPostBtn">New Post</a></li>
     </ul>
   </div>
-</nav>
+</nav> -->
 
 <app-loading-spinner [isLoading]="isLoading"></app-loading-spinner>
 <div id="admin-social-media-list-input-form" class="container-fluid pl-0 pr-0 pt-5" [ngClass]="{'hidden': isLoading}">
-  <div class="back-btn"><a href="#" (click.preventDefault)="backToSocialMediaList()" class="btn btn-outline btn-primary" id="backBtn">Back to List</a></div>
+  <div class="header">
+    <h2 class="d-inline-block">Edit Social Media</h2>
+    <div class="btn-group pull-right">
+      <a routerLink="/social-media-list" class="btn btn-outline btn-primary" id="backBtn">Back to List</a>
+      <a routerLink="/social-media/new" class="ml-2 btn btn-outline btn-primary" id="addSocialMediaPostBtn">New Post</a>
+    </div>
+  </div>
   <div id="social-media-input-list" class="card-columns">
     <div *ngFor="let item of socialmedia" [ngSwitch]="item.mediaType" class="social-media-post card">
       <div class="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups">

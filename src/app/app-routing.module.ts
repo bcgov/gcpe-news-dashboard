@@ -15,6 +15,7 @@ import { SocialMediaPostListComponent } from './social-media/social-media-post-l
 import { SocialMediaInputComponent } from './social-media/social-media-input/social-media-input.component';
 import { AuthGuard } from './_guards/auth.guard';
 import { RoleGuard } from './_guards/role.guard';
+import { AddSocialMediaPostComponent } from './social-media/add-social-media-post/add-social-media-post.component';
 
 const appRoutes: Routes = [
   {
@@ -55,6 +56,15 @@ const appRoutes: Routes = [
     path: 'social-media-input',
     component: SocialMediaInputComponent,
     resolve: { socialmedia: SociaMediaPostListResolver },
+    canActivate: [AuthGuard, RoleGuard],
+    data: {
+      roles: ['Administrators', 'Contributors']
+    },
+    runGuardsAndResolvers: 'always'
+  },
+  {
+    path: 'social-media/new',
+    component: AddSocialMediaPostComponent,
     canActivate: [AuthGuard, RoleGuard],
     data: {
       roles: ['Administrators', 'Contributors']

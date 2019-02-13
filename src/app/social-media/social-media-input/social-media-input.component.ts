@@ -1,8 +1,7 @@
-import { Component, OnInit, AfterViewInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, AfterViewInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { SocialMediaType } from '../../view-models/social-media-type';
 import { SocialMediaPostExtended } from '../../view-models/social-media-post-extended';
-import { NavmenuService } from '../../services/navmenu.service';
 import { SocialMediaPostsService } from '../../services/socialMediaPosts.service';
 import { SocialMediaRenderService } from '../../services/socialMediaRender.service';
 import { AlertsService } from 'src/app/services/alerts.service';
@@ -13,7 +12,7 @@ import { AlertsService } from 'src/app/services/alerts.service';
   styleUrls: ['./social-media-input.component.scss']
 })
 
-export class SocialMediaInputComponent implements OnInit, AfterViewInit, OnDestroy {
+export class SocialMediaInputComponent implements OnInit, AfterViewInit {
   socialmedia: SocialMediaPostExtended[];
   selectedSocialMedia: SocialMediaPostExtended[];
 
@@ -27,7 +26,6 @@ export class SocialMediaInputComponent implements OnInit, AfterViewInit, OnDestr
   constructor(
     private router: Router,
     private activatedRoute: ActivatedRoute,
-    public nav: NavmenuService,
     private socialMediaService: SocialMediaPostsService,
     private socialMediaRenderService: SocialMediaRenderService,
     private alerts: AlertsService) {
@@ -35,7 +33,6 @@ export class SocialMediaInputComponent implements OnInit, AfterViewInit, OnDestr
   }
 
   ngOnInit() {
-    this.nav.hide();
     this.activatedRoute.data.subscribe(data => {
       this.socialmedia = data['socialmedia'];
     });
@@ -56,10 +53,6 @@ export class SocialMediaInputComponent implements OnInit, AfterViewInit, OnDestr
     setTimeout(() => {
       this.isLoading = false;
     }, 1800);
-  }
-
-  ngOnDestroy() {
-    this.nav.show();
   }
 
   close() {

@@ -4,4 +4,11 @@
   <div *ngFor="let item of selectedSocialMedia" [ngSwitch]="item.mediaType" class="social-media-post">
     <app-social-media-post [postExt]="item" [isLoading]="isLoading"></app-social-media-post>
   </div>
+  <div *ngIf="selectedSocialMedia.length < 1 && !isLoading" class="empty-list">
+    <div class="card">
+      <div class="card-body">
+        <h5 class="card-title mb-0 text-center">No posts to display</h5>
+      </div>
+    </div>
+  </div>
 </div>

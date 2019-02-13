@@ -39,6 +39,10 @@ export class AddSocialMediaPostComponent implements OnInit {
     this.nav.hide();
   }
 
+  ngOnDestroy(): void {
+    this.nav.show();
+  }
+
   createForm() {
     this.addSocialMediaPostForm = this.formBuilder.group({
       url: new FormControl('', [Validators.required, Validators.pattern(reg)]),
