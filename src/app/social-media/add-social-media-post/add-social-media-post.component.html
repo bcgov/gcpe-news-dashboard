@@ -6,7 +6,7 @@
     <ul class="navbar-nav navbar-right">
       <li class="nav-item my-auto cancel-btn"><a routerLink="/social-media-input" class="btn btn-link">Cancel</a></li>
       <li class="nav-item my-auto ml-2">
-        <button class="nav-link btn btn-save" (click)="submitForm()" [disabled]="addSocialMediaPostForm.invalid">Save</button>
+        <button class="nav-link btn btn-save" (click)="submitForm()" id="addSocialMediaPostBtn" [disabled]="addSocialMediaPostForm.invalid">Save</button>
       </li>
     </ul>
   </div>
@@ -21,7 +21,7 @@
           <textarea class="form-control" id="url" placeholder="Enter URL" formControlName="url" autosize></textarea>
         </div>
       </div>
-      <div class="ml-auto mr-auto preview-post">
+      <div class="ml-auto mr-auto addSocialMediaPostBtnpreview-post">
         <ng-template #preview>
           <app-social-media-post [postExt]="postExt"></app-social-media-post>
         </ng-template>

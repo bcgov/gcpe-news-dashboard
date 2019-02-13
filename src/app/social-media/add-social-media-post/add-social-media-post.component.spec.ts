@@ -1,10 +1,16 @@
-import { async, ComponentFixture, TestBed, tick, fakeAsync } from '@angular/core/testing';
+import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { ReactiveFormsModule, FormBuilder } from '@angular/forms';
 import { AddSocialMediaPostComponent } from './add-social-media-post.component';
-import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { SocialMediaRenderService } from '../../services/socialMediaRender.service';
 import { By } from '@angular/platform-browser';
 import { SocialMediaPostComponent } from '../social-media-post/social-media-post.component';
+import { Router } from '@angular/router';
+import { SocialMediaPostsService } from 'src/app/services/socialMediaPosts.service';
+import { Injectable } from '@angular/core';
+
+@Injectable()
+class MockSocialMediaPostsService {
+}
 
 describe('AddSocialMediaPostComponent', () => {
   let component: AddSocialMediaPostComponent;
@@ -21,8 +27,9 @@ describe('AddSocialMediaPostComponent', () => {
       ],
       providers: [
         FormBuilder,
-        NgbActiveModal,
-        SocialMediaRenderService
+        SocialMediaRenderService,
+        { provide: SocialMediaPostsService, useClass: MockSocialMediaPostsService },
+        { provide: Router, useValue: {} },
       ]
     })
     .compileComponents();
@@ -67,9 +74,6 @@ describe('AddSocialMediaPostComponent', () => {
   it('should preview social media url if valid', () => {
     spyOn(component, 'previewSocialMediaPost');
     component.addSocialMediaPostForm.patchValue({url: 'https://www.instagram.com/p/BswQLHvBNVo/?utm_source=ig_web_copy_link'});
-    const button = fixture.debugElement.query(By.css('#previewSocialMediaPostBtn'));
-    button.triggerEventHandler('click', null);
-    fixture.detectChanges();
     expect(component.previewSocialMediaPost).toHaveBeenCalled();
   });
 });
