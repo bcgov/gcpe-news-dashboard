@@ -31,7 +31,6 @@ import { TimeAgoPipe } from 'time-ago-pipe';
 import { SociaMediaPostListResolver } from './_resolvers/social-media-post-list.resolver';
 import { SocialMediaPostsService } from './services/socialMediaPosts.service';
 // tslint:disable-next-line:max-line-length
-import { DeletePostConfirmationModalComponent } from './social-media/delete-post-confirmation-modal/delete-post-confirmation-modal.component';
 import { SocialMediaPostListComponent } from './social-media/social-media-post-list/social-media-post-list.component';
 import { AuthGuard } from './_guards/auth.guard';
 import { HasRoleDirective } from './_directives/hasRole.directive';
@@ -59,7 +58,6 @@ const appInitializerFn = (appConfig: AppConfigService) => {
     ActivityForecastListComponent,
     AlertComponent,
     AppComponent,
-    DeletePostConfirmationModalComponent,
     FooterComponent,
     HqDashboardSubMenuComponent,
     ThemesOfWeekComponent,
@@ -117,9 +115,6 @@ const appInitializerFn = (appConfig: AppConfigService) => {
     // Guards
     AuthGuard,
     RoleGuard
-  ],
-  entryComponents: [
-    DeletePostConfirmationModalComponent
   ],
   bootstrap: [AppComponent]
 })

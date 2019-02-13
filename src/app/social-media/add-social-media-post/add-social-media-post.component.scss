@@ -10,6 +10,13 @@ nav {
   flex-direction: row;
 }
 
+.navbar .container-fluid {
+  margin: 0 32px;
+  @include media-breakpoint-down(md) {
+      margin: 0 15px;
+  }
+}
+
 #form-nav #site-title h4{
   padding-top:25px;
   padding-bottom: 9px;

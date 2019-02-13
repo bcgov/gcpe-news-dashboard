@@ -3,8 +3,6 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { SocialMediaType } from '../../view-models/social-media-type';
 import { SocialMediaPostExtended } from '../../view-models/social-media-post-extended';
 import { NavmenuService } from '../../services/navmenu.service';
-import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { DeletePostConfirmationModalComponent } from '../delete-post-confirmation-modal/delete-post-confirmation-modal.component';
 import { SocialMediaPostsService } from '../../services/socialMediaPosts.service';
 import { SocialMediaRenderService } from '../../services/socialMediaRender.service';
 import { AlertsService } from 'src/app/services/alerts.service';
@@ -24,11 +22,12 @@ export class SocialMediaInputComponent implements OnInit, AfterViewInit, OnDestr
 
   isLoading: boolean = true;
 
+  deleteConfirmationId: string = '';
+
   constructor(
     private router: Router,
     private activatedRoute: ActivatedRoute,
     public nav: NavmenuService,
-    private modal: NgbModal,
     private socialMediaService: SocialMediaPostsService,
     private socialMediaRenderService: SocialMediaRenderService,
     private alerts: AlertsService) {
@@ -90,50 +89,20 @@ export class SocialMediaInputComponent implements OnInit, AfterViewInit, OnDestr
     );
   }
 
-  getPinColor(sortOrder: number): string {
-    if (sortOrder === 0) {
-      return '#1a5a96';
-    } else {
-      return 'grey';
+  confirmDeleteSocialMediaPost(post: SocialMediaPostExtended) {
+    if ((post.id !== 'undefined') && (post.id !== null)) {
+      this.socialMediaService.deleteSocialMediaPost(post.id).subscribe(
+        () => {
+          this.close();
+        },
+        (err) => {
+          this.alerts.showError('Failed to delete post');
+        }
+      );
     }
   }
 
   deleteSocialMediaPost(post: SocialMediaPostExtended) {
-    const deleteModal = this.modal.open(DeletePostConfirmationModalComponent, { size: 'lg', centered: true });
-    deleteModal.componentInstance.postExt = post;
-
-    deleteModal.result.then((result) => {
-      if (result === 'Confirm') {
-        if ((post.id !== 'undefined') && (post.id !== null)) {
-          this.socialMediaService.deleteSocialMediaPost(post.id).subscribe(
-            () => {
-              this.close();
-            },
-            (err) => {
-              this.alerts.showError('Failed to delete post');
-            }
-          );
-        }
-      }
-    });
+    this.deleteConfirmationId = post.id;
   }
-
-  // addSocialMediaPost() {
-  //   const addModal = this.modal.open(AddSocialMediaPostModalComponent, { size: 'lg', centered: true });
-  //   addModal.result.then((result) => {
-  //     if ( result !== 'Cancel' ) {
-  //       if ( result.url !== 'underfined' || result.url !== null ) {
-  //         this.socialMediaService.addSocialMediaPost({url: result.url, sortOrder: 1}).subscribe(
-  //           () => {
-  //             this.close();
-  //           },
-  //           (err) => {
-  //             this.alerts.showError('Failed to create post');
-  //           }
-  //         );
-  //       }
-  //     }
-  //   });
-  // }
-
 }

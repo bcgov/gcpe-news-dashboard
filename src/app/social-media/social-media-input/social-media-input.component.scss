@@ -84,8 +84,15 @@ nav {
     }
 }
 
+.btn-red {
+    color: red;
+}
+
 .fa-times {
     color: grey;
+    &:hover {
+        color: #1a5a96;
+    }
 }
 
 .pinned {
