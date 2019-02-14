@@ -31,6 +31,8 @@ export class ActivityForecastListComponent implements OnInit {
       let todayDow = this.today.getDay();
       if (todayDow === 6) { todayDow = 0; } // group Sunday with Saturday
       data['activities'].forEach(v => {
+        this.overwriteTitleDetailsFromHqComments(v);
+
         v.startDateTime = new Date(v.startDateTime);
         let dow = v.startDateTime.getDay();
         if (dow === 6) { dow = 0; } // group Sunday with Saturday
@@ -38,6 +40,33 @@ export class ActivityForecastListComponent implements OnInit {
       });
     });
   }
+
+  overwriteTitleDetailsFromHqComments(activity: Activity) {
+    let hqComments: string = activity.hqComments;
+    if (hqComments) {
+      while (true) {
+        let marker = '**';
+        let startPos: number = hqComments.indexOf(marker);
+        if (startPos === -1) {
+          marker = '_';
+          startPos = hqComments.indexOf(marker);
+        }
+        if (startPos === -1) { break; }
+        const endPos: number = hqComments.indexOf(marker, startPos + marker.length);
+        if (endPos === -1) { return; } // invalid
+
+        const toMarkdown: string = hqComments.substring(startPos + marker.length, endPos);
+        if (startPos === 0) {
+          activity.title = toMarkdown;
+          hqComments = hqComments.substring(endPos + marker.length);
+        } else {
+          hqComments = hqComments.substring(0, startPos) + toMarkdown + hqComments.substring(endPos + marker.length);
+        }
+      }
+      activity.details = hqComments;
+    }
+  }
+
   getStartDow(i: number) {
     const dow: number = this.getStartDate(i).getDay();
     return dow !== 0 && dow !== 6 ? WeekDay[dow] : 'Sat/Sun';

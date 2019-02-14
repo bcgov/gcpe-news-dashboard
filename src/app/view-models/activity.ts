@@ -18,6 +18,7 @@ export interface Activity {
     potentialDates?: string;
     title?: string;
     details: string;
+    hqComments?: string;
     schedule: string;
     significance: string;
     strategy?: string;
