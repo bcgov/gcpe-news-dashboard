@@ -14,7 +14,7 @@
 <div class="row pl-0 pr-0 pt-5 mt-3">
   <div class="col-12">
     <form [formGroup]="addSocialMediaPostForm" (ngSubmit)="submitForm()">
-      <div *ngIf="get_url(i).invalid && get_url(i).dirty" class="alert alert-danger mt-1">Url Format Error</div>
+      <div *ngIf="get_url().invalid && get_url().dirty" class="alert alert-danger mt-1">Url Format Error</div>
       <div class="form-group row">
         <label for="URL" class="col-sm-2 col-form-label text-right text-uppercase url-label" [class.hidden]="!addSocialMediaPostForm.value.url">URL</label>
         <div class="col-sm-10">
