@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { AppConfigService } from 'src/app/app-config.service';
 import { Activity } from '../../view-models/activity';
 import { ActivatedRoute } from '@angular/router';
 import { WeekDay } from '@angular/common';
@@ -15,14 +16,18 @@ export class ActivityForecastListComponent implements OnInit {
   today: Date = new Date();
   msInaDay: number = 24 * 3600 * 1000;
 
-  constructor(private route: ActivatedRoute, private alerts: AlertsService) { }
+  private BASE_HUB_URL: string;
+
+  constructor(private route: ActivatedRoute, appConfig: AppConfigService, private alerts: AlertsService) {
+    this.BASE_HUB_URL = appConfig.config.HUB_URL;
+  }
 
   ngOnInit() {
     this.route.data.subscribe(data => {
-      if(typeof data['activities'] === 'undefined' || data['activities'] === null) {
+      if (typeof data['activities'] === 'undefined' || data['activities'] === null) {
         this.alerts.showError('An error occurred while retrieving activities');
         return;
-      };
+      }
       let todayDow = this.today.getDay();
       if (todayDow === 6) { todayDow = 0; } // group Sunday with Saturday
       data['activities'].forEach(v => {

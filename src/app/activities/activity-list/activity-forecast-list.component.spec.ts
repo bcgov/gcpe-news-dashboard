@@ -9,6 +9,7 @@ import { BASE_PATH } from '../../variables';
 import { HasRoleDirective } from 'src/app/_directives/hasRole.directive';
 import { AuthService } from 'src/app/services/auth.service';
 import { AlertComponent } from 'src/app/core/alert/alert.component';
+import { AppConfigService } from 'src/app/app-config.service';
 import { of } from 'rxjs';
 import { AlertsService } from 'src/app/services/alerts.service';
 import { mockAuth } from 'src/app/test-helpers/mock-auth';
@@ -33,6 +34,7 @@ describe('ActivityForecastListComponent', () => {
       providers: [
         AlertsService,
         AlertComponent,
+        { provide: AppConfigService, useValue: { config: { HUB_URL: '' } } },
         { provide: BASE_PATH, useValue: environment.apiUrl },
         { provide: AuthService, useClass: mockAuth }
       ],
