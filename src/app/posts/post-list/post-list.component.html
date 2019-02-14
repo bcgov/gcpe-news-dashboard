@@ -8,7 +8,7 @@
       <h6 *ngIf="post.leadMinistryName" class="card-subtitle mb-2 text-muted">{{post.leadMinistryName}}</h6>
       <h5 *ngIf="post.documents" class="card-title"><a target="_blank" href="{{BASE_NEWS_URL}}/{{post.kind.toLowerCase() | pluralizeKind}}/{{post.key}}">{{post.documents[0].headline}}</a></h5>
       <p *ngIf="post.summary" class="card-text justify-content-between">{{post.summary}}</p>
-      <p class="card-text">{{post.publishDateTime | date:'mediumDate'}} <i class="fa fa-bookmark-o fa-lg pull-right pr-3"></i></p>
+      <p class="card-text">{{post.publishDateTime | date:'mediumDate'}}</p>
     </div>
   </div>
 </div>
