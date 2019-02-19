@@ -6,35 +6,14 @@ import { Observable } from 'rxjs';
     templateUrl: './gcpe-checkbox.component.html',
     styleUrls: ['./gcpe-checkbox.component.scss']
 })
-export class GcpeCheckboxComponent implements OnInit, OnDestroy {
-
-    private eventsSubscription: any;
-
+export class GcpeCheckboxComponent {
     @Input() label: string;
-    @Output() checkboxChanged = new EventEmitter();
-    @Input() events: Observable<boolean>;
 
-    constructor() {
-        this.events = new Observable<boolean>();
-    }
+    constructor() {}
 
-    isChecked: boolean;
-
-    ngOnInit() {
-        this.eventsSubscription = this.events.subscribe((checkAll) => {
-            if (checkAll === true) {
-                this.isChecked = true;
-            } else {
-                this.isChecked = false;
-            }
-        });
-    }
-
-    ngOnDestroy() {
-        this.eventsSubscription.unsubscribe();
-    }
+    @Input() isChecked: boolean;
 
     handleChanged(event: any) {
-        this.checkboxChanged.emit(this.label);
+        this.isChecked = !this.isChecked;
     }
 }

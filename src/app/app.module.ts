@@ -45,6 +45,7 @@ import { AccountSettingsComponent } from './account-settings/account-settings.co
 import { AlertComponent } from './core/alert/alert.component';
 import { MinistriesService } from './services/ministries.service';
 import { GcpeSharedModule } from '../../projects/gcpe-shared/src/public_api';
+import { AccountSettingsService } from './services/account-settings.service';
 
 
 const appInitializerFn = (appConfig: AppConfigService) => {
@@ -97,6 +98,7 @@ const appInitializerFn = (appConfig: AppConfigService) => {
         multi: true,
         deps: [AppConfigService]
     },
+    AccountSettingsService,
     ApiService,
     MessagesService,
     MinistriesService,

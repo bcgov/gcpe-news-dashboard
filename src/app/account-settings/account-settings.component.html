@@ -5,22 +5,22 @@
                 <div class="header" item-group-header>
                     <h4>Ministries</h4>
                     <div>
-                        <lib-gcpe-checkbox (change)="selectAll()" label="All"></lib-gcpe-checkbox>
+                        <lib-gcpe-checkbox [isChecked]="this.allSelected" (change)="this.selectAll()" label="All"></lib-gcpe-checkbox>
                     </div>
                 </div>
                 <div class="items" item-group-items>
                     <div class="row">
                         <div class="col md-6">
-                            <lib-gcpe-checkbox *ngFor="let ministry of ministries | slice:0:ministriesListMidPoint" [events]="eventsSubject.asObservable()" (checkboxChanged)="handleCheckboxChanged($event)" label="{{ministry.displayName}}"></lib-gcpe-checkbox>
+                            <lib-gcpe-checkbox (change)="this.changeAllSelected()" #checkbox *ngFor="let ministry of ministries | slice:0:ministriesListMidPoint" label="{{ministry.displayName}}"></lib-gcpe-checkbox>
                         </div>
                         <div class="col-md-6">
-                            <lib-gcpe-checkbox *ngFor="let ministry of ministries | slice:ministriesListMidPoint" [events]="eventsSubject.asObservable()" (checkboxChanged)="handleCheckboxChanged($event)" label="{{ministry.displayName}}"></lib-gcpe-checkbox>
+                            <lib-gcpe-checkbox (change)="this.changeAllSelected()" #checkbox *ngFor="let ministry of ministries | slice:ministriesListMidPoint" label="{{ministry.displayName}}"></lib-gcpe-checkbox>
                         </div>
                     </div>
                 </div>
             </lib-gcpe-settings-group>
         </div>
         <div class="text-center" settings-page-save-button>
-            <button type="button" class="btn-update text-center">Update Settings</button>
+            <button type="button" class="btn-update text-center" (click)="updateSettings()">Update Settings</button>
         </div>
 </lib-gcpe-settings-page>

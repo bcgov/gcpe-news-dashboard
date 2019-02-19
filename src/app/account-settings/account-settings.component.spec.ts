@@ -1,5 +1,4 @@
 import { ComponentFixture, TestBed, async } from '@angular/core/testing';
-
 import { AccountSettingsComponent } from './account-settings.component';
 import { AuthService } from '../services/auth.service';
 import { OAuthService } from 'angular-oauth2-oidc';
@@ -49,7 +48,7 @@ describe('AccountSettingsComponent', () => {
         TestBed.overrideProvider(ActivatedRoute,
             { useValue: {
               data: of({
-                ministries: FakeMinistryData(22)
+                ministries: FakeMinistryData(29)
               }),
               queryParams: of({ type: 'All'})
           }});
@@ -69,42 +68,30 @@ describe('AccountSettingsComponent', () => {
     });
 
     it('should allow the user to select a ministry', () => {
-        const testLabel = 'Intergovernmental Relations Secretariat';
-        component.handleCheckboxChanged(testLabel);
-        expect(component.selectedMinistries[testLabel]).toBeTruthy();
+        component.checkboxes.first.isChecked = true;
+        expect(component.checkboxes.filter(c => c.isChecked).length === 1);
     });
 
     it('should allow the user to de-select a ministry', () => {
-        const testLabel = 'Intergovernmental Relations Secretariat';
-        component.handleCheckboxChanged(testLabel);
-        component.handleCheckboxChanged(testLabel);
-        expect(component.selectedMinistries[testLabel]).toBeFalsy();
+        // select a ministry
+        component.checkboxes.first.isChecked = true;
+        expect(component.checkboxes.filter(c => c.isChecked).length === 1);
+        // de-select ministry
+        component.checkboxes.first.isChecked = false;
+        expect(component.checkboxes.filter(c => c.isChecked).length === 0);
     });
 
     it('should allow the user to select all ministries', () => {
-        component.ngOnInit();
-        component.allSelected = false;
         component.selectAll();
-
-        component.ministries.forEach(label => {
-            expect(component.selectedMinistries[label]).toBeTruthy();
-        });
+        expect(component.checkboxes.filter(c => c.isChecked).length === component.ministries.length);
     });
 
     it('should allow the user to de-select all ministries', () => {
-        component.ngOnInit();
-        component.allSelected = false;
+        // select all ministries
         component.selectAll();
-
-        component.ministries.forEach(label => {
-            expect(component.selectedMinistries[label]).toBeTruthy();
-        });
-
-        component.allSelected = true;
+        expect(component.checkboxes.filter(c => c.isChecked).length === component.ministries.length);
+        // de-select all ministries
         component.selectAll();
-
-        component.ministries.forEach(label => {
-            expect(component.selectedMinistries[label]).toBeFalsy();
-        });
+        expect(component.checkboxes.filter(c => c.isChecked).length === 0);
     });
 });

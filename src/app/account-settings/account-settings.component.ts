@@ -1,8 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChildren, QueryList } from '@angular/core';
 import { AuthService } from '../services/auth.service';
-import { Subject } from 'rxjs';
-import { IHash } from '../interfaces/IHash';
 import { ActivatedRoute } from '@angular/router';
+import { AccountSettingsService } from '../services/account-settings.service';
+import { GcpeCheckboxComponent } from 'gcpe-shared/public_api';
 
 @Component({
     selector: 'app-account-settings',
@@ -10,59 +10,59 @@ import { ActivatedRoute } from '@angular/router';
     styleUrls: ['./account-settings.component.scss']
 })
 export class AccountSettingsComponent implements OnInit {
-    userMinistry: string;
     allSelected = false;
-    selectedMinistries: IHash = {};
-    eventsSubject: Subject<boolean> = new Subject<boolean>();
     ministries = [];
     ministriesListMidPoint = 0;
 
-    constructor(private authService: AuthService, private route: ActivatedRoute) { }
+    @ViewChildren('checkbox') checkboxes: QueryList<GcpeCheckboxComponent>;
+
+    constructor(
+        private route: ActivatedRoute,
+        private accountSettingsService: AccountSettingsService) { }
 
     ngOnInit() {
-        this.userMinistry = this.authService.userMinistry;
         this.route.data.subscribe(data => {
             this.ministries = data['ministries'];
             this.ministriesListMidPoint = this.ministries.length / 2;
         });
 
-    }
+        this.accountSettingsService.getUserMinistries().subscribe(
+            userMinistries => {
+                userMinistries.forEach(userMinistry => {
+                    this.checkboxes.forEach(c => {
+                        if (c.label === userMinistry) {
+                            c.isChecked = true;
+                        }
+                    });
+                });
 
-    handleCheckboxChanged(label: string): void {
-        if (this.selectedMinistries[label] && this.selectedMinistries[label] === true) {
-            this.selectedMinistries[label] = false;
-            return;
-        }
-        this.selectedMinistries[label] = true;
+                if (userMinistries.length === this.ministries.length) {
+                    this.allSelected = true;
+                }
+            });
     }
 
     updateSettings(): void {
-        for (const key in this.selectedMinistries) {
-            if (this.selectedMinistries[key] === true) {
-                console.log(key);
-            }
-        }
-    }
-
-    emitAllSelectionEvent(): void {
-        this.eventsSubject.next(this.allSelected);
+        const selectedMinistries = this.checkboxes.filter(c => {
+            return c.isChecked === true;
+        });
+        this.accountSettingsService.saveUserMinistrySelections(selectedMinistries.map(m => m.label)).subscribe();
     }
 
     selectAll(): void {
-        this.selectedMinistries = {};
         this.allSelected = !this.allSelected;
+        this.checkboxes.forEach(c => {
+            c.isChecked = this.allSelected;
+        });
+    }
 
-        if (this.allSelected === false) {
-            this.ministries.forEach(label => {
-                this.selectedMinistries[label] = false;
-            });
-            this.emitAllSelectionEvent();
+    changeAllSelected(): void {
+        const checkedCheckboxesCount = this.checkboxes.filter(c => c.isChecked === true).length;
+        const allCheckboxesChecked = checkedCheckboxesCount === this.ministries.length;
+        if (!allCheckboxesChecked) {
+            this.allSelected = false;
             return;
         }
-
-        this.ministries.forEach(label => {
-            this.selectedMinistries[label] = true;
-        });
-        this.emitAllSelectionEvent();
+        this.allSelected = true;
     }
 }
