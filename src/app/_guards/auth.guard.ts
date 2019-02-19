@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
-import { CanActivate, Router, ActivatedRouteSnapshot } from '@angular/router';
+import { CanActivate } from '@angular/router';
 import { AuthService } from '../services/auth.service';
+import { AlertsService } from '../services/alerts.service';
 
 @Injectable({
     providedIn: 'root'
@@ -8,24 +9,12 @@ import { AuthService } from '../services/auth.service';
 export class AuthGuard implements CanActivate {
     constructor(
         private authService: AuthService,
-        private router: Router) {}
+        private alerts: AlertsService) {}
 
-    canActivate(next: ActivatedRouteSnapshot): boolean {
-        const roles = next.data['roles'] as Array<string>;
-        if (roles) {
-            const match = this.authService.roleMatch(roles);
-            if (match) {
-                return true;
-            } else {
-                this.router.navigate(['last-7-day-post-list']);
-            }
+    canActivate(): boolean {
+        if (!this.authService.loggedIn) {
+            this.alerts.showError('Access Denied - Must be logged in');
         }
-
-        if (this.authService.loggedIn()) {
-            return true;
-        }
-
-        this.router.navigate(['last-7-day-post-list']);
-        return false;
+        return this.authService.loggedIn;
     }
 }

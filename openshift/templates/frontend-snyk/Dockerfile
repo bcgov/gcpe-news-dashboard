@@ -1,9 +1,9 @@
 # Get community edition of nodejs v8.x (LTS)
 FROM centos/nodejs-8-centos7
 
-RUN curl -o- -L https://yarnpkg.com/install.sh | bash && npm install -g snyk
+ENV PATH="/opt/rh/rh-nodejs8/root/usr/bin/:$PATH"
 
-ENV PATH="$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$PATH"
+RUN npm install -g snyk
 
 # Switch to root for package installs
 USER 0

@@ -1,7 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { Router, NavigationEnd, ActivatedRoute } from '@angular/router';
 import { SocialMediaType } from '../../view-models/social-media-type';
-import { ApiService } from '../../services/api.service';
 
 
 @Component({
@@ -10,27 +9,18 @@ import { ApiService } from '../../services/api.service';
   styleUrls: ['./hq-dashboard-sub-menu.component.scss']
 })
 export class HqDashboardSubMenuComponent implements OnInit {
-  hideSocialMediaFilter = false;
   @Input() socialmediatypes: SocialMediaType[];
-  filterBySocialMediaType = 'All';
+  filterBySocialMediaType: string;
+  currentUrl = '';
+  submenuOpen = false;
 
-  constructor(private router: Router, private activatedRoute: ActivatedRoute, private apiService:  ApiService) {
-    // Only display the social media filter dropdown when social media link is active
-    this.router.events.subscribe((event) => {
-      if (event instanceof NavigationEnd) {
-        if ( event.url.indexOf('/social-media-list') > -1 ) {
-          this.hideSocialMediaFilter = false;
-        }  else {
-          this.hideSocialMediaFilter = true;
-        }
-      }
-    });
-  }
+  constructor(private router: Router, private activatedRoute: ActivatedRoute) {}
 
   ngOnInit() {
+    this.currentUrl = this.router.url;
     if (this.activatedRoute.queryParams) {
       this.activatedRoute.queryParams.subscribe((queryParams: any) => {
-        this.filterBySocialMediaType = queryParams.type;
+        this.filterBySocialMediaType = queryParams.type || 'All';
       });
     }
   }
@@ -41,5 +31,12 @@ export class HqDashboardSubMenuComponent implements OnInit {
 
   print() {
     window.print();
+  }
+
+  toggleSubmenu() {
+    if(this.submenuOpen) {
+      return;
+    }
+    this.submenuOpen = !this.submenuOpen;
   }
 }

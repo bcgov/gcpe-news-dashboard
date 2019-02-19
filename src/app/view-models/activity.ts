@@ -11,19 +11,20 @@
  */
 
 
-export interface Activity {
+export interface Activity { 
     id?: number;
     startDateTime?: Date;
     endDateTime?: Date;
     potentialDates?: string;
     title?: string;
     details: string;
+    hqComments?: string;
     schedule: string;
     significance: string;
     strategy?: string;
     comments?: string;
     leadOrganization?: string;
-    contactMinistryKey?: string;
+    contactMinistryAbbreviation?: string;
     venue?: string;
     cityName?: string;
     otherCity?: string;

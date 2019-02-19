@@ -2,43 +2,81 @@
   <nav *ngIf="visible" class="navbar fixed-top navbar-expand-lg bg-primary gov-navbar navbar-light pt-0 pb-0">
     <!-- Navbar content -->
     <div class="container-fluid full-width">
-      <div class="flex-fill row row-eq-height justify-content-between">
-        <a class="navbar-brand pt-0 pb-0 mt-0 mb-0" href="https://www2.gov.bc.ca">
-          <img class="bc-logo-img img-fluid d-none d-md-block" src="/assets/images/gov3_bc_logo_white_bg.png" alt="B.C. Government Logo">
-          <img class="img-fluid d-md-none" src="/assets/images/01_gov3_bc_symbol.svg" alt="B.C. Government Logo">
-        </a>
-        <div class="navbar-brand title" id="site-title" >
-          <a [routerLink]="['/home']"><h4>BC Gov News</h4></a>
+      <a class="navbar-brand pt-0 pb-0 mt-0 mb-0" routerLink="/">
+        <img class="bc-logo-img d-md-block" src="/assets/images/gov3_bc_logo_white_bg.png" alt="B.C. Government Logo">
+      </a>
+      <div class="navbar-brand title" id="site-title" >
+        <a routerLink="/"><h4>BC Gov News</h4></a>
+      </div>
+      <div class="ml-auto">
+        <div class="nav-item" *ngIf="!isLoggedIn()">
+          <a class="btn btn-link" (click.preventDefault)="login()" href="#">Sign In</a> 
         </div>
-
-        <button class="navbar-toggler" type="button" (click)="isCollapsed = !isCollapsed" [attr.aria-expanded]="!isCollapsed"
-          aria-controls="navbarSupportedContent">
-          <span class="navbar-toggler-icon"></span>
-        </button>
-
-        <div class="collapse navbar-collapse justify-content-end" id="navbarSupportedContent" [ngbCollapse]="isCollapsed">
-          <ul class="navbar-nav">
-            <li class="nav-item">
-                <button class="btn btn-link"><i class="fa fa-search"></i></button>
-            </li>
-            <li class="nav-item" style="position: initial;">
-              <div ngbDropdown >
-                <a id="topic-btn" class="nav-link">Topics</a>
+        <div class="nav-item" *ngIf="isLoggedIn()">
+          <div ngbDropdown class="image" placement="bottom-right">
+              <div class="user-image" id="profile-menu" ngbDropdownToggle [ngStyle]="{'background-color': getColor(firstLetter)}">{{firstLetter}}</div>
+              
+              <div ngbDropdownMenu class="dropdown-menu" aria-labelledby="profile-menu">
+                <ul class="list-inline">
+                  <div *appHasRole="['Administrators', 'Contributors']">
+                    <li class="dropdown-header">Themes</li>
+                    <li class="list-inline-item dropdown-item indent">
+                      <a routerLink="/themes" [queryParams]="{ type: 'Published'}" routeLinkActiveOptions="{exact: false}" routerLinkActive="active" class="btn-nav"><span>Edit</span></a>
+                    </li>
+                    <li class="list-inline-item dropdown-item indent">
+                      <a routerLink="/theme/new" class="btn-nav"><span>New</span></a>
+                    </li>
+                    <li class="dropdown-header">Social Media</li>
+                    <li class="list-inline-item dropdown-item indent">
+                      <a routerLink="/social-media-input" routerLinkActive="active" class="btn-nav"><span>Edit</span></a>
+                    </li>
+                    <li class="list-inline-item dropdown-item indent">
+                      <a routerLink="/social-media/new" class="btn-nav"><span>New</span></a>
+                    </li>
+                    <div class="dropdown-divider"></div>
+                  </div>
+                  <!-- <a href="#">Subscriptions</a> -->
+                  <li class="list-inline-item dropdown-item">
+                    <a href="#" class="btn-nav">Account Settings</a>
+                  </li>
+                  <li class="list-inline-item dropdown-item">
+                    <a (click)="logOut()" href="#" class="btn-nav">Sign out</a>
+                  </li>
+                </ul>
               </div>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link active" [routerLink]="['/last-7-day-post-list']" routerLinkActive="active">HQ Dashboard</a> 
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" >Just For You</a> 
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" >Bookmarks</a> 
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" >Trending</a> 
-            </li>
-            <li class="nav-item" *ngIf="!isLoggedIn()">
+          </div>
+        </div>
+      </div>
+      <!-- Disabled for MVP -->
+      <!-- <div class="ml-auto pr-2"><i class="fa fa-search"></i></div>
+      <button class="ml-auto navbar-toggler" type="button" (click)="isCollapsed = !isCollapsed" [attr.aria-expanded]="!isCollapsed"
+        aria-controls="navbarSupportedContent">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="mobile-nav-overlay" [ngbCollapse]="isCollapsed"></div>
+      <div class="ml-auto collapse navbar-collapse flex-grow-0" id="navbarSupportedContent" [ngbCollapse]="isCollapsed">
+        <ul class="navbar-nav">
+          <li class="mobile-only close-btn">
+            <a class="nav-link" (click)="isCollapsed=!isCollapsed"><i class="fa fa-times"></i></a> 
+          </li>
+          <li class="nav-item" style="position: initial;">
+            <div ngbDropdown >
+              <a id="topic-btn" class="nav-link">Topics</a>
+            </div>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link active" [routerLink]="['/last-7-day-post-list']" routerLinkActive="active">HQ Dashboard</a> 
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" >Just For You</a> 
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" >Bookmarks</a> 
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" >Trending</a> 
+          </li>
+          <li class="nav-item" *ngIf="!isLoggedIn()">
               <a class="nav-link" (click)="login()">Sign In</a> 
             </li>
             <li class="nav-item" *ngIf="isLoggedIn()">
@@ -46,9 +84,9 @@
                   <div class="user-image" id="profile-menu" ngbDropdownToggle [ngStyle]="{'background-color': getColor(getFirstLetter())}">{{getFirstLetter()}}</div>
                   
                   <div ngbDropdownMenu class="dropdown-menu" aria-labelledby="profile-menu">
-                    <a class="dropdown-item" [routerLink]="['/theme/new']">New Theme</a>
+                    <a *appHasRole="['Administrators']" class="dropdown-item" [routerLink]="['/theme/new']">New Theme</a>
                     <a class="dropdown-item" [routerLink]="['/themes']" [queryParams]="{ type: 'Published'}" routerLinkActive="active">Themes</a>
-                    <a class="dropdown-item" [routerLink]="['/social-media-list-input']">Update Social Media</a>
+                    <a *appHasRole="['Administrators']" class="dropdown-item" [routerLink]="['/social-media-list-input']">Update Social Media</a>
                     <div class="dropdown-divider"></div>
                     <a class="dropdown-item" href="#">Subscriptions</a>
                     <a class="dropdown-item" href="#">Account Settings</a>
@@ -56,9 +94,8 @@
                   </div>
               </div>
             </li>
-          </ul>
-        </div>
-      </div>
+        </ul>
+      </div> -->
     </div>
   </nav>
 </header>

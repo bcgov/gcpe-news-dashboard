@@ -1,0 +1,14 @@
+.hidden:before {
+  position: absolute;
+  content: '';
+  background: rgba(256, 256, 256, 1);
+  width: 100%;
+  height: 100%;
+  left: 0;
+  pointer-events: none;
+  z-index: 100;
+}
+
+.card-no-border {
+  border: none;
+}

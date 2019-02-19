@@ -12,20 +12,99 @@ header nav {
 }
   
 header .nav-item {
-    color: map-get($theme-colors, light)!important;
+    cursor: pointer;
+    display: flex;
+    padding-left: 20px;
 }
 
-header .nav-item {
-    padding-left: 20px;
+.navbar-brand.title {
+    display: flex;
+    align-items: center;
+}
+
+.navbar-brand {
+    margin-right: 0;
+}
+
+.navbar-toggler {
+    border: none;
+}
+
+.navbar-nav {
+    @include media-breakpoint-down(md) {
+        display: flex;
+        position: fixed;
+        background-color: #fff;
+        width: 350px;
+        height: 100vh;
+        right: 0;
+        top: 0;
+        border-left: 1px solid map-get($theme-colors, medium);
+        .nav-item {
+            order: 2;
+        }
+        .nav-item:last-of-type {
+            order: 1;
+            margin: 10px 0;
+        }
+    }
+}
+
+.mobile-only {
+    @include media-breakpoint-up(lg) {
+        display: none;
+    }
+}
+
+.close-btn {
+    position: absolute;
+    right: 0;
+    width: 30px;
+}
+
+.dropdown-menu {
+    top: 45px !important;
+}
+
+ul.list-inline {
+    margin-bottom: 0;
+}
+
+.indent {
+    padding-left: 10px!important;
+}
+
+.mobile-nav-overlay {
+    opacity: 0.8;
+    position: fixed;
+    background-color: #fff;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+}
+
+.btn-nav {
+    color: map-get($theme-colors, dark)!important;
+    background-color: #fff;
 }
   
 #site-title a h4{
-    padding-top:25px;
     color: map-get($theme-colors, primary-nav)!important;
+    border-left: 1px solid map-get($theme-colors, secondary);
+    padding-left: 10px;
+    margin-bottom: 0;
+    height: 2.5rem;
+    line-height: 2.8rem;
+    @include media-breakpoint-down(sm) {
+        height: 1.5rem;
+        line-height: 1.8rem;
+    }
 }
   
 header .nav-item .active{
-    border-bottom: 2px solid map-get($theme-colors, primary-nav)!important;
+    text-decoration: underline;
+    border: none!important;
 }
   
 .user-image{
@@ -41,10 +120,13 @@ header .nav-item .active{
 
 // remove the profile menu dropdown arrow
 .dropdown-toggle::after{
-    content:initial;
+    display: none !important;
  }
 
 .bc-logo-img {
-    max-height: 80px;
+    max-height: $heading-large-height;
+    @include media-breakpoint-down(sm) {
+        max-height: $heading-small-height;
+    }
 }
  

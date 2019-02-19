@@ -1,24 +1,40 @@
 node('master') {
     
-    stage('Assemble Builder & Runtime') {
-        echo "Assembling Builder and runtime..."
+    stage('Building builder') {
+        echo "Building builder..."
         openshiftBuild bldCfg: 'frontend-yarn-builder', showBuildLogs: 'true', waitTime: '900000'
+    }
+    stage('Building runtime') {
+        echo "Building runtime..."
         openshiftBuild bldCfg: 'frontend-nginx-runtime', showBuildLogs: 'true', waitTime: '900000'
+    }
+    stage('Assembling frontend') {
+        echo "Assembling frontend..."
         openshiftBuild bldCfg: 'news-dashboard', showBuildLogs: 'true', waitTime: '900000'
+    }
+    stage('Inject into runtime') {
+        echo "Injecting app into runtime..."
         openshiftBuild bldCfg: 'news-dashboard-static', showBuildLogs: 'true', waitTime: '900000'
+    }
+    stage('Tagging build') {
+        echo "Tagging image..."
+        openshiftTag destStream: 'news-dashboard-static', verbose: 'true', destTag: '$BUILD_ID', srcStream: 'news-dashboard-static', srcTag: 'latest'
     }
 
     stage('Deploy on Dev') {
         echo "Deploying to dev..."
-        openshiftTag destStream: 'news-dashboard-static', verbose: 'true', destTag: 'dev', srcStream: 'news-dashboard-static', srcTag: 'latest'
+        openshiftTag destStream: 'news-dashboard-static', verbose: 'true', destTag: 'dev', srcStream: 'news-dashboard-static', srcTag: '$BUILD_ID'
         // Sleeping for a while to wait deployment completes
 	    sh 'sleep 1m'
-    }   
-}
+    }
 
-stage('Deploy on Test') {
-        echo "Deploying to test..."
-        openshiftTag destStream: 'news-dashboard-static', verbose: 'true', destTag: 'test', srcStream: 'news-dashboard-static', srcTag: '$BUILD_ID'
-        // Sleeping for a while to wait deployment completes
-	    sh 'sleep 1m'
-    }   
+    timeout(60) {
+        stage('Deploy on Test') {
+            input "Deploy to test?"
+            echo "Deploying to test..."
+            openshiftTag destStream: 'news-dashboard-static', verbose: 'true', destTag: 'test', srcStream: 'news-dashboard-static', srcTag: '$BUILD_ID'
+            // Sleeping for a while to wait deployment completes
+            sh 'sleep 1m'
+        }
+    }
+}

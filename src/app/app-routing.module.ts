@@ -10,31 +10,103 @@ import { SociaMediaTypeListResolver } from './_resolvers/social-media-type-list.
 import { ThemeListComponent } from './themes/theme-list/theme-list.component';
 import { MessageResolver } from './_resolvers/message.resolver';
 import { ThemeFormComponent } from './themes/theme-form/theme-form.component';
-import { SocialMediaListInputComponent } from './social-media/social-media-list-input/social-media-list-input.component';
 import { SociaMediaPostListResolver } from './_resolvers/social-media-post-list.resolver';
 import { SocialMediaPostListComponent } from './social-media/social-media-post-list/social-media-post-list.component';
+import { SocialMediaInputComponent } from './social-media/social-media-input/social-media-input.component';
 import { AuthGuard } from './_guards/auth.guard';
+import { RoleGuard } from './_guards/role.guard';
+import { AddSocialMediaPostComponent } from './social-media/add-social-media-post/add-social-media-post.component';
 
 const appRoutes: Routes = [
-  { path: 'last-7-day-post-list', component: PostListComponent,  resolve: { posts: PostListResolver } },
-  { path: 'next-7-day-activity-list', component: ActivityForecastListComponent, resolve: { activities: ActivityListResolver } },
-  { path: 'themes-of-the-week',
-    canActivate: [AuthGuard],
+  {
+    path: 'last-7-day-post-list',
+    component: PostListComponent,
+    resolve: { posts: PostListResolver }
+  },
+  {
+    path: 'next-7-day-activity-list',
+    component: ActivityForecastListComponent,
+    resolve: { activities: ActivityListResolver },
+    canActivate: [AuthGuard, RoleGuard],
+    data: {
+      roles: ['Viewers', 'Administrators', 'Contributors']
+    }
+  },
+  {
+    path: 'themes-of-the-week',
     runGuardsAndResolvers: 'always',
     component: ThemesOfWeekComponent,
     resolve: { themes: MessageListResolver },
-    data: {roles: ['Administrators']}
+    canActivate: [AuthGuard, RoleGuard],
+    data: {
+      roles: ['Viewers', 'Administrators', 'Contributors']
+    }
   },
-  { path: 'social-media-list',
+  {
+    path: 'social-media-list',
     component: SocialMediaPostListComponent,
     resolve: { socialmedia: SociaMediaPostListResolver, socialmediatype: SociaMediaTypeListResolver },
-    runGuardsAndResolvers: 'paramsOrQueryParamsChange', },
-  { path: 'social-media-list-input', component: SocialMediaListInputComponent, resolve: { socialmedia: SociaMediaPostListResolver } },
-  { path: '', redirectTo: 'last-7-day-post-list', pathMatch: 'full' },
-  { path: 'themes',
-    component: ThemeListComponent, resolve: { themelist: MessageListResolver }, runGuardsAndResolvers: 'paramsOrQueryParamsChange' },
-  { path: 'theme/new', component: ThemeFormComponent },
-  { path: 'theme/edit/:id', component: ThemeFormComponent, resolve: { theme: MessageResolver } }
+    canActivate: [AuthGuard, RoleGuard],
+    data: {
+      roles: ['Viewers', 'Administrators', 'Contributors']
+    },
+    runGuardsAndResolvers: 'always'
+  },
+  {
+    path: 'social-media-input',
+    component: SocialMediaInputComponent,
+    resolve: { socialmedia: SociaMediaPostListResolver },
+    canActivate: [AuthGuard, RoleGuard],
+    data: {
+      roles: ['Administrators', 'Contributors']
+    },
+    runGuardsAndResolvers: 'always'
+  },
+  {
+    path: 'social-media/new',
+    component: AddSocialMediaPostComponent,
+    canActivate: [AuthGuard, RoleGuard],
+    data: {
+      roles: ['Administrators', 'Contributors']
+    },
+    runGuardsAndResolvers: 'always'
+  },
+  {
+    path: 'themes',
+    component: ThemeListComponent,
+    canActivate: [AuthGuard, RoleGuard],
+    data: {
+      roles: ['Administrators', 'Contributors']
+    },
+    resolve: { themelist: MessageListResolver },
+    runGuardsAndResolvers: 'paramsOrQueryParamsChange'
+  },
+  {
+    path: 'theme/new',
+    component: ThemeFormComponent,
+    canActivate: [AuthGuard, RoleGuard],
+    data: {
+      roles: ['Administrators', 'Contributors']
+    }
+  },
+  {
+    path: 'theme/edit/:id',
+    component: ThemeFormComponent,
+    canActivate: [AuthGuard, RoleGuard],
+    data: {
+      roles: ['Administrators', 'Contributors']
+    },
+    resolve: { theme: MessageResolver }
+  },
+  {
+    path: '',
+    redirectTo: 'last-7-day-post-list',
+    pathMatch: 'full'
+  },
+  {
+    path: '**',
+    redirectTo: 'last-7-day-post-list'
+  }
 ];
 
 @NgModule({

@@ -12,7 +12,7 @@
 import { Document } from './document';
 
 
-export interface Post {
+export interface Post { 
     kind?: string;
     timestamp?: Date;
     key: string;

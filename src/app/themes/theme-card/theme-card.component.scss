@@ -8,10 +8,10 @@
     }
 }
 .theme-footer {
-    color: map-get($theme-colors, mediem);
+    color: map-get($theme-colors, medium);
     font-size: 0.9em;
     a {
-        color: map-get($theme-colors, mediem);
+        color: map-get($theme-colors, medium);
         text-decoration: none;
         &:hover {
             text-decoration: underline;

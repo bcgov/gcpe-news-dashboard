@@ -16,4 +16,7 @@
     <h5 *ngIf="theme && theme.title" class="card-title">{{theme.title}}</h5>
     <p *ngIf="theme && theme.description" class="card-text justify-content-between">{{theme.description}}</p>
   </div>
+  <div class="theme-footer">
+    <span *ngIf="theme && theme.timestamp" class="theme-details">Last edited {{theme.timestamp | timeAgo}}</span>
+  </div>
 </div>
