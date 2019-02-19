@@ -1,5 +1,4 @@
 import { Component, OnInit, ViewChildren, QueryList } from '@angular/core';
-import { AuthService } from '../services/auth.service';
 import { ActivatedRoute } from '@angular/router';
 import { AccountSettingsService } from '../services/account-settings.service';
 import { GcpeCheckboxComponent } from 'gcpe-shared/public_api';
