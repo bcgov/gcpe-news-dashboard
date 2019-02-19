@@ -1,4 +1,4 @@
-<nav id="theme-nav" class="navbar fixed-top navbar-expand-lg bg-primary navbar-light pt-0 pb-0">
+<nav id="theme-nav" class="navbar fixed-top navbar-expand-xs bg-primary navbar-light pt-0 pb-0">
   <div class="container-fluid">
     <div class="navbar-brand title mr-auto" id="site-title" >
       <h4>New Theme</h4>
@@ -9,13 +9,19 @@
           •••
         </a>
         <div aria-labelledby="navbarDropdown" ngbDropdownMenu>
-          <a class="dropdown-item" href="#" (click.preventDefault)="save()">Save and Close</a>
-          <a class="dropdown-item" href="#" (click.preventDefault)="delete()">Delete</a>
+          <ul class="list-inline">
+            <li class="list-inline-item dropdown-item">
+              <a href="#" (click.preventDefault)="save()">Save and Close</a>
+            </li>
+            <li class="list-inline-item dropdown-item">
+              <a href="#" (click.preventDefault)="delete()">Delete</a>
+            </li>
+          </ul>
         </div>
       </li>
       <ng-template #cancel><li class="nav-item my-auto cancel-btn"><a href="#" (click.preventDefault)="close()" class="btn btn-link">Cancel</a></li></ng-template>
-      <li class="nav-item my-auto">
-        <button class="nav-link btn btn-primary btn-publish" (click)="togglePublished()" [disabled]="themeForm.invalid" [class.publish]="!theme.isPublished">
+      <li class="nav-item my-auto ml-2">
+        <button class="nav-link btn btn-publish" (click)="togglePublished()" [disabled]="themeForm.invalid" [class.publish]="!theme.isPublished">
           {{theme.isPublished ? 'Unpublish' : 'Publish'}}
         </button>
       </li>
@@ -23,7 +29,7 @@
   </div>
 </nav>
 
-<div id="admin-theme-form" class="row pl-0 pr-0 pt-5">
+<div id="admin-theme-form" class="row pl-0 pr-0 pt-5 mt-3">
   <div class="col-12">
     <form [formGroup]="themeForm">
       <div class="form-group row">
@@ -41,9 +47,10 @@
       <div class="form-group row">
         <label for="description" class="col-sm-2 col-form-label text-right text-uppercase description-label" [class.hidden]="!themeForm.value.description">Description</label>
         <div class="col-sm-10">
-          <textarea class="form-control" id="description" placeholder="Short Description"formControlName="description" minHeight="250" autosize></textarea>
+          <textarea class="form-control" id="description" placeholder="Short Description" formControlName="description" minHeight="250" autosize></textarea>
         </div>
       </div>
+      <div class="text-right character-count mr-3" [style.color]="themeForm.get('description').invalid ? 'red' : ''">{{themeForm.value.description.length}}/4000 characters</div>
     </form>
   </div>  
 </div> 

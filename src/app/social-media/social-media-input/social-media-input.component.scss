@@ -1,0 +1,129 @@
+@import "../../../assets/styles/variables.scss";
+@import "../../../assets/styles/layout.scss";
+
+.card-no-border {
+    border: none;
+}
+
+.navbar-brand h4 {
+    padding-top: 25px;
+    padding-bottom: 9px;
+    color: map-get($theme-colors, dark) !important;
+}
+
+nav {
+    background-color: map-get($theme-colors, primary-alt);
+    border-bottom: 1px solid map-get($theme-colors, light);
+    margin-bottom: 20px;
+}
+.navbar-brand h4 {
+    padding-top: 25px;
+    padding-bottom: 9px;
+    color: map-get($theme-colors, dark);
+}
+.navbar .container-fluid {
+    margin: 0 32px;
+    @include media-breakpoint-down(md) {
+        margin: 0 15px;
+    }
+}
+
+.card-columns {
+    @include media-breakpoint-only(xxxl) {
+        column-count: 5;
+    }
+    @include media-breakpoint-only(xxl) {
+        column-count: 4;
+    }
+    @include media-breakpoint-only(xl) {
+        column-count: 3;
+    }
+    @include media-breakpoint-only(lg) {
+        column-count: 2;
+    }
+    @include media-breakpoint-only(md) {
+        column-count: 2;
+    }
+    @include media-breakpoint-only(sm) {
+        column-count: 1;
+    }
+    @include media-breakpoint-only(xs) {
+        column-count: 1;
+    }
+}
+.hidden:before {
+    position: absolute;
+    content: '';
+    background: rgba(256, 256, 256, 1);
+    width: 100%;
+    height: 100%;
+    left: 0;
+    pointer-events: none;
+    z-index: 100;
+}
+
+.back-btn {
+    margin-bottom: 10px;
+    @include media-breakpoint-down(md) {
+        margin-left: -20px;
+        margin-right: -20px;
+    }
+}
+
+.card-columns .card {
+    @include media-breakpoint-only(xs) {
+        margin-left: 0;
+        margin-right: 0;
+        padding-left: 0;
+        padding-right: 0;
+    }
+    @include media-breakpoint-down(md) {
+        margin-left: -20px;
+        margin-right: -20px;
+        text-align: center;
+    }
+}
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    @include media-breakpoint-down(sm) {
+        flex-direction: column;
+        align-items: baseline;
+    }
+}
+.header h2 {
+    @include media-breakpoint-up(md) {
+        margin-bottom: 0;
+    }
+}
+
+.btn-red {
+    color: red;
+}
+
+.fa-times {
+    color: grey;
+    &:hover {
+        color: #1a5a96;
+    }
+}
+
+.pinned {
+    color: #1a5a96;
+    transform: rotate(45deg);
+    &:hover {
+        color: grey;
+        transform: rotate(0);
+    }
+}
+.unpinned {
+    color: grey;
+    &:hover {
+        color: #1a5a96;
+        transform: rotate(45deg);
+    }
+}
+

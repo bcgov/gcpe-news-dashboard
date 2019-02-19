@@ -1,0 +1,3 @@
+<div *ngIf="alertVisible" class="alert" [ngClass]="alertClass" role="alert">
+  {{alertMessage}}<button class="btn btn-link" (click)="clearAlerts()"><i class="fa fa-times"></i></button>
+</div>

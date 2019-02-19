@@ -5,7 +5,8 @@ export function FakeThemeData(publishedCount: number, unpublishedCount: number, 
 
     // tslint:disable-next-line:no-shadowed-variable
     // tslint:disable-next-line:no-var-keyword
-    for (var i = 0; i < publishedCount; i++) {
+    let i: number;
+    for (i = 0; i < publishedCount; i++) {
         // tslint:disable-next-line:no-shadowed-variable
         const theme = {
             id: i.toString(),
@@ -17,7 +18,7 @@ export function FakeThemeData(publishedCount: number, unpublishedCount: number, 
         themes.push(theme);
     }
     // tslint:disable-next-line:no-var-keyword
-    for (var i = 0; i < unpublishedCount; i++) {
+    for (i = 0; i < unpublishedCount; i++) {
         const index = i + unpublishedCount;
         // tslint:disable-next-line:no-shadowed-variable
         const theme = {

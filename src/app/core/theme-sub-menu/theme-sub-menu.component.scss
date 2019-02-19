@@ -1,15 +1,29 @@
 @import '../../../assets/styles/variables.scss';
 
- .router-style {
-    font-size: 1.1em;
- }
+.router-style {
+   font-size: 1.1em;
+}
 
- .dashboard-theme-container {
-    padding-top: 80px; 
-    padding-left:0; 
-    padding-right:0;
- }
+.dashboard-theme-container {
+   padding-top: 30px; 
+   padding-left:0; 
+   padding-right:0;
+}
 
- .dashboard-theme-container h2 {
-    padding-bottom: 30px;
- }
+.header {
+   display: flex;
+   justify-content: space-between;
+   align-items: center;
+   margin-top: 30px;
+   margin-bottom: 20px;
+   @include media-breakpoint-down(sm) {
+      flex-direction: column;
+      align-items: baseline;
+   }
+}
+
+.dashboard-theme-container h2 {
+   @include media-breakpoint-up(md) {
+      margin-bottom: 0;
+   }
+}

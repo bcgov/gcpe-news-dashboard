@@ -13,9 +13,8 @@ import { BASE_PATH } from '../../variables';
 import { TimeAgoPipe } from 'time-ago-pipe';
 import { HasRoleDirective } from 'src/app/_directives/hasRole.directive';
 import { AuthService } from 'src/app/services/auth.service';
-import { OAuthService } from 'angular-oauth2-oidc';
-
-
+import { AlertsService } from 'src/app/services/alerts.service';
+import { mockAuth } from 'src/app/test-helpers/mock-auth';
 
 describe('ThemesOfWeekComponent', () => {
   let component: ThemesOfWeekComponent;
@@ -37,11 +36,9 @@ describe('ThemesOfWeekComponent', () => {
         HasRoleDirective
       ],
       providers: [
+        AlertsService,
         { provide: BASE_PATH, useValue: environment.apiUrl },
-        AuthService,
-        {provide: OAuthService, useValue: {
-          getIdentityClaims: () => ['Administrators']
-        }}
+        { provide: AuthService, useClass: mockAuth }
       ],
     })
     .compileComponents();
@@ -79,7 +76,7 @@ describe('ThemesOfWeekComponent', () => {
     beforeEach(() => {
       TestBed.overrideProvider(ActivatedRoute, { useValue: { data: of({
         themes: FakeThemeData(20, 0, true)
-      })}})
+      })}});
       fixture = TestBed.createComponent(ThemesOfWeekComponent);
       component = fixture.componentInstance;
       fixture.detectChanges();
@@ -115,7 +112,7 @@ describe('ThemesOfWeekComponent', () => {
     beforeEach(() => {
       TestBed.overrideProvider(ActivatedRoute, { useValue: { data: of({
         themes: FakeThemeData(2, 1, false)
-      })}})
+      })}});
       fixture = TestBed.createComponent(ThemesOfWeekComponent);
       component = fixture.componentInstance;
       fixture.detectChanges();
@@ -131,11 +128,20 @@ describe('ThemesOfWeekComponent', () => {
       const themeList = div.querySelector('#theme-list');
       expect(themeList.querySelectorAll('app-theme-card').length).toBe(2);
     });
+  });
 
-    it('should not have a message', () => {
-      component.ngOnInit();
-      const themeList = div.querySelector('#theme-list');
-      expect(themeList.querySelectorAll('app-theme-card').length).toBe(2);
+  describe('with an error retrieving themes', () => {
+    beforeEach(() => {
+      fixture = TestBed.createComponent(ThemesOfWeekComponent);
+      spyOn(TestBed.get(AlertsService), 'showError');
+      component = fixture.componentInstance;
+      fixture.detectChanges();
+    });
+
+    it('should show error alert', () => {
+      TestBed.overrideProvider(ActivatedRoute, { useValue: { data: of(null)}});
+      fixture.detectChanges();
+      expect(TestBed.get(AlertsService).showError).toHaveBeenCalled();
     });
   });
 });

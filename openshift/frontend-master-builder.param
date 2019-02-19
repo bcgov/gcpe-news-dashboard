@@ -1,0 +1,13 @@
+#=========================================================
+# OpenShift template parameters for:
+# Component: .
+# Template File: templates/builder/frontend-master-builder.yaml
+#=========================================================
+BUILDER_IMAGE_NAME=frontend-npm-master-builder
+GIT_REPO_URL=https://github.com/bcgov/gcpe-news-dashboard.git
+GIT_REF=master
+SOURCE_CONTEXT_DIR=openshift/templates/builder/
+CPU_LIMIT=1
+MEMORY_LIMIT=4Gi
+CPU_REQUEST=1
+MEMORY_REQUEST=2Gi
