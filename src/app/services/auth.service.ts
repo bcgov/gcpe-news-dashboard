@@ -52,6 +52,6 @@ export class AuthService {
     if (!this.loggedIn) {
       return false;
     }
-    return allowedRoles.some(r => this.currentUserSubject.value.user_roles.includes(r));
+    return allowedRoles.some(r => this.currentUserSubject.value.user_roles.indexOf(r) >= 0);
   }
 }
