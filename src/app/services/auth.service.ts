@@ -1,9 +1,8 @@
 import { Injectable } from '@angular/core';
-import { OAuthService, JwksValidationHandler } from 'angular-oauth2-oidc';
 import { Configuration } from '../configuration';
-import { authConfig } from '../auth.config';
 import { BehaviorSubject } from 'rxjs';
 import { User } from '../view-models/user';
+import { MsalService } from '@azure/msal-angular';
 
 @Injectable({
   providedIn: 'root'
@@ -11,51 +10,48 @@ import { User } from '../view-models/user';
 export class AuthService {
   private currentUserSubject = new BehaviorSubject<User>(new User());
   public currentUser = this.currentUserSubject.asObservable();
+  public loggedIn = false;
 
-  constructor(private oauthService: OAuthService, private configuration: Configuration) {
-    this.oauthService.configure(authConfig);
-    this.oauthService.tokenValidationHandler = new JwksValidationHandler();
-    this.oauthService.setupAutomaticSilentRefresh();
-    this.oauthService.loadDiscoveryDocumentAndTryLogin();
+  constructor(private configuration: Configuration, private msal: MsalService) {}
 
-    this.oauthService.events.subscribe(e => {
-      switch (e.type) {
-        case 'token_received':
-          this.setAuthUser();
-          break;
-      }
-    });
-    this.setAuthUser();
+  tryLogin() {
+    if(!this.loggedIn) {
+      this.login();
+    }
   }
 
-  setAuthUser() {
-    this.configuration.accessToken = this.accessToken;
-    const identityClaims = this.oauthService.getIdentityClaims() || {};
+  logoutUser() {
+    this.loggedIn = false;
+  }
+
+  loginUser(token: string) {
+    this.loggedIn = true;
+    this.setUser(token);
+  }
+
+  setUser(token: string) {
+    this.configuration.accessToken = token;
+    const identityClaims = this.msal.getUser();
     let user = {
-      user_roles: identityClaims['user_roles'] || [],
-      access_token: this.accessToken,
-      name: identityClaims['name'] || ''
+      user_roles: identityClaims['idToken']['roles'] || [],
+      access_token: token,
+      name: identityClaims['displayableId'] || ''
     } as User;
     this.currentUserSubject.next(user);
   }
 
-  get accessToken() { return this.oauthService.getAccessToken(); }
-  get loggedIn() { return this.oauthService.hasValidAccessToken(); }
-  get identityClaims() { return this.oauthService.getIdentityClaims() || {}; }
-
   login() {
-    this.oauthService.initImplicitFlow();
+    this.msal.loginRedirect(['']);
   }
 
   logOut() {
-    this.oauthService.logOut();
+    this.msal.logout();
   }
 
   roleMatch(allowedRoles: Array<String>): boolean {
     if (!this.loggedIn) {
       return false;
     }
-    
     return allowedRoles.some(r => this.currentUserSubject.value.user_roles.includes(r));
   }
 }

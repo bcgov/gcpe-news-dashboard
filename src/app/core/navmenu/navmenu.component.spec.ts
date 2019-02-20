@@ -8,7 +8,6 @@ import { HttpClientModule } from '@angular/common/http';
 import { RouterTestingModule } from '@angular/router/testing';
 import { NgbDropdownModule } from '@ng-bootstrap/ng-bootstrap';
 import { NgbCollapseModule } from '@ng-bootstrap/ng-bootstrap';
-import { UrlHelperService } from 'angular-oauth2-oidc';
 import { HasRoleDirective } from 'src/app/_directives/hasRole.directive';
 import { AuthService } from 'src/app/services/auth.service';
 import { Configuration } from 'src/app/configuration';
@@ -34,7 +33,6 @@ describe('NavmenuComponent', () => {
         HasRoleDirective
       ],
       providers: [
-        UrlHelperService,
         { provide: AuthService, useClass: mockAuth },
         { provide: Configuration, useValue: new Configuration({ withCredentials: true, accessToken: ''})},
       ],

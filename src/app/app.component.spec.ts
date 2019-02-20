@@ -4,7 +4,6 @@ import { HttpClientModule } from '@angular/common/http';
 import { Router, NavigationEnd, NavigationStart } from '@angular/router';
 import { NavMenuComponent } from './core/navmenu/navmenu.component';
 import { NgbDropdownModule, NgbCollapseModule } from '@ng-bootstrap/ng-bootstrap';
-import { UrlHelperService } from 'angular-oauth2-oidc';
 import { Subject } from 'rxjs';
 import { AppComponent } from './app.component';
 import { AlertComponent } from './core/alert/alert.component';
@@ -15,6 +14,7 @@ import { HasRoleDirective } from './_directives/hasRole.directive';
 import { AuthService } from './services/auth.service';
 import { mockAuth } from './test-helpers/mock-auth';
 import { LoadingSpinnerComponent } from './core/loading-spinner/loading-spinner.component';
+import { BroadcastService } from '@azure/msal-angular';
 
 class MockRouterService {
   private subject = new Subject();
@@ -53,7 +53,7 @@ describe('AppComponent', () => {
         LoadingSpinnerComponent
       ],
       providers: [
-        UrlHelperService,
+        BroadcastService,
         { provide: Configuration, useValue: new Configuration({ withCredentials: true, accessToken: ''})},
         { provide: Router, useValue: mockRouterService },
         { provide: 'BASE_API_URL', useValue: environment.apiUrl },

@@ -18,7 +18,7 @@
               
               <div ngbDropdownMenu class="dropdown-menu" aria-labelledby="profile-menu">
                 <ul class="list-inline">
-                  <div *appHasRole="['Administrators', 'Contributors']">
+                  <div *appHasRole="['Contributor']">
                     <li class="dropdown-header">Themes</li>
                     <li class="list-inline-item dropdown-item indent">
                       <a routerLink="/themes" [queryParams]="{ type: 'Published'}" routeLinkActiveOptions="{exact: false}" routerLinkActive="active" class="btn-nav"><span>Edit</span></a>
