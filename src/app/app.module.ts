@@ -1,9 +1,8 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule, APP_INITIALIZER } from '@angular/core';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import { OAuthModule } from 'angular-oauth2-oidc';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 // tslint:disable-next-line:import-spacing
@@ -45,6 +44,8 @@ import { RoleGuard } from './_guards/role.guard';
 import { ActivitiesService } from './services/activities.service';
 import { PostsService } from './services/posts.service';
 import { AddSocialMediaPostComponent } from './social-media/add-social-media-post/add-social-media-post.component';
+import { MsalModule, MsalInterceptor } from '@azure/msal-angular';
+import { authConfig } from './auth.config';
 
 const appInitializerFn = (appConfig: AppConfigService) => {
   return () => {
@@ -81,14 +82,14 @@ const appInitializerFn = (appConfig: AppConfigService) => {
     PluralizeKindPipe
   ],
   imports: [
+    MsalModule.forRoot(authConfig),
     AppRoutingModule,
     ApiModule.forRoot(getApiConfig),
     BrowserModule,
     FormsModule,
     HttpClientModule,
     NgbModule.forRoot(),
-    ReactiveFormsModule,
-    OAuthModule.forRoot()
+    ReactiveFormsModule
   ],
   providers: [
     AppConfigService,
@@ -97,6 +98,11 @@ const appInitializerFn = (appConfig: AppConfigService) => {
       useFactory: appInitializerFn,
       multi: true,
       deps: [AppConfigService]
+    },
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: MsalInterceptor,
+      multi: true
     },
     // Services
     ActivitiesService,

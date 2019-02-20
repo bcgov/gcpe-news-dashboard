@@ -21,7 +21,7 @@ const appRoutes: Routes = [
   {
     path: 'last-7-day-post-list',
     component: PostListComponent,
-    resolve: { posts: PostListResolver }
+    resolve: { posts: PostListResolver },
   },
   {
     path: 'next-7-day-activity-list',
@@ -29,7 +29,7 @@ const appRoutes: Routes = [
     resolve: { activities: ActivityListResolver },
     canActivate: [AuthGuard, RoleGuard],
     data: {
-      roles: ['Viewers', 'Administrators', 'Contributors']
+      roles: ['Viewer', 'Contributor']
     }
   },
   {
@@ -39,7 +39,7 @@ const appRoutes: Routes = [
     resolve: { themes: MessageListResolver },
     canActivate: [AuthGuard, RoleGuard],
     data: {
-      roles: ['Viewers', 'Administrators', 'Contributors']
+      roles: ['Viewer', 'Contributor']
     }
   },
   {
@@ -48,7 +48,7 @@ const appRoutes: Routes = [
     resolve: { socialmedia: SociaMediaPostListResolver, socialmediatype: SociaMediaTypeListResolver },
     canActivate: [AuthGuard, RoleGuard],
     data: {
-      roles: ['Viewers', 'Administrators', 'Contributors']
+      roles: ['Viewer', 'Contributor']
     },
     runGuardsAndResolvers: 'always'
   },
@@ -58,7 +58,7 @@ const appRoutes: Routes = [
     resolve: { socialmedia: SociaMediaPostListResolver },
     canActivate: [AuthGuard, RoleGuard],
     data: {
-      roles: ['Administrators', 'Contributors']
+      roles: ['Contributor']
     },
     runGuardsAndResolvers: 'always'
   },
@@ -67,7 +67,7 @@ const appRoutes: Routes = [
     component: AddSocialMediaPostComponent,
     canActivate: [AuthGuard, RoleGuard],
     data: {
-      roles: ['Administrators', 'Contributors']
+      roles: ['Contributor']
     },
     runGuardsAndResolvers: 'always'
   },
@@ -76,7 +76,7 @@ const appRoutes: Routes = [
     component: ThemeListComponent,
     canActivate: [AuthGuard, RoleGuard],
     data: {
-      roles: ['Administrators', 'Contributors']
+      roles: ['Contributor']
     },
     resolve: { themelist: MessageListResolver },
     runGuardsAndResolvers: 'paramsOrQueryParamsChange'
@@ -86,7 +86,7 @@ const appRoutes: Routes = [
     component: ThemeFormComponent,
     canActivate: [AuthGuard, RoleGuard],
     data: {
-      roles: ['Administrators', 'Contributors']
+      roles: ['Contributor']
     }
   },
   {
@@ -94,7 +94,7 @@ const appRoutes: Routes = [
     component: ThemeFormComponent,
     canActivate: [AuthGuard, RoleGuard],
     data: {
-      roles: ['Administrators', 'Contributors']
+      roles: ['Contributor']
     },
     resolve: { theme: MessageResolver }
   },
