@@ -8,7 +8,6 @@ node('master') {
         echo "Running Snyk analysis of dependencies"
         openshiftBuild bldCfg: 'frontend-snyk-master', showBuildLogs: 'true'
     }
-
     stage('Building builder') {
         echo "Building builder..."
         openshiftBuild bldCfg: 'frontend-npm-master-builder', showBuildLogs: 'true', waitTime: '900000'
