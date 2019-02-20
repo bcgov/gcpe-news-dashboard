@@ -15,3 +15,4 @@ describe('workspace-project App', () => {
     expect(page.getParagraphText()).toEqual('BC Gov News');
   });
 });
+
