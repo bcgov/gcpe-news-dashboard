@@ -57,7 +57,7 @@ parameters:
       The name assigned to the builder image defined in this template. You
       should keep this as default unless you know what you are doing.
     required: true
-    value: frontend-master-build-sonar
+    value: frontend-yarn-builder-sonar
   - name: GIT_REPO_URL
     displayName: Git Repository URL
     description: The URL of the repository with your application source code.

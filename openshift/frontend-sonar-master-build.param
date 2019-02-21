@@ -3,7 +3,7 @@
 # Component: .
 # Template File: templates/frontend-sonar/frontend-sonar-master-build.yaml
 #=========================================================
-BUILDER_IMAGE_NAME=frontend-master-build-sonar
+BUILDER_IMAGE_NAME=frontend-yarn-builder-sonar
 GIT_REPO_URL=https://github.com/bcgov/gcpe-news-dashboard.git
 GIT_REF=master
 SOURCE_CONTEXT_DIR=openshift/templates/frontend-sonar/
@@ -11,3 +11,4 @@ CPU_LIMIT=1
 MEMORY_LIMIT=4Gi
 CPU_REQUEST=1
 MEMORY_REQUEST=2Gi
+
