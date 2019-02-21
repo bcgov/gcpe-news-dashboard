@@ -5,7 +5,7 @@
 #=========================================================
 NAME=frontend-sonar-master
 GIT_REPO_URL=https://github.com/bcgov/gcpe-news-dashboard.git
-GIT_REF=develop
+GIT_REF=master
 SOURCE_CONTEXT_DIR=
 SOURCE_IMAGE_KIND=ImageStreamTag
 SOURCE_IMAGE_NAME=frontend-sonar-master-image
