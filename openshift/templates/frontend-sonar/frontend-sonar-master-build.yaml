@@ -68,7 +68,7 @@ parameters:
   displayName: Source Image Name
   description: The name of the source image.
   required: true
-  value: frontend-sonar-master-image
+  value: frontend-yarn-builder-sonar
 - name: SOURCE_IMAGE_TAG
   displayName: Source Image Tag
   description: The tag of the source image.
