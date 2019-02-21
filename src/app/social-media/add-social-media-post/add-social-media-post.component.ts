@@ -8,7 +8,7 @@ import { Router } from '@angular/router';
 import { AlertsService } from 'src/app/services/alerts.service';
 import { NavmenuService } from 'src/app/services/navmenu.service';
 
-const reg = '(https?://)?([\\da-z.-]+)\\.([a-z.]{2,6})[/\\w .-=\\?\\&]*/?';
+const reg = '(https?://)?([\\da-z.-]+)\\.([a-z.]{2,6})[/\\w .-=\\?\\&-]*/?';
 
 @Component({
   selector: 'app-add-social-media-post',
