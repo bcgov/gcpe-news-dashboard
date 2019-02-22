@@ -42,7 +42,7 @@ objects:
           name: "${SOURCE_IMAGE_NAME}:${SOURCE_IMAGE_TAG}"
     output:
       to:
-        kind: "ImageStreamTag",
+        kind: "ImageStreamTag"
         name: "${NAME}:${OUTPUT_IMAGE_TAG}"
       resources:
         requests:
