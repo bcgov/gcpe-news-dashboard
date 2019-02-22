@@ -23,6 +23,10 @@ objects:
       contextDir: "${SOURCE_CONTEXT_DIR}"
     strategy:
         type: Docker
+        dockerStrategy:
+        from:
+          kind: "${SOURCE_IMAGE_KIND}"
+          name: "${SOURCE_IMAGE_NAME}:${SOURCE_IMAGE_TAG}"
     output:
         to:
           kind: ImageStreamTag
