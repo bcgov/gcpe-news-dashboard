@@ -3,7 +3,7 @@
 # Component: .
 # Template File: templates/frontend-sonar/frontend-sonar-master-build.yaml
 #=========================================================
-BUILDER_IMAGE_NAME=frontend-yarn-builder-sonar
+BUILDER_IMAGE_NAME=news-dashboard-sonar
 GIT_REPO_URL=https://github.com/bcgov/gcpe-news-dashboard.git
 GIT_REF=master
 SOURCE_CONTEXT_DIR=openshift/templates/frontend-sonar/

@@ -14,7 +14,7 @@ objects:
   - kind: ImageStream
     apiVersion: v1
     metadata:
-      name: "${NAME}-sonar-master"
+      name: "${NAME}"
       annotations:
         description: Keeps track of changes in this builder image.
   - kind: BuildConfig
@@ -55,14 +55,14 @@ parameters:
     displayName: Name
     description: The name assigned to all of the resources defined in this template.
     required: true
-    value: news-dashboard
+    value: news-dashboard-sonar-master
   - name: BUILDER_IMAGE_NAME
     displayName: Builder Image
     description:
       The name assigned to the builder image defined in this template. You
       should keep this as default unless you know what you are doing.
     required: true
-    value: frontend-yarn-builder-sonar
+    value: news-dashboard-sonar
   - name: GIT_REPO_URL
     displayName: Git Repository URL
     description: The URL of the repository with your application source code.
@@ -101,4 +101,3 @@ parameters:
     displayName: Resources Memory Request
     description: "The resources Memory request (in Mi, Gi, etc) for this build."
     required: true
-    
