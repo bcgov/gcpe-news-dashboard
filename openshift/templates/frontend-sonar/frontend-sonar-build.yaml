@@ -28,16 +28,8 @@ objects:
           kind: "${SOURCE_IMAGE_KIND}"
           name: "${SOURCE_IMAGE_NAME}:${SOURCE_IMAGE_TAG}"
         env:
-        - name: SONAR_URL
-          value: "${SONAR_URL}"
         - name: SONAR_TOKEN
           value: "${SONAR_TOKEN}"
-        - name: SONAR_PROJECT
-          value: "${SONAR_PROJECT}"
-    output:
-        to:
-          kind: ImageStreamTag
-          name: "${NAME}:latest"
     resources:
       requests:
         cpu: "${CPU_REQUEST}"
@@ -76,10 +68,15 @@ parameters:
   displayName: Source Image Name
   description: The name of the source image.
   required: true
-  value: registry.access.redhat.com/rhscl/nodejs-4-rhel7
+  value: frontend-yarn-builder-sonar
 - name: SOURCE_IMAGE_TAG
   displayName: Source Image Tag
   description: The tag of the source image.
+  required: true
+  value: latest
+- name: OUTPUT_IMAGE_TAG
+  displayName: Output Image Tag
+  description: The tag given to the built image.
   required: true
   value: latest
 - name: CPU_LIMIT
@@ -112,9 +109,4 @@ parameters:
   description: The SonarQube URL
   required: true
   value: 'https://sonarqube-ntu9uh-tools.pathfinder.gov.bc.ca'
-- name: SONAR_PROJECT
-  displayName: SonarQube URL
-  description: The SonarQube URL
-  required: true
-  value: news-dashboard
   
