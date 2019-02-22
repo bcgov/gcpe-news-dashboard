@@ -122,7 +122,7 @@ parameters:
     value: 'https://sonarqube-ntu9uh-tools.pathfinder.gov.bc.ca'
   - name: SONAR_PROJECT
     displayName: SonarQube Project Name
-    description: The SonarQube Project Nam
+    description: The SonarQube Project Name
     required: true
-    value: news-dashboard
+    value: News-Dashbaord-Master
   
