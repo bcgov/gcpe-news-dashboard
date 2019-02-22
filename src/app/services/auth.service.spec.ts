@@ -62,22 +62,6 @@ describe('AuthService', () => {
     expect(spy).not.toHaveBeenCalled();
   }));
 
-  it('should set user values given a valid user', (done) => {
-    inject([AuthService], (service: AuthService) => {
-      service.currentUser.subscribe((user) => {
-        if(typeof user.name !== 'undefined') {
-          expect(user.access_token).toBe('token!');
-          expect(user.user_roles).toEqual(['Contributor']);
-          expect(user.name).toBe('Test');
-          done();
-        }
-      });
-      const spy = spyOn(msal, 'getUser').and.returnValue({'idToken': {'roles': ['Contributor']}, 'displayableId': 'Test'});
-      service.setUser('token!');
-      expect(spy).toHaveBeenCalled();
-    })();
-  });
-
   it('should pass role match given user has role', (done) => {
     inject([AuthService], (service: AuthService) => {
       service.currentUser.subscribe((user) => {
