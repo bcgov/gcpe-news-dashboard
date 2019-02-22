@@ -35,11 +35,19 @@ objects:
           uri: "${GIT_REPO_URL}"
         contextDir: "${SOURCE_CONTEXT_DIR}"
     strategy:
-      type: Source
-      sourceStrategy:
-        from:
-          kind: "${SOURCE_IMAGE_KIND}"
-          name: "${SOURCE_IMAGE_NAME}:${SOURCE_IMAGE_TAG}"
+        type: Docker
+        sourceStrategy:
+          env:
+          - name: SONAR_URL
+            value: "${SONAR_URL}"
+          - name: SONAR_TOKEN
+            value: "${SONAR_TOKEN}"
+          - name: SONAR_PROJECT
+            value: "${SONAR_PROJECT}"
+      output:
+        to:
+          kind: ImageStreamTag
+          name: "${BUILDER_IMAGE_NAME}:latest"
     resources:
       requests:
         cpu: "${CPU_REQUEST}"
@@ -51,7 +59,7 @@ objects:
     status:
       lastVersion: 0
 parameters:
-  - name: BUILDER_IMAGE_NAME
+  - name: NAME
     displayName: Builder Image
     description:
       The name assigned to the builder image defined in this template. You
@@ -97,19 +105,23 @@ parameters:
     description: "The resources Memory request (in Mi, Gi, etc) for this build."
     required: true
     value: 2Gi
-  - name: SOURCE_IMAGE_KIND
-    displayName: Source Image Kind
-    description: The 'kind' (type) of the  source image; typically ImageStreamTag, or
-      DockerImage.
-    required: true
-    value: ImageStreamTag
-  - name: SOURCE_IMAGE_TAG
-    displayName: Source Image Tag
-    description: The tag of the source image.
-    required: true
-    value: latest
-  - name: SOURCE_IMAGE_NAME
+  - name: BUILDER_IMAGE_NAME
     displayName: Source Image Name
     description: The name of the source image.
     required: true
     value: news-dashboard-sonar
+  - name: SONAR_TOKEN
+    displayName: Sonarqube Token
+    description: The SonarQube user token
+    required: true
+    value: '123'
+  - name: SONAR_URL
+    displayName: SonarQube URL
+    description: The SonarQube URL
+    required: true
+    value: 'https://sonarqube-ntu9uh-tools.pathfinder.gov.bc.ca'
+  - name: SONAR_PROJECT
+    displayName: SonarQube Project Name
+    description: The SonarQube Project Nam
+    required: true
+    value: 'news-dashboard'
