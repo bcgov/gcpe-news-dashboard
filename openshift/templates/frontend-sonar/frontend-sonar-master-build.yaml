@@ -7,7 +7,7 @@ objects:
 - kind: BuildConfig
   apiVersion: v1
   metadata:
-    name: "${NAME}-master-sonar"
+    name: "${NAME}-master"
     labels:
       app: "${NAME}"
   spec:
