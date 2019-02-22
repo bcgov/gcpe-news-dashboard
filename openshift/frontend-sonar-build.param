@@ -3,7 +3,7 @@
 # Component: .
 # Template File: templates/frontend-sonar/frontend-sonar-build.yaml
 #=========================================================
-NAME=news-dashboard-sonar
+NAME=frontend-sonar
 GIT_REPO_URL=https://github.com/bcgov/gcpe-news-dashboard.git
 GIT_REF=develop
 SOURCE_CONTEXT_DIR=
