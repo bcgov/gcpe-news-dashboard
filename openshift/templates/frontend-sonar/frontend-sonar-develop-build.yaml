@@ -34,12 +34,16 @@ objects:
           ref: "${GIT_REF}"
           uri: "${GIT_REPO_URL}"
         contextDir: "${SOURCE_CONTEXT_DIR}"
-      strategy:
-        type: Docker
-      output:
-        to:
-          kind: ImageStreamTag
-          name: "${BUILDER_IMAGE_NAME}:latest"
+    strategy:
+      type: Source
+      sourceStrategy:
+        from:
+          kind: "${SOURCE_IMAGE_KIND}"
+          name: "${SOURCE_IMAGE_NAME}:${SOURCE_IMAGE_TAG}"
+    output:
+      to:
+        kind: "ImageStreamTag",
+        name: "${NAME}:${OUTPUT_IMAGE_TAG}"
       resources:
         requests:
           cpu: "${CPU_REQUEST}"

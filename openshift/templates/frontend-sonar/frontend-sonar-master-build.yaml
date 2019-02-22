@@ -1,26 +1,39 @@
 kind: Template
 apiVersion: v1
 metadata:
-  name: "${NAME}-sonar-build-template"
-  creationTimestamp: 
+  name: "${BUILDER_IMAGE_NAME}"
+  creationTimestamp: null
+  annotations:
+    tags: "builder,nodejs,yarn"
+    iconClass: icon-nodejs
+    description: >-
+      This template defines resources needed to build Angular frontend
+      applications. This is your builder image that compiles the Angular source
+      code. This builder image uses YARN instead of NPM to build the frontend.
 objects:
-- kind: BuildConfig
-  apiVersion: v1
-  metadata:
-    name: "${NAME}"
-    labels:
-      app: "${NAME}"
-  spec:
-    triggers:
-    - type: ImageChange
-    - type: ConfigChange
-    runPolicy: Serial
-    source:
-      type: Git
-      git:
-        uri: "${GIT_REPO_URL}"
-        ref: "${GIT_REF}"
-      contextDir: "${SOURCE_CONTEXT_DIR}"
+  - kind: ImageStream
+    apiVersion: v1
+    metadata:
+      name: "${BUILDER_IMAGE_NAME}"
+      annotations:
+        description: Keeps track of changes in this builder image.
+  - kind: BuildConfig
+    apiVersion: v1
+    metadata:
+      name: "${BUILDER_IMAGE_NAME}"
+      creationTimestamp: null
+      annotations:
+        description: Defines how to build Angular applications from source code.
+    spec:
+      runPolicy: Serial
+      triggers:
+        - type: ConfigChange
+      source:
+        type: Git
+        git:
+          ref: "${GIT_REF}"
+          uri: "${GIT_REPO_URL}"
+        contextDir: "${SOURCE_CONTEXT_DIR}"
     strategy:
       type: Source
       sourceStrategy:
@@ -32,13 +45,20 @@ objects:
           value: "${SONAR_TOKEN}"
         - name: SONAR_PROJECT
           value: "${SONAR_PROJECT}"
-    resources:
-      requests:
-        cpu: "${CPU_REQUEST}"
-        memory: "${MEMORY_REQUEST}"
-      limits:
-        cpu: "${CPU_LIMIT}"
-        memory: "${MEMORY_LIMIT}"
+    output:
+      to:
+        kind: "ImageStreamTag",
+        name: "${NAME}:${OUTPUT_IMAGE_TAG}"
+      resources:
+        requests:
+          cpu: "${CPU_REQUEST}"
+          memory: "${MEMORY_REQUEST}"
+        limits:
+          cpu: "${CPU_LIMIT}"
+          memory: "${MEMORY_LIMIT}"
+      postCommit: {}
+    status:
+      lastVersion: 0
 parameters:
 - name: NAME
   displayName: Name
@@ -115,4 +135,11 @@ parameters:
   displayName: SonarQube Project Name
   description: The SonarQube Project Nam
   required: true
-  value: 'News-Dashbaord-Master'
+  value: 'News-Dashboard-Master'
+- name: BUILDER_IMAGE_NAME
+  displayName: Builder Image
+  description: >-
+    The name assigned to the builder image defined in this template. You
+    should keep this as default unless you know what you are doing.
+  required: true
+  value: frontend-yarn-builder-sonar
