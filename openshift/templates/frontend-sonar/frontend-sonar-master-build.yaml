@@ -138,7 +138,7 @@ parameters:
   value: 'News-Dashboard-Master'
 - name: BUILDER_IMAGE_NAME
   displayName: Builder Image
-  description: >-
+  description:
     The name assigned to the builder image defined in this template. You
     should keep this as default unless you know what you are doing.
   required: true
