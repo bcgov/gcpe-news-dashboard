@@ -32,6 +32,8 @@ objects:
           value: "${SONAR_URL}"
         - name: SONAR_TOKEN
           value: "${SONAR_TOKEN}"
+        - name: SONAR_PROJECT
+          value: "${SONAR_PROJECT}"
     output:
         to:
           kind: ImageStreamTag
@@ -110,3 +112,9 @@ parameters:
   description: The SonarQube URL
   required: true
   value: 'https://sonarqube-ntu9uh-tools.pathfinder.gov.bc.ca'
+- name: SONAR_PROJECT
+  displayName: SonarQube URL
+  description: The SonarQube URL
+  required: true
+  value: news-dashboard
+  

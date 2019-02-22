@@ -125,3 +125,4 @@ parameters:
     description: The SonarQube Project Nam
     required: true
     value: news-dashboard
+  
