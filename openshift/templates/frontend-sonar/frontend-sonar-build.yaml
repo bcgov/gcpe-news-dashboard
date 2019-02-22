@@ -22,11 +22,16 @@ objects:
         ref: "${GIT_REF}"
       contextDir: "${SOURCE_CONTEXT_DIR}"
     strategy:
-        type: Docker
-        dockerStrategy:
+      type: Source
+      sourceStrategy:
         from:
           kind: "${SOURCE_IMAGE_KIND}"
           name: "${SOURCE_IMAGE_NAME}:${SOURCE_IMAGE_TAG}"
+        env:
+        - name: SONAR_URL
+          value: "${SONAR_URL}"
+        - name: SONAR_TOKEN
+          value: "${SONAR_TOKEN}"
     output:
         to:
           kind: ImageStreamTag
@@ -75,11 +80,6 @@ parameters:
   description: The tag of the source image.
   required: true
   value: latest
-- name: OUTPUT_IMAGE_TAG
-  displayName: Output Image Tag
-  description: The tag given to the built image.
-  required: true
-  value: latest
 - name: CPU_LIMIT
   displayName: Resources CPU Limit
   description: The resources CPU limit (in cores) for this build.
@@ -100,3 +100,13 @@ parameters:
   description: The resources Memory request (in Mi, Gi, etc) for this build.
   required: true
   value: 4Gi
+- name: SONAR_TOKEN
+  displayName: Sonarqube Token
+  description: The SonarQube user token
+  required: true
+  value: '123'
+- name: SONAR_URL
+  displayName: SonarQube URL
+  description: The SonarQube URL
+  required: true
+  value: 'https://sonarqube-ntu9uh-tools.pathfinder.gov.bc.ca'
