@@ -124,4 +124,4 @@ parameters:
     displayName: SonarQube Project Name
     description: The SonarQube Project Nam
     required: true
-    value: 'news-dashboard'
+    value: "news-dashboard"
