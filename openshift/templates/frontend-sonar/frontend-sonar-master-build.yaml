@@ -80,12 +80,12 @@ parameters:
   required: false
   value: ''
 - name: BUILDER_IMAGE_NAME
-    displayName: Builder Image
-    description: >-
-      The name assigned to the builder image defined in this template. You
-      should keep this as default unless you know what you are doing.
-    required: true
-    value: news-dashboard-sonar
+  displayName: Builder Image
+  description: >-
+    The name assigned to the builder image defined in this template. You
+    should keep this as default unless you know what you are doing.
+  required: true
+  value: news-dashboard-sonar
 - name: CPU_LIMIT
   displayName: Resources CPU Limit
   description: The resources CPU limit (in cores) for this build.
@@ -120,4 +120,4 @@ parameters:
   displayName: SonarQube Project Name
   description: The SonarQube Project Nam
   required: true
-  value: 'News-Dashboard-Master'
+  value: News-Dashboard-Master
