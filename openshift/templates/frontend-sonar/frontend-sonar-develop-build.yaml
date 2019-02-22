@@ -76,7 +76,7 @@ parameters:
     value: develop
   - name: SOURCE_CONTEXT_DIR
     displayName: Context Directory
-    description: >-
+    description:
       Set this to the relative path to the Dockerfile that describes this
       builder image, if it is not in the root of your repository.
     required: true
@@ -101,3 +101,14 @@ parameters:
     description: "The resources Memory request (in Mi, Gi, etc) for this build."
     required: true
     value: 2Gi
+  - name: SOURCE_IMAGE_KIND
+    displayName: Source Image Kind
+    description: The 'kind' (type) of the  source image; typically ImageStreamTag, or
+      DockerImage.
+    required: true
+    value: ImageStreamTag
+  - name: SOURCE_IMAGE_TAG
+    displayName: Source Image Tag
+    description: The tag of the source image.
+    required: true
+    value: latest

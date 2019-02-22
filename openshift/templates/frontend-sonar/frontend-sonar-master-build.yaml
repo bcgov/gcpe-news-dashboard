@@ -47,7 +47,7 @@ objects:
           value: "${SONAR_PROJECT}"
     output:
       to:
-        kind: "ImageStreamTag",
+        kind: "ImageStreamTag"
         name: "${NAME}:${OUTPUT_IMAGE_TAG}"
       resources:
         requests:
