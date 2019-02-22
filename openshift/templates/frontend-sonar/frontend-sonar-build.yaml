@@ -42,7 +42,7 @@ parameters:
   displayName: Name
   description: The name assigned to all of the resources defined in this template.
   required: true
-  value: news-dashboard-sonar
+  value: news-dashboard
 - name: GIT_REPO_URL
   displayName: Git Repo URL
   description: The URL to your GIT repo.
@@ -109,4 +109,3 @@ parameters:
   description: The SonarQube URL
   required: true
   value: 'https://sonarqube-ntu9uh-tools.pathfinder.gov.bc.ca'
-  
