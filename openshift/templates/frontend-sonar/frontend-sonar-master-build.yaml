@@ -81,7 +81,7 @@ parameters:
   value: ''
 - name: BUILDER_IMAGE_NAME
   displayName: Builder Image
-  description: >-
+  description:
     The name assigned to the builder image defined in this template. You
     should keep this as default unless you know what you are doing.
   required: true
@@ -118,7 +118,7 @@ parameters:
   value: 'https://sonarqube-ntu9uh-tools.pathfinder.gov.bc.ca'
 - name: SONAR_PROJECT
   displayName: SonarQube Project Name
-  description: The SonarQube Project Nam
+  description: The SonarQube Project Name
   required: true
   value: News-Dashboard-Master
 
