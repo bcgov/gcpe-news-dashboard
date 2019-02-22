@@ -55,7 +55,7 @@ parameters:
     displayName: Name
     description: The name assigned to all of the resources defined in this template.
     required: true
-    value: news-dashboard
+    value: news-dashboard-sonar-develop
   - name: BUILDER_IMAGE_NAME
     displayName: Builder Image
     description:
@@ -102,4 +102,3 @@ parameters:
     description: "The resources Memory request (in Mi, Gi, etc) for this build."
     required: true
     value: 2Gi
-    
