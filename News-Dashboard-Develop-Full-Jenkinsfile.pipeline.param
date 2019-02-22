@@ -1,11 +1,11 @@
 #=========================================================
 # OpenShift Jenkins pipeline template parameters for:
-# Jenkinsfile: ./News-Dashboard-Develop-Full-Jenkinsfile
+# Jenkinsfile: ./News-Dashboard-Master-Jenkinsfile
 # Template File: https://raw.githubusercontent.com/BCDevOps/openshift-tools/master/provisioning/pipeline/resources/pipeline-build.json
 #=========================================================
-NAME=news-dashboard-develop-full
+NAME=news-dashboard-master
 # GITHUB_WEBHOOK_SECRET=[a-zA-Z0-9]{40}
 SOURCE_REPOSITORY_URL=https://github.com/bcgov/gcpe-news-dashboard.git
-SOURCE_REPOSITORY_REF=develop
+SOURCE_REPOSITORY_REF=master
 CONTEXT_DIR=
-JENKINSFILE_PATH=News-Dashboard-Develop-Full-Jenkinsfile
+JENKINSFILE_PATH=News-Dashboard-Master-Jenkinsfile

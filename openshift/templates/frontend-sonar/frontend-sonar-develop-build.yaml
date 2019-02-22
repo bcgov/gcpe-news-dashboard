@@ -6,7 +6,7 @@ metadata:
   annotations:
     tags: "builder,nodejs,yarn"
     iconClass: icon-nodejs
-    description: >-
+    description:
       This template defines resources needed to build Angular frontend
       applications. This is your builder image that compiles the Angular source
       code. This builder image uses YARN instead of NPM to build the frontend.
@@ -14,7 +14,7 @@ objects:
   - kind: ImageStream
     apiVersion: v1
     metadata:
-      name: "${NAME}"
+      name: "${NAME}-sonar-develop"
       annotations:
         description: Keeps track of changes in this builder image.
   - kind: BuildConfig
@@ -34,38 +34,35 @@ objects:
           ref: "${GIT_REF}"
           uri: "${GIT_REPO_URL}"
         contextDir: "${SOURCE_CONTEXT_DIR}"
-    strategy:
+      strategy:
         type: Docker
-        sourceStrategy:
-          env:
-          - name: SONAR_URL
-            value: "${SONAR_URL}"
-          - name: SONAR_TOKEN
-            value: "${SONAR_TOKEN}"
-          - name: SONAR_PROJECT
-            value: "${SONAR_PROJECT}"
       output:
         to:
           kind: ImageStreamTag
           name: "${BUILDER_IMAGE_NAME}:latest"
-    resources:
-      requests:
-        cpu: "${CPU_REQUEST}"
-        memory: "${MEMORY_REQUEST}"
-      limits:
-        cpu: "${CPU_LIMIT}"
-        memory: "${MEMORY_LIMIT}"
+      resources:
+        requests:
+          cpu: "${CPU_REQUEST}"
+          memory: "${MEMORY_REQUEST}"
+        limits:
+          cpu: "${CPU_LIMIT}"
+          memory: "${MEMORY_LIMIT}"
       postCommit: {}
     status:
       lastVersion: 0
 parameters:
   - name: NAME
+    displayName: Name
+    description: The name assigned to all of the resources defined in this template.
+    required: true
+    value: news-dashboard
+  - name: BUILDER_IMAGE_NAME
     displayName: Builder Image
     description:
       The name assigned to the builder image defined in this template. You
       should keep this as default unless you know what you are doing.
     required: true
-    value: news-dashboard-sonar
+    value: frontend-yarn-builder-sonar
   - name: GIT_REPO_URL
     displayName: Git Repository URL
     description: The URL of the repository with your application source code.
@@ -105,24 +102,3 @@ parameters:
     description: "The resources Memory request (in Mi, Gi, etc) for this build."
     required: true
     value: 2Gi
-  - name: BUILDER_IMAGE_NAME
-    displayName: Source Image Name
-    description: The name of the source image.
-    required: true
-    value: news-dashboard-sonar
-  - name: SONAR_TOKEN
-    displayName: Sonarqube Token
-    description: The SonarQube user token
-    required: true
-    value: '123'
-  - name: SONAR_URL
-    displayName: SonarQube URL
-    description: The SonarQube URL
-    required: true
-    value: 'https://sonarqube-ntu9uh-tools.pathfinder.gov.bc.ca'
-  - name: SONAR_PROJECT
-    displayName: SonarQube Project Name
-    description: The SonarQube Project Name
-    required: true
-    value: News-Dashbaord-Master
-  
