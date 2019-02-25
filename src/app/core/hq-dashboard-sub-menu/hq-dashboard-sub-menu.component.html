@@ -4,7 +4,7 @@
         <div *ngIf="currentUrl === '/themes-of-the-week'" class="new-theme-button mr-2 d-inline-block">
             <a *appHasRole="['Contributor']" routerLink="/theme/new" class="btn btn-primary btn-outline doNotPrint">New Theme</a>
         </div>
-        <button class="btn btn-primary btn-outline btn-print doNotPrint" (click)="print()"><i class="fa fa-print fa-lg"></i> Print</button>
+        <button class="btn btn-primary btn-outline btn-print doNotPrint" (click)="print()" *ngIf="!socialmediatypes"><i class="fa fa-print fa-lg"></i> Print</button>
     </div>
     <p class="lighter-font hq-dashboard-info">
         The most important news you should be aware of.
