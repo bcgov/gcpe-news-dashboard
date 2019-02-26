@@ -30,6 +30,10 @@ objects:
         env:
         - name: SONAR_TOKEN
           value: "${SONAR_TOKEN}"
+        - name: SONAR_PROJECT_KEY
+          value: "${SONAR_PROJECT_KEY}"
+        - name: SONAR_URL
+          value: "${SONAR_URL}"
     resources:
       requests:
         cpu: "${CPU_REQUEST}"
@@ -42,7 +46,7 @@ parameters:
   displayName: Name
   description: The name assigned to all of the resources defined in this template.
   required: true
-  value: news-dashboard
+  value: News-Dashboard-Develop
 - name: GIT_REPO_URL
   displayName: Git Repo URL
   description: The URL to your GIT repo.
@@ -109,3 +113,8 @@ parameters:
   description: The SonarQube URL
   required: true
   value: 'https://sonarqube-ntu9uh-tools.pathfinder.gov.bc.ca'
+- name: SONAR_PROJECT_KEY
+  displayName: SonarQube Project Key
+  description: The SonarQube project to add data to
+  required: true
+  value: News-Dashboard-Develop
