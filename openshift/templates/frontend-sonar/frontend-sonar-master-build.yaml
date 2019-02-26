@@ -34,6 +34,8 @@ objects:
           value: "${SONAR_PROJECT_KEY}"
         - name: SONAR_URL
           value: "${SONAR_URL}"
+        - name: SONAR_PROJECT
+          value: "${SONAR_PROJECT}"
     resources:
       requests:
         cpu: "${CPU_REQUEST}"
@@ -114,6 +116,11 @@ parameters:
   required: true
   value: 'https://sonarqube-ntu9uh-tools.pathfinder.gov.bc.ca'
 - name: SONAR_PROJECT_KEY
+  displayName: SonarQube Project Key
+  description: The SonarQube project to add data to
+  required: true
+  value: News-Dashboard-Master
+- name: SONAR_PROJECT
   displayName: SonarQube Project Key
   description: The SonarQube project to add data to
   required: true
