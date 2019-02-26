@@ -69,7 +69,12 @@ export class ActivityForecastListComponent implements OnInit {
 
   getStartDow(i: number) {
     const dow: number = this.getStartDate(i).getDay();
-    return dow !== 0 && dow !== 6 ? WeekDay[dow] : 'Sat/Sun';
+    if (dow === 0) {
+      if (i === 0) { return 'Sun/Sat'; } // Sunday and showing the following Saturday
+    } else if (dow !== 6) {
+      return WeekDay[dow];
+    }
+    return 'Sat/Sun';
   }
 
   getStartDay(i: number) {
@@ -77,11 +82,8 @@ export class ActivityForecastListComponent implements OnInit {
     let day: string = startDateTime.getDate().toString();
     const dow: number = startDateTime.getDay();
     if (dow === 0 || dow === 6) {
-      if (dow === 0) {
-        day = new Date(startDateTime.valueOf() - this.msInaDay).getDate() + '/' + day;
-      } else {
-        day += '/' + new Date(startDateTime.valueOf() + this.msInaDay).getDate();
-      }
+      const weekendOtherDate = new Date(startDateTime.valueOf() + (dow === 0 && i === 0 ? 6 : 1) * this.msInaDay);
+      day += '/' + weekendOtherDate.getDate();
     }
     return day; // + "(" + (startDateTime.getMonth() + 1) + ")";
   }
