@@ -1,6 +1,6 @@
-<app-hq-dashboard-sub-menu></app-hq-dashboard-sub-menu>
-<div *ngIf="posts.length > 0; else elseBlock" id="post-list" class="card-columns pl-0 pr-0 pt-3">
-  <div *ngFor="let post of posts" class="card">
+<app-hq-dashboard-sub-menu [userMinistries]="userMinistries"></app-hq-dashboard-sub-menu>
+<div *ngIf="selectedPosts.length > 0; else elseBlock" id="post-list" class="card-columns pl-0 pr-0 pt-3">
+  <div *ngFor="let post of selectedPosts" class="card">
     <blockquote *ngIf="post.fbAssetClass" class="{{post.fbAssetClass}}" attr.data-href="{{post.assetUrl}} | async" id="{{post.key}}"></blockquote>
     <img *ngIf="post.assetUrl && !post.fbAssetClass" class="card-img-top img-fluid" src="{{post.assetUrl}}" alt="Card image cap">
     

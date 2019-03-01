@@ -13,10 +13,20 @@ import { PluralizeKindPipe } from 'src/app/_pipes/pluralize-kind.pipe';
 import { AppConfigService } from 'src/app/app-config.service';
 import { AlertsService } from 'src/app/services/alerts.service';
 import { of } from 'rxjs';
+import { FakePostsData } from 'src/app/test-helpers/posts';
 
 describe('PostListComponent', () => {
   let component: PostListComponent;
   let fixture: ComponentFixture<PostListComponent>;
+  let div: HTMLElement;
+  const userMinistry = 'FakeMinistry';
+
+  class MockActivatedRoute {
+    queryParams = of({ type: 'All'});
+    data = of({
+      posts: FakePostsData(20)
+    });
+  }
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
@@ -35,6 +45,7 @@ describe('PostListComponent', () => {
         AlertsService,
         { provide: AppConfigService, useValue: { config: { NEWS_URL: "" } } },
         { provide: BASE_PATH, useValue: environment.apiUrl },
+        { provide: ActivatedRoute, useClass: MockActivatedRoute },
         AuthService,
         {provide: OAuthService, useValue: {
           getIdentityClaims: () => ['Administrators']
@@ -45,10 +56,19 @@ describe('PostListComponent', () => {
   }));
 
   beforeEach(() => {
+    TestBed.overrideProvider(ActivatedRoute,
+      { useValue: {
+        data: of({
+          posts: FakePostsData(20)
+        }),
+        queryParams: of({ ministries: 'All'})
+    }});
     fixture = TestBed.createComponent(PostListComponent);
     spyOn(TestBed.get(AlertsService), 'showError');
     component = fixture.componentInstance;
+    component.selectedPosts = FakePostsData(20);
     fixture.detectChanges();
+    div = fixture.nativeElement.querySelector('#post-list');
   });
 
   it('should create', () => {
@@ -59,5 +79,36 @@ describe('PostListComponent', () => {
     TestBed.overrideProvider(ActivatedRoute, { useValue: { data: of(null)}});
     fixture.detectChanges();
     expect(TestBed.get(AlertsService).showError).toHaveBeenCalled();
+  });
+
+  it('should get 20 posts', () => {
+    component.ngOnInit();
+    expect(div.querySelectorAll('.card').length).toBe(20);
+  });
+
+  describe('get 5 posts filtered by my selected ministry', () => {
+    beforeEach(() => {
+      TestBed.overrideProvider(ActivatedRoute,
+        { useValue: {
+          data: of({
+            posts: FakePostsData(5)
+          }),
+          queryParams: of({ ministries: 'My%20Ministry'})
+      }});
+      fixture = TestBed.createComponent(PostListComponent);
+      component = fixture.componentInstance;
+      component.selectedPosts = FakePostsData(5);
+      fixture.detectChanges();
+      div = fixture.nativeElement.querySelector('#post-list');
+    });
+    it('should create', ()  => {
+      expect(component).toBeTruthy();
+    });
+    it('should get 5 Fake Ministry posts', ()  => {
+      component.ngOnInit();
+      expect(div.querySelectorAll('.card').length).toBe(5);
+      const posts = component.selectedPosts.filter(s => s.leadMinistryName === userMinistry);
+      expect(posts.length).toEqual(5);
+    });
   });
 });

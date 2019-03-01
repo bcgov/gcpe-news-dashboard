@@ -1,3 +1,5 @@
+import { Ministry } from './ministry';
+
 export interface UserMinistry {
-    ministries?: Array<string>;
+    ministries?: Array<Ministry>;
 }

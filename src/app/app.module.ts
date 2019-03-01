@@ -46,6 +46,8 @@ import { AlertComponent } from './core/alert/alert.component';
 import { MinistriesService } from './services/ministries.service';
 import { GcpeSharedModule } from '../../projects/gcpe-shared/src/public_api';
 import { AccountSettingsService } from './services/account-settings.service';
+import { UserMinistryListResolver } from './_resolvers/user-ministry-list.resolver';
+import { UserMinistryAbbreviationsResolver } from './_resolvers/user-ministry-abbreviations.resolver';
 
 
 const appInitializerFn = (appConfig: AppConfigService) => {
@@ -111,6 +113,8 @@ const appInitializerFn = (appConfig: AppConfigService) => {
     SociaMediaTypeListResolver,
     MessageResolver,
     SociaMediaPostListResolver,
+    UserMinistryListResolver,
+    UserMinistryAbbreviationsResolver,
     AuthGuard,
     SocialMediaRenderService
   ],

@@ -12,11 +12,20 @@ import { OAuthService } from 'angular-oauth2-oidc';
 import { AlertComponent } from 'src/app/core/alert/alert.component';
 import { of } from 'rxjs';
 import { AlertsService } from 'src/app/services/alerts.service';
+import { FakeActivitiesData } from 'src/app/test-helpers/activities';
 
 describe('ActivityForecastListComponent', () => {
   let component: ActivityForecastListComponent;
   let fixture: ComponentFixture<ActivityForecastListComponent>;
   let alerts: AlertsService;
+  let div: HTMLElement;
+
+  class MockActivatedRoute {
+    queryParams = of({ type: 'All'});
+    data = of({
+      activities: FakeActivitiesData(20)
+    });
+  }
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
@@ -34,8 +43,9 @@ describe('ActivityForecastListComponent', () => {
         AlertsService,
         AlertComponent,
         { provide: BASE_PATH, useValue: environment.apiUrl },
+        { provide: ActivatedRoute, useClass: MockActivatedRoute },
         AuthService,
-        {provide: OAuthService, useValue: {
+        { provide: OAuthService, useValue: {
           getIdentityClaims: () => ['Administrators']
         }}
       ],
@@ -44,10 +54,19 @@ describe('ActivityForecastListComponent', () => {
   }));
 
   beforeEach(() => {
+    TestBed.overrideProvider(ActivatedRoute,
+      { useValue: {
+        data: of({
+          activities: FakeActivitiesData(20)
+        }),
+        queryParams: of({ ministries: 'All'})
+    }});
     fixture = TestBed.createComponent(ActivityForecastListComponent);
     spyOn(TestBed.get(AlertsService), 'showError');
     component = fixture.componentInstance;
     fixture.detectChanges();
+    component.activities = FakeActivitiesData(20);
+    div = fixture.nativeElement.querySelector('#activity-forecast-list');
   });
 
   it('should create', () => {
@@ -58,5 +77,49 @@ describe('ActivityForecastListComponent', () => {
     TestBed.overrideProvider(ActivatedRoute, { useValue: { data: of(null)}});
     fixture.detectChanges();
     expect(TestBed.get(AlertsService).showError).toHaveBeenCalled();
+  });
+
+  it('should get 20 activities', () => {
+    component.ngOnInit();
+    expect(component.activities.length).toBe(20);
+  });
+
+  it('should display an activity if the user has selected the contact ministry in settings', () => {
+    component.ngOnInit();
+    component.showingAllMinistries = false;
+    component.userMinistriesAbbreviations = ['FAKE'];
+    const hidingActivity = component.showActivity(component.activities[0].contactMinistryAbbreviation);
+    expect(hidingActivity).toEqual(false);
+  });
+
+  it('should hide an activity if the user has not selected the contact ministry in settings', () => {
+    component.ngOnInit();
+    component.showingAllMinistries = false;
+    component.userMinistriesAbbreviations = [];
+    const hidingActivity = component.showActivity(component.activities[0].contactMinistryAbbreviation);
+    expect(hidingActivity).toEqual(true);
+  });
+
+  it('should show all activities if the list is not filtered by ministry/ministries', () => {
+    component.ngOnInit();
+    component.showingAllMinistries = true;
+    component.userMinistriesAbbreviations = [];
+    const displayedActivities = component.activities.filter(a => {
+      return component.showActivity(a.contactMinistryAbbreviation) === false;
+    });
+    const showingAllActivities = displayedActivities.length === component.activities.length;
+    expect(showingAllActivities).toBe(true);
+  });
+
+  // tslint:disable-next-line:max-line-length
+  it('should not show any activities if the user has not selected any ministries associated with the filtered collection of activities', () => {
+    component.ngOnInit();
+    component.showingAllMinistries = false;
+    component.userMinistriesAbbreviations = ['NOTINCOLLECTION'];
+    const displayedActivities = component.activities.filter(a => {
+      return component.showActivity(a.contactMinistryAbbreviation) === false;
+    });
+    const showingAllActivities = displayedActivities.length === component.activities.length;
+    expect(showingAllActivities).toBe(false);
   });
 });
