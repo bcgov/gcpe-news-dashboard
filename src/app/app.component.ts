@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { AlertsService } from './services/alerts.service';
 import { Event, Router, NavigationStart, NavigationEnd, NavigationCancel, NavigationError } from '@angular/router';
-import { BroadcastService } from '@azure/msal-angular';
 import { AuthService } from './services/auth.service';
-import { Subscription } from 'rxjs';
+import { BehaviorSubject } from 'rxjs';
+import { Configuration } from './configuration';
 
 @Component({
   selector: 'app-root',
@@ -13,32 +13,27 @@ import { Subscription } from 'rxjs';
 
 export class AppComponent implements OnInit{
   title = 'BC Gov News';
-  isLoading: boolean = true;
-  private subscription: Subscription;
+  private isLoadingUserSubject = new BehaviorSubject<boolean>(true);
+  private isLoadingRouteSubject = new BehaviorSubject<boolean>(true);
+  public isLoadingUser = this.isLoadingUserSubject.asObservable();
+  public isLoadingRoute = this.isLoadingUserSubject.asObservable();
 
-  constructor(private alerts: AlertsService, private router: Router, private broadcast: BroadcastService, private auth: AuthService) {
+  constructor(private alerts: AlertsService, private router: Router, private auth: AuthService, private conf: Configuration) {
     this.router.events.subscribe((event: Event) => {
       this.navigationInterceptor(event);
     });
   }
 
   ngOnInit() {
-    this.broadcast.subscribe("msal:loginFailure", (payload) => {
-      this.auth.logoutUser()
+    this.auth.loggedIn.subscribe((loggedIn) => {
+      this.isLoadingUserSubject.next(!loggedIn);
     });
 
-    this.broadcast.subscribe("msal:loginSuccess", (payload) => {
-      this.auth.loginUser(payload.token);
+    this.isLoadingUser.subscribe((isLoadingUser) => {
+      if(!isLoadingUser) {
+        this.router.initialNavigation();
+      }
     });
-
-    this.auth.tryLogin();
-  }
-
-  ngOnDestroy() {
-    this.broadcast.getMSALSubject().next(1);
-    if(this.subscription) {
-      this.subscription.unsubscribe();
-    }
   }
 
   clearAlerts() {
@@ -47,9 +42,9 @@ export class AppComponent implements OnInit{
 
   private navigationInterceptor(event: Event) {
     if (event instanceof NavigationStart) {
-      this.isLoading = true;
+      this.isLoadingRouteSubject.next(true);
     } else if (event instanceof NavigationEnd || event instanceof NavigationCancel || event instanceof NavigationError) {
-      this.isLoading = false;
+      this.isLoadingRouteSubject.next(false);
     }
   }
 
