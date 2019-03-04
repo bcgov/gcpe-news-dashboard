@@ -3,6 +3,5 @@ export const authConfig = {
   authority: "https://login.microsoftonline.com/bcgov.onmicrosoft.com/",
   validateAuthority: true,
   cacheLocation: "localStorage",
-  postLogoutRedirectUri: origin,
   navigateToLoginRequestUrl: true
 };

@@ -14,7 +14,6 @@ import { HasRoleDirective } from './_directives/hasRole.directive';
 import { AuthService } from './services/auth.service';
 import { mockAuth } from './test-helpers/mock-auth';
 import { LoadingSpinnerComponent } from './core/loading-spinner/loading-spinner.component';
-import { BroadcastService } from '@azure/msal-angular';
 
 class MockRouterService {
   private subject = new Subject();
@@ -53,7 +52,6 @@ describe('AppComponent', () => {
         LoadingSpinnerComponent
       ],
       providers: [
-        BroadcastService,
         { provide: Configuration, useValue: new Configuration({ withCredentials: true, accessToken: ''})},
         { provide: Router, useValue: mockRouterService },
         { provide: 'BASE_API_URL', useValue: environment.apiUrl },
@@ -75,14 +73,5 @@ describe('AppComponent', () => {
   it("should have as title 'BC Gov News'", () => {
     const app = fixture.debugElement.componentInstance;
     expect(app.title).toEqual('BC Gov News');
-  });
-
-  it('should show loading spinner while navigating', () => {
-    let router = TestBed.get(Router);
-    expect(component.isLoading).toBeTruthy();
-    router.triggerNavStart('http://localhost/test');
-    expect(component.isLoading).toBeTruthy();
-    router.triggerNavEnd('http://localhost/test');
-    expect(component.isLoading).toBeFalsy();
   });
 });

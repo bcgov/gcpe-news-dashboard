@@ -24,7 +24,7 @@ describe('AuthGuard', () => {
   }));
 
   it('should grant access if logged in', inject([AuthGuard], (guard: AuthGuard) => {
-    spyOnProperty(auth, 'loggedIn').and.returnValue(true);
+    spyOn(auth, 'getLoggedIn').and.returnValue(true);
     
     const access = guard.canActivate();
 
@@ -32,7 +32,7 @@ describe('AuthGuard', () => {
   }));
 
   it('should grant access if logged out', inject([AuthGuard], (guard: AuthGuard) => {
-    spyOnProperty(auth, 'loggedIn').and.returnValue(false);
+    spyOn(auth, 'getLoggedIn').and.returnValue(false);
     const alertSpy = spyOn(TestBed.get(AlertsService), 'showError');
     
     const access = guard.canActivate();
