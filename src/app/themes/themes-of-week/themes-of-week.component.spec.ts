@@ -13,10 +13,8 @@ import { BASE_PATH } from '../../variables';
 import { TimeAgoPipe } from 'time-ago-pipe';
 import { HasRoleDirective } from 'src/app/_directives/hasRole.directive';
 import { AuthService } from 'src/app/services/auth.service';
-import { OAuthService } from 'angular-oauth2-oidc';
 import { AlertsService } from 'src/app/services/alerts.service';
-
-
+import { mockAuth } from 'src/app/test-helpers/mock-auth';
 
 describe('ThemesOfWeekComponent', () => {
   let component: ThemesOfWeekComponent;
@@ -40,10 +38,7 @@ describe('ThemesOfWeekComponent', () => {
       providers: [
         AlertsService,
         { provide: BASE_PATH, useValue: environment.apiUrl },
-        AuthService,
-        {provide: OAuthService, useValue: {
-          getIdentityClaims: () => ['Administrators']
-        }}
+        { provide: AuthService, useClass: mockAuth }
       ],
     })
     .compileComponents();
@@ -133,12 +128,6 @@ describe('ThemesOfWeekComponent', () => {
       const themeList = div.querySelector('#theme-list');
       expect(themeList.querySelectorAll('app-theme-card').length).toBe(2);
     });
-
-    it('should not have a message', () => {
-      component.ngOnInit();
-      const themeList = div.querySelector('#theme-list');
-      expect(themeList.querySelectorAll('app-theme-card').length).toBe(2);
-    });
   });
 
   describe('with an error retrieving themes', () => {
@@ -154,5 +143,5 @@ describe('ThemesOfWeekComponent', () => {
       fixture.detectChanges();
       expect(TestBed.get(AlertsService).showError).toHaveBeenCalled();
     });
-  })
+  });
 });

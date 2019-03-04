@@ -1,6 +1,5 @@
 import { ComponentFixture, async, TestBed } from '@angular/core/testing';
 import { SocialMediaPostListComponent } from './social-media-post-list.component';
-import { ApiService } from '../../services/api.service';
 import { SocialMediaPostsService } from '../../services/socialMediaPosts.service';
 import { RouterModule } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
@@ -13,8 +12,10 @@ import { ActivatedRoute } from '@angular/router';
 import { of } from 'rxjs';
 import { HasRoleDirective } from 'src/app/_directives/hasRole.directive';
 import { AuthService } from 'src/app/services/auth.service';
-import { OAuthService } from 'angular-oauth2-oidc';
 import { SocialMediaRenderService } from '../../services/socialMediaRender.service';
+import { mockAuth } from 'src/app/test-helpers/mock-auth';
+import { LoadingSpinnerComponent } from 'src/app/core/loading-spinner/loading-spinner.component';
+import { SocialMediaPostComponent } from '../social-media-post/social-media-post.component';
 
 describe('SocialMediaPostListComponent', () => {
   let component: SocialMediaPostListComponent;
@@ -38,18 +39,16 @@ describe('SocialMediaPostListComponent', () => {
       declarations: [
         SocialMediaPostListComponent,
         HqDashboardSubMenuComponent,
-        HasRoleDirective
+        HasRoleDirective,
+        LoadingSpinnerComponent,
+        SocialMediaPostComponent
       ],
       providers: [
-        ApiService,
         SocialMediaPostsService,
         { provide: BASE_PATH, useValue: environment.apiUrl },
         { provide: ActivatedRoute, useClass: MockActivatedRoute },
-        AuthService,
         SocialMediaRenderService,
-        { provide: OAuthService, useValue: {
-          getIdentityClaims: () => ['Administrators']
-        }}
+        { provide: AuthService, useClass: mockAuth }
       ]
     })
     .compileComponents();

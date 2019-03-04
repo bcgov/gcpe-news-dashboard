@@ -1,0 +1,19 @@
+#=========================================================
+# OpenShift template parameters for:
+# Component: .
+# Template File: templates/frontend-sonar/frontend-sonar-master-build.yaml
+#=========================================================
+NAME=frontend-sonar
+GIT_REPO_URL=https://github.com/bcgov/gcpe-news-dashboard.git
+GIT_REF=master
+SOURCE_CONTEXT_DIR=
+SOURCE_IMAGE_KIND=ImageStreamTag
+SOURCE_IMAGE_NAME=frontend-yarn-builder-sonar
+SOURCE_IMAGE_TAG=latest
+OUTPUT_IMAGE_TAG=latest
+CPU_LIMIT=1
+MEMORY_LIMIT=6Gi
+CPU_REQUEST=1
+MEMORY_REQUEST=4Gi
+SONAR_TOKEN=123
+SONAR_URL=https://sonarqube-ntu9uh-tools.pathfinder.gov.bc.ca

@@ -1,27 +1,14 @@
 <app-hq-dashboard-sub-menu [socialmediatypes]="socialmediatypes" ></app-hq-dashboard-sub-menu>
+<app-loading-spinner [isLoading]="isLoading"></app-loading-spinner>
 <div id="social-media-list" class="card-columns">
-  <div *ngFor="let item of selectedSocialMedia" [ngSwitch]="item.mediaType" class="social-media-post">
-    <!--
-      put a responsive wrapper around the social media post so that they will act in a similar responsive way;
-      cannot find the same wrapper since the posts from different social media platform act differently;
-      use card for twitter and instagram;
-      did not wrap facebook post since sometimes it does not show the post with certain browser
-      cannot use a css class for the style since the social media scripts are looking for certain classes as twitter-tweet, fb-post, fb-video, instagram-media
-    -->
-    <div class="card card-no-border twitter-wrapper" *ngSwitchCase="'Twitter'">
-      <blockquote class="twitter-tweet" data-width="99%" data-lang="en" id="{{item.id}}">
-        <a href="https://publish.twitter.com/oembed?{{item.url}} | async"></a>
-      </blockquote>
+  <div *ngFor="let item of selectedSocialMedia" [ngSwitch]="item.mediaType">
+    <app-social-media-post [postExt]="item" [isLoading]="isLoading"></app-social-media-post>
+  </div>
+  <div *ngIf="selectedSocialMedia.length < 1 && !isLoading" class="empty-list">
+    <div class="card">
+      <div class="card-body">
+        <h5 class="card-title mb-0 text-center">No posts to display</h5>
+      </div>
     </div>
-    <div *ngSwitchCase="'Facebook'" class="card card-no-border facebook-wrapper">
-      <blockquote style="width: 99%;" class="{{item.postType}}" attr.data-href="{{item.url}} | async" id="{{item.id}}"></blockquote>
-    </div>
-    <div class="card-no-border instagram-wrapper" *ngSwitchCase="'Instagram'">
-      <blockquote style="width: 99%; max-width: 99%;" class="instagram-media" data-instgrm-captioned
-      attr.data-instgrm-permalink="{{item.url}}?OMITSCRIPT=true | async" data-instgrm-version="9"
-      id="{{item.id}}">
-        <a href="{{item.url}}?OMITSCRIPT=true | async"></a>
-      </blockquote>
-    </div>  
   </div>
 </div>

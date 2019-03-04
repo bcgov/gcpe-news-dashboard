@@ -8,7 +8,7 @@
             </div>  
             <div [hidden]="showActivity(activity.contactMinistryAbbreviation)" class="card" *ngFor="let activity of dayActivities">
               <div class="card-body">
-                <h5 class="card-title">{{activity.title}}</h5>
+                <h5 class="card-title"><a target="_blank" href="{{BASE_HUB_URL}}/Legacy/Calendar/Activity.aspx?ActivityId={{activity.id}}">{{activity.title}}</a></h5>
                 <p class="card-text">
                   {{activity.details}}
                   <span class="text-muted card-ministry-abbr">{{activity.contactMinistryAbbreviation}}</span>

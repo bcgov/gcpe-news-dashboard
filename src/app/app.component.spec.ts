@@ -1,17 +1,20 @@
 import { TestBed, async, ComponentFixture } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
-import { AppComponent } from './app.component';
-import { NavMenuComponent } from './core/navmenu/navmenu.component';
-import { NgbDropdownModule } from '@ng-bootstrap/ng-bootstrap';
-import { NgbCollapseModule } from '@ng-bootstrap/ng-bootstrap';
-import { FooterComponent } from './core/footer/footer.component';
-import { OAuthService, UrlHelperService, OAuthLogger } from 'angular-oauth2-oidc';
 import { HttpClientModule } from '@angular/common/http';
-import { environment } from '../environments/environment';
-import { HasRoleDirective } from './_directives/hasRole.directive';
-import { AlertComponent } from './core/alert/alert.component';
 import { Router, NavigationEnd, NavigationStart } from '@angular/router';
+import { NavMenuComponent } from './core/navmenu/navmenu.component';
+import { NgbDropdownModule, NgbCollapseModule } from '@ng-bootstrap/ng-bootstrap';
 import { Subject } from 'rxjs';
+import { AppComponent } from './app.component';
+import { AlertComponent } from './core/alert/alert.component';
+import { Configuration } from './configuration';
+import { environment } from '../environments/environment';
+import { FooterComponent } from './core/footer/footer.component';
+import { HasRoleDirective } from './_directives/hasRole.directive';
+import { AuthService } from './services/auth.service';
+import { mockAuth } from './test-helpers/mock-auth';
+import { LoadingSpinnerComponent } from './core/loading-spinner/loading-spinner.component';
+import { BroadcastService } from '@azure/msal-angular';
 
 class MockRouterService {
   private subject = new Subject();
@@ -46,14 +49,15 @@ describe('AppComponent', () => {
         NavMenuComponent,
         FooterComponent,
         HasRoleDirective,
-        AlertComponent
+        AlertComponent,
+        LoadingSpinnerComponent
       ],
       providers: [
-        OAuthService,
-        UrlHelperService,
-        OAuthLogger,
+        BroadcastService,
+        { provide: Configuration, useValue: new Configuration({ withCredentials: true, accessToken: ''})},
         { provide: Router, useValue: mockRouterService },
-        { provide: 'BASE_API_URL', useValue: environment.apiUrl }
+        { provide: 'BASE_API_URL', useValue: environment.apiUrl },
+        { provide: AuthService, useClass: mockAuth }
       ],
     }).compileComponents();
   }));
@@ -68,7 +72,7 @@ describe('AppComponent', () => {
     expect(app).toBeTruthy();
   });
 
-  it(`should have as title 'BC Gov News'`, () => {
+  it("should have as title 'BC Gov News'", () => {
     const app = fixture.debugElement.componentInstance;
     expect(app.title).toEqual('BC Gov News');
   });

@@ -13,6 +13,7 @@ API_URL=https://hub-api-ntu9uh-test.pathfinder.gov.bc.ca/api/
 # IpFilterRules=
 APPLICATION_DOMAIN=news-dashboard-ntu9uh-test.pathfinder.gov.bc.ca
 NEWS_URL=https://test.news.gov.bc.ca
+HUB_URL=https://test.hub.gcpe.gov.bc.ca
 TAG_NAME=test
 # HTTP_BASIC=
 # HTTP_BASIC_USERNAME=

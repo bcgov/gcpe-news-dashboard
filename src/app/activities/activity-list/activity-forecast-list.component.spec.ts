@@ -6,13 +6,15 @@ import { HqDashboardSubMenuComponent } from '../../core/hq-dashboard-sub-menu/hq
 import { environment } from '../../../environments/environment';
 import { HttpClientModule } from '@angular/common/http';
 import { BASE_PATH } from '../../variables';
+import { Activity } from '../../view-models/activity';
 import { HasRoleDirective } from 'src/app/_directives/hasRole.directive';
 import { AuthService } from 'src/app/services/auth.service';
-import { OAuthService } from 'angular-oauth2-oidc';
 import { AlertComponent } from 'src/app/core/alert/alert.component';
+import { AppConfigService } from 'src/app/app-config.service';
 import { of } from 'rxjs';
 import { AlertsService } from 'src/app/services/alerts.service';
 import { FakeActivitiesData } from 'src/app/test-helpers/activities';
+import { mockAuth } from 'src/app/test-helpers/mock-auth';
 
 describe('ActivityForecastListComponent', () => {
   let component: ActivityForecastListComponent;
@@ -42,12 +44,9 @@ describe('ActivityForecastListComponent', () => {
       providers: [
         AlertsService,
         AlertComponent,
+        { provide: AppConfigService, useValue: { config: { HUB_URL: '' } } },
         { provide: BASE_PATH, useValue: environment.apiUrl },
-        { provide: ActivatedRoute, useClass: MockActivatedRoute },
-        AuthService,
-        { provide: OAuthService, useValue: {
-          getIdentityClaims: () => ['Administrators']
-        }}
+        { provide: AuthService, useClass: mockAuth }
       ],
     })
     .compileComponents();
@@ -121,5 +120,26 @@ describe('ActivityForecastListComponent', () => {
     });
     const showingAllActivities = displayedActivities.length === component.activities.length;
     expect(showingAllActivities).toBe(false);
+  });
+
+  it('should overwrite title and details with hqComments', () => {
+    const activity = FakeActivity('**hq title**hq _details_');
+    component.overwriteTitleDetailsFromHqComments(activity);
+    expect(activity.title).toBe('hq title');
+    expect(activity.details).toBe('hq details');
+  });
+
+  it('should overwrite title with hqComments', () => {
+    const activity = FakeActivity('**hq comment**');
+    component.overwriteTitleDetailsFromHqComments(activity);
+    expect(activity.title).toBe('hq comment');
+    expect(activity.details).toBe('');
+  });
+
+  it('should overwrite details with hqComments', () => {
+    const activity = FakeActivity('hq comment');
+    component.overwriteTitleDetailsFromHqComments(activity);
+    expect(activity.title).toBe('title');
+    expect(activity.details).toBe('hq comment');
   });
 });

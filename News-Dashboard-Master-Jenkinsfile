@@ -1,0 +1,40 @@
+node('master') {
+    stage('Code Quality') {
+        echo "Running SonarQube static code analysis."
+        openshiftBuild bldCfg: 'frontend-sonar-master', showBuildLogs: 'true'
+    }
+
+    stage('Dependency Security Check') {
+        echo "Running Snyk analysis of dependencies"
+        openshiftBuild bldCfg: 'frontend-snyk-master', showBuildLogs: 'true'
+    }
+
+    stage('Building builder') {
+        echo "Building builder..."
+        openshiftBuild bldCfg: 'frontend-npm-master-builder', showBuildLogs: 'true', waitTime: '900000'
+    }
+    stage('Building runtime') {
+        echo "Building runtime..."
+        openshiftBuild bldCfg: 'frontend-nginx-master-runtime', showBuildLogs: 'true', waitTime: '900000'
+    }
+    stage('Assembling frontend') {
+        echo "Assembling frontend..."
+        openshiftBuild bldCfg: 'news-dashboard-master', showBuildLogs: 'true', waitTime: '900000'
+    }
+    stage('Inject into runtime') {
+        echo "Injecting app into runtime..."
+        openshiftBuild bldCfg: 'news-dashboard-master-static', showBuildLogs: 'true', waitTime: '900000'
+    }
+    stage('Tagging build') {
+        echo "Tagging image..."
+        openshiftTag destStream: 'news-dashboard-master-static', verbose: 'true', destTag: '$BUILD_ID', srcStream: 'news-dashboard-static', srcTag: 'latest'
+    }
+}
+
+stage('Deploy on Prod') {
+    input "Deploy to Prod?"
+    node('master') {
+        openshiftTag destStream: 'news-dashboard-master-static', verbose: 'true', destTag: 'prod', srcStream: 'news-dashboard-static', srcTag: '$BUILD_ID'        
+    }
+}
+

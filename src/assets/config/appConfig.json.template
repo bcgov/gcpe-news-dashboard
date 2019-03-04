@@ -1,3 +1,4 @@
 {
-    "NEWS_URL": "%NEWS_URL%"
+  "NEWS_URL": "%NEWS_URL%",
+  "HUB_URL": "%HUB_URL%"
 }

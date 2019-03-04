@@ -1,8 +1,11 @@
 <div class="container-fluid dashboard-theme-container" >
-    <h2>Themes
-      <a class="btn btn-primary btn-outline pull-right" routerLink="/theme/new">New Theme</a>
-    </h2>
-    
+    <div class="header">
+        <h2>Edit Themes</h2>
+        <div class="btn-group pull-right">
+            <a href="#" routerLink="/themes-of-the-week" class="btn btn-outline btn-primary" id="backBtn">Back to List</a>
+            <a routerLink="/theme/new" class="ml-2 btn btn-primary btn-outline">New Theme</a>
+        </div>
+    </div>
     <div class="pt-3 router-style">
         <ul class="list-inline">
             <li class="list-inline-item"><a routerLink="/themes"  [queryParams]="{ type: 'Published'}" routerLinkActive="active">{{'published' | uppercase }}</a></li>

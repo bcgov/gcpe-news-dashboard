@@ -13,6 +13,7 @@
 # IpFilterRules=
 APPLICATION_DOMAIN=news-dashboard-ntu9uh-dev.pathfinder.gov.bc.ca
 NEWS_URL=https://dev.news.gov.bc.ca
+HUB_URL=https://dev.hub.gcpe.gov.bc.ca
 TAG_NAME=dev
 # HTTP_BASIC=
 # HTTP_BASIC_USERNAME=

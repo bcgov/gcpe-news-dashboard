@@ -1,12 +1,12 @@
 #=========================================================
 # OpenShift template parameters for:
 # Component: .
-# Template File: templates/frontend-sonar/frontend-sonar-develop-build.yaml
+# Template File: templates/frontend-snyk/frontend-snyk-master-build.yaml
 #=========================================================
-BUILDER_IMAGE_NAME=frontend-yarn-builder-sonar
+BUILDER_IMAGE_NAME=frontend-snyk-master
 GIT_REPO_URL=https://github.com/bcgov/gcpe-news-dashboard.git
-GIT_REF=develop
-SOURCE_CONTEXT_DIR=openshift/templates/frontend-sonar/
+GIT_REF=master
+SOURCE_CONTEXT_DIR=openshift/templates/frontend-snyk/
 CPU_LIMIT=1
 MEMORY_LIMIT=4Gi
 CPU_REQUEST=1

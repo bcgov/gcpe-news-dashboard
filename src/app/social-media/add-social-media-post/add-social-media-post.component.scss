@@ -1,0 +1,75 @@
+@import "../../../assets/styles/variables.scss";
+
+.addSocialMediaPostBtnpreview-post {
+  max-width: 400px;
+}
+
+nav {
+  background-color: map-get($theme-colors, primary-alt);;
+  border-bottom: 1px solid map-get($theme-colors, light);
+  margin-bottom: 20px;
+}
+
+.navbar-nav {
+  flex-direction: row;
+}
+
+.navbar .container-fluid {
+  margin: 0 32px;
+  @include media-breakpoint-down(md) {
+      margin: 0 15px;
+  }
+}
+
+#form-nav #site-title h4{
+  padding-top:25px;
+  padding-bottom: 9px;
+  color: map-get($theme-colors, dark);
+}
+
+#form-nav .btn-save{
+  padding: 8px 25px;
+  border: 1px solid map-get($theme-colors, light);
+  color: map-get($theme-colors, primary-nav);
+  &:not([disabled]) {
+      background-color: map-get($theme-colors, secondary-nav);
+      color: map-get($theme-colors, light);
+  }
+}
+
+#url {
+  font-size: 2em;
+  font-weight: bold;
+}
+#url {
+  border: none;
+  resize: none;
+  &:focus {
+      outline: none;
+      box-shadow: none;
+  }
+}
+label {
+  font-size: 0.8em;
+  font-weight: bold;
+  color: map-get($theme-colors, medium);
+}
+label.url-label {
+  line-height: 50px;
+  @include media-breakpoint-down(sm) {
+    text-align: left!important;
+  }
+}
+
+.hidden {
+  visibility: hidden;
+}
+
+.preview-post {
+  max-width: 500px;
+  @include media-breakpoint-down(md) {
+    margin-left: -20px;
+    margin-right: -20px;
+    text-align: center;
+  }
+}
