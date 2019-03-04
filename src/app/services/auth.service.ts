@@ -22,10 +22,11 @@ export class AuthService {
     this.login();
   }
 
-  checkExpired(token: string) {
+  checkExpired() {
+    const token = <string>this.configuration.accessToken;
     let expiry = 0;
     try {
-      return JSON.parse(window.atob(token.split('.')[1])).exp;
+      expiry = JSON.parse(window.atob(token.split('.')[1])).exp;
     } catch {}
     if(this.msal.getUser() !== null && new Date().getTime()/1000 >= expiry && !this.refreshingToken) {
       this.refreshingToken = true;
@@ -37,7 +38,7 @@ export class AuthService {
   }
 
   getLoggedIn(): boolean {
-    this.checkExpired(<string>this.configuration.accessToken);
+    this.checkExpired();
     return this.loggedInSubject.value;
   }
 
