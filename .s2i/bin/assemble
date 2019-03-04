@@ -71,7 +71,7 @@ if [ "$SONAR_TOKEN" ]; then
   echo "---> Running Code Quality scan"
   npm install -g sonarqube-scanner
   npm install -g tslint-sonarts
-  sonar-scanner -Dsonar.projectKey=$SONAR_PROJECT_KEY -Dsonar.host.url=$SONAR_URL -Dsonar.login=$SONAR_TOKEN -Dsonar.projectName=$SONAR_PROJECT -Dsonar.projectName=$SONAR_PROJECT
+  sonar-scanner
 fi
 
 echo "---> Removing node modules from image"

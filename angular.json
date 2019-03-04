@@ -102,7 +102,8 @@
               "src/favicon.ico",
               "src/assets",
               "src/silent-refresh.html"
-            ]
+            ],
+            "codeCoverage": true
           }
         },
         "lint": {
