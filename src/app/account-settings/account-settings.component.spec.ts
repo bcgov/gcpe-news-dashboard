@@ -1,7 +1,6 @@
 import { ComponentFixture, TestBed, async } from '@angular/core/testing';
 import { AccountSettingsComponent } from './account-settings.component';
 import { AuthService } from '../services/auth.service';
-import { OAuthService } from 'angular-oauth2-oidc';
 import { FormsModule } from '@angular/forms';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { of } from 'rxjs';
@@ -33,11 +32,7 @@ describe('AccountSettingsComponent', () => {
           providers: [
             MinistriesService,
             { provide: ActivatedRoute, useClass: MockActivatedRoute },
-            AuthService,
-            {provide: OAuthService, useValue: {
-              getIdentityClaims: () => ['Administrators'],
-              getUserMinistry: () => 'GCPE:EX'
-            }}
+            AuthService
           ],
           schemas: [NO_ERRORS_SCHEMA]
         })

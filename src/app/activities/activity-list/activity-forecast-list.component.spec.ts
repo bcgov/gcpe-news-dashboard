@@ -22,6 +22,14 @@ describe('ActivityForecastListComponent', () => {
   let alerts: AlertsService;
   let div: HTMLElement;
 
+  function FakeActivity(hqComments: string): Activity {
+    return {
+      title: 'title',
+      details: 'details',
+      hqComments: hqComments
+    } as Activity;
+  }
+
   class MockActivatedRoute {
     queryParams = of({ type: 'All'});
     data = of({
