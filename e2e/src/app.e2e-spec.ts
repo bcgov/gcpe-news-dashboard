@@ -9,6 +9,7 @@ describe('workspace-project App', () => {
     browser.waitForAngularEnabled(false);
     page = new AppPage();
   });
+});
 /*
   it('should display app title', () => {
     page.navigateTo();
