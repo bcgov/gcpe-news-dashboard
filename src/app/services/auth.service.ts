@@ -1,73 +1,91 @@
-import { Injectable } from '@angular/core';
+import { Injectable, OnDestroy } from '@angular/core';
 import { Configuration } from '../configuration';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, Subscription, Observable, of } from 'rxjs';
 import { User } from '../view-models/user';
 import { MsalService } from './msal.service';
-
-
+import { delay } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
 })
-export class AuthService {
+export class AuthService implements OnDestroy {
+  subscriptions = new Subscription();
+
   private currentUserSubject = new BehaviorSubject<User>(new User());
-  private loggedInSubject = new BehaviorSubject<boolean>(false);
-
   public currentUser = this.currentUserSubject.asObservable();
-  public loggedIn = this.loggedInSubject.asObservable();
 
-  private refreshingToken: boolean = false;
+  isLoggedInSubject = new BehaviorSubject<boolean>(false);
+  isLoggingInSubject = new BehaviorSubject<boolean>(false);
 
   constructor(private configuration: Configuration, private msal: MsalService) {
     this.login();
+    this.subscriptions.add(this.msal.accessToken.subscribe((token) => {
+      if (token !== '') {
+        this.setUser(token);
+        this.isLoggedInSubject.next(true);
+        this.isLoggingInSubject.next(false);
+      }
+    }));
   }
 
-  checkExpired() {
-    const token = <string>this.configuration.accessToken;
-    let expiry = 0;
+  ngOnDestroy() {
+    this.subscriptions.unsubscribe();
+  }
+
+  /**
+  * Converts an access token into it's expiry time in seconds
+  * @param token A valid token
+  * Returns 0 if an invalid token is received
+  */
+  parseExpiry(token: string) {
     try {
-      expiry = JSON.parse(window.atob(token.split('.')[1])).exp;
-    } catch {}
-    if(this.msal.getUser() !== null && new Date().getTime()/1000 >= expiry && !this.refreshingToken) {
-      this.refreshingToken = true;
-      this.msal.getToken().then(token => {
-        this.refreshingToken = false;
-        this.setUser(token);
-      });
+      return JSON.parse(window.atob(token.split('.')[1])).exp;
+    } catch {
+      return 0;
     }
   }
 
-  getLoggedIn(): boolean {
-    this.checkExpired();
-    return this.loggedInSubject.value;
+  /**
+  * Returns an observable of whether the user is logged in or not
+  */
+  isLoggedIn(): Observable<boolean> {
+    return this.isLoggedInSubject.asObservable();
   }
 
+  /**
+  * Logs out any logged in user
+  */
   logout() {
     this.msal.logout();
-    this.loggedInSubject.next(false);
+    this.isLoggedInSubject.next(false);
   }
 
-  async login(): Promise<boolean> {
-    return this.msal.tryLogin().then(token => {
-      this.setUser(<string>token);
-      this.loggedInSubject.next(true);
-      return true;
-    });
+  /**
+   * Logs in user via msal provider
+   */
+  login() {
+    this.isLoggingInSubject.next(true);
+    this.msal.tryLogin();
   }
 
-  async setUser(token: string) {
+  setUser(token: string) {
     this.configuration.accessToken = token;
     const identityClaims = this.msal.getUser();
-    let user = {
+    const user = {
       user_roles: identityClaims['idToken']['roles'] || [],
       access_token: token,
-      name: identityClaims['displayableId'] || ''
+      name: identityClaims['displayableId'] || '',
+      expiry: this.parseExpiry(token) * 1000
     } as User;
+    // Set a timer to refresh the token once it's expiring
+    this.subscriptions.add(of(null).pipe(delay(new Date(<number>user.expiry))).subscribe(() => {
+      this.msal.getToken();
+    }));
     this.currentUserSubject.next(user);
   }
 
   public roleMatch(allowedRoles: Array<String>): boolean {
-    if(typeof this.currentUserSubject.value.user_roles === 'undefined') {
+    if (typeof this.currentUserSubject.value.user_roles === 'undefined') {
       return false;
     }
     return allowedRoles.some(r => this.currentUserSubject.value.user_roles.indexOf(r) >= 0);

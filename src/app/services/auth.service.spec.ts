@@ -3,10 +3,12 @@ import { TestBed, inject } from '@angular/core/testing';
 import { Configuration } from '../configuration';
 import { HttpClient, HttpHandler } from '@angular/common/http';
 import { MsalService } from './msal.service';
+import { BehaviorSubject } from 'rxjs';
 
 describe('AuthService', () => {
   let msal: any;
   let msalTrySpy: any;
+  let accessTokenObs: BehaviorSubject<string>;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
@@ -19,6 +21,8 @@ describe('AuthService', () => {
       ]
     });
     msal = TestBed.get(MsalService);
+    accessTokenObs = new BehaviorSubject('');
+    spyOn(msal, 'accessToken').and.returnValue(accessTokenObs);
     msalTrySpy = spyOn(msal, 'tryLogin').and.returnValue(Promise.resolve('eybToken'));
   });
 
@@ -28,11 +32,13 @@ describe('AuthService', () => {
 
   it('should set user values given a valid user', (done) => {
     inject([AuthService], (service: AuthService) => {
+      spyOn(service, 'parseExpiry').and.returnValue(500);
       service.currentUser.subscribe((user) => {
-        if(typeof user.name !== 'undefined') {
+        if (typeof user.name !== 'undefined') {
           expect(user.access_token).toBe('eybToken');
           expect(user.user_roles).toEqual(['Contributor']);
           expect(user.name).toBe('Test');
+          expect(user.expiry).toBe(500 * 1000);
           done();
         }
       });
@@ -42,21 +48,10 @@ describe('AuthService', () => {
     })();
   });
 
-  it('should get a token when logging', (done) => {
-    inject([AuthService], (service: AuthService) => {
-      spyOn(service, 'setUser');
-      service.login().then(() => {
-        expect(service.loggedIn).toBeTruthy();
-        expect(service.setUser).toHaveBeenCalled();
-        done();
-      });
-    })();
-  });
-
   it('should set user values given a valid user', (done) => {
     inject([AuthService], (service: AuthService) => {
       service.currentUser.subscribe((user) => {
-        if(typeof user.name !== 'undefined') {
+        if (typeof user.name !== 'undefined') {
           expect(user.access_token).toBe('eybToken');
           expect(user.user_roles).toEqual(['Contributor']);
           expect(user.name).toBe('Test');
@@ -72,7 +67,7 @@ describe('AuthService', () => {
   it('should pass role match given user has role', (done) => {
     inject([AuthService], (service: AuthService) => {
       service.currentUser.subscribe((user) => {
-        if(typeof user.name !== 'undefined') {
+        if (typeof user.name !== 'undefined') {
           const rvl = service.roleMatch(['Contributor']);
           expect(rvl).toBeTruthy();
           done();

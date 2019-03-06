@@ -3,16 +3,20 @@ import { UserAgentApplication } from 'msal';
 import { authConfig } from '../auth.config';
 import { AlertsService } from './alerts.service';
 import { Configuration } from '../configuration';
+import { BehaviorSubject } from 'rxjs';
 
 
 @Injectable({
   providedIn: 'root'
 })
 export class MsalService {
-  msal: UserAgentApplication;
+  private msal: UserAgentApplication;
+  public accessTokenSubject = new BehaviorSubject<string>('');
+  public accessToken = this.accessTokenSubject.asObservable();
+  public isRefreshingToken = false;
 
   constructor(private alerts: AlertsService, private configuration: Configuration) {
-    const url = window.location.protocol+'//'+window.location.hostname+(window.location.port ? ':'+window.location.port : '');
+    const url = window.location.protocol + '//' + window.location.hostname + (window.location.port ? ':' + window.location.port : '');
     this.msal = new UserAgentApplication(authConfig.clientID, authConfig.authority, (errorDesc, token, error) => {
       this.configuration.accessToken = token;
     }, {
@@ -22,7 +26,7 @@ export class MsalService {
     });
   }
 
-  public async login() {
+  public login() {
     this.msal.loginRedirect([authConfig.clientID]);
   }
 
@@ -35,26 +39,25 @@ export class MsalService {
     this.msal.logout();
   }
 
-  public async tryLogin() {
-    if(this.msal.getUser()) {
-      return this.getToken();
+  public tryLogin() {
+    if (this.msal.getUser()) {
+      this.getToken();
     } else {
-      return this.login();
+      this.login();
     }
   }
 
-  public async getToken(): Promise<string> {
-    return this.msal.acquireTokenSilent([authConfig.clientID])
+  public getToken() {
+    this.isRefreshingToken = true;
+    console.log('getting token')
+    this.msal.acquireTokenSilent([authConfig.clientID])
       .then(accessToken => {
-        return accessToken;
+        this.isRefreshingToken = false;
+        this.accessTokenSubject.next(accessToken);
       }, error => {
-        return this.msal.acquireTokenSilent([authConfig.clientID])
-          .then(accessToken => {
-            return accessToken;
-          }, error => {
-            this.alerts.showError('Failed to authenticate');
-            return '';
-          });
+          this.isRefreshingToken = false;
+          this.alerts.showError('Failed to authenticate');
+          this.accessTokenSubject.next('');
       });
   }
 }
