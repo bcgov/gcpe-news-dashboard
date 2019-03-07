@@ -16,7 +16,7 @@ export class MsalService {
   public isRefreshingToken = false;
 
   constructor(private alerts: AlertsService, private configuration: Configuration) {
-    const url = window.location.protocol + '//' + window.location.hostname + (window.location.port ? ':' + window.location.port : '');
+    const url = `${window.location.protocol}//${window.location.hostname + (window.location.port ? ':' + window.location.port : '')}`;
     this.msal = new UserAgentApplication(authConfig.clientID, authConfig.authority, (errorDesc, token, error) => {
       this.configuration.accessToken = token;
     }, {
@@ -49,7 +49,6 @@ export class MsalService {
 
   public getToken() {
     this.isRefreshingToken = true;
-    console.log('getting token')
     this.msal.acquireTokenSilent([authConfig.clientID])
       .then(accessToken => {
         this.isRefreshingToken = false;
