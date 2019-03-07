@@ -44,6 +44,7 @@ import { RoleGuard } from './_guards/role.guard';
 import { ActivitiesService } from './services/activities.service';
 import { PostsService } from './services/posts.service';
 import { AddSocialMediaPostComponent } from './social-media/add-social-media-post/add-social-media-post.component';
+import { OAuthModule, OAuthService, UrlHelperService, OAuthLogger } from 'angular-oauth2-oidc';
 
 const appInitializerFn = (appConfig: AppConfigService) => {
   return () => {
@@ -86,7 +87,8 @@ const appInitializerFn = (appConfig: AppConfigService) => {
     FormsModule,
     HttpClientModule,
     NgbModule.forRoot(),
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    OAuthModule.forRoot()
   ],
   providers: [
     AppConfigService,
