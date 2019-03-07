@@ -9,13 +9,13 @@
         <a routerLink="/"><h4>BC Gov News</h4></a>
       </div>
       <div class="ml-auto">
-        <div class="nav-item" *ngIf="!isLoggedIn()">
-          <a class="btn btn-link" (click.preventDefault)="login()" href="#">Sign In</a> 
+        <div class="nav-item" *ngIf="!isLoggedIn | async">
+          <a class="btn btn-link" (click.preventDefault)="login()" href="#">Sign In</a>
         </div>
-        <div class="nav-item" *ngIf="isLoggedIn()">
+        <div class="nav-item" *ngIf="isLoggedIn | async">
           <div ngbDropdown class="image" placement="bottom-right">
               <div class="user-image" id="profile-menu" ngbDropdownToggle [ngStyle]="{'background-color': getColor(firstLetter)}">{{firstLetter}}</div>
-              
+
               <div ngbDropdownMenu class="dropdown-menu" aria-labelledby="profile-menu">
                 <ul class="list-inline">
                   <div *appHasRole="['Contributor']">
@@ -57,7 +57,7 @@
       <div class="ml-auto collapse navbar-collapse flex-grow-0" id="navbarSupportedContent" [ngbCollapse]="isCollapsed">
         <ul class="navbar-nav">
           <li class="mobile-only close-btn">
-            <a class="nav-link" (click)="isCollapsed=!isCollapsed"><i class="fa fa-times"></i></a> 
+            <a class="nav-link" (click)="isCollapsed=!isCollapsed"><i class="fa fa-times"></i></a>
           </li>
           <li class="nav-item" style="position: initial;">
             <div ngbDropdown >
@@ -65,24 +65,24 @@
             </div>
           </li>
           <li class="nav-item">
-            <a class="nav-link active" [routerLink]="['/last-7-day-post-list']" routerLinkActive="active">HQ Dashboard</a> 
+            <a class="nav-link active" [routerLink]="['/last-7-day-post-list']" routerLinkActive="active">HQ Dashboard</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" >Just For You</a> 
+            <a class="nav-link" >Just For You</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" >Bookmarks</a> 
+            <a class="nav-link" >Bookmarks</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" >Trending</a> 
+            <a class="nav-link" >Trending</a>
           </li>
           <li class="nav-item" *ngIf="!isLoggedIn()">
-              <a class="nav-link" (click)="login()">Sign In</a> 
+              <a class="nav-link" (click)="login()">Sign In</a>
             </li>
             <li class="nav-item" *ngIf="isLoggedIn()">
               <div ngbDropdown class="image" placement="bottom-right">
                   <div class="user-image" id="profile-menu" ngbDropdownToggle [ngStyle]="{'background-color': getColor(getFirstLetter())}">{{getFirstLetter()}}</div>
-                  
+
                   <div ngbDropdownMenu class="dropdown-menu" aria-labelledby="profile-menu">
                     <a *appHasRole="['Administrators']" class="dropdown-item" [routerLink]="['/theme/new']">New Theme</a>
                     <a class="dropdown-item" [routerLink]="['/themes']" [queryParams]="{ type: 'Published'}" routerLinkActive="active">Themes</a>
