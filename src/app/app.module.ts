@@ -49,6 +49,7 @@ import { MinistriesService } from './services/ministries.service';
 import { GcpeSharedModule } from '../../projects/gcpe-shared/src/public_api';
 import { UserMinistryListResolver } from './_resolvers/user-ministry-list.resolver';
 import { UserPreferencesService } from './services/userPreferences.service';
+import { OAuthModule, OAuthService, UrlHelperService, OAuthLogger } from 'angular-oauth2-oidc';
 
 const appInitializerFn = (appConfig: AppConfigService) => {
   return () => {
@@ -94,7 +95,8 @@ const appInitializerFn = (appConfig: AppConfigService) => {
     HttpClientModule,
     GcpeSharedModule,
     NgbModule.forRoot(),
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    OAuthModule.forRoot()
   ],
   providers: [
     AppConfigService,

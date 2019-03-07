@@ -4,6 +4,7 @@ import { BehaviorSubject, Subscription, Observable, of } from 'rxjs';
 import { User } from '../view-models/user';
 import { MsalService } from './msal.service';
 import { delay } from 'rxjs/operators';
+import { KeycloakService } from '../_auth/keycloak.service';
 
 @Injectable({
   providedIn: 'root'
@@ -17,9 +18,9 @@ export class AuthService implements OnDestroy {
   isLoggedInSubject = new BehaviorSubject<boolean>(false);
   isLoggingInSubject = new BehaviorSubject<boolean>(false);
 
-  constructor(private configuration: Configuration, private msal: MsalService) {
+  constructor(private configuration: Configuration, private provider: KeycloakService) {
     this.login();
-    this.subscriptions.add(this.msal.accessToken.subscribe((token) => {
+    this.subscriptions.add(this.provider.accessToken.subscribe((token) => {
       if (token !== '') {
         this.setUser(token);
         this.isLoggedInSubject.next(true);
@@ -56,7 +57,7 @@ export class AuthService implements OnDestroy {
   * Logs out any logged in user
   */
   logout() {
-    this.msal.logout();
+    this.provider.logout();
     this.isLoggedInSubject.next(false);
   }
 
@@ -65,12 +66,12 @@ export class AuthService implements OnDestroy {
    */
   login() {
     this.isLoggingInSubject.next(true);
-    this.msal.tryLogin();
+    this.provider.tryLogin();
   }
 
   setUser(token: string) {
     this.configuration.accessToken = token;
-    const identityClaims = this.msal.getUser();
+    const identityClaims = this.provider.getUser();
     const user = {
       user_roles: identityClaims['idToken']['roles'] || [],
       access_token: token,
@@ -79,7 +80,7 @@ export class AuthService implements OnDestroy {
     } as User;
     // Set a timer to refresh the token once it's expiring
     this.subscriptions.add(of(null).pipe(delay(new Date(<number>user.expiry))).subscribe(() => {
-      this.msal.getToken();
+      this.provider.refreshToken();
     }));
     this.currentUserSubject.next(user);
   }
