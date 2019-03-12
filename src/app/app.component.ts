@@ -11,12 +11,9 @@ import { Configuration } from './configuration';
   styleUrls: ['./app.component.scss']
 })
 
-export class AppComponent implements OnInit{
+export class AppComponent implements OnInit {
   title = 'BC Gov News';
-  private isLoadingUserSubject = new BehaviorSubject<boolean>(true);
-  private isLoadingRouteSubject = new BehaviorSubject<boolean>(true);
-  public isLoadingUser = this.isLoadingUserSubject.asObservable();
-  public isLoadingRoute = this.isLoadingUserSubject.asObservable();
+  public isLoading = new BehaviorSubject<boolean>(true);
 
   constructor(private alerts: AlertsService, private router: Router, private auth: AuthService, private conf: Configuration) {
     this.router.events.subscribe((event: Event) => {
@@ -25,12 +22,8 @@ export class AppComponent implements OnInit{
   }
 
   ngOnInit() {
-    this.auth.loggedIn.subscribe((loggedIn) => {
-      this.isLoadingUserSubject.next(!loggedIn);
-    });
-
-    this.isLoadingUser.subscribe((isLoadingUser) => {
-      if(!isLoadingUser) {
+    this.auth.isLoggingInSubject.subscribe((isLoggingIn) => {
+      if (!isLoggingIn) {
         this.router.initialNavigation();
       }
     });
@@ -42,9 +35,9 @@ export class AppComponent implements OnInit{
 
   private navigationInterceptor(event: Event) {
     if (event instanceof NavigationStart) {
-      this.isLoadingRouteSubject.next(true);
+      this.isLoading.next(true);
     } else if (event instanceof NavigationEnd || event instanceof NavigationCancel || event instanceof NavigationError) {
-      this.isLoadingRouteSubject.next(false);
+      this.isLoading.next(false);
     }
   }
 

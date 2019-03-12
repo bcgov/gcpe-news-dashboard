@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import { CanActivate } from '@angular/router';
 import { AuthService } from '../services/auth.service';
-import { AlertsService } from '../services/alerts.service';
 import { Observable } from 'rxjs';
 
 @Injectable({
@@ -9,13 +8,9 @@ import { Observable } from 'rxjs';
 })
 export class AuthGuard implements CanActivate {
     constructor(
-        private authService: AuthService,
-        private alerts: AlertsService) {}
+        private authService: AuthService) {}
 
-    canActivate(): boolean {
-        if (!this.authService.getLoggedIn()) {
-            this.alerts.showError('Access Denied - Must be logged in');
-        }
-        return this.authService.getLoggedIn();
+    canActivate(): Observable<boolean> {
+      return this.authService.isLoggedIn();
     }
 }

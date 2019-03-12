@@ -45,7 +45,7 @@ describe('NavmenuComponent', () => {
     component = fixture.componentInstance;
     fixture.detectChanges();
     de = fixture.debugElement.query(By.css('.gov-navbar'));
-    element  = de.nativeElement;
+    element = de.nativeElement;
   });
 
   it('should create', () => {
@@ -62,7 +62,7 @@ describe('NavmenuComponent', () => {
   });
 
   // Tests commented out for MVP since the buttons are removed
-  
+
   // it('should display the `search` button', () => {
   //     // There should a create button in the template
   //     expect(element.innerHTML).toContain('fa-search');
@@ -77,14 +77,6 @@ describe('NavmenuComponent', () => {
   //   // There should a create button in the template
   //   expect(element.innerHTML).toContain('navbar-toggler-icon');
   // });
-
-  it('should have the user`s first initial', () => {
-    spyOn(component, 'isLoggedIn').and.returnValue(true);
-    component.firstLetter = 'A';
-    fixture.detectChanges();
-
-    expect(element.querySelector('.user-image').innerHTML).toBe('A');
-  });
 
   it('should get a unique colour for each letter', () => {
     const letters = [...Array(26).keys()].map(i => String.fromCharCode(i + 67));
