@@ -45,7 +45,7 @@ export class AccountSettingsComponent implements OnInit {
         const selectedMinistries = this.checkboxes.filter(c => {
             return c.isChecked === true;
         });
-        this.accountSettingsService.saveUserMinistrySelections(selectedMinistries.map(m => m.label)).subscribe();
+        this.accountSettingsService.saveUserMinistrySelections(selectedMinistries.map(m => m.label)).subscribe(res => console.log(res));
     }
 
     selectAll(): void {

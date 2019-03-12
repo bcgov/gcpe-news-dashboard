@@ -3,7 +3,7 @@ import { Resolve, Router, ActivatedRouteSnapshot } from '@angular/router';
 import { Ministry } from '../view-models/ministry';
 import { MinistriesService } from '../services/ministries.service';
 import { Observable, of } from 'rxjs';
-import { catchError, map } from 'rxjs/operators';
+import { catchError } from 'rxjs/operators';
 
 @Injectable({
     providedIn: 'root'
