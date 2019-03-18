@@ -7,7 +7,6 @@ describe('Themes of Week Page', () => {
     page = new ThemesOfWeekPage();
     page.navigateTo();
   });
-/* comment integration tests to have the pipeline running
   it('should display header text', () => {
     expect(page.getHeadingText()).toEqual('HQ Dashboard');
   });
@@ -19,5 +18,4 @@ describe('Themes of Week Page', () => {
   it('should have theme list', () => {
     expect(page.getThemeList()).toBeTruthy();
   });
-  */
 });
