@@ -8,7 +8,6 @@ export class ThemesOfWeekPage {
     getUrl() {
         return browser.getCurrentUrl();
     }
-/*comment all integration test to have the pipeline running
     getHeadingText() {
         return element(by.css('app-hq-dashboard-sub-menu .dashboard-sub-menu-container h2')).getText();
     }
@@ -20,5 +19,4 @@ export class ThemesOfWeekPage {
     getThemeList() {
         return element(by.css('#theme-list-container #theme-list'));
     }
-    */
 }
