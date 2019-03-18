@@ -1,7 +1,10 @@
 import { Component, OnInit, ViewChildren, QueryList } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { AccountSettingsService } from '../services/account-settings.service';
 import { GcpeCheckboxComponent } from 'gcpe-shared/public_api';
+import { UserPreferencesService } from '../services/userPreferences.service';
+import { Ministry } from '../view-models/ministry';
+import { AlertsService } from '../services/alerts.service';
+
 
 @Component({
     selector: 'app-account-settings',
@@ -10,14 +13,15 @@ import { GcpeCheckboxComponent } from 'gcpe-shared/public_api';
 })
 export class AccountSettingsComponent implements OnInit {
     allSelected = false;
-    ministries = [];
+    ministries = Array<Ministry>();
     ministriesListMidPoint = 0;
 
     @ViewChildren('checkbox') checkboxes: QueryList<GcpeCheckboxComponent>;
 
     constructor(
         private route: ActivatedRoute,
-        private accountSettingsService: AccountSettingsService) { }
+        private userPreferencesService: UserPreferencesService,
+        private alerts: AlertsService) { }
 
     ngOnInit() {
         this.route.data.subscribe(data => {
@@ -25,7 +29,7 @@ export class AccountSettingsComponent implements OnInit {
             this.ministriesListMidPoint = this.ministries.length / 2;
         });
 
-        this.accountSettingsService.getUserMinistries().subscribe(
+        this.userPreferencesService.getUserMinistryPreferences(false).subscribe(
             userMinistries => {
                 userMinistries.forEach(userMinistry => {
                     this.checkboxes.forEach(c => {
@@ -45,7 +49,19 @@ export class AccountSettingsComponent implements OnInit {
         const selectedMinistries = this.checkboxes.filter(c => {
             return c.isChecked === true;
         });
-        this.accountSettingsService.saveUserMinistrySelections(selectedMinistries.map(m => m.label)).subscribe(res => console.log(res));
+
+        const ministryKeys = this.ministries.filter(m => {
+          return selectedMinistries.map(c => c.label).includes(m.displayName);
+        });
+
+        this.userPreferencesService
+          .addUserMinistryPreference(ministryKeys.map(m => m.key)).subscribe(
+            (res) => {
+              this.alerts.showSuccess('Settings saved.');
+            },
+            (err) => {
+              this.alerts.showError('Failed to save settings.');
+            });
     }
 
     selectAll(): void {

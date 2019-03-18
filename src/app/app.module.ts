@@ -47,9 +47,9 @@ import { PostsService } from './services/posts.service';
 import { AddSocialMediaPostComponent } from './social-media/add-social-media-post/add-social-media-post.component';
 import { MinistriesService } from './services/ministries.service';
 import { GcpeSharedModule } from '../../projects/gcpe-shared/src/public_api';
-import { AccountSettingsService } from './services/account-settings.service';
 import { UserMinistryListResolver } from './_resolvers/user-ministry-list.resolver';
 import { UserMinistryAbbreviationsResolver } from './_resolvers/user-ministry-abbreviations.resolver';
+import { UserPreferencesService } from './services/userPreferences.service';
 
 const appInitializerFn = (appConfig: AppConfigService) => {
   return () => {
@@ -106,7 +106,6 @@ const appInitializerFn = (appConfig: AppConfigService) => {
       deps: [AppConfigService]
     },
     // Services
-    AccountSettingsService,
     ActivitiesService,
     AuthService,
     MessagesService,
@@ -114,6 +113,7 @@ const appInitializerFn = (appConfig: AppConfigService) => {
     SocialMediaPostsService,
     PostsService,
     SocialMediaRenderService,
+    UserPreferencesService,
     // Resolvers
     ActivityListResolver,
     PostListResolver,

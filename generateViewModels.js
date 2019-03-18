@@ -80,5 +80,5 @@ var download = function (url, models2get) {
   });
 }
 
-downloadCB(["/message", "/socialMediaPost", "/activity.ts", "/post.ts", "/document", "/activities", "/posts"]);
+downloadCB(["/message", "/socialMediaPost", "/activity.ts", "/post.ts", "/document", "/activities", "/posts", "/userPreference"]);
 //download(hubApiUrl, ["/message", "/socialMediaPost", "/activity.ts", "/post.ts", "/document"]);
