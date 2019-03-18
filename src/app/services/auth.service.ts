@@ -19,9 +19,13 @@ export class AuthService implements OnDestroy {
   isLoggingInSubject = new BehaviorSubject<boolean>(false);
 
   constructor(private configuration: Configuration, private provider: KeycloakService) {
-    this.login();
+    if (window.location.href.indexOf('id_token') > 0) {
+      this.isLoggingInSubject.next(true);
+    } else {
+      this.login();
+    }
     this.subscriptions.add(this.provider.accessToken.subscribe((token) => {
-      if (token !== '') {
+      if (token !== '' && token !== null) {
         this.setUser(token);
         this.isLoggedInSubject.next(true);
         this.isLoggingInSubject.next(false);
@@ -71,13 +75,13 @@ export class AuthService implements OnDestroy {
 
   setUser(token: string) {
     this.configuration.accessToken = token;
-    const identityClaims = this.provider.getUser();
-    const user = {
-      user_roles: identityClaims['idToken']['roles'] || [],
-      access_token: token,
-      name: identityClaims['displayableId'] || '',
-      expiry: this.parseExpiry(token) * 1000
-    } as User;
+    const user = this.provider.getUser();
+    // const user = {
+    //   user_roles: identityClaims['idToken']['roles'] || [],
+    //   access_token: token,
+    //   name: identityClaims['displayableId'] || '',
+    //   expiry: this.parseExpiry(token) * 1000
+    // } as User;
     // Set a timer to refresh the token once it's expiring
     this.subscriptions.add(of(null).pipe(delay(new Date(<number>user.expiry))).subscribe(() => {
       this.provider.refreshToken();

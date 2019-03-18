@@ -52,10 +52,11 @@ export class KeycloakService {
     if (identityClaims === null) {
       return null;
     }
-    let user = {
+    const user = {
       user_roles: identityClaims['user_roles'] || [],
-      access_token: this.accessToken,
-      name: identityClaims['name'] || ''
+      access_token: this.accessTokenSubject.value,
+      name: identityClaims['name'] || '',
+      expiry: identityClaims['expiry'] || ''
     };
     return user;
   }
