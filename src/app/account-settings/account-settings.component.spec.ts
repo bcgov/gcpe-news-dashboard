@@ -8,6 +8,7 @@ import { FakeMinistryData } from '../test-helpers/ministries';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { MinistriesService } from '../services/ministries.service';
 import { ActivatedRoute } from '@angular/router';
+import { UserPreferencesService } from '../services/userPreferences.service';
 
 describe('AccountSettingsComponent', () => {
     let component: AccountSettingsComponent;
@@ -31,6 +32,7 @@ describe('AccountSettingsComponent', () => {
           ],
           providers: [
             MinistriesService,
+            UserPreferencesService,
             { provide: ActivatedRoute, useClass: MockActivatedRoute },
             AuthService
           ],
