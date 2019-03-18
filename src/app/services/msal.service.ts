@@ -5,7 +5,6 @@ import { AlertsService } from './alerts.service';
 import { Configuration } from '../configuration';
 import { BehaviorSubject } from 'rxjs';
 
-
 @Injectable({
   providedIn: 'root'
 })
@@ -22,7 +21,8 @@ export class MsalService {
     }, {
       validateAuthority: authConfig.validateAuthority,
       redirectUri: url,
-      navigateToLoginRequestUrl: false
+      navigateToLoginRequestUrl: false,
+      storeAuthStateInCookie: /msie\s|trident\/|edge\//i.test(window.navigator.userAgent)
     });
   }
 

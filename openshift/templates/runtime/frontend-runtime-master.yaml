@@ -45,7 +45,7 @@ objects:
       output:
         to:
           kind: ImageStreamTag
-          name: "${RUNTIME_IMAGE_NAME}:latest"
+          name: "${RUNTIME_IMAGE_NAME}:master"
       resources:
         requests:
           cpu: "${CPU_REQUEST}"

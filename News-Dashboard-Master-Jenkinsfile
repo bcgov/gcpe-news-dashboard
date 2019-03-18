@@ -27,14 +27,23 @@ node('master') {
     }
     stage('Tagging build') {
         echo "Tagging image..."
-        openshiftTag destStream: 'news-dashboard-master-static', verbose: 'true', destTag: '$BUILD_ID', srcStream: 'news-dashboard-static', srcTag: 'latest'
+        openshiftTag destStream: 'news-dashboard-master-static', verbose: 'true', destTag: 'MASTER-$BUILD_ID', srcStream: 'news-dashboard-master-static', srcTag: 'master'
+    }
+    stage('Deploy on Test') {
+        echo "Deploying to test..."
+        openshiftTag destStream: 'news-dashboard-master-static', verbose: 'true', destTag: 'test', srcStream: 'news-dashboard-master-static', srcTag: 'MASTER-$BUILD_ID'
+        // Sleeping for a while to wait deployment completes
+	    sh 'sleep 1m'
     }
 }
 
-stage('Deploy on Prod') {
-    input "Deploy to Prod?"
-    node('master') {
-        openshiftTag destStream: 'news-dashboard-master-static', verbose: 'true', destTag: 'prod', srcStream: 'news-dashboard-static', srcTag: '$BUILD_ID'        
-    }
+timeout(600) {
+  stage('Deploy on Prod') {
+      input "Deploy to Prod?"
+      node('master') {
+          openshiftTag destStream: 'news-dashboard-master-static', verbose: 'true', destTag: 'prod', srcStream: 'news-dashboard-master-static', srcTag: 'MASTER-$BUILD_ID'
+      }
+  }
 }
+
 
