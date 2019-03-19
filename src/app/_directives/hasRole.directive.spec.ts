@@ -1,7 +1,7 @@
 import { TestBed, ComponentFixture } from '@angular/core/testing';
 import { HasRoleDirective } from './hasRole.directive';
 import { ViewContainerRef, Component, TemplateRef } from '@angular/core';
-import { AuthService } from '../services/auth.service';
+import { AuthService } from '../_auth/auth.service';
 import { By } from '@angular/platform-browser';
 import { mockAuth } from '../test-helpers/mock-auth';
 

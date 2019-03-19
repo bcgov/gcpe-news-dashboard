@@ -89,7 +89,7 @@ REPLACE_VARS="
 "
 
 JSON_APP_CONFIG_REPLACE_VARS="
-  NEWS_URL HUB_URL
+  NEWS_URL HUB_URL AUTH_TYPE
 "
 
 sed "$(getReplacementPattern $JSON_APP_CONFIG_REPLACE_VARS)" /tmp/app/dist/assets/config/appConfig.json.template > /tmp/app/dist/assets/config/appConfig.json

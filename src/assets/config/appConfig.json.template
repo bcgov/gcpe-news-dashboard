@@ -1,4 +1,6 @@
 {
   "NEWS_URL": "%NEWS_URL%",
-  "HUB_URL": "%HUB_URL%"
+  "HUB_URL": "%HUB_URL%",
+  /* Valid values are `keycloak` and `azure` */
+  "AUTH_TYPE": "keycloak"
 }

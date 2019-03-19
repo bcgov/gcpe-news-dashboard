@@ -12,7 +12,7 @@ import { FooterComponent } from './core/footer/footer.component';
 import { ActivityForecastListComponent } from './activities/activity-list/activity-forecast-list.component';
 import { ActivityListResolver } from './_resolvers/activity-list.resolver';
 import { PostListResolver } from './_resolvers/post-list.resolver';
-import { AuthService } from './services/auth.service';
+import { AuthService } from './_auth/auth.service';
 import { MessagesService } from './services/messages.service';
 import { ThemesOfWeekComponent } from './themes/themes-of-week/themes-of-week.component';
 import { MessageListResolver } from './_resolvers/message-list.resolver';
@@ -44,7 +44,9 @@ import { RoleGuard } from './_guards/role.guard';
 import { ActivitiesService } from './services/activities.service';
 import { PostsService } from './services/posts.service';
 import { AddSocialMediaPostComponent } from './social-media/add-social-media-post/add-social-media-post.component';
-import { OAuthModule, OAuthService, UrlHelperService, OAuthLogger } from 'angular-oauth2-oidc';
+import { OAuthModule, OAuthService } from 'angular-oauth2-oidc';
+import { AuthProviderFactory } from './_auth/auth-provider-factory';
+import { AuthProvider } from './_auth/auth-provider.service';
 
 const appInitializerFn = (appConfig: AppConfigService) => {
   return () => {
@@ -99,6 +101,7 @@ const appInitializerFn = (appConfig: AppConfigService) => {
       deps: [AppConfigService]
     },
     // Services
+    { provide: AuthProvider, useFactory: AuthProviderFactory, deps: [AppConfigService, OAuthService] },
     ActivitiesService,
     AuthService,
     MessagesService,

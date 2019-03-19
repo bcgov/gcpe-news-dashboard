@@ -8,7 +8,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { BASE_PATH } from '../../variables';
 import { Activity } from '../../view-models/activity';
 import { HasRoleDirective } from 'src/app/_directives/hasRole.directive';
-import { AuthService } from 'src/app/services/auth.service';
+import { AuthService } from 'src/app/_auth/auth.service';
 import { AlertComponent } from 'src/app/core/alert/alert.component';
 import { AppConfigService } from 'src/app/app-config.service';
 import { of } from 'rxjs';

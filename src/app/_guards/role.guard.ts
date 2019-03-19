@@ -4,7 +4,7 @@ import {
   CanActivate,
   ActivatedRouteSnapshot
 } from '@angular/router';
-import { AuthService } from '../services/auth.service';
+import { AuthService } from '../_auth/auth.service';
 import { AlertsService } from '../services/alerts.service';
 
 @Injectable({

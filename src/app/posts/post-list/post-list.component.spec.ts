@@ -7,7 +7,7 @@ import { environment } from '../../../environments/environment';
 import { HttpClientModule } from '@angular/common/http';
 import { BASE_PATH } from '../../variables';
 import { HasRoleDirective } from 'src/app/_directives/hasRole.directive';
-import { AuthService } from 'src/app/services/auth.service';
+import { AuthService } from 'src/app/_auth/auth.service';
 import { PluralizeKindPipe } from 'src/app/_pipes/pluralize-kind.pipe';
 import { AppConfigService } from 'src/app/app-config.service';
 import { AlertsService } from 'src/app/services/alerts.service';

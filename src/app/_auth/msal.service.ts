@@ -1,26 +1,25 @@
 import { Injectable } from '@angular/core';
 import { UserAgentApplication } from 'msal';
 import { authConfig } from '../auth.config';
-import { AlertsService } from './alerts.service';
-import { Configuration } from '../configuration';
 import { BehaviorSubject } from 'rxjs';
+import { AuthProvider } from './auth-provider.service';
 
 @Injectable({
   providedIn: 'root'
 })
-export class MsalService {
+export class MsalService extends AuthProvider {
   private msal: UserAgentApplication;
   public accessTokenSubject = new BehaviorSubject<string>('');
   public accessToken = this.accessTokenSubject.asObservable();
   public isRefreshingToken = false;
 
-  constructor(private alerts: AlertsService, private configuration: Configuration) {
-    const url = `${window.location.protocol}//${window.location.hostname + (window.location.port ? ':' + window.location.port : '')}`;
+  constructor() {
+    super();
     this.msal = new UserAgentApplication(authConfig.clientID, authConfig.authority, (errorDesc, token, error) => {
-      this.configuration.accessToken = token;
+
     }, {
       validateAuthority: authConfig.validateAuthority,
-      redirectUri: url,
+      redirectUri: this.redirectUrl,
       navigateToLoginRequestUrl: false,
       storeAuthStateInCookie: /msie\s|trident\/|edge\//i.test(window.navigator.userAgent)
     });
@@ -31,8 +30,17 @@ export class MsalService {
   }
 
   public getUser() {
-    const user = this.msal.getUser();
-    return user ? user : null;
+    const msalUser = this.msal.getUser();
+    if (msalUser === null) {
+      return null;
+    }
+    const user = {
+      user_roles: msalUser.idToken['roles'] || [],
+      access_token: this.accessTokenSubject.value,
+      name: msalUser.idToken['name'].split(', ')[1] || '',
+      expiry: msalUser.idToken['exp'] || ''
+    };
+    return user;
   }
 
   public logout() {
@@ -55,7 +63,6 @@ export class MsalService {
         this.accessTokenSubject.next(accessToken);
       }, error => {
           this.isRefreshingToken = false;
-          this.alerts.showError('Failed to authenticate');
           this.accessTokenSubject.next('');
       });
   }
