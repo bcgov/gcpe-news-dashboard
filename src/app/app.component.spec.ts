@@ -11,7 +11,7 @@ import { Configuration } from './configuration';
 import { environment } from '../environments/environment';
 import { FooterComponent } from './core/footer/footer.component';
 import { HasRoleDirective } from './_directives/hasRole.directive';
-import { AuthService } from './services/auth.service';
+import { AuthService } from './_auth/auth.service';
 import { mockAuth } from './test-helpers/mock-auth';
 import { LoadingSpinnerComponent } from './core/loading-spinner/loading-spinner.component';
 

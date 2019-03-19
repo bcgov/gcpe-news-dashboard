@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AlertsService } from './services/alerts.service';
 import { Event, Router, NavigationStart, NavigationEnd, NavigationCancel, NavigationError } from '@angular/router';
-import { AuthService } from './services/auth.service';
+import { AuthService } from './_auth/auth.service';
 import { BehaviorSubject } from 'rxjs';
 import { Configuration } from './configuration';
 

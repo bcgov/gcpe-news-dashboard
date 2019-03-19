@@ -2,9 +2,9 @@ import { Injectable, OnDestroy } from '@angular/core';
 import { Configuration } from '../configuration';
 import { BehaviorSubject, Subscription, Observable, of } from 'rxjs';
 import { User } from '../view-models/user';
-import { MsalService } from './msal.service';
 import { delay } from 'rxjs/operators';
-import { KeycloakService } from '../_auth/keycloak.service';
+import { AppConfigService } from '../app-config.service';
+import { AuthProvider } from './auth-provider.service';
 
 @Injectable({
   providedIn: 'root'
@@ -18,13 +18,13 @@ export class AuthService implements OnDestroy {
   isLoggedInSubject = new BehaviorSubject<boolean>(false);
   isLoggingInSubject = new BehaviorSubject<boolean>(false);
 
-  constructor(private configuration: Configuration, private provider: KeycloakService) {
+  constructor(private configuration: Configuration, private appConfig: AppConfigService, private authProvider: AuthProvider) {
     if (window.location.href.indexOf('id_token') > 0) {
       this.isLoggingInSubject.next(true);
     } else {
       this.login();
     }
-    this.subscriptions.add(this.provider.accessToken.subscribe((token) => {
+    this.subscriptions.add(this.authProvider.accessToken.subscribe((token) => {
       if (token !== '' && token !== null) {
         this.setUser(token);
         this.isLoggedInSubject.next(true);
@@ -61,30 +61,23 @@ export class AuthService implements OnDestroy {
   * Logs out any logged in user
   */
   logout() {
-    this.provider.logout();
+    this.authProvider.logout();
     this.isLoggedInSubject.next(false);
   }
 
   /**
-   * Logs in user via msal provider
+   * Logs in user via provider
    */
   login() {
     this.isLoggingInSubject.next(true);
-    this.provider.tryLogin();
+    this.authProvider.tryLogin();
   }
 
   setUser(token: string) {
     this.configuration.accessToken = token;
-    const user = this.provider.getUser();
-    // const user = {
-    //   user_roles: identityClaims['idToken']['roles'] || [],
-    //   access_token: token,
-    //   name: identityClaims['displayableId'] || '',
-    //   expiry: this.parseExpiry(token) * 1000
-    // } as User;
-    // Set a timer to refresh the token once it's expiring
+    const user = this.authProvider.getUser();
     this.subscriptions.add(of(null).pipe(delay(new Date(<number>user.expiry))).subscribe(() => {
-      this.provider.refreshToken();
+      this.authProvider.refreshToken();
     }));
     this.currentUserSubject.next(user);
   }

@@ -1,5 +1,5 @@
 import { AuthGuard } from './auth.guard';
-import { AuthService } from '../services/auth.service';
+import { AuthService } from '../_auth/auth.service';
 import { TestBed, inject } from '@angular/core/testing';
 import { Configuration } from '../configuration';
 import { AlertsService } from '../services/alerts.service';

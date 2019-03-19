@@ -12,7 +12,7 @@ import { FooterComponent } from './core/footer/footer.component';
 import { ActivityForecastListComponent } from './activities/activity-list/activity-forecast-list.component';
 import { ActivityListResolver } from './_resolvers/activity-list.resolver';
 import { PostListResolver } from './_resolvers/post-list.resolver';
-import { AuthService } from './services/auth.service';
+import { AuthService } from './_auth/auth.service';
 import { MessagesService } from './services/messages.service';
 import { ThemesOfWeekComponent } from './themes/themes-of-week/themes-of-week.component';
 import { MessageListResolver } from './_resolvers/message-list.resolver';
@@ -49,7 +49,9 @@ import { MinistriesService } from './services/ministries.service';
 import { GcpeSharedModule } from '../../projects/gcpe-shared/src/public_api';
 import { UserMinistryListResolver } from './_resolvers/user-ministry-list.resolver';
 import { UserPreferencesService } from './services/userPreferences.service';
-import { OAuthModule, OAuthService, UrlHelperService, OAuthLogger } from 'angular-oauth2-oidc';
+import { OAuthModule, OAuthService } from 'angular-oauth2-oidc';
+import { AuthProviderFactory } from './_auth/auth-provider-factory';
+import { AuthProvider } from './_auth/auth-provider.service';
 
 const appInitializerFn = (appConfig: AppConfigService) => {
   return () => {
@@ -107,6 +109,7 @@ const appInitializerFn = (appConfig: AppConfigService) => {
       deps: [AppConfigService]
     },
     // Services
+    { provide: AuthProvider, useFactory: AuthProviderFactory, deps: [AppConfigService, OAuthService] },
     ActivitiesService,
     AuthService,
     MessagesService,
