@@ -8,19 +8,19 @@ node('master') {
         echo "Running Snyk analysis of dependencies"
         openshiftBuild bldCfg: 'frontend-snyk', showBuildLogs: 'true'
     }
-    
+
     stage('Build Image') {
         echo "Building..."
         openshiftBuild bldCfg: 'news-dashboard-static', showBuildLogs: 'true'
-        openshiftTag destStream: 'news-dashboard-static', verbose: 'true', destTag: '$BUILD_ID', srcStream: 'news-dashboard-static', srcTag: 'latest'
+        openshiftTag destStream: 'news-dashboard-static', verbose: 'true', destTag: 'DEVELOP-$BUILD_ID', srcStream: 'news-dashboard-static', srcTag: 'latest'
     }
 
     stage('Deploy on Dev') {
         echo "Deploying to dev..."
-        openshiftTag destStream: 'news-dashboard-static', verbose: 'true', destTag: 'dev', srcStream: 'news-dashboard-static', srcTag: '$BUILD_ID'
+        openshiftTag destStream: 'news-dashboard-static', verbose: 'true', destTag: 'dev', srcStream: 'news-dashboard-static', srcTag: 'DEVELOP-$BUILD_ID'
         // Sleeping for a while to wait deployment completes
 	    sh 'sleep 1m'
-    }   
+    }
 }
 
 //See https://github.com/jenkinsci/kubernetes-plugin
@@ -51,6 +51,6 @@ podTemplate(label: 'owasp-zap', name: 'owasp-zap', serviceAccount: 'jenkins', cl
 stage('Deploy on Test') {
   input "Deploying to test?"
   node('master') {
-    openshiftTag destStream: 'news-dashboard-static', verbose: 'true', destTag: 'test', srcStream: 'news-dashboard-static', srcTag: '$BUILD_ID'
+    openshiftTag destStream: 'news-dashboard-static', verbose: 'true', destTag: 'test', srcStream: 'news-dashboard-static', srcTag: 'dev'
   }
-}   
+}
