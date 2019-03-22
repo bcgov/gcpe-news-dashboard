@@ -1,9 +1,10 @@
 import { Component, OnInit, ViewChildren, QueryList } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { GcpeCheckboxComponent } from 'gcpe-shared/public_api';
+
 import { UserPreferencesService } from '../services/userPreferences.service';
 import { Ministry } from '../view-models/ministry';
 import { AlertsService } from '../services/alerts.service';
+import { GcpeCheckboxComponent } from 'projects/gcpe-shared/src/public_api';
 
 
 @Component({
