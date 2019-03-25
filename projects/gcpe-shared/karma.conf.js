@@ -26,6 +26,26 @@ module.exports = function (config) {
     logLevel: config.LOG_INFO,
     autoWatch: true,
     browsers: ['Chrome'],
+    customLaunchers: {
+      ChromeHeadlessCI: {
+        base: 'ChromeHeadless',
+        flags: ['--no-sandbox', '--disable-setuid-sandbox', '--remote-debugging-port=9222']
+      },
+      ChromeCI: {
+        base: 'Chrome',
+        flags: ['--no-sandbox', '--disable-setuid-sandbox']
+      },
+      ChromeHeadlessCustom: {
+        base: 'ChromiumHeadless',
+        flags: [
+            '--no-sandbox',
+            '--headless',
+            '--disable-gpu',
+            '--disable-translate',
+            '--disable-extensions'
+        ]
+    }
+    },
     singleRun: false
   });
 };
