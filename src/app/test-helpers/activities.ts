@@ -9,6 +9,7 @@ export function FakeActivitiesData(count: number) {
         cityName: 'Victoria, BC',
         comments: '',
         contactMinistryAbbreviation: 'FAKE',
+        contactMinistryKey: 'fake',
         details: 'This is a fake activity.',
         endDateTime: new Date(),
         id: Number(`${i}1234`),

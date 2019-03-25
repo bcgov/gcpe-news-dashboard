@@ -48,7 +48,6 @@ import { AddSocialMediaPostComponent } from './social-media/add-social-media-pos
 import { MinistriesService } from './services/ministries.service';
 import { GcpeSharedModule } from '../../projects/gcpe-shared/src/public_api';
 import { UserMinistryListResolver } from './_resolvers/user-ministry-list.resolver';
-import { UserMinistryAbbreviationsResolver } from './_resolvers/user-ministry-abbreviations.resolver';
 import { UserPreferencesService } from './services/userPreferences.service';
 
 const appInitializerFn = (appConfig: AppConfigService) => {
@@ -122,7 +121,6 @@ const appInitializerFn = (appConfig: AppConfigService) => {
     MessageResolver,
     SociaMediaPostListResolver,
     UserMinistryListResolver,
-    UserMinistryAbbreviationsResolver,
     // Guards
     AuthGuard,
     RoleGuard

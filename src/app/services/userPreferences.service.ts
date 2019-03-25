@@ -113,20 +113,13 @@ export class UserPreferencesService {
     /**
      * 
      * 
-     * @param getAbbreviations 
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public getUserMinistryPreferences(getAbbreviations?: boolean, observe?: 'body', reportProgress?: boolean): Observable<Array<string>>;
-    public getUserMinistryPreferences(getAbbreviations?: boolean, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<Array<string>>>;
-    public getUserMinistryPreferences(getAbbreviations?: boolean, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<Array<string>>>;
-    public getUserMinistryPreferences(getAbbreviations?: boolean, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
-
-
-        let queryParameters = new HttpParams({encoder: new CustomHttpUrlEncodingCodec()});
-        if (getAbbreviations !== undefined && getAbbreviations !== null) {
-            queryParameters = queryParameters.set('getAbbreviations', <any>getAbbreviations);
-        }
+    public getUserMinistryPreferences(observe?: 'body', reportProgress?: boolean): Observable<Array<string>>;
+    public getUserMinistryPreferences(observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<Array<string>>>;
+    public getUserMinistryPreferences(observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<Array<string>>>;
+    public getUserMinistryPreferences(observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
 
         let headers = this.defaultHeaders;
 
@@ -152,7 +145,6 @@ export class UserPreferencesService {
 
         return this.httpClient.get<Array<string>>(`${this.basePath}/api/UserPreferences`,
             {
-                params: queryParameters,
                 withCredentials: this.configuration.withCredentials,
                 headers: headers,
                 observe: observe,

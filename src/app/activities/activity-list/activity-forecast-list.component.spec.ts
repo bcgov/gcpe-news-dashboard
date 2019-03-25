@@ -94,23 +94,23 @@ describe('ActivityForecastListComponent', () => {
   it('should display an activity if the user has selected the contact ministry in settings', () => {
     component.ngOnInit();
     component.showingAllMinistries = false;
-    component.userMinistriesAbbreviations = ['FAKE'];
-    const hidingActivity = component.showActivity(component.activities[0].contactMinistryAbbreviation);
+    component.userMinistriesForFilteringActivities = ['fake'];
+    const hidingActivity = component.showActivity(component.activities[0].contactMinistryKey);
     expect(hidingActivity).toEqual(false);
   });
 
   it('should hide an activity if the user has not selected the contact ministry in settings', () => {
     component.ngOnInit();
     component.showingAllMinistries = false;
-    component.userMinistriesAbbreviations = [];
-    const hidingActivity = component.showActivity(component.activities[0].contactMinistryAbbreviation);
+    component.userMinistriesForFilteringActivities = [];
+    const hidingActivity = component.showActivity(component.activities[0].contactMinistryKey);
     expect(hidingActivity).toEqual(true);
   });
 
   it('should show all activities if the list is not filtered by ministry/ministries', () => {
     component.ngOnInit();
     component.showingAllMinistries = true;
-    component.userMinistriesAbbreviations = [];
+    component.userMinistriesForFilteringActivities = [];
     const displayedActivities = component.activities.filter(a => {
       return component.showActivity(a.contactMinistryAbbreviation) === false;
     });
@@ -122,9 +122,9 @@ describe('ActivityForecastListComponent', () => {
   it('should not show any activities if the user has not selected any ministries associated with the filtered collection of activities', () => {
     component.ngOnInit();
     component.showingAllMinistries = false;
-    component.userMinistriesAbbreviations = ['NOTINCOLLECTION'];
+    component.userMinistriesForFilteringActivities = ['not-in-collection'];
     const displayedActivities = component.activities.filter(a => {
-      return component.showActivity(a.contactMinistryAbbreviation) === false;
+      return component.showActivity(a.contactMinistryKey) === false;
     });
     const showingAllActivities = displayedActivities.length === component.activities.length;
     expect(showingAllActivities).toBe(false);
