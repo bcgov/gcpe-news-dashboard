@@ -16,17 +16,26 @@ import { SocialMediaInputComponent } from './social-media/social-media-input/soc
 import { AuthGuard } from './_guards/auth.guard';
 import { RoleGuard } from './_guards/role.guard';
 import { AddSocialMediaPostComponent } from './social-media/add-social-media-post/add-social-media-post.component';
+import { AccountSettingsComponent } from './account-settings/account-settings.component';
+import { UserMinistryListResolver } from './_resolvers/user-ministry-list.resolver';
+import { UserMinistryAbbreviationsResolver } from './_resolvers/user-ministry-abbreviations.resolver';
+import { MinistriesResolver } from './_resolvers/ministries.resolver';
 
 const appRoutes: Routes = [
+  { path: 'account-settings', component: AccountSettingsComponent, resolve: { ministries: MinistriesResolver } },
   {
     path: 'last-7-day-post-list',
     component: PostListComponent,
-    resolve: { posts: PostListResolver },
+    resolve: { posts: PostListResolver, userMinistries: UserMinistryListResolver },
   },
   {
     path: 'next-7-day-activity-list',
     component: ActivityForecastListComponent,
-    resolve: { activities: ActivityListResolver },
+    resolve: {
+      activities: ActivityListResolver,
+      userMinistries: UserMinistryListResolver,
+      userMinistriesAbbreviations: UserMinistryAbbreviationsResolver
+    },
     canActivate: [AuthGuard, RoleGuard],
     data: {
       roles: ['Viewer', 'Contributor']

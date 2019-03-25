@@ -1,12 +1,12 @@
 
-<app-hq-dashboard-sub-menu></app-hq-dashboard-sub-menu>
+<app-hq-dashboard-sub-menu [userMinistriesAbbreviations]="userMinistriesAbbreviations"></app-hq-dashboard-sub-menu>
 <div id="activity-forecast-list">
   <div class="row">
         <div class="col-lg-2" *ngFor="let dayActivities of activitiesPerDays; let i = index">
             <div class="card" >
               <div class="card-header bg-light">{{getStartDow(i)}}<div class="pull-right">{{getStartDay(i)}}</div></div>
             </div>  
-            <div class="card" *ngFor="let activity of dayActivities">
+            <div [hidden]="showActivity(activity.contactMinistryAbbreviation)" class="card" *ngFor="let activity of dayActivities">
               <div class="card-body">
                 <h5 class="card-title"><a target="_blank" href="{{BASE_HUB_URL}}/Legacy/Calendar/Activity.aspx?ActivityId={{activity.id}}">{{activity.title}}</a></h5>
                 <p class="card-text">

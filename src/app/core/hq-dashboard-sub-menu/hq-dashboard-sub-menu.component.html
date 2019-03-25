@@ -36,6 +36,43 @@
                     </div>
                 </div>
             </li>
+
+            <li id="user-ministry-filter" class="list-inline-item ml-auto open" *ngIf="userMinistries">
+                <div ngbDropdown placement="bottom-right" id="user-ministry-filter-dropdown-menu">
+                    <a class="btn-link" id="dropdown-user-ministry-filter" ngbDropdownToggle>{{filterByMinistries}} <i class="fa fa-angle-down" aria-hidden="true"></i></a>
+                    <div ngbDropdownMenu aria-labelledby="dropdown-user-ministry-filter">
+                        <ul class="list-inline">
+                            <li class="list-inline-item dropdown-item">
+                                <a routerLink="/last-7-day-post-list" [queryParams]="{ ministries: 'All'}">All</a>
+                            </li>
+                            <li class="list-inline-item dropdown-item">
+                                <a routerLink="/last-7-day-post-list" [queryParams]="this.userMinistries.length === 1 ? { ministries: 'My Ministry' } : { ministries: 'My Ministries' }">
+                                    {{ this.userMinistries.length === 1 ? 'My Ministry' : 'My Ministries' }}
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </li>
+
+            <li id="user-ministry-filter" class="list-inline-item ml-auto open" *ngIf="userMinistriesAbbreviations">
+                <div ngbDropdown placement="bottom-right" id="user-ministry-filter-dropdown-menu">
+                    <a class="btn-link" id="dropdown-user-ministry-filter" ngbDropdownToggle>{{filterByMinistryAbbreviations}} <i class="fa fa-angle-down" aria-hidden="true"></i></a>
+                    <div ngbDropdownMenu aria-labelledby="dropdown-user-ministry-filter">
+                        <ul class="list-inline">
+                            <li class="list-inline-item dropdown-item">
+                                <a routerLink="/next-7-day-activity-list" [queryParams]="{ ministries: 'All'}">All</a>
+                            </li>
+                            <li class="list-inline-item dropdown-item">
+                                <a routerLink="/next-7-day-activity-list" [queryParams]="this.userMinistriesAbbreviations.length === 1 ? { ministries: 'My Ministry' } : { ministries: 'My Ministries' }">
+                                    {{ this.userMinistriesAbbreviations.length === 1 ? 'My Ministry' : 'My Ministries' }}
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </li>
+
         </ul>
     </div>
 </div>

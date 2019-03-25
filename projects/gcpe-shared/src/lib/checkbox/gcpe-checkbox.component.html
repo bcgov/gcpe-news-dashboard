@@ -1,0 +1,5 @@
+<label class="custom-control fill-checkbox">
+    <input (change)="handleChanged($event)" [checked]="isChecked" type="checkbox" class="fill-control-input">
+    <span class="fill-control-indicator"></span>
+    <span class="fill-control-description text-muted ml-2">{{ label }}</span>
+</label>

@@ -1,0 +1,41 @@
+@import "../../assets/styles/variables.scss";
+
+
+.btn-update{
+    padding: 0.5em .563em;
+    margin-top: 3em;
+    border: 1px solid map-get($theme-colors, light);
+    background-color: map-get($theme-colors, primary-nav);
+    color: #ffffff;
+}
+
+.header {
+    h4 {
+        float: left;
+    }
+
+    div {
+        float: right;
+    }
+}
+
+h2 {
+    margin-top: 1em;
+    margin-bottom: 1em;
+}
+
+.items {
+    clear: both;
+}
+
+@media (max-width: 87.500em) {
+    .header {
+        h4 {
+            float: none;
+        }
+    
+        div {
+            float: none;
+        }
+    }
+}

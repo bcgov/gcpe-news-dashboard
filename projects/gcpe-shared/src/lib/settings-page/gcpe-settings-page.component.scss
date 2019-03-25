@@ -1,0 +1,12 @@
+.account-settings-container {
+    margin-top: 3em;
+    width: 75em;
+    margin: 0 auto;
+}
+
+@media (max-width: 53.750em) {
+    .account-settings-container {
+        width: 100%;
+        margin: 0 auto;
+    }
+}
