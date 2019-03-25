@@ -18,7 +18,6 @@ import { RoleGuard } from './_guards/role.guard';
 import { AddSocialMediaPostComponent } from './social-media/add-social-media-post/add-social-media-post.component';
 import { AccountSettingsComponent } from './account-settings/account-settings.component';
 import { UserMinistryListResolver } from './_resolvers/user-ministry-list.resolver';
-import { UserMinistryAbbreviationsResolver } from './_resolvers/user-ministry-abbreviations.resolver';
 import { MinsitriesResolver } from './_resolvers/ministries.resolver';
 
 const appRoutes: Routes = [
@@ -33,8 +32,7 @@ const appRoutes: Routes = [
     component: ActivityForecastListComponent,
     resolve: {
       activities: ActivityListResolver,
-      userMinistries: UserMinistryListResolver,
-      userMinistriesAbbreviations: UserMinistryAbbreviationsResolver
+      userMinistries: UserMinistryListResolver
     },
     canActivate: [AuthGuard, RoleGuard],
     data: {

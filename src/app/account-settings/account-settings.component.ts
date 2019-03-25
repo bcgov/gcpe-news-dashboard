@@ -1,6 +1,5 @@
 import { Component, OnInit, ViewChildren, QueryList } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-
 import { UserPreferencesService } from '../services/userPreferences.service';
 import { Ministry } from '../view-models/ministry';
 import { AlertsService } from '../services/alerts.service';
@@ -30,11 +29,11 @@ export class AccountSettingsComponent implements OnInit {
             this.ministriesListMidPoint = this.ministries.length / 2;
         });
 
-        this.userPreferencesService.getUserMinistryPreferences(false).subscribe(
+        this.userPreferencesService.getUserMinistryPreferences().subscribe(
             userMinistries => {
                 userMinistries.forEach(userMinistry => {
                     this.checkboxes.forEach(c => {
-                        if (c.label === userMinistry) {
+                        if (c.key === userMinistry) {
                             c.isChecked = true;
                         }
                     });

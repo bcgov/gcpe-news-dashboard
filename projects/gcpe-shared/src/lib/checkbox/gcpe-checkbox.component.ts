@@ -8,6 +8,7 @@ import { Observable } from 'rxjs';
 })
 export class GcpeCheckboxComponent {
     @Input() label: string;
+    @Input() key: string;
 
     constructor() {}
 
