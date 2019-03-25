@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  apiUrl: "http://localhost:8888" // until the FW is open. http://hub-api-ntu9uh-dev.pathfinder.gov.bc.ca
+  apiUrl: " http://hub-api-ntu9uh-dev.pathfinder.gov.bc.ca" // until the FW is open. http://hub-api-ntu9uh-dev.pathfinder.gov.bc.ca
 };
 
 /*
