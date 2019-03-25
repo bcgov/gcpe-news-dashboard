@@ -8,7 +8,7 @@ import { catchError } from 'rxjs/operators';
 @Injectable({
     providedIn: 'root'
 })
-export class MinsitriesResolver implements Resolve<Ministry[]> {
+export class MinistriesResolver implements Resolve<Ministry[]> {
     constructor(private ministriesService: MinistriesService, private router: Router) { }
 
     resolve(route: ActivatedRouteSnapshot): Observable<Ministry[]> {
