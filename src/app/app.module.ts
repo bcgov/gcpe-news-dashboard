@@ -38,17 +38,23 @@ import { SocialMediaRenderService } from './services/socialMediaRender.service';
 import { AppConfigService } from './app-config.service';
 import { PluralizeKindPipe } from './_pipes/pluralize-kind.pipe';
 import { SocialMediaPostComponent } from './social-media/social-media-post/social-media-post.component';
+import { AccountSettingsComponent } from './account-settings/account-settings.component';
 import { AlertComponent } from './core/alert/alert.component';
 import { ApiModule, getApiConfig } from './api.module';
 import { RoleGuard } from './_guards/role.guard';
 import { ActivitiesService } from './services/activities.service';
 import { PostsService } from './services/posts.service';
 import { AddSocialMediaPostComponent } from './social-media/add-social-media-post/add-social-media-post.component';
+import { MinistriesService } from './services/ministries.service';
+import { GcpeSharedModule } from '../../projects/gcpe-shared/src/public_api';
+import { UserMinistryListResolver } from './_resolvers/user-ministry-list.resolver';
+import { UserMinistryAbbreviationsResolver } from './_resolvers/user-ministry-abbreviations.resolver';
+import { UserPreferencesService } from './services/userPreferences.service';
 
 const appInitializerFn = (appConfig: AppConfigService) => {
   return () => {
       return appConfig.loadAppConfig();
-  }
+  };
 };
 
 @NgModule({
@@ -59,6 +65,8 @@ const appInitializerFn = (appConfig: AppConfigService) => {
     AppComponent,
     FooterComponent,
     HqDashboardSubMenuComponent,
+    ActivityForecastListComponent,
+    AccountSettingsComponent,
     ThemesOfWeekComponent,
     ThemeListComponent,
     ThemeSubMenuComponent,
@@ -85,6 +93,7 @@ const appInitializerFn = (appConfig: AppConfigService) => {
     BrowserModule,
     FormsModule,
     HttpClientModule,
+    GcpeSharedModule,
     NgbModule.forRoot(),
     ReactiveFormsModule
   ],
@@ -100,9 +109,11 @@ const appInitializerFn = (appConfig: AppConfigService) => {
     ActivitiesService,
     AuthService,
     MessagesService,
+    MinistriesService,
     SocialMediaPostsService,
     PostsService,
     SocialMediaRenderService,
+    UserPreferencesService,
     // Resolvers
     ActivityListResolver,
     PostListResolver,
@@ -110,6 +121,8 @@ const appInitializerFn = (appConfig: AppConfigService) => {
     SociaMediaTypeListResolver,
     MessageResolver,
     SociaMediaPostListResolver,
+    UserMinistryListResolver,
+    UserMinistryAbbreviationsResolver,
     // Guards
     AuthGuard,
     RoleGuard

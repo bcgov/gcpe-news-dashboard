@@ -4,12 +4,12 @@
    display: none !important;
 }
 
-#social-media-filter a {
+#social-media-filter a, #user-ministry-filter a {
    cursor: pointer;
    color: map-get($theme-colors, primary-nav)!important;
 }
 
-#social-media-filter {
+#social-media-filter, #user-ministry-filter {
    @include media-breakpoint-down(sm) {
       text-align: right;
       margin-top: 5px;

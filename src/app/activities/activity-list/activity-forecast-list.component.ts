@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AppConfigService } from 'src/app/app-config.service';
 import { Activity } from '../../view-models/activity';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { WeekDay } from '@angular/common';
 import { AlertsService } from 'src/app/services/alerts.service';
 
@@ -15,10 +15,14 @@ export class ActivityForecastListComponent implements OnInit {
   public activitiesPerDays: Activity[][] = [[], [], [], [], [], []]; // just 5 + 1 for the week-end
   today: Date = new Date();
   msInaDay: number = 24 * 3600 * 1000;
+  public userMinistriesAbbreviations: Array<string> = [];
+  showingAllMinistries = false;
+  filterByMinistryAbbreviations: string;
+  activities: Activity[] = [];
 
   private BASE_HUB_URL: string;
 
-  constructor(private route: ActivatedRoute, appConfig: AppConfigService, private alerts: AlertsService) {
+  constructor(private route: ActivatedRoute,  appConfig: AppConfigService, private alerts: AlertsService) {
     this.BASE_HUB_URL = appConfig.config.HUB_URL;
   }
 
@@ -28,6 +32,14 @@ export class ActivityForecastListComponent implements OnInit {
         this.alerts.showError('An error occurred while retrieving activities');
         return;
       }
+
+      if (typeof data['userMinistriesAbbreviations'] === 'undefined' || data['userMinistryAbbreviations'] === null) {
+        this.alerts.showError('An error occurred while retrieving your ministries');
+        return;
+      }
+
+      this.activities = data['activities'];
+
       let todayDow = this.today.getDay();
       if (todayDow === 6) { todayDow = 0; } // group Sunday with Saturday
       data['activities'].forEach(v => {
@@ -38,7 +50,25 @@ export class ActivityForecastListComponent implements OnInit {
         if (dow === 6) { dow = 0; } // group Sunday with Saturday
         this.activitiesPerDays[dow >= todayDow ? dow - todayDow : dow + 6 - todayDow].push(v);
       });
+
+      this.userMinistriesAbbreviations = data['userMinistriesAbbreviations'];
+
+      this.route.queryParams.subscribe((queryParams: any) => {
+        if (!queryParams.ministries || queryParams.ministries === 'All') {
+          this.showingAllMinistries = true;
+        } else {
+          this.showingAllMinistries = false;
+        }
+        this.filterByMinistryAbbreviations = queryParams.type;
+      });
     });
+  }
+
+  showActivity(abbrev: string): boolean {
+    if (this.showingAllMinistries) {
+      return false; // don't hide the activities if we're showing all ministries, can't use ngIf with ngFor so binding to Hidden instead
+    }
+    return !this.userMinistriesAbbreviations.includes(abbrev);
   }
 
   overwriteTitleDetailsFromHqComments(activity: Activity) {
