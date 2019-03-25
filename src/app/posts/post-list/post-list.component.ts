@@ -14,7 +14,7 @@ declare const FB: any;
 })
 
 export class PostListComponent implements OnInit {
-  public userMinistries: Array<string> = [];
+  public userMinistriesForFilteringPosts: Array<string> = [];
   public posts: Post[] = [];
   selectedPosts: Post[];
   private BASE_NEWS_URL: string;
@@ -51,14 +51,14 @@ export class PostListComponent implements OnInit {
         return;
       }
 
-      this.userMinistries = data['userMinistries'];
+      this.userMinistriesForFilteringPosts = data['userMinistries'];
 
       this.route.queryParams.subscribe((queryParams: any) => {
         if (!queryParams.ministries || queryParams.ministries === 'All') {
           this.selectedPosts = this.posts;
         } else {
             this.selectedPosts = this.posts.filter(p => {
-              return this.userMinistries.includes(p.leadMinistryName);
+              return this.userMinistriesForFilteringPosts.includes(p.leadMinistryKey);
             });
         }
         this.filterBySocialMediaType = queryParams.type;

@@ -9,11 +9,11 @@ import { SocialMediaType } from '../../view-models/social-media-type';
 })
 export class HqDashboardSubMenuComponent implements OnInit {
   @Input() socialmediatypes: SocialMediaType[];
-  @Input() userMinistries: Array<string>;
-  @Input() userMinistriesAbbreviations: Array<string>;
+  @Input() userMinistriesForFilteringPosts: Array<string>;
+  @Input() userMinistriesForFilteringActivities: Array<string>;
   filterBySocialMediaType: string;
-  filterByMinistries: string;
-  filterByMinistryAbbreviations: string;
+  filterPostsByUserMinistries: string;
+  filterActivitiesByUserMinistries: string;
   ministryFilterDisplayValue: string;
   currentUrl = '';
   submenuOpen = false;
@@ -25,8 +25,8 @@ export class HqDashboardSubMenuComponent implements OnInit {
     if (this.activatedRoute.queryParams) {
       this.activatedRoute.queryParams.subscribe((queryParams: any) => {
         this.filterBySocialMediaType = queryParams.type || 'All';
-        this.filterByMinistries = queryParams.ministries || 'All';
-        this.filterByMinistryAbbreviations = queryParams.ministries || 'All';
+        this.filterPostsByUserMinistries = queryParams.ministries || 'All';
+        this.filterActivitiesByUserMinistries = queryParams.ministries || 'All';
       });
     }
   }

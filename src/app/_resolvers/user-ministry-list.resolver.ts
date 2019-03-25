@@ -9,7 +9,7 @@ export class UserMinistryListResolver implements Resolve<Observable<Array<string
     constructor(private userPreferencesService: UserPreferencesService, private router: Router) { }
 
     resolve(route: ActivatedRouteSnapshot): Observable<Array<string>> {
-        return this.userPreferencesService.getUserMinistryPreferences(false)
+        return this.userPreferencesService.getUserMinistryPreferences()
             .pipe(
                 catchError(error => {
                     this.router.navigate(['/']);
