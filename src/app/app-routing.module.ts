@@ -18,10 +18,10 @@ import { RoleGuard } from './_guards/role.guard';
 import { AddSocialMediaPostComponent } from './social-media/add-social-media-post/add-social-media-post.component';
 import { AccountSettingsComponent } from './account-settings/account-settings.component';
 import { UserMinistryListResolver } from './_resolvers/user-ministry-list.resolver';
-import { MinsitriesResolver } from './_resolvers/ministries.resolver';
+import { MinistriesResolver } from './_resolvers/ministries.resolver';
 
 const appRoutes: Routes = [
-  { path: 'account-settings', component: AccountSettingsComponent, resolve: { ministries: MinsitriesResolver } },
+  { path: 'account-settings', component: AccountSettingsComponent, resolve: { ministries: MinistriesResolver } },
   {
     path: 'last-7-day-post-list',
     component: PostListComponent,
