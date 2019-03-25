@@ -11,10 +11,10 @@
                 <div class="items" item-group-items>
                     <div class="row">
                         <div class="col md-6">
-                            <lib-gcpe-checkbox (change)="this.changeAllSelected()" #checkbox *ngFor="let ministry of ministries | slice:0:ministriesListMidPoint" label="{{ministry.displayName}}"></lib-gcpe-checkbox>
+                            <lib-gcpe-checkbox (change)="this.changeAllSelected()" #checkbox *ngFor="let ministry of ministries | slice:0:ministriesListMidPoint" label="{{ministry.displayName}}" key="{{ministry.key}}"></lib-gcpe-checkbox>
                         </div>
                         <div class="col-md-6">
-                            <lib-gcpe-checkbox (change)="this.changeAllSelected()" #checkbox *ngFor="let ministry of ministries | slice:ministriesListMidPoint" label="{{ministry.displayName}}"></lib-gcpe-checkbox>
+                            <lib-gcpe-checkbox (change)="this.changeAllSelected()" #checkbox *ngFor="let ministry of ministries | slice:ministriesListMidPoint" label="{{ministry.displayName}}" key="{{ministry.key}}"></lib-gcpe-checkbox>
                         </div>
                     </div>
                 </div>

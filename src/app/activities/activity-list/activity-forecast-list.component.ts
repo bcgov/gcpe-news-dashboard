@@ -15,9 +15,9 @@ export class ActivityForecastListComponent implements OnInit {
   public activitiesPerDays: Activity[][] = [[], [], [], [], [], []]; // just 5 + 1 for the week-end
   today: Date = new Date();
   msInaDay: number = 24 * 3600 * 1000;
-  public userMinistriesAbbreviations: Array<string> = [];
+  public userMinistriesForFilteringActivities: Array<string> = [];
   showingAllMinistries = false;
-  filterByMinistryAbbreviations: string;
+  filterActivitiesByUserMinistries: string;
   activities: Activity[] = [];
 
   private BASE_HUB_URL: string;
@@ -33,7 +33,7 @@ export class ActivityForecastListComponent implements OnInit {
         return;
       }
 
-      if (typeof data['userMinistriesAbbreviations'] === 'undefined' || data['userMinistryAbbreviations'] === null) {
+      if (typeof data['userMinistries'] === 'undefined' || data['userMinistries'] === null) {
         this.alerts.showError('An error occurred while retrieving your ministries');
         return;
       }
@@ -51,7 +51,7 @@ export class ActivityForecastListComponent implements OnInit {
         this.activitiesPerDays[dow >= todayDow ? dow - todayDow : dow + 6 - todayDow].push(v);
       });
 
-      this.userMinistriesAbbreviations = data['userMinistriesAbbreviations'];
+      this.userMinistriesForFilteringActivities = data['userMinistries'];
 
       this.route.queryParams.subscribe((queryParams: any) => {
         if (!queryParams.ministries || queryParams.ministries === 'All') {
@@ -59,16 +59,17 @@ export class ActivityForecastListComponent implements OnInit {
         } else {
           this.showingAllMinistries = false;
         }
-        this.filterByMinistryAbbreviations = queryParams.type;
+        this.filterActivitiesByUserMinistries = queryParams.type;
       });
     });
   }
 
-  showActivity(abbrev: string): boolean {
+  showActivity(contactMinistryKey: string): boolean {
     if (this.showingAllMinistries) {
       return false; // don't hide the activities if we're showing all ministries, can't use ngIf with ngFor so binding to Hidden instead
     }
-    return !this.userMinistriesAbbreviations.includes(abbrev);
+
+    return !this.userMinistriesForFilteringActivities.includes(contactMinistryKey);
   }
 
   overwriteTitleDetailsFromHqComments(activity: Activity) {
