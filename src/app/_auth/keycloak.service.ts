@@ -3,6 +3,7 @@ import { JwksValidationHandler, OAuthService } from 'angular-oauth2-oidc';
 import { BehaviorSubject } from 'rxjs';
 import { keycloakConfig } from '../auth.config';
 import { AuthProvider } from './auth-provider.service';
+import { AppConfigService } from '../app-config.service';
 
 @Injectable({
   providedIn: 'root'
@@ -12,11 +13,12 @@ export class KeycloakService extends AuthProvider {
   public accessToken = this.accessTokenSubject.asObservable();
   public isRefreshingToken = false;
 
-  constructor(private oauth: OAuthService) {
+  constructor(private oauth: OAuthService, private appConfig: AppConfigService) {
     super();
     keycloakConfig.redirectUri = window.location.protocol + '//' + window.location.hostname
                                 + (window.location.port ? ':' + window.location.port : '');
     keycloakConfig.silentRefreshRedirectUri = keycloakConfig.redirectUri + '/keycloak-silent-refresh.html';
+    keycloakConfig.issuer = `https://${this.appConfig.config.ENV}.${keycloakConfig.issuerPath}`;
 
     this.oauth.configure(keycloakConfig);
     this.oauth.tokenValidationHandler = new JwksValidationHandler();

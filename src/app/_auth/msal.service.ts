@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { UserAgentApplication } from 'msal';
-import { authConfig } from '../auth.config';
+import { azureADConfig } from '../auth.config';
 import { BehaviorSubject } from 'rxjs';
 import { AuthProvider } from './auth-provider.service';
 
@@ -15,10 +15,10 @@ export class MsalService extends AuthProvider {
 
   constructor() {
     super();
-    this.msal = new UserAgentApplication(authConfig.clientID, authConfig.authority, (errorDesc, token, error) => {
+    this.msal = new UserAgentApplication(azureADConfig.clientID, azureADConfig.authority, (errorDesc, token, error) => {
 
     }, {
-      validateAuthority: authConfig.validateAuthority,
+      validateAuthority: azureADConfig.validateAuthority,
       redirectUri: this.redirectUrl,
       navigateToLoginRequestUrl: false,
       storeAuthStateInCookie: /msie\s|trident\/|edge\//i.test(window.navigator.userAgent)
@@ -26,7 +26,7 @@ export class MsalService extends AuthProvider {
   }
 
   public login() {
-    this.msal.loginRedirect([authConfig.clientID]);
+    this.msal.loginRedirect([azureADConfig.clientID]);
   }
 
   public getUser() {
@@ -57,7 +57,7 @@ export class MsalService extends AuthProvider {
 
   public getToken() {
     this.isRefreshingToken = true;
-    this.msal.acquireTokenSilent([authConfig.clientID])
+    this.msal.acquireTokenSilent([azureADConfig.clientID])
       .then(accessToken => {
         this.isRefreshingToken = false;
         this.accessTokenSubject.next(accessToken);
