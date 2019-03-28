@@ -1,6 +1,6 @@
 import { ComponentFixture, TestBed, async } from '@angular/core/testing';
 import { AccountSettingsComponent } from './account-settings.component';
-import { AuthService } from '../services/auth.service';
+import { AuthService } from '../_auth/auth.service';
 import { FormsModule } from '@angular/forms';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { of } from 'rxjs';
