@@ -8,7 +8,8 @@ export function FakeMinistryData(count: number) {
     for (var i = 0; i < count; i++) {
         // tslint:disable-next-line:no-shadowed-variable
         const ministry: Ministry = {
-           displayName: `Ministry-${i}`
+          key: `Ministry-${i}`,
+          displayName: `Ministry-${i}`
         };
         ministries.push(ministry);
     }
