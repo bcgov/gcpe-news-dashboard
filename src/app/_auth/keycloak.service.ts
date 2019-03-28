@@ -18,7 +18,7 @@ export class KeycloakService extends AuthProvider {
     keycloakConfig.redirectUri = window.location.protocol + '//' + window.location.hostname
                                 + (window.location.port ? ':' + window.location.port : '');
     keycloakConfig.silentRefreshRedirectUri = keycloakConfig.redirectUri + '/keycloak-silent-refresh.html';
-    keycloakConfig.issuer = `https://${this.appConfig.config.ENV}.${keycloakConfig.issuerPath}`;
+    keycloakConfig.issuer = `https://${this.appConfig.config.KEYCLOAK_SSO_PREFIX}.${keycloakConfig.issuerPath}`;
 
     this.oauth.configure(keycloakConfig);
     this.oauth.tokenValidationHandler = new JwksValidationHandler();
