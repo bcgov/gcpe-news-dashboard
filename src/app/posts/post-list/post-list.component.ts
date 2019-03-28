@@ -21,7 +21,7 @@ export class PostListComponent implements OnInit {
   filterBySocialMediaType: string;
 
   constructor(private router: Router, private route: ActivatedRoute, private appConfig: AppConfigService, private alerts: AlertsService) {
-    this.BASE_NEWS_URL = appConfig.config.NEWS_URL;
+    this.BASE_NEWS_URL = this.appConfig.config.NEWS_URL;
     this.router.routeReuseStrategy.shouldReuseRoute = () => false;
   }
 

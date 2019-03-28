@@ -12,7 +12,7 @@ import { ThemeCardComponent } from '../theme-card/theme-card.component';
 import { BASE_PATH } from '../../variables';
 import { TimeAgoPipe } from 'time-ago-pipe';
 import { HasRoleDirective } from 'src/app/_directives/hasRole.directive';
-import { AuthService } from 'src/app/services/auth.service';
+import { AuthService } from 'src/app/_auth/auth.service';
 import { AlertsService } from 'src/app/services/alerts.service';
 import { mockAuth } from 'src/app/test-helpers/mock-auth';
 

@@ -1,5 +1,5 @@
 import { RoleGuard } from './role.guard';
-import { AuthService } from '../services/auth.service';
+import { AuthService } from '../_auth/auth.service';
 import { TestBed, inject } from '@angular/core/testing';
 import { Configuration } from '../configuration';
 import { Router, ActivatedRouteSnapshot } from '@angular/router';
@@ -28,7 +28,7 @@ describe('RoleGuard', () => {
     let route = new ActivatedRouteSnapshot();
     route.data = { roles: ['Contributor'] };
     spyOn(auth, 'roleMatch').and.returnValue(true);
-    
+
     const access = guard.canActivate(route);
 
     expect(access).toBeTruthy();
@@ -39,9 +39,9 @@ describe('RoleGuard', () => {
     route.data = { roles: ['Contributor'] };
     spyOn(auth, 'roleMatch').and.returnValue(false);
     const alertSpy = spyOn(TestBed.get(AlertsService), 'showError');
-    
+
     const access = guard.canActivate(route);
-    
+
     expect(access).toBeFalsy();
     expect(alertSpy).toHaveBeenCalled();
   }));

@@ -1,38 +1,46 @@
 import { Injectable } from '@angular/core';
 import { UserAgentApplication } from 'msal';
-import { authConfig } from '../auth.config';
-import { AlertsService } from './alerts.service';
-import { Configuration } from '../configuration';
+import { azureADConfig } from '../auth.config';
 import { BehaviorSubject } from 'rxjs';
+import { AuthProvider } from './auth-provider.service';
 
 @Injectable({
   providedIn: 'root'
 })
-export class MsalService {
+export class MsalService extends AuthProvider {
   private msal: UserAgentApplication;
   public accessTokenSubject = new BehaviorSubject<string>('');
   public accessToken = this.accessTokenSubject.asObservable();
   public isRefreshingToken = false;
 
-  constructor(private alerts: AlertsService, private configuration: Configuration) {
-    const url = `${window.location.protocol}//${window.location.hostname + (window.location.port ? ':' + window.location.port : '')}`;
-    this.msal = new UserAgentApplication(authConfig.clientID, authConfig.authority, (errorDesc, token, error) => {
-      this.configuration.accessToken = token;
+  constructor() {
+    super();
+    this.msal = new UserAgentApplication(azureADConfig.clientID, azureADConfig.authority, (errorDesc, token, error) => {
+
     }, {
-      validateAuthority: authConfig.validateAuthority,
-      redirectUri: url,
+      validateAuthority: azureADConfig.validateAuthority,
+      redirectUri: this.redirectUrl,
       navigateToLoginRequestUrl: false,
       storeAuthStateInCookie: /msie\s|trident\/|edge\//i.test(window.navigator.userAgent)
     });
   }
 
   public login() {
-    this.msal.loginRedirect([authConfig.clientID]);
+    this.msal.loginRedirect([azureADConfig.clientID]);
   }
 
   public getUser() {
-    const user = this.msal.getUser();
-    return user ? user : null;
+    const msalUser = this.msal.getUser();
+    if (msalUser === null) {
+      return null;
+    }
+    const user = {
+      user_roles: msalUser.idToken['roles'] || [],
+      access_token: this.accessTokenSubject.value,
+      name: msalUser.idToken['name'].split(', ')[1] || '',
+      expiry: msalUser.idToken['exp'] || ''
+    };
+    return user;
   }
 
   public logout() {
@@ -49,13 +57,12 @@ export class MsalService {
 
   public getToken() {
     this.isRefreshingToken = true;
-    this.msal.acquireTokenSilent([authConfig.clientID])
+    this.msal.acquireTokenSilent([azureADConfig.clientID])
       .then(accessToken => {
         this.isRefreshingToken = false;
         this.accessTokenSubject.next(accessToken);
       }, error => {
           this.isRefreshingToken = false;
-          this.alerts.showError('Failed to authenticate');
           this.accessTokenSubject.next('');
       });
   }
