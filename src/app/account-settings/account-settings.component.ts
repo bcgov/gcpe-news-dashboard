@@ -43,7 +43,6 @@ export class AccountSettingsComponent implements OnInit {
             const indexOfIrs = restOfMinistries.indexOf(irsMinistry);
             restOfMinistries.splice(indexOfIrs, 1);
             this.ministries = [officeOfThePremier, irsMinistry].concat(restOfMinistries);
-            this.ministriesListMidPoint = this.ministries.length / 2;
             this.ministries = this.ministries
               .filter(m => {
                 return ![
