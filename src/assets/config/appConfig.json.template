@@ -2,5 +2,5 @@
   "NEWS_URL": "%NEWS_URL%",
   "HUB_URL": "%HUB_URL%",
   "AUTH_TYPE": "%AUTH_TYPE%",
-  "ENV": "%ENV%"
+  "KEYCLOAK_SSO_PREFIX": "%KEYCLOAK_SSO_PREFIX%"
 }
