@@ -27,6 +27,32 @@ export class AccountSettingsComponent implements OnInit {
         this.route.data.subscribe(data => {
             this.ministries = data['ministries'];
             this.ministriesListMidPoint = this.ministries.length / 2;
+
+            // cache the first two entries
+            const officeOfThePremier = this.ministries.find(m => m.key === 'office-of-the-premier');
+            const irsMinistry = this.ministries.find(m => m.key === 'intergovernmental-relations-secretariat');
+            if (officeOfThePremier !== undefined && irsMinistry !== undefined) {
+              // sort the rest of the list by display name, ignoring sort order
+              const restOfMinistries = this.ministries.splice(2, this.ministries.length).sort((a, b) => {
+                const keyA = a.displayName,
+                keyB = b.displayName;
+                if (keyA < keyB) { return -1; }
+                if (keyA > keyB) { return 1; }
+                return 0;
+              });
+            const indexOfIrs = restOfMinistries.indexOf(irsMinistry);
+            restOfMinistries.splice(indexOfIrs, 1);
+            this.ministries = [officeOfThePremier, irsMinistry].concat(restOfMinistries);
+            this.ministriesListMidPoint = this.ministries.length / 2;
+            this.ministries = this.ministries
+              .filter(m => {
+                return ![
+                  'E6177CCB-93EC-4AB5-A75C-F795337A39CF',
+                  '579184C3-DB0C-47D7-BC86-E0BDF78AE4D0',
+                  'child-care',
+                  'trade'].includes(m.key);
+              });
+            }
         });
 
         this.userPreferencesService.getUserMinistryPreferences().subscribe(

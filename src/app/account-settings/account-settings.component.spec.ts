@@ -51,6 +51,7 @@ describe('AccountSettingsComponent', () => {
           }});
         fixture = TestBed.createComponent(AccountSettingsComponent);
         component = fixture.componentInstance;
+        component.ministries = FakeMinistryData(22);
         fixture.detectChanges();
     });
 
