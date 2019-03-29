@@ -30,6 +30,9 @@ export class NavMenuComponent implements OnInit {
   }
 
   getColor(letter: string) {
+    if (letter === '') {
+      return '#000';
+    }
     const num = letter.charCodeAt(0) - 65;
     return 'hsla(' + 360 / 25 * num + ', 75%, 50%, 0.7)';
   }

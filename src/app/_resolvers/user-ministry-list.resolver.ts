@@ -12,7 +12,6 @@ export class UserMinistryListResolver implements Resolve<Observable<Array<string
         return this.userPreferencesService.getUserMinistryPreferences()
             .pipe(
                 catchError(error => {
-                    this.router.navigate(['/']);
                     return of(null);
             })
         );

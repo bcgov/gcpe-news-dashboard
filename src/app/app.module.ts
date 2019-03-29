@@ -52,6 +52,7 @@ import { UserPreferencesService } from './services/userPreferences.service';
 import { OAuthModule, OAuthService } from 'angular-oauth2-oidc';
 import { AuthProviderFactory } from './_auth/auth-provider-factory';
 import { AuthProvider } from './_auth/auth-provider.service';
+import { HomeComponent } from './home/home.component';
 
 const appInitializerFn = (appConfig: AppConfigService) => {
   return () => {
@@ -81,6 +82,7 @@ const appInitializerFn = (appConfig: AppConfigService) => {
     SocialMediaPostComponent,
     LoadingSpinnerComponent,
     AddSocialMediaPostComponent,
+    HomeComponent,
     // Directives
     AutosizeDirective,
     ClickPreventDefaultDirective,

@@ -19,6 +19,8 @@ import { AddSocialMediaPostComponent } from './social-media/add-social-media-pos
 import { AccountSettingsComponent } from './account-settings/account-settings.component';
 import { UserMinistryListResolver } from './_resolvers/user-ministry-list.resolver';
 import { MinistriesResolver } from './_resolvers/ministries.resolver';
+import { HqDashboardSubMenuComponent } from './core/hq-dashboard-sub-menu/hq-dashboard-sub-menu.component';
+import { HomeComponent } from './home/home.component';
 
 const appRoutes: Routes = [
   { path: 'account-settings', component: AccountSettingsComponent, resolve: { ministries: MinistriesResolver } },
@@ -107,12 +109,12 @@ const appRoutes: Routes = [
   },
   {
     path: '',
-    redirectTo: 'last-7-day-post-list',
+    component: HomeComponent,
     pathMatch: 'full'
   },
   {
     path: '**',
-    redirectTo: 'last-7-day-post-list'
+    redirectTo: ''
   }
 ];
 
