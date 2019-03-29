@@ -16,7 +16,7 @@ declare const FB: any;
 export class PostListComponent implements OnInit {
   public userMinistriesForFilteringPosts: Array<string> = [];
   public posts: Post[] = [];
-  selectedPosts: Post[];
+  public selectedPosts: Post[] = [];
   private BASE_NEWS_URL: string;
   filterBySocialMediaType: string;
 

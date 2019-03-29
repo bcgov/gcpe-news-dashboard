@@ -9,13 +9,15 @@ import { AlertsService } from 'src/app/services/alerts.service';
 export class AlertComponent implements OnInit {
   alertMessage: string;
   alertClass: string;
-  alertVisible: boolean = false;
+  alertVisible = false;
+  public cancelable = true;
 
   constructor(private alerts: AlertsService) { }
 
   ngOnInit() {
     this.alerts.visible.subscribe(visible => {
       if (visible) {
+        this.cancelable = this.alerts.cancelable;
         this.alertMessage = this.alerts.message;
         this.alertClass = this.alerts.class;
         this.alertVisible = true;
