@@ -19,6 +19,7 @@ export class AccountSettingsComponent implements OnInit {
     ministriesToExclude = [
       'E6177CCB-93EC-4AB5-A75C-F795337A39CF',
       '579184C3-DB0C-47D7-BC86-E0BDF78AE4D0',
+      '768DBF29-89C6-48D1-901E-017A8A3557A4',
       'child-care',
       'trade'];
 
