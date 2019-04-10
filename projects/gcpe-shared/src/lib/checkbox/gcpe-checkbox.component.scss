@@ -1,5 +1,5 @@
 .custom-control.fill-checkbox {
-    --color: #0069d9;
+    color: #0069d9;
 }
 
 .custom-control.fill-checkbox .fill-control-input {
@@ -7,8 +7,8 @@
 }
 
 .custom-control.fill-checkbox .fill-control-input:checked ~ .fill-control-indicator {
-    background-color: var(--color);
-    border-color:  var(--color);
+    background-color: #0069d9;
+    border-color: #0069d9;
     background-size: 80%;
 }
 
