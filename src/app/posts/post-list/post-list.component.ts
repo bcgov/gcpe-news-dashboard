@@ -58,7 +58,8 @@ export class PostListComponent implements OnInit {
           this.selectedPosts = this.posts;
         } else {
             this.selectedPosts = this.posts.filter(p => {
-              return this.userMinistriesForFilteringPosts.includes(p.leadMinistryKey);
+              return this.userMinistriesForFilteringPosts.includes(p.leadMinistryKey)
+                || this.userMinistriesForFilteringPosts.some(m => p.ministries.includes(m));
             });
         }
         this.filterBySocialMediaType = queryParams.type;
