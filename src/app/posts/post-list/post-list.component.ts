@@ -4,6 +4,7 @@ import { SocialMediaType } from '../../view-models/social-media-type';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AppConfigService } from 'src/app/app-config.service';
 import { AlertsService } from 'src/app/services/alerts.service';
+import { UtilsService } from 'src/app/services/utils.service';
 
 declare const FB: any;
 
@@ -20,7 +21,12 @@ export class PostListComponent implements OnInit {
   private BASE_NEWS_URL: string;
   filterBySocialMediaType: string;
 
-  constructor(private router: Router, private route: ActivatedRoute, private appConfig: AppConfigService, private alerts: AlertsService) {
+  constructor(
+    private router: Router,
+    private route: ActivatedRoute,
+    private appConfig: AppConfigService,
+    private alerts: AlertsService,
+    private utils: UtilsService) {
     this.BASE_NEWS_URL = this.appConfig.config.NEWS_URL;
     this.router.routeReuseStrategy.shouldReuseRoute = () => false;
   }
@@ -58,8 +64,8 @@ export class PostListComponent implements OnInit {
           this.selectedPosts = this.posts;
         } else {
             this.selectedPosts = this.posts.filter(p => {
-              return this.userMinistriesForFilteringPosts.includes(p.leadMinistryKey)
-                || this.userMinistriesForFilteringPosts.some(m => p.ministries.includes(m));
+              return this.utils.includes(this.userMinistriesForFilteringPosts, p.leadMinistryKey)
+                || p.ministries && this.utils.intersection(this.userMinistriesForFilteringPosts, p.ministries).length > 0;
             });
         }
         this.filterBySocialMediaType = queryParams.type;

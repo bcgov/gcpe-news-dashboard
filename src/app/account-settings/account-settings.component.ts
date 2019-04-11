@@ -4,6 +4,7 @@ import { UserPreferencesService } from '../services/userPreferences.service';
 import { Ministry } from '../view-models/ministry';
 import { AlertsService } from '../services/alerts.service';
 import { GcpeCheckboxComponent } from 'projects/gcpe-shared/src/public_api';
+import { UtilsService } from '../services/utils.service';
 
 
 @Component({
@@ -28,7 +29,8 @@ export class AccountSettingsComponent implements OnInit {
     constructor(
         private route: ActivatedRoute,
         private userPreferencesService: UserPreferencesService,
-        private alerts: AlertsService) { }
+        private alerts: AlertsService,
+        private utils: UtilsService) { }
 
     ngOnInit() {
         this.route.data.subscribe(data => {
@@ -54,7 +56,7 @@ export class AccountSettingsComponent implements OnInit {
             this.ministries = [officeOfThePremier, irsMinistry].concat(restOfMinistries);
             this.ministries = this.ministries
               .filter(m => {
-                return !this.ministriesToExclude.includes(m.key);
+                return !this.utils.includes(this.ministriesToExclude, m.key);
               });
             }
         });
@@ -81,7 +83,7 @@ export class AccountSettingsComponent implements OnInit {
         });
 
         const ministryKeys = this.ministries.filter(m => {
-          return selectedMinistries.map(c => c.label).includes(m.displayName);
+          return this.utils.includes(selectedMinistries.map(c => c.label), m.displayName);
         });
 
         this.userPreferencesService

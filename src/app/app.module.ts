@@ -53,6 +53,7 @@ import { OAuthModule, OAuthService } from 'angular-oauth2-oidc';
 import { AuthProviderFactory } from './_auth/auth-provider-factory';
 import { AuthProvider } from './_auth/auth-provider.service';
 import { HomeComponent } from './home/home.component';
+import { UtilsService } from './services/utils.service';
 
 const appInitializerFn = (appConfig: AppConfigService) => {
   return () => {
@@ -120,6 +121,7 @@ const appInitializerFn = (appConfig: AppConfigService) => {
     PostsService,
     SocialMediaRenderService,
     UserPreferencesService,
+    UtilsService,
     // Resolvers
     ActivityListResolver,
     PostListResolver,
