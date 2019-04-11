@@ -5,6 +5,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { AppConfigService } from 'src/app/app-config.service';
 import { AlertsService } from 'src/app/services/alerts.service';
 import { UtilsService } from 'src/app/services/utils.service';
+import { MinistriesProvider } from 'src/app/_providers/ministries.provider';
 
 declare const FB: any;
 
@@ -26,7 +27,8 @@ export class PostListComponent implements OnInit {
     private route: ActivatedRoute,
     private appConfig: AppConfigService,
     private alerts: AlertsService,
-    private utils: UtilsService) {
+    private utils: UtilsService,
+    private ministriesProvider: MinistriesProvider) {
     this.BASE_NEWS_URL = this.appConfig.config.NEWS_URL;
     this.router.routeReuseStrategy.shouldReuseRoute = () => false;
   }
@@ -64,8 +66,14 @@ export class PostListComponent implements OnInit {
           this.selectedPosts = this.posts;
         } else {
             this.selectedPosts = this.posts.filter(p => {
+
+              const postMinistries: Array<string> = [];
+              p.ministries.forEach((val, idx, arr) => {
+                postMinistries.push(this.ministriesProvider.getMinistry(val).key);
+              });
+
               return this.utils.includes(this.userMinistriesForFilteringPosts, p.leadMinistryKey)
-                || p.ministries && this.utils.intersection(this.userMinistriesForFilteringPosts, p.ministries).length > 0;
+                || this.utils.intersection(this.userMinistriesForFilteringPosts, postMinistries).length > 0;
             });
         }
         this.filterBySocialMediaType = queryParams.type;
