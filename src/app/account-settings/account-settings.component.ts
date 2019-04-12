@@ -88,7 +88,7 @@ export class AccountSettingsComponent implements OnInit {
         this.userPreferencesService
           .addUserMinistryPreference(ministryKeys.map(m => m.key)).subscribe(
             (res) => {
-              this.alerts.showSuccess('Settings saved.');
+              this.alerts.showSuccess('Settings saved. Click the BC Gov News logo to go back.');
               window.scrollTo(0, 0);
             },
             (err) => {
