@@ -35,7 +35,6 @@ export class AccountSettingsComponent implements OnInit {
     ngOnInit() {
         this.route.data.subscribe(data => {
             this.ministries = data['ministries'];
-            this.ministriesListMidPoint = this.ministries.length / 2;
 
             // cache the first two entries
             const officeOfThePremier = this.ministries.find(m => m.key === 'office-of-the-premier');
@@ -59,6 +58,7 @@ export class AccountSettingsComponent implements OnInit {
                 return !this.utils.includes(this.ministriesToExclude, m.key);
               });
             }
+            this.ministriesListMidPoint = this.ministries.length / 2;
         });
 
         this.userPreferencesService.getUserMinistryPreferences().subscribe(
