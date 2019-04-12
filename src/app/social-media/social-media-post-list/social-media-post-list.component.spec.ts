@@ -11,7 +11,7 @@ import { FakeSocialMediaPostsData } from '../../test-helpers/social-media-posts'
 import { ActivatedRoute } from '@angular/router';
 import { of } from 'rxjs';
 import { HasRoleDirective } from 'src/app/_directives/hasRole.directive';
-import { AuthService } from 'src/app/services/auth.service';
+import { AuthService } from 'src/app/_auth/auth.service';
 import { SocialMediaRenderService } from '../../services/socialMediaRender.service';
 import { mockAuth } from 'src/app/test-helpers/mock-auth';
 import { LoadingSpinnerComponent } from 'src/app/core/loading-spinner/loading-spinner.component';

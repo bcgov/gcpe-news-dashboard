@@ -2,14 +2,14 @@
     <h2>HQ Dashboard</h2>
     <div class="button-group pull-right">
         <div *ngIf="currentUrl === '/themes-of-the-week'" class="new-theme-button mr-2 d-inline-block">
-            <a *appHasRole="['Administrators','Contributors']" routerLink="/theme/new" class="btn btn-primary btn-outline doNotPrint">New Theme</a>
+            <a *appHasRole="['Contributor']" routerLink="/theme/new" class="btn btn-primary btn-outline doNotPrint">New Theme</a>
         </div>
-        <button class="btn btn-primary btn-outline btn-print doNotPrint" (click)="print()"><i class="fa fa-print fa-lg"></i> Print</button>
+        <button class="btn btn-primary btn-outline btn-print doNotPrint" (click)="print()" *ngIf="!socialmediatypes"><i class="fa fa-print fa-lg"></i> Print</button>
     </div>
     <p class="lighter-font hq-dashboard-info">
         The most important news you should be aware of.
     </p>
-    <div class="pt-3 router-style">
+    <div *appHasRole="['Contributor', 'Viewer']" class="pt-3 router-style">
         <ul class="list-inline subnav-list">
             <li id="submenu-open-button" class="open pull-right" (click)="toggleSubmenu()">
                 <i class="fa" [ngClass]="{'fa-angle-down': !submenuOpen, 'fa-angle-up': submenuOpen}"></i>
@@ -33,11 +33,46 @@
                                 </a>
                             </li>
                         </ul>
-                        
-                        
                     </div>
                 </div>
             </li>
+
+            <li id="user-ministry-filter" class="list-inline-item ml-auto open" *ngIf="userMinistriesForFilteringPosts">
+                <div ngbDropdown placement="bottom-right" id="user-ministry-filter-dropdown-menu">
+                    <a class="btn-link" id="dropdown-user-ministry-filter" ngbDropdownToggle>{{filterPostsByUserMinistries}} <i class="fa fa-angle-down" aria-hidden="true"></i></a>
+                    <div ngbDropdownMenu aria-labelledby="dropdown-user-ministry-filter">
+                        <ul class="list-inline">
+                            <li class="list-inline-item dropdown-item">
+                                <a routerLink="/last-7-day-post-list" [queryParams]="{ ministries: 'All'}">All</a>
+                            </li>
+                            <li class="list-inline-item dropdown-item">
+                                <a routerLink="/last-7-day-post-list" [queryParams]="this.userMinistriesForFilteringPosts.length === 1 ? { ministries: 'My Ministry' } : { ministries: 'My Ministries' }">
+                                    {{ this.userMinistriesForFilteringPosts.length === 1 ? 'My Ministry' : 'My Ministries' }}
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </li>
+
+            <li id="user-ministry-filter" class="list-inline-item ml-auto open" *ngIf="userMinistriesForFilteringActivities">
+                <div ngbDropdown placement="bottom-right" id="user-ministry-filter-dropdown-menu">
+                    <a class="btn-link" id="dropdown-user-ministry-filter" ngbDropdownToggle>{{filterActivitiesByUserMinistries}} <i class="fa fa-angle-down" aria-hidden="true"></i></a>
+                    <div ngbDropdownMenu aria-labelledby="dropdown-user-ministry-filter">
+                        <ul class="list-inline">
+                            <li class="list-inline-item dropdown-item">
+                                <a routerLink="/next-7-day-activity-list" [queryParams]="{ ministries: 'All'}">All</a>
+                            </li>
+                            <li class="list-inline-item dropdown-item">
+                                <a routerLink="/next-7-day-activity-list" [queryParams]="this.userMinistriesForFilteringActivities.length === 1 ? { ministries: 'My Ministry' } : { ministries: 'My Ministries' }">
+                                    {{ this.userMinistriesForFilteringActivities.length === 1 ? 'My Ministry' : 'My Ministries' }}
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </li>
+
         </ul>
     </div>
 </div>

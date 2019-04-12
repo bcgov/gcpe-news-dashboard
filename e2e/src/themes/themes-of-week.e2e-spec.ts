@@ -7,7 +7,7 @@ describe('Themes of Week Page', () => {
     page = new ThemesOfWeekPage();
     page.navigateTo();
   });
-/* comment integration tests to have the pipeline running
+  /* comment integration test and waiting for solution
   it('should display header text', () => {
     expect(page.getHeadingText()).toEqual('HQ Dashboard');
   });

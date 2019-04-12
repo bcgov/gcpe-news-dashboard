@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { AuthService } from 'src/app/services/auth.service';
+import { AuthService } from 'src/app/_auth/auth.service';
 import { NavmenuService } from 'src/app/services/navmenu.service';
+import { Observable } from 'rxjs';
 
 @Component({
   // tslint:disable-next-line:component-selector
@@ -11,9 +12,12 @@ import { NavmenuService } from 'src/app/services/navmenu.service';
 export class NavMenuComponent implements OnInit {
   isCollapsed = true;
   visible = true;
-  firstLetter: String = '';
+  firstLetter: String = 'A';
+  isLoggedIn: boolean|Observable<boolean>;
 
-  constructor(private authService: AuthService, public nav: NavmenuService) {}
+  constructor(private authService: AuthService, public nav: NavmenuService) {
+    this.isLoggedIn = authService.isLoggedIn();
+  }
 
   ngOnInit() {
     this.nav.visible.subscribe(n => {
@@ -26,19 +30,18 @@ export class NavMenuComponent implements OnInit {
   }
 
   getColor(letter: string) {
+    if (letter === '') {
+      return '#000';
+    }
     const num = letter.charCodeAt(0) - 65;
     return 'hsla(' + 360 / 25 * num + ', 75%, 50%, 0.7)';
-  }
-
-  isLoggedIn() {
-    return this.authService.loggedIn;
   }
 
   login() {
     this.authService.login();
   }
 
-  logOut() {
-    this.authService.logOut();
+  logout() {
+    this.authService.logout();
   }
 }

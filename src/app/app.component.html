@@ -1,12 +1,13 @@
 <news-dashboard-navmenu></news-dashboard-navmenu>
 <main role="main">
-    <div class="jumbotron">
-        <div class="container-fluid full-width">
-            <app-alert></app-alert>
-            <app-loading-spinner [isLoading]="isLoading"></app-loading-spinner>
-            <router-outlet *ngIf="!isLoading" (activate)="clearAlerts()"></router-outlet>
-        </div>
+  <div class="jumbotron">
+    <div class="container-fluid full-width">
+      <app-alert></app-alert>
+      <app-loading-spinner *ngIf="isLoading | async; else router" [isLoading]="isLoading | async"></app-loading-spinner>
+      <ng-template #router>
+        <router-outlet (activate)="clearAlerts()"></router-outlet>
+      </ng-template>
     </div>
+  </div>
 </main>
 <app-footer></app-footer>
-

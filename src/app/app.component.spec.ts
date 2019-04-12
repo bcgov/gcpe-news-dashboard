@@ -4,7 +4,6 @@ import { HttpClientModule } from '@angular/common/http';
 import { Router, NavigationEnd, NavigationStart } from '@angular/router';
 import { NavMenuComponent } from './core/navmenu/navmenu.component';
 import { NgbDropdownModule, NgbCollapseModule } from '@ng-bootstrap/ng-bootstrap';
-import { UrlHelperService } from 'angular-oauth2-oidc';
 import { Subject } from 'rxjs';
 import { AppComponent } from './app.component';
 import { AlertComponent } from './core/alert/alert.component';
@@ -12,7 +11,7 @@ import { Configuration } from './configuration';
 import { environment } from '../environments/environment';
 import { FooterComponent } from './core/footer/footer.component';
 import { HasRoleDirective } from './_directives/hasRole.directive';
-import { AuthService } from './services/auth.service';
+import { AuthService } from './_auth/auth.service';
 import { mockAuth } from './test-helpers/mock-auth';
 import { LoadingSpinnerComponent } from './core/loading-spinner/loading-spinner.component';
 
@@ -53,7 +52,6 @@ describe('AppComponent', () => {
         LoadingSpinnerComponent
       ],
       providers: [
-        UrlHelperService,
         { provide: Configuration, useValue: new Configuration({ withCredentials: true, accessToken: ''})},
         { provide: Router, useValue: mockRouterService },
         { provide: 'BASE_API_URL', useValue: environment.apiUrl },
@@ -75,14 +73,5 @@ describe('AppComponent', () => {
   it("should have as title 'BC Gov News'", () => {
     const app = fixture.debugElement.componentInstance;
     expect(app.title).toEqual('BC Gov News');
-  });
-
-  it('should show loading spinner while navigating', () => {
-    let router = TestBed.get(Router);
-    expect(component.isLoading).toBeTruthy();
-    router.triggerNavStart('http://localhost/test');
-    expect(component.isLoading).toBeTruthy();
-    router.triggerNavEnd('http://localhost/test');
-    expect(component.isLoading).toBeFalsy();
   });
 });

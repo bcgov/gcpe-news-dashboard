@@ -1,0 +1,26 @@
+<lib-gcpe-settings-page>
+    <h2 settings-page-title>Account Settings</h2>
+        <div settings-page-content>
+            <lib-gcpe-settings-group>
+                <div class="header" item-group-header>
+                    <h4>Ministries</h4>
+                    <div>
+                        <lib-gcpe-checkbox [isChecked]="this.allSelected" (change)="this.selectAll()" label="All"></lib-gcpe-checkbox>
+                    </div>
+                </div>
+                <div class="items" item-group-items>
+                    <div class="row">
+                        <div class="col md-6">
+                            <lib-gcpe-checkbox (change)="this.changeAllSelected()" #checkbox *ngFor="let ministry of ministries | slice:0:ministriesListMidPoint" label="{{ministry.displayName}}" key="{{ministry.key}}"></lib-gcpe-checkbox>
+                        </div>
+                        <div class="col-md-6">
+                            <lib-gcpe-checkbox (change)="this.changeAllSelected()" #checkbox *ngFor="let ministry of ministries | slice:ministriesListMidPoint" label="{{ministry.displayName}}" key="{{ministry.key}}"></lib-gcpe-checkbox>
+                        </div>
+                    </div>
+                </div>
+            </lib-gcpe-settings-group>
+        </div>
+        <div class="text-center" settings-page-save-button>
+            <button type="button" class="btn-update text-center" (click)="updateSettings()">Update Settings</button>
+        </div>
+</lib-gcpe-settings-page>

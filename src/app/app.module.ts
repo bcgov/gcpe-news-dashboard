@@ -1,9 +1,8 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule, APP_INITIALIZER } from '@angular/core';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import { OAuthModule } from 'angular-oauth2-oidc';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 // tslint:disable-next-line:import-spacing
@@ -13,7 +12,7 @@ import { FooterComponent } from './core/footer/footer.component';
 import { ActivityForecastListComponent } from './activities/activity-list/activity-forecast-list.component';
 import { ActivityListResolver } from './_resolvers/activity-list.resolver';
 import { PostListResolver } from './_resolvers/post-list.resolver';
-import { AuthService } from './services/auth.service';
+import { AuthService } from './_auth/auth.service';
 import { MessagesService } from './services/messages.service';
 import { ThemesOfWeekComponent } from './themes/themes-of-week/themes-of-week.component';
 import { MessageListResolver } from './_resolvers/message-list.resolver';
@@ -39,18 +38,33 @@ import { SocialMediaRenderService } from './services/socialMediaRender.service';
 import { AppConfigService } from './app-config.service';
 import { PluralizeKindPipe } from './_pipes/pluralize-kind.pipe';
 import { SocialMediaPostComponent } from './social-media/social-media-post/social-media-post.component';
+import { AccountSettingsComponent } from './account-settings/account-settings.component';
 import { AlertComponent } from './core/alert/alert.component';
 import { ApiModule, getApiConfig } from './api.module';
 import { RoleGuard } from './_guards/role.guard';
 import { ActivitiesService } from './services/activities.service';
 import { PostsService } from './services/posts.service';
 import { AddSocialMediaPostComponent } from './social-media/add-social-media-post/add-social-media-post.component';
+import { MinistriesService } from './services/ministries.service';
+import { GcpeSharedModule } from '../../projects/gcpe-shared/src/public_api';
+import { UserMinistryListResolver } from './_resolvers/user-ministry-list.resolver';
+import { UserPreferencesService } from './services/userPreferences.service';
+import { OAuthModule, OAuthService } from 'angular-oauth2-oidc';
+import { AuthProviderFactory } from './_auth/auth-provider-factory';
+import { AuthProvider } from './_auth/auth-provider.service';
+import { HomeComponent } from './home/home.component';
+import { UtilsService } from './services/utils.service';
+import { MinistriesProvider } from './_providers/ministries.provider';
 
 const appInitializerFn = (appConfig: AppConfigService) => {
   return () => {
       return appConfig.loadAppConfig();
-  }
+  };
 };
+
+export function ministriesProviderFactory(provider: MinistriesProvider) {
+  return () => provider.load();
+}
 
 @NgModule({
   declarations: [
@@ -60,6 +74,8 @@ const appInitializerFn = (appConfig: AppConfigService) => {
     AppComponent,
     FooterComponent,
     HqDashboardSubMenuComponent,
+    ActivityForecastListComponent,
+    AccountSettingsComponent,
     ThemesOfWeekComponent,
     ThemeListComponent,
     ThemeSubMenuComponent,
@@ -72,6 +88,7 @@ const appInitializerFn = (appConfig: AppConfigService) => {
     SocialMediaPostComponent,
     LoadingSpinnerComponent,
     AddSocialMediaPostComponent,
+    HomeComponent,
     // Directives
     AutosizeDirective,
     ClickPreventDefaultDirective,
@@ -86,6 +103,7 @@ const appInitializerFn = (appConfig: AppConfigService) => {
     BrowserModule,
     FormsModule,
     HttpClientModule,
+    GcpeSharedModule,
     NgbModule.forRoot(),
     ReactiveFormsModule,
     OAuthModule.forRoot()
@@ -98,13 +116,24 @@ const appInitializerFn = (appConfig: AppConfigService) => {
       multi: true,
       deps: [AppConfigService]
     },
+    MinistriesProvider,
+    {
+      provide: APP_INITIALIZER,
+      useFactory: ministriesProviderFactory,
+      deps: [MinistriesProvider],
+      multi: true
+    },
     // Services
+    { provide: AuthProvider, useFactory: AuthProviderFactory, deps: [AppConfigService, OAuthService] },
     ActivitiesService,
     AuthService,
     MessagesService,
+    MinistriesService,
     SocialMediaPostsService,
     PostsService,
     SocialMediaRenderService,
+    UserPreferencesService,
+    UtilsService,
     // Resolvers
     ActivityListResolver,
     PostListResolver,
@@ -112,6 +141,7 @@ const appInitializerFn = (appConfig: AppConfigService) => {
     SociaMediaTypeListResolver,
     MessageResolver,
     SociaMediaPostListResolver,
+    UserMinistryListResolver,
     // Guards
     AuthGuard,
     RoleGuard

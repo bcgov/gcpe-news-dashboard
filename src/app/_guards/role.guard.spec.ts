@@ -1,5 +1,5 @@
 import { RoleGuard } from './role.guard';
-import { AuthService } from '../services/auth.service';
+import { AuthService } from '../_auth/auth.service';
 import { TestBed, inject } from '@angular/core/testing';
 import { Configuration } from '../configuration';
 import { Router, ActivatedRouteSnapshot } from '@angular/router';
@@ -26,9 +26,9 @@ describe('RoleGuard', () => {
 
   it('should grant access if role matches', inject([RoleGuard], (guard: RoleGuard) => {
     let route = new ActivatedRouteSnapshot();
-    route.data = { roles: ['Administrator', 'Contributors'] };
+    route.data = { roles: ['Contributor'] };
     spyOn(auth, 'roleMatch').and.returnValue(true);
-    
+
     const access = guard.canActivate(route);
 
     expect(access).toBeTruthy();
@@ -36,12 +36,12 @@ describe('RoleGuard', () => {
 
   it('should deny access if role doesnt match', inject([RoleGuard], (guard: RoleGuard) => {
     let route = new ActivatedRouteSnapshot();
-    route.data = { roles: ['Administrator', 'Contributors'] };
+    route.data = { roles: ['Contributor'] };
     spyOn(auth, 'roleMatch').and.returnValue(false);
     const alertSpy = spyOn(TestBed.get(AlertsService), 'showError');
-    
+
     const access = guard.canActivate(route);
-    
+
     expect(access).toBeFalsy();
     expect(alertSpy).toHaveBeenCalled();
   }));

@@ -1,9 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { Post } from '../../view-models/post';
 import { SocialMediaType } from '../../view-models/social-media-type';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { AppConfigService } from 'src/app/app-config.service';
 import { AlertsService } from 'src/app/services/alerts.service';
+import { UtilsService } from 'src/app/services/utils.service';
+import { MinistriesProvider } from 'src/app/_providers/ministries.provider';
 
 declare const FB: any;
 
@@ -14,19 +16,29 @@ declare const FB: any;
 })
 
 export class PostListComponent implements OnInit {
+  public userMinistriesForFilteringPosts: Array<string> = [];
   public posts: Post[] = [];
+  public selectedPosts: Post[] = [];
   private BASE_NEWS_URL: string;
+  filterBySocialMediaType: string;
 
-  constructor(private route: ActivatedRoute, private appConfig: AppConfigService, private alerts: AlertsService) {
-    this.BASE_NEWS_URL = appConfig.config.NEWS_URL;
+  constructor(
+    private router: Router,
+    private route: ActivatedRoute,
+    private appConfig: AppConfigService,
+    private alerts: AlertsService,
+    private utils: UtilsService,
+    private ministriesProvider: MinistriesProvider) {
+    this.BASE_NEWS_URL = this.appConfig.config.NEWS_URL;
+    this.router.routeReuseStrategy.shouldReuseRoute = () => false;
   }
 
   ngOnInit() {
     this.route.data.subscribe(data => {
-      if(typeof data['posts'] === 'undefined' || data['posts'] === null) {
+      if (typeof data['posts'] === 'undefined' || data['posts'] === null) {
         this.alerts.showError('An error occurred while retrieving posts');
         return;
-      };
+      }
       let hasFacebookAssets = false;
       data['posts'].forEach(p => {
         if (p.assetUrl.indexOf('facebook') >= 0) {
@@ -42,6 +54,30 @@ export class PostListComponent implements OnInit {
         });
         FB.XFBML.parse();
       }
+      if (typeof data['userMinistries'] === 'undefined' || data['userMinistries'] === null) {
+        this.alerts.showError('An error occurred while retrieving your ministries');
+        return;
+      }
+
+      this.userMinistriesForFilteringPosts = data['userMinistries'];
+
+      this.route.queryParams.subscribe((queryParams: any) => {
+        if (!queryParams.ministries || queryParams.ministries === 'All') {
+          this.selectedPosts = this.posts;
+        } else {
+            this.selectedPosts = this.posts.filter(p => {
+
+              const postMinistries: Array<string> = [];
+              p.ministries.forEach((val, idx, arr) => {
+                postMinistries.push(this.ministriesProvider.getMinistry(val).key);
+              });
+
+              return this.utils.includes(this.userMinistriesForFilteringPosts, p.leadMinistryKey)
+                || this.utils.intersection(this.userMinistriesForFilteringPosts, postMinistries).length > 0;
+            });
+        }
+        this.filterBySocialMediaType = queryParams.type;
+      });
     });
   }
 }

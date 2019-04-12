@@ -1,9 +1,10 @@
 import { AuthGuard } from './auth.guard';
-import { AuthService } from '../services/auth.service';
+import { AuthService } from '../_auth/auth.service';
 import { TestBed, inject } from '@angular/core/testing';
 import { Configuration } from '../configuration';
 import { AlertsService } from '../services/alerts.service';
 import { mockAuth } from '../test-helpers/mock-auth';
+import { of } from 'rxjs';
 
 describe('AuthGuard', () => {
   let auth: any;
@@ -23,21 +24,29 @@ describe('AuthGuard', () => {
     expect(guard).toBeTruthy();
   }));
 
-  it('should grant access if logged in', inject([AuthGuard], (guard: AuthGuard) => {
-    spyOnProperty(auth, 'loggedIn').and.returnValue(true);
-    
-    const access = guard.canActivate();
+  it('should grant access if logged in', (done) => {
+    inject([AuthGuard], (guard: AuthGuard) => {
+      spyOn(auth, 'isLoggedIn').and.returnValue(of(true));
 
-    expect(access).toBeTruthy();
-  }));
+      const access = guard.canActivate();
 
-  it('should grant access if logged out', inject([AuthGuard], (guard: AuthGuard) => {
-    spyOnProperty(auth, 'loggedIn').and.returnValue(false);
-    const alertSpy = spyOn(TestBed.get(AlertsService), 'showError');
-    
-    const access = guard.canActivate();
+      access.subscribe(val => {
+        expect(val).toBeTruthy();
+        done();
+      });
+    })();
+  });
 
-    expect(access).toBeFalsy();
-    expect(alertSpy).toHaveBeenCalled();
-  }));
+  it('should not grant access if logged out', (done) => {
+    inject([AuthGuard], (guard: AuthGuard) => {
+      spyOn(auth, 'isLoggedIn').and.returnValue(of(false));
+
+      const access = guard.canActivate();
+
+      access.subscribe(val => {
+        expect(val).toBeFalsy();
+        done();
+      });
+    })();
+  });
 });

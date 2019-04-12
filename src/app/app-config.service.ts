@@ -15,7 +15,7 @@ export class AppConfigService {
         this.appConfig = data;
       })
       .catch(data => {
-        this.appConfig = config
+        this.appConfig = config;
       });
   }
 

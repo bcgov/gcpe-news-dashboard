@@ -1,5 +1,9 @@
 @import "../../../assets/styles/variables.scss";
 
+.addSocialMediaPostBtnpreview-post {
+  max-width: 400px;
+}
+
 nav {
   background-color: map-get($theme-colors, primary-alt);;
   border-bottom: 1px solid map-get($theme-colors, light);

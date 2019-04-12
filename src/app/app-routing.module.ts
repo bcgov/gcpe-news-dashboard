@@ -16,20 +16,29 @@ import { SocialMediaInputComponent } from './social-media/social-media-input/soc
 import { AuthGuard } from './_guards/auth.guard';
 import { RoleGuard } from './_guards/role.guard';
 import { AddSocialMediaPostComponent } from './social-media/add-social-media-post/add-social-media-post.component';
+import { AccountSettingsComponent } from './account-settings/account-settings.component';
+import { UserMinistryListResolver } from './_resolvers/user-ministry-list.resolver';
+import { MinistriesResolver } from './_resolvers/ministries.resolver';
+import { HqDashboardSubMenuComponent } from './core/hq-dashboard-sub-menu/hq-dashboard-sub-menu.component';
+import { HomeComponent } from './home/home.component';
 
 const appRoutes: Routes = [
+  { path: 'account-settings', component: AccountSettingsComponent, resolve: { ministries: MinistriesResolver } },
   {
     path: 'last-7-day-post-list',
     component: PostListComponent,
-    resolve: { posts: PostListResolver }
+    resolve: { posts: PostListResolver, userMinistries: UserMinistryListResolver },
   },
   {
     path: 'next-7-day-activity-list',
     component: ActivityForecastListComponent,
-    resolve: { activities: ActivityListResolver },
+    resolve: {
+      activities: ActivityListResolver,
+      userMinistries: UserMinistryListResolver
+    },
     canActivate: [AuthGuard, RoleGuard],
     data: {
-      roles: ['Viewers', 'Administrators', 'Contributors']
+      roles: ['Viewer', 'Contributor']
     }
   },
   {
@@ -39,7 +48,7 @@ const appRoutes: Routes = [
     resolve: { themes: MessageListResolver },
     canActivate: [AuthGuard, RoleGuard],
     data: {
-      roles: ['Viewers', 'Administrators', 'Contributors']
+      roles: ['Viewer', 'Contributor']
     }
   },
   {
@@ -48,7 +57,7 @@ const appRoutes: Routes = [
     resolve: { socialmedia: SociaMediaPostListResolver, socialmediatype: SociaMediaTypeListResolver },
     canActivate: [AuthGuard, RoleGuard],
     data: {
-      roles: ['Viewers', 'Administrators', 'Contributors']
+      roles: ['Viewer', 'Contributor']
     },
     runGuardsAndResolvers: 'always'
   },
@@ -58,7 +67,7 @@ const appRoutes: Routes = [
     resolve: { socialmedia: SociaMediaPostListResolver },
     canActivate: [AuthGuard, RoleGuard],
     data: {
-      roles: ['Administrators', 'Contributors']
+      roles: ['Contributor']
     },
     runGuardsAndResolvers: 'always'
   },
@@ -67,7 +76,7 @@ const appRoutes: Routes = [
     component: AddSocialMediaPostComponent,
     canActivate: [AuthGuard, RoleGuard],
     data: {
-      roles: ['Administrators', 'Contributors']
+      roles: ['Contributor']
     },
     runGuardsAndResolvers: 'always'
   },
@@ -76,7 +85,7 @@ const appRoutes: Routes = [
     component: ThemeListComponent,
     canActivate: [AuthGuard, RoleGuard],
     data: {
-      roles: ['Administrators', 'Contributors']
+      roles: ['Contributor']
     },
     resolve: { themelist: MessageListResolver },
     runGuardsAndResolvers: 'paramsOrQueryParamsChange'
@@ -86,7 +95,7 @@ const appRoutes: Routes = [
     component: ThemeFormComponent,
     canActivate: [AuthGuard, RoleGuard],
     data: {
-      roles: ['Administrators', 'Contributors']
+      roles: ['Contributor']
     }
   },
   {
@@ -94,23 +103,23 @@ const appRoutes: Routes = [
     component: ThemeFormComponent,
     canActivate: [AuthGuard, RoleGuard],
     data: {
-      roles: ['Administrators', 'Contributors']
+      roles: ['Contributor']
     },
     resolve: { theme: MessageResolver }
   },
   {
     path: '',
-    redirectTo: 'last-7-day-post-list',
+    component: HomeComponent,
     pathMatch: 'full'
   },
   {
     path: '**',
-    redirectTo: 'last-7-day-post-list'
+    redirectTo: ''
   }
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(appRoutes)],
+  imports: [RouterModule.forRoot(appRoutes, { initialNavigation: false })],
   exports: [RouterModule]
 })
 

@@ -1,0 +1,36 @@
+.custom-control.fill-checkbox {
+    color: #0069d9;
+}
+
+.custom-control.fill-checkbox .fill-control-input {
+    display: none;
+}
+
+.custom-control.fill-checkbox .fill-control-input:checked ~ .fill-control-indicator {
+    background-color: #0069d9;
+    border-color: #0069d9;
+    background-size: 80%;
+}
+
+.custom-control.fill-checkbox .fill-control-indicator {
+    border-radius: 1px;
+    display: inline-block;
+    position: absolute;
+    top: 4px;
+    left: 0;
+    width: 20px;
+    height: 20px;
+    border: 2px solid #aaa;
+    transition: .3s;
+    background: transparent;
+    background-size: 0%;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-image: url("data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 8 8'%3E%3Cpath fill='%23fff' d='M6.564.75l-3.59 3.612-1.538-1.55L0 4.26 2.974 7.25 8 2.193z'/%3E%3C/svg%3E");
+}
+
+@media (max-width: 36.250em) {
+    span.text-muted {
+        font-size: 0.8em;
+    }
+}

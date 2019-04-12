@@ -8,9 +8,8 @@ import { HttpClientModule } from '@angular/common/http';
 import { RouterTestingModule } from '@angular/router/testing';
 import { NgbDropdownModule } from '@ng-bootstrap/ng-bootstrap';
 import { NgbCollapseModule } from '@ng-bootstrap/ng-bootstrap';
-import { UrlHelperService } from 'angular-oauth2-oidc';
 import { HasRoleDirective } from 'src/app/_directives/hasRole.directive';
-import { AuthService } from 'src/app/services/auth.service';
+import { AuthService } from 'src/app/_auth/auth.service';
 import { Configuration } from 'src/app/configuration';
 import { mockAuth } from 'src/app/test-helpers/mock-auth';
 
@@ -34,7 +33,6 @@ describe('NavmenuComponent', () => {
         HasRoleDirective
       ],
       providers: [
-        UrlHelperService,
         { provide: AuthService, useClass: mockAuth },
         { provide: Configuration, useValue: new Configuration({ withCredentials: true, accessToken: ''})},
       ],
@@ -47,7 +45,7 @@ describe('NavmenuComponent', () => {
     component = fixture.componentInstance;
     fixture.detectChanges();
     de = fixture.debugElement.query(By.css('.gov-navbar'));
-    element  = de.nativeElement;
+    element = de.nativeElement;
   });
 
   it('should create', () => {
@@ -64,7 +62,6 @@ describe('NavmenuComponent', () => {
   });
 
   // Tests commented out for MVP since the buttons are removed
-  
   // it('should display the `search` button', () => {
   //     // There should a create button in the template
   //     expect(element.innerHTML).toContain('fa-search');
@@ -79,14 +76,6 @@ describe('NavmenuComponent', () => {
   //   // There should a create button in the template
   //   expect(element.innerHTML).toContain('navbar-toggler-icon');
   // });
-
-  it('should have the user`s first initial', () => {
-    spyOn(component, 'isLoggedIn').and.returnValue(true);
-    component.firstLetter = 'A';
-    fixture.detectChanges();
-
-    expect(element.querySelector('.user-image').innerHTML).toBe('A');
-  });
 
   it('should get a unique colour for each letter', () => {
     const letters = [...Array(26).keys()].map(i => String.fromCharCode(i + 67));

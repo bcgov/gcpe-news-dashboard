@@ -1,24 +1,17 @@
-import { AuthConfig } from 'angular-oauth2-oidc';
-
-export const authConfig: AuthConfig = {
-
-  // Url of the Identity Provider
-  issuer: 'https://sso-dev.pathfinder.gov.bc.ca/auth/realms/zdw7o87p',
-
-  // URL of the SPA to redirect the user to after login
-  redirectUri: window.location.origin,
-
-  silentRefreshRedirectUri: window.location.origin + '/silent-refresh.html',
-  // The SPA's id.
-  // The SPA is registerd with this id at the auth-server
-  clientId: 'demo-app',
-
-  // set the scope for the permissions the client should request
-  // The first three are defined by OIDC.
+export const keycloakConfig = {
+  issuer: '',
+  issuerPath: 'pathfinder.gov.bc.ca/auth/realms/zdw7o87p',
+  clientId: 'news-dashboard',
   scope: 'openid profile email',
-  // Remove the requirement of using Https to simplify the demo
-  // THIS SHOULD NOT BE USED IN PRODUCTION
-  // USE A CERTIFICATE FOR YOUR IDP
-  // IN PRODUCTION
-  requireHttps: false
+  requireHttps: false,
+  redirectUri: '',
+  silentRefreshRedirectUri: ''
+};
+
+export const azureADConfig = {
+  clientID: '974b09f9-8093-476b-a795-9e6b4e317f6b',
+  authority: 'https://login.microsoftonline.com/bcgov.onmicrosoft.com/',
+  validateAuthority: true,
+  cacheLocation: 'localStorage',
+  navigateToLoginRequestUrl: true
 };

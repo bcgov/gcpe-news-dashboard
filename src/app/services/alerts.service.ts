@@ -9,6 +9,7 @@ export class AlertsService {
   public visible = this.visibleSource.asObservable();
   public message: string;
   public class: string;
+  public cancelable = true;
 
   remove() {
     this.message = '';
@@ -16,7 +17,8 @@ export class AlertsService {
     this.visibleSource.next(false);
   }
 
-  showError(message: string) {
+  showError(message: string, cancelable = true) {
+    this.cancelable = cancelable;
     this.show(message, 'alert-danger');
   }
 
