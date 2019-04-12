@@ -35,7 +35,6 @@ export class AccountSettingsComponent implements OnInit {
     ngOnInit() {
         this.route.data.subscribe(data => {
             this.ministries = data['ministries'];
-
             // cache the first two entries
             const officeOfThePremier = this.ministries.find(m => m.key === 'office-of-the-premier');
             const irsMinistry = this.ministries.find(m => m.key === 'intergovernmental-relations-secretariat');
@@ -90,9 +89,11 @@ export class AccountSettingsComponent implements OnInit {
           .addUserMinistryPreference(ministryKeys.map(m => m.key)).subscribe(
             (res) => {
               this.alerts.showSuccess('Settings saved.');
+              window.scrollTo(0, 0);
             },
             (err) => {
               this.alerts.showError('Failed to save settings.');
+              window.scrollTo(0, 0);
             });
     }
 
