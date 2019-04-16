@@ -4,6 +4,7 @@ import { SocialMediaType } from '../../view-models/social-media-type';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AppConfigService } from 'src/app/app-config.service';
 import { AlertsService } from 'src/app/services/alerts.service';
+import { DomSanitizer, SafeResourceUrl, SafeUrl } from '@angular/platform-browser';
 
 declare const FB: any;
 
@@ -20,7 +21,12 @@ export class PostListComponent implements OnInit {
   private BASE_NEWS_URL: string;
   filterBySocialMediaType: string;
 
-  constructor(private router: Router, private route: ActivatedRoute, private appConfig: AppConfigService, private alerts: AlertsService) {
+  constructor(
+    private router: Router,
+    private route: ActivatedRoute,
+    private appConfig: AppConfigService,
+    private alerts: AlertsService,
+    private sanitizer: DomSanitizer) {
     this.BASE_NEWS_URL = this.appConfig.config.NEWS_URL;
     this.router.routeReuseStrategy.shouldReuseRoute = () => false;
   }
@@ -32,10 +38,15 @@ export class PostListComponent implements OnInit {
         return;
       }
       let hasFacebookAssets = false;
+      let hasYoutubeAssets = false;
       data['posts'].forEach(p => {
         if (p.assetUrl.indexOf('facebook') >= 0) {
           (<any>p).fbAssetClass = SocialMediaType.getFacebookClass(p.assetUrl);
           hasFacebookAssets = true;
+        }
+        if (p.assetUrl.indexOf('youtube') >= 0) {
+          (<any>p).youtubeId = this.extractVideoID(p.assetUrl);
+          hasYoutubeAssets = true;
         }
       });
       this.posts = data['posts'];
@@ -64,5 +75,19 @@ export class PostListComponent implements OnInit {
         this.filterBySocialMediaType = queryParams.type;
       });
     });
+  }
+
+  extractVideoID( url: string ): string {
+    const regExp = /^.*((youtu.be\/)|(v\/)|(\/u\/\w\/)|(embed\/)|(watch\?))\??v?=?([^#\&\?]*).*/;
+    const match = url.match(regExp);
+    if ( match && match[7].length === 11 ) {
+        return match[7];
+    } else {
+        return '';
+    }
+  }
+
+  videoURL( item: any ) {
+    return this.sanitizer.bypassSecurityTrustResourceUrl('https://www.youtube.com/embed/' + item.youtubeId);
   }
 }
