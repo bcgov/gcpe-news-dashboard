@@ -129,12 +129,3 @@ header .nav-item .active{
         max-height: $heading-small-height;
     }
 }
-
-.dropdown-menu {
-    cursor: pointer;
-    pointer-events: none;
-}
-
-.btn-nav {
-    pointer-events: all;
-}
