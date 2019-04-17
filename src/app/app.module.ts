@@ -53,12 +53,18 @@ import { OAuthModule, OAuthService } from 'angular-oauth2-oidc';
 import { AuthProviderFactory } from './_auth/auth-provider-factory';
 import { AuthProvider } from './_auth/auth-provider.service';
 import { HomeComponent } from './home/home.component';
+import { UtilsService } from './services/utils.service';
+import { MinistriesProvider } from './_providers/ministries.provider';
 
 const appInitializerFn = (appConfig: AppConfigService) => {
   return () => {
       return appConfig.loadAppConfig();
   };
 };
+
+export function ministriesProviderFactory(provider: MinistriesProvider) {
+  return () => provider.load();
+}
 
 @NgModule({
   declarations: [
@@ -110,6 +116,13 @@ const appInitializerFn = (appConfig: AppConfigService) => {
       multi: true,
       deps: [AppConfigService]
     },
+    MinistriesProvider,
+    {
+      provide: APP_INITIALIZER,
+      useFactory: ministriesProviderFactory,
+      deps: [MinistriesProvider],
+      multi: true
+    },
     // Services
     { provide: AuthProvider, useFactory: AuthProviderFactory, deps: [AppConfigService, OAuthService] },
     ActivitiesService,
@@ -120,6 +133,7 @@ const appInitializerFn = (appConfig: AppConfigService) => {
     PostsService,
     SocialMediaRenderService,
     UserPreferencesService,
+    UtilsService,
     // Resolvers
     ActivityListResolver,
     PostListResolver,

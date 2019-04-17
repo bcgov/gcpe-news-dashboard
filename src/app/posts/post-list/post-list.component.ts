@@ -4,7 +4,9 @@ import { SocialMediaType } from '../../view-models/social-media-type';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AppConfigService } from 'src/app/app-config.service';
 import { AlertsService } from 'src/app/services/alerts.service';
-import { DomSanitizer, SafeResourceUrl, SafeUrl } from '@angular/platform-browser';
+import { DomSanitizer } from '@angular/platform-browser';
+import { UtilsService } from 'src/app/services/utils.service';
+import { MinistriesProvider } from 'src/app/_providers/ministries.provider';
 
 declare const FB: any;
 
@@ -26,6 +28,8 @@ export class PostListComponent implements OnInit {
     private route: ActivatedRoute,
     private appConfig: AppConfigService,
     private alerts: AlertsService,
+    private utils: UtilsService,
+    private ministriesProvider: MinistriesProvider,
     private sanitizer: DomSanitizer) {
     this.BASE_NEWS_URL = this.appConfig.config.NEWS_URL;
     this.router.routeReuseStrategy.shouldReuseRoute = () => false;
@@ -69,7 +73,14 @@ export class PostListComponent implements OnInit {
           this.selectedPosts = this.posts;
         } else {
             this.selectedPosts = this.posts.filter(p => {
-              return this.userMinistriesForFilteringPosts.includes(p.leadMinistryKey);
+
+              const postMinistries: Array<string> = [];
+              p.ministries.forEach((val, idx, arr) => {
+                postMinistries.push(this.ministriesProvider.getMinistry(val).key);
+              });
+
+              return this.utils.includes(this.userMinistriesForFilteringPosts, p.leadMinistryKey)
+                || this.utils.intersection(this.userMinistriesForFilteringPosts, postMinistries).length > 0;
             });
         }
         this.filterBySocialMediaType = queryParams.type;

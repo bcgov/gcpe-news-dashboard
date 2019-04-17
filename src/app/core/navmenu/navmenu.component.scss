@@ -10,7 +10,7 @@ header nav {
     border-bottom: 1px solid map-get($theme-colors, light);
     margin-bottom: 20px;
 }
-  
+
 header .nav-item {
     cursor: pointer;
     display: flex;
@@ -88,7 +88,7 @@ ul.list-inline {
     color: map-get($theme-colors, dark)!important;
     background-color: #fff;
 }
-  
+
 #site-title a h4{
     color: map-get($theme-colors, primary-nav)!important;
     border-left: 1px solid map-get($theme-colors, secondary);
@@ -101,12 +101,12 @@ ul.list-inline {
         line-height: 1.8rem;
     }
 }
-  
+
 header .nav-item .active{
     text-decoration: underline;
     border: none!important;
 }
-  
+
 .user-image{
     width: 36px;
     border-radius: 50%;
@@ -129,4 +129,3 @@ header .nav-item .active{
         max-height: $heading-small-height;
     }
 }
- 

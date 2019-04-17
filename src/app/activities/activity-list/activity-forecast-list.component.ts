@@ -4,6 +4,7 @@ import { Activity } from '../../view-models/activity';
 import { ActivatedRoute, Router } from '@angular/router';
 import { WeekDay } from '@angular/common';
 import { AlertsService } from 'src/app/services/alerts.service';
+import { UtilsService } from 'src/app/services/utils.service';
 
 @Component({
   selector: 'app-activity-forecast-list',
@@ -22,7 +23,7 @@ export class ActivityForecastListComponent implements OnInit {
 
   private BASE_HUB_URL: string;
 
-  constructor(private route: ActivatedRoute,  appConfig: AppConfigService, private alerts: AlertsService) {
+  constructor(private route: ActivatedRoute,  appConfig: AppConfigService, private alerts: AlertsService, private utils: UtilsService) {
     this.BASE_HUB_URL = appConfig.config.HUB_URL;
   }
 
@@ -69,7 +70,7 @@ export class ActivityForecastListComponent implements OnInit {
       return false; // don't hide the activities if we're showing all ministries, can't use ngIf with ngFor so binding to Hidden instead
     }
 
-    return !this.userMinistriesForFilteringActivities.includes(contactMinistryKey);
+    return !this.utils.includes(this.userMinistriesForFilteringActivities, contactMinistryKey);
   }
 
   overwriteTitleDetailsFromHqComments(activity: Activity) {
