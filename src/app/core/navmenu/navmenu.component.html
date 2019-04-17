@@ -19,21 +19,21 @@
               <div ngbDropdownMenu class="dropdown-menu" aria-labelledby="profile-menu">
                 <ul class="list-inline">
                   <div *appHasRole="['Contributor']">
-                    <li routerLink="/last-7-day-post-list" class="dropdown-header">Last 7 Days</li>
-                    <li routerLink="/next-7-day-activity-list" class="dropdown-header">7 Day Forecast</li>
-                    <li routerLink="/themes-of-the-week" class="dropdown-header">Themes</li>
+                    <li routerLink="/last-7-day-post-list" class="dropdown-header dropdown-header-override">Last 7 Days</li>
+                    <li routerLink="/next-7-day-activity-list" class="dropdown-header dropdown-header-override">7 Day Forecast</li>
+                    <li routerLink="/themes-of-the-week" class="dropdown-header dropdown-header-override">Themes</li>
                     <li class="list-inline-item dropdown-item indent">
-                      <a routerLink="/themes" [queryParams]="{ type: 'Published'}" routeLinkActiveOptions="{exact: false}" routerLinkActive="active" class="btn-nav"><span>Edit</span></a>
+                      <a routerLink="/themes" [queryParams]="{ type: 'Published'}" routeLinkActiveOptions="{exact: false}" routerLinkActive="active" class="btn-nav"><span class="dropdown-item-override">Edit</span></a>
                     </li>
                     <li class="list-inline-item dropdown-item indent">
-                      <a routerLink="/theme/new" class="btn-nav"><span>New</span></a>
+                      <a routerLink="/theme/new" class="btn-nav"><span class="dropdown-item-override">New</span></a>
                     </li>
-                    <li class="dropdown-header" routerLink="/social-media-list">Social Media</li>
+                    <li class="dropdown-header dropdown-header-override" routerLink="/social-media-list">Social Media</li>
                     <li class="list-inline-item dropdown-item indent">
-                      <a routerLink="/social-media-input" routerLinkActive="active" class="btn-nav"><span>Edit</span></a>
+                      <a routerLink="/social-media-input" routerLinkActive="active" class="btn-nav"><span class="dropdown-item-override">Edit</span></a>
                     </li>
                     <li class="list-inline-item dropdown-item indent">
-                      <a routerLink="/social-media/new" class="btn-nav"><span>New</span></a>
+                      <a routerLink="/social-media/new" class="btn-nav"><span class="dropdown-item-override">New</span></a>
                     </li>
                     <div class="dropdown-divider"></div>
                   </div>

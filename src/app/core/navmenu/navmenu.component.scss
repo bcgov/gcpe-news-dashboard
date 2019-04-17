@@ -129,3 +129,15 @@ header .nav-item .active{
         max-height: $heading-small-height;
     }
 }
+
+
+.dropdown-item-override {
+    color: #6c757d;
+    font-size: 0.875rem;
+}
+
+.dropdown-header-override {
+    color: #343A40;
+    font-size: 1rem;
+}
+
