@@ -121,7 +121,6 @@ export class ActivityForecastListComponent implements OnInit {
   }
 
   getStartDate(i: number) {
-    if (this.activitiesPerDays[i].length !== 0) { return this.activitiesPerDays[i][0].startDateTime; }
     if (i + this.today.getDay() > 6) { i++; } // for the week-end
     return new Date(this.today.valueOf() + i * this.msInaDay);
   }
