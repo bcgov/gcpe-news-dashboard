@@ -165,7 +165,7 @@ parameters:
       The default URL to use when proxying requests to the application's API.
       The value here will be overridden if a API_SERVICE_NAME is defined.
     required: false
-    value: "https://hub-api-ntu9uh-dev.pathfinder.gov.bc.ca/api/"
+    value: "https://dev.api.hub.gcpe.gov.bc.ca/"
   - name: API_SERVICE_NAME
     displayName: API Service Name
     description: >-

@@ -269,7 +269,7 @@ podTemplate(label: 'owasp-zap', name: 'owasp-zap', serviceAccount: 'jenkins', cl
      node('owasp-zap') {
        stage('ZAP Security Scan') {
          dir('/zap') {
-                def retVal = sh returnStatus: true, script: '/zap/zap-baseline.py -r baseline.html -t https://news-dashboard-ntu9uh-dev.pathfinder.gov.bc.ca/last-7-day-post-list'
+                def retVal = sh returnStatus: true, script: '/zap/zap-baseline.py -r baseline.html -t https://dev.dashboard.news.gov.bc.ca/last-7-day-post-list'
                 publishHTML(target: [allowMissing: false, alwaysLinkToLastBuild: false, keepAll: true, reportDir: '/zap/wrk', reportFiles: 'baseline.html', reportName: 'ZAP Baseline Scan', reportTitles: 'ZAP Baseline Scan'])
                 echo "Return value is: ${retVal}"
          }
