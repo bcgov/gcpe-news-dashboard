@@ -12,6 +12,8 @@
 # AdditionalRealIpFromRules=
 # IpFilterRules=
 APPLICATION_DOMAIN=dashboard.news.gov.bc.ca
+NEWS_URL=https://news.gov.bc.ca
+HUB_URL=https://hub.gcpe.gov.bc.ca
 TAG_NAME=prod
 # HTTP_BASIC=
 # HTTP_BASIC_USERNAME=

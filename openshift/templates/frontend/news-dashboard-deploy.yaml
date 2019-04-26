@@ -65,6 +65,10 @@ objects:
                   value: "${HTTP_BASIC_USERNAME}"
                 - name: HTTP_BASIC_PASSWORD
                   value: "${HTTP_BASIC_PASSWORD}"
+                - name: NEWS_URL
+                  value: "${NEWS_URL}"
+                - name: HUB_URL
+                  value: "${HUB_URL}"
               resources:
                 requests:
                   cpu: "${CPU_REQUEST}"
