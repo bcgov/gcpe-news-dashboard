@@ -69,6 +69,10 @@ objects:
                   value: "${NEWS_URL}"
                 - name: HUB_URL
                   value: "${HUB_URL}"
+                - name: AUTH_TYPE
+                  value: "${AUTH_TYPE}"
+                - name: KEYCLOAK_SSO_PREFIX
+                  value: "${KEYCLOAK_SSO_PREFIX}"
               resources:
                 requests:
                   cpu: "${CPU_REQUEST}"
@@ -236,3 +240,11 @@ parameters:
     displayName: Memory Request
     description: Starting amount of memory the container can use.
     value: 100Mi
+  - name: AUTH_TYPE
+    displayName: AUTH TYPE
+    description: Authentication type
+    value: AzureAD
+  - name: KEYCLOAK_SSO_PREFIX
+    displayName: KEYCLOAK SSO PREFIX
+    description: KEYCLOAK SSO PREFIX
+    value: sso-dev

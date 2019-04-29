@@ -3,6 +3,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { SocialMediaType } from '../../view-models/social-media-type';
 import { SocialMediaPostExtended } from '../../view-models/social-media-post-extended';
 import { SocialMediaRenderService } from '../../services/socialMediaRender.service';
+import { SnowplowService } from '../../services/snowplow.service';
 
 @Component({
   selector: 'app-social-media-post-list',
@@ -18,7 +19,11 @@ export class SocialMediaPostListComponent implements OnInit, AfterViewInit, OnDe
 
   isLoading: boolean = true;
 
-  constructor(private router: Router, private activatedRoute: ActivatedRoute, private socialMediaRenderService: SocialMediaRenderService) {
+  constructor(
+    private router: Router,
+    private activatedRoute: ActivatedRoute,
+    private socialMediaRenderService: SocialMediaRenderService,
+    private snowplowService: SnowplowService) {
     this.router.routeReuseStrategy.shouldReuseRoute = () => false;
   }
 
@@ -36,6 +41,7 @@ export class SocialMediaPostListComponent implements OnInit, AfterViewInit, OnDe
       }
       this.filterBySocialMediaType = queryParams.type;
     });
+    this.snowplowService.trackPageView();
   }
 
   ngAfterViewInit() {

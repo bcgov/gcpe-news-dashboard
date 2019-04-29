@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Message } from '../../view-models/message';
 import { Router, ActivatedRoute } from '@angular/router';
 import { AlertsService } from 'src/app/services/alerts.service';
+import { SnowplowService } from '../../services/snowplow.service';
 
 @Component({
   selector: 'app-themes-of-week',
@@ -13,7 +14,11 @@ export class ThemesOfWeekComponent implements OnInit {
   themes: Message[];
   highlightedTheme: Message;
 
-  constructor(private router: Router, private route: ActivatedRoute, private alerts: AlertsService) { }
+  constructor(
+    private router: Router,
+    private route: ActivatedRoute,
+    private alerts: AlertsService,
+    private snowplowService: SnowplowService) { }
 
   ngOnInit() {
     this.route.data.subscribe(data => {
@@ -24,5 +29,6 @@ export class ThemesOfWeekComponent implements OnInit {
       this.themes = data['themes'].filter((theme) => !theme.isHighlighted && theme.isPublished);
       this.highlightedTheme = data['themes'].find((theme) => theme.isHighlighted && theme.isPublished);
     });
+    this.snowplowService.trackPageView();
   }
 }

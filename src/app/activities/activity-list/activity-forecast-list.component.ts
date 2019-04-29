@@ -5,6 +5,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { WeekDay } from '@angular/common';
 import { AlertsService } from 'src/app/services/alerts.service';
 import { UtilsService } from 'src/app/services/utils.service';
+import { SnowplowService } from '../../services/snowplow.service';
 
 @Component({
   selector: 'app-activity-forecast-list',
@@ -23,7 +24,12 @@ export class ActivityForecastListComponent implements OnInit {
 
   private BASE_HUB_URL: string;
 
-  constructor(private route: ActivatedRoute,  appConfig: AppConfigService, private alerts: AlertsService, private utils: UtilsService) {
+  constructor(
+    private route: ActivatedRoute,
+    appConfig: AppConfigService,
+    private alerts: AlertsService,
+    private utils: UtilsService,
+    private snowplowService: SnowplowService) {
     this.BASE_HUB_URL = appConfig.config.HUB_URL;
   }
 
@@ -63,6 +69,7 @@ export class ActivityForecastListComponent implements OnInit {
         this.filterActivitiesByUserMinistries = queryParams.type;
       });
     });
+    this.snowplowService.trackPageView();
   }
 
   showActivity(contactMinistryKey: string): boolean {

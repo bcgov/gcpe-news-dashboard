@@ -7,6 +7,7 @@ import { AlertsService } from 'src/app/services/alerts.service';
 import { DomSanitizer } from '@angular/platform-browser';
 import { UtilsService } from 'src/app/services/utils.service';
 import { MinistriesProvider } from 'src/app/_providers/ministries.provider';
+import { SnowplowService } from '../../services/snowplow.service';
 
 declare const FB: any;
 
@@ -30,7 +31,8 @@ export class PostListComponent implements OnInit {
     private alerts: AlertsService,
     private utils: UtilsService,
     private ministriesProvider: MinistriesProvider,
-    private sanitizer: DomSanitizer) {
+    private sanitizer: DomSanitizer,
+    private snowplowService: SnowplowService) {
     this.BASE_NEWS_URL = this.appConfig.config.NEWS_URL;
     this.router.routeReuseStrategy.shouldReuseRoute = () => false;
   }
@@ -86,6 +88,7 @@ export class PostListComponent implements OnInit {
         this.filterBySocialMediaType = queryParams.type;
       });
     });
+    this.snowplowService.trackPageView();
   }
 
   extractVideoID( url: string ): string {
