@@ -7,6 +7,7 @@ import { SocialMediaPostsService } from 'src/app/services/socialMediaPosts.servi
 import { Router } from '@angular/router';
 import { AlertsService } from 'src/app/services/alerts.service';
 import { NavmenuService } from 'src/app/services/navmenu.service';
+import { SnowplowService } from '../../services/snowplow.service';
 
 const reg = '(https?://)?([\\da-z.-]+)\\.([a-z.]{2,6})[/\\w .-=\\?\\&-]*/?';
 
@@ -31,12 +32,14 @@ export class AddSocialMediaPostComponent implements OnInit {
     private socialMediaService: SocialMediaPostsService,
     private alerts: AlertsService,
     private nav: NavmenuService,
-    private socialMediaRenderService: SocialMediaRenderService ) {
+    private socialMediaRenderService: SocialMediaRenderService,
+    private snowplowService: SnowplowService ) {
     this.createForm();
   }
 
   ngOnInit() {
     this.nav.hide();
+    this.snowplowService.trackPageView();
   }
 
   ngOnDestroy(): void {

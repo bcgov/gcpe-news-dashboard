@@ -5,6 +5,7 @@ import { SocialMediaPostExtended } from '../../view-models/social-media-post-ext
 import { SocialMediaPostsService } from '../../services/socialMediaPosts.service';
 import { SocialMediaRenderService } from '../../services/socialMediaRender.service';
 import { AlertsService } from 'src/app/services/alerts.service';
+import { SnowplowService } from '../../services/snowplow.service';
 
 @Component({
   selector: 'app-social-media-input',
@@ -28,7 +29,8 @@ export class SocialMediaInputComponent implements OnInit, AfterViewInit {
     private activatedRoute: ActivatedRoute,
     private socialMediaService: SocialMediaPostsService,
     private socialMediaRenderService: SocialMediaRenderService,
-    private alerts: AlertsService) {
+    private alerts: AlertsService,
+    private snowplowService: SnowplowService) {
     this.router.routeReuseStrategy.shouldReuseRoute = () => false;
   }
 
@@ -36,6 +38,7 @@ export class SocialMediaInputComponent implements OnInit, AfterViewInit {
     this.activatedRoute.data.subscribe(data => {
       this.socialmedia = data['socialmedia'];
     });
+    this.snowplowService.trackPageView();
   }
 
   ngAfterViewInit() {

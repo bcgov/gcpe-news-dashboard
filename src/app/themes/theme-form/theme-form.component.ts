@@ -1,11 +1,11 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { FormBuilder, Validators, FormGroup } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
-
 import { NavmenuService } from '../../services/navmenu.service';
 import { MessagesService } from '../../services/messages.service';
 import { Message } from 'src/app/view-models/message';
 import { AlertsService } from 'src/app/services/alerts.service';
+import { SnowplowService } from '../../services/snowplow.service';
 
 @Component({
   selector: 'app-theme-form',
@@ -29,7 +29,8 @@ export class ThemeFormComponent implements OnInit, OnDestroy {
     private fb: FormBuilder,
     private router: Router,
     private route: ActivatedRoute,
-    private alerts: AlertsService) {
+    private alerts: AlertsService,
+    private snowplowService: SnowplowService) {
     this.resetForm();
   }
 
@@ -55,6 +56,7 @@ export class ThemeFormComponent implements OnInit, OnDestroy {
         this.resetForm();
       }
     });
+    this.snowplowService.trackPageView();
   }
 
   ngOnDestroy() {

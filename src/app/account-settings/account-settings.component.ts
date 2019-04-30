@@ -5,7 +5,7 @@ import { Ministry } from '../view-models/ministry';
 import { AlertsService } from '../services/alerts.service';
 import { GcpeCheckboxComponent } from 'projects/gcpe-shared/src/public_api';
 import { UtilsService } from '../services/utils.service';
-
+import { SnowplowService } from '../services/snowplow.service';
 
 @Component({
     selector: 'app-account-settings',
@@ -30,7 +30,8 @@ export class AccountSettingsComponent implements OnInit {
         private route: ActivatedRoute,
         private userPreferencesService: UserPreferencesService,
         private alerts: AlertsService,
-        private utils: UtilsService) { }
+        private utils: UtilsService,
+        private snowplowService: SnowplowService) { }
 
     ngOnInit() {
         this.route.data.subscribe(data => {
@@ -74,6 +75,7 @@ export class AccountSettingsComponent implements OnInit {
                     this.allSelected = true;
                 }
             });
+        this.snowplowService.trackPageView();
     }
 
     updateSettings(): void {

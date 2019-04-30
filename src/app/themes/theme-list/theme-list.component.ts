@@ -4,6 +4,7 @@ import { ActivatedRoute } from '@angular/router';
 import { MessagesService } from 'src/app/services/messages.service';
 import { forkJoin } from 'rxjs';
 import { AlertsService } from 'src/app/services/alerts.service';
+import { SnowplowService } from '../../services/snowplow.service';
 
 @Component({
   selector: 'app-theme-list',
@@ -13,12 +14,16 @@ import { AlertsService } from 'src/app/services/alerts.service';
 export class ThemeListComponent implements OnInit {
   themes: Message[];
 
-  constructor(private route: ActivatedRoute,  private messagesService: MessagesService, private alerts: AlertsService) { }
+  constructor(private route: ActivatedRoute,
+    private messagesService: MessagesService,
+    private alerts: AlertsService,
+    private snowplowService: SnowplowService) { }
 
   ngOnInit() {
     this.route.data.subscribe(data => {
       this.parseThemes(data);
     });
+    this.snowplowService.trackPageView();
   }
 
   parseThemes(data) {
