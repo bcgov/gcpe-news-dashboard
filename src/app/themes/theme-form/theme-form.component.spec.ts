@@ -7,6 +7,7 @@ import { Injectable } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { of, throwError } from 'rxjs';
 import { AlertsService } from 'src/app/services/alerts.service';
+import { SnowplowService } from '../../services/snowplow.service';
 
 @Injectable()
 class MockMessagesService {
@@ -45,6 +46,7 @@ describe('ThemeFormComponent', () => {
         AlertsService,
         NavmenuService,
         FormBuilder,
+        SnowplowService,
         { provide: MessagesService, useClass: MockMessagesService },
         { provide: Router, useClass: MockRouter },
         { provide: ActivatedRoute, useValue: { data: of({}) } },
@@ -151,9 +153,9 @@ describe('ThemeFormComponent', () => {
     it('should show alert on create error', () => {
       spyOn(component, 'handleError');
       spyOn(messagesService, 'addMessage').and.returnValue(throwError('error'));
-      
+
       component.create({title: 'title'})
-      
+
       expect(component.handleError).toHaveBeenCalled();
     });
   });
@@ -222,18 +224,18 @@ describe('ThemeFormComponent', () => {
     it('should show alert on delete error', () => {
       spyOn(component, 'handleError');
       spyOn(TestBed.get(MessagesService), 'deleteMessage').and.returnValue(throwError('error'));
-      
+
       component.delete()
-      
+
       expect(component.handleError).toHaveBeenCalled();
     });
 
     it('should show alert on update error', () => {
       spyOn(component, 'handleError');
       spyOn(TestBed.get(MessagesService), 'updateMessage').and.returnValue(throwError('error'));
-      
+
       component.update({title: 'title'})
-      
+
       expect(component.handleError).toHaveBeenCalled();
     });
   });

@@ -7,6 +7,7 @@ import { SocialMediaPostComponent } from '../social-media-post/social-media-post
 import { Router } from '@angular/router';
 import { SocialMediaPostsService } from 'src/app/services/socialMediaPosts.service';
 import { Injectable } from '@angular/core';
+import { SnowplowService } from '../../services/snowplow.service'
 
 @Injectable()
 class MockSocialMediaPostsService {
@@ -28,6 +29,7 @@ describe('AddSocialMediaPostComponent', () => {
       providers: [
         FormBuilder,
         SocialMediaRenderService,
+        SnowplowService,
         { provide: SocialMediaPostsService, useClass: MockSocialMediaPostsService },
         { provide: Router, useValue: {} },
       ]

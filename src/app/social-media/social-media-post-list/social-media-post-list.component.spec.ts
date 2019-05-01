@@ -16,6 +16,7 @@ import { SocialMediaRenderService } from '../../services/socialMediaRender.servi
 import { mockAuth } from 'src/app/test-helpers/mock-auth';
 import { LoadingSpinnerComponent } from 'src/app/core/loading-spinner/loading-spinner.component';
 import { SocialMediaPostComponent } from '../social-media-post/social-media-post.component';
+import { SnowplowService } from '../../services/snowplow.service';
 
 describe('SocialMediaPostListComponent', () => {
   let component: SocialMediaPostListComponent;
@@ -48,7 +49,8 @@ describe('SocialMediaPostListComponent', () => {
         { provide: BASE_PATH, useValue: environment.apiUrl },
         { provide: ActivatedRoute, useClass: MockActivatedRoute },
         SocialMediaRenderService,
-        { provide: AuthService, useClass: mockAuth }
+        { provide: AuthService, useClass: mockAuth },
+        SnowplowService
       ]
     })
     .compileComponents();

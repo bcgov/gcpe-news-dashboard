@@ -15,6 +15,7 @@ import { HasRoleDirective } from 'src/app/_directives/hasRole.directive';
 import { AuthService } from 'src/app/_auth/auth.service';
 import { AlertsService } from 'src/app/services/alerts.service';
 import { mockAuth } from 'src/app/test-helpers/mock-auth';
+import { SnowplowService } from '../../services/snowplow.service';
 
 describe('ThemesOfWeekComponent', () => {
   let component: ThemesOfWeekComponent;
@@ -37,6 +38,7 @@ describe('ThemesOfWeekComponent', () => {
       ],
       providers: [
         AlertsService,
+        SnowplowService,
         { provide: BASE_PATH, useValue: environment.apiUrl },
         { provide: AuthService, useClass: mockAuth }
       ],
