@@ -14,6 +14,7 @@ import { TimeAgoPipe } from 'time-ago-pipe';
 import { MessagesService } from 'src/app/services/messages.service';
 import { Message } from '../../view-models/message';
 import { AlertsService } from 'src/app/services/alerts.service';
+import { SnowplowService } from '../../services/snowplow.service';
 
 describe('ThemeListComponent', () => {
   let component: ThemeListComponent;
@@ -29,7 +30,7 @@ describe('ThemeListComponent', () => {
         RouterTestingModule,
         HttpClientModule,
        ],
-      declarations: [ 
+      declarations: [
         ThemeListComponent,
         ThemeSubMenuComponent,
         ThemeCardComponent,
@@ -38,6 +39,7 @@ describe('ThemeListComponent', () => {
       providers: [
         AlertsService,
         MessagesService,
+        SnowplowService,
         { provide: BASE_PATH, useValue: environment.apiUrl }
       ],
     });
@@ -63,18 +65,14 @@ describe('ThemeListComponent', () => {
     const observe = of({});
     spyOn(messagesService, 'updateMessage').and.returnValue(observe);
     spyOn(component, 'removeThemeFromList');
-
     component.unpublishTheme(theme);
-
     expect(messagesService.updateMessage).toHaveBeenCalledWith(theme.id, {...theme, isPublished: false});
     expect(component.removeThemeFromList).toHaveBeenCalledWith(theme.id);
   });
 
   it('should remove a theme from the theme list', () => {
     component.themes = themes;
-
     component.removeThemeFromList(themes[0].id);
-
     expect(component.themes.length).toEqual(9);
   });
 
@@ -82,9 +80,7 @@ describe('ThemeListComponent', () => {
     component.themes = themes;
     spyOn(messagesService, 'updateMessage').and.returnValue(of({}));
     const themeToSort = themes[1];
-    
     component.sortEventReceived({ direction: 'up', themeId: themeToSort.id });
-
     expect(messagesService.updateMessage).toHaveBeenCalledWith(themeToSort.id, {...themeToSort, sortOrder: themeToSort.sortOrder - 1});
   });
 
@@ -92,9 +88,7 @@ describe('ThemeListComponent', () => {
     component.themes = themes;
     spyOn(messagesService, 'updateMessage');
     const themeToSort = themes[0];
-    
     component.sortEventReceived({ direction: 'up', themeId: themeToSort.id });
-
     expect(messagesService.updateMessage).not.toHaveBeenCalled();
   });
 
@@ -102,9 +96,7 @@ describe('ThemeListComponent', () => {
     component.themes = themes;
     spyOn(messagesService, 'updateMessage').and.returnValue(of({}));
     const themeToSort = themes[0];
-    
     component.sortEventReceived({ direction: 'down', themeId: themeToSort.id });
-
     expect(messagesService.updateMessage).toHaveBeenCalledWith(themeToSort.id, {...themeToSort, sortOrder: themeToSort.sortOrder + 1});
   });
 
@@ -112,9 +104,7 @@ describe('ThemeListComponent', () => {
     component.themes = themes;
     spyOn(messagesService, 'updateMessage');
     const themeToSort = themes[themes.length - 1];
-    
     component.sortEventReceived({ direction: 'down', themeId: themeToSort.id });
-
     expect(messagesService.updateMessage).not.toHaveBeenCalled();
   });
 

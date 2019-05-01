@@ -97,7 +97,9 @@
             "styles": [
               "src/styles.scss"
             ],
-            "scripts": [],
+            "scripts": [
+              "src/assets/scripts/snowplow_tracker.js"
+            ],
             "assets": [
               "src/favicon.ico",
               "src/assets",
@@ -186,3 +188,4 @@
   },
   "defaultProject": "news-dashboard"
 }
+

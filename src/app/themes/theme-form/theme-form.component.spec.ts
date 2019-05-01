@@ -7,6 +7,7 @@ import { Injectable } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { of, throwError } from 'rxjs';
 import { AlertsService } from 'src/app/services/alerts.service';
+import { SnowplowService } from '../../services/snowplow.service';
 
 @Injectable()
 class MockMessagesService {
@@ -45,6 +46,7 @@ describe('ThemeFormComponent', () => {
         AlertsService,
         NavmenuService,
         FormBuilder,
+        SnowplowService,
         { provide: MessagesService, useClass: MockMessagesService },
         { provide: Router, useClass: MockRouter },
         { provide: ActivatedRoute, useValue: { data: of({}) } },
@@ -128,10 +130,8 @@ describe('ThemeFormComponent', () => {
     it('should navigate to proper route on close', () => {
       const router = TestBed.get(Router);
       spyOn(router, 'navigate');
-
       component.close();
       expect(router.navigate).toHaveBeenCalledWith(['themes'], { queryParams: { type: 'Drafts' }});
-
       component.theme.isPublished = true;
       component.close();
 
@@ -141,9 +141,7 @@ describe('ThemeFormComponent', () => {
     it('should close on delete message', () => {
       spyOn(messagesService, 'deleteMessage').and.returnValue(of({}));
       spyOn(component, 'close');
-
       component.delete();
-
       expect(component.close).toHaveBeenCalled();
       expect(messagesService.deleteMessage).not.toHaveBeenCalled();
     });
@@ -151,9 +149,7 @@ describe('ThemeFormComponent', () => {
     it('should show alert on create error', () => {
       spyOn(component, 'handleError');
       spyOn(messagesService, 'addMessage').and.returnValue(throwError('error'));
-      
-      component.create({title: 'title'})
-      
+      component.create({title: 'title'});
       expect(component.handleError).toHaveBeenCalled();
     });
   });
@@ -198,9 +194,7 @@ describe('ThemeFormComponent', () => {
     it('should toggle published and update', async(async() => {
       spyOn(component, 'update');
       component.themeForm.patchValue({title: 'unPublish me!'});
-
       component.togglePublished();
-
       expect(component.update).toHaveBeenCalledWith({
         title: 'unPublish me!',
         description: 'big long description',
@@ -212,9 +206,7 @@ describe('ThemeFormComponent', () => {
     it('should delete message', () => {
       spyOn(TestBed.get(MessagesService), 'deleteMessage').and.returnValue(of({}));
       spyOn(component, 'close');
-
       component.delete();
-
       expect(component.close).toHaveBeenCalled();
       expect(TestBed.get(MessagesService).deleteMessage).toHaveBeenCalledWith(component.theme.id);
     });
@@ -222,18 +214,14 @@ describe('ThemeFormComponent', () => {
     it('should show alert on delete error', () => {
       spyOn(component, 'handleError');
       spyOn(TestBed.get(MessagesService), 'deleteMessage').and.returnValue(throwError('error'));
-      
-      component.delete()
-      
+      component.delete();
       expect(component.handleError).toHaveBeenCalled();
     });
 
     it('should show alert on update error', () => {
       spyOn(component, 'handleError');
       spyOn(TestBed.get(MessagesService), 'updateMessage').and.returnValue(throwError('error'));
-      
-      component.update({title: 'title'})
-      
+      component.update({title: 'title'});
       expect(component.handleError).toHaveBeenCalled();
     });
   });

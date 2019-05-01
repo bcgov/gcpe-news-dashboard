@@ -15,6 +15,7 @@ import { of } from 'rxjs';
 import { AlertsService } from 'src/app/services/alerts.service';
 import { FakeActivitiesData } from 'src/app/test-helpers/activities';
 import { mockAuth } from 'src/app/test-helpers/mock-auth';
+import { SnowplowService } from '../../services/snowplow.service';
 
 describe('ActivityForecastListComponent', () => {
   let component: ActivityForecastListComponent;
@@ -52,6 +53,7 @@ describe('ActivityForecastListComponent', () => {
       providers: [
         AlertsService,
         AlertComponent,
+        SnowplowService,
         { provide: AppConfigService, useValue: { config: { HUB_URL: '' } } },
         { provide: BASE_PATH, useValue: environment.apiUrl },
         { provide: AuthService, useClass: mockAuth }

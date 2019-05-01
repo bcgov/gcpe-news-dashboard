@@ -13,6 +13,7 @@ import { FakeSocialMediaPostsData } from '../../test-helpers/social-media-posts'
 import { By } from '@angular/platform-browser';
 import { LoadingSpinnerComponent } from 'src/app/core/loading-spinner/loading-spinner.component';
 import { SocialMediaPostComponent } from '../social-media-post/social-media-post.component';
+import { SnowplowService } from '../../services/snowplow.service';
 
 describe('SocialMediaInputComponent', () => {
   let component: SocialMediaInputComponent;
@@ -40,6 +41,7 @@ describe('SocialMediaInputComponent', () => {
         SocialMediaPostsService,
         NavmenuService,
         SocialMediaRenderService,
+        SnowplowService,
         { provide: BASE_PATH, useValue: environment.apiUrl },
         { provide: ActivatedRoute, useClass: MockActivatedRoute }
       ]

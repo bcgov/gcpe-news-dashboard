@@ -16,6 +16,7 @@ import { FakePostsData } from 'src/app/test-helpers/posts';
 import { mockAuth } from 'src/app/test-helpers/mock-auth';
 import { MinistriesProvider } from 'src/app/_providers/ministries.provider';
 import { MockMinistriesProvider } from 'src/app/_providers/mock-ministries.provider';
+import { SnowplowService } from '../../services/snowplow.service';
 
 describe('PostListComponent', () => {
   let component: PostListComponent;
@@ -45,6 +46,7 @@ describe('PostListComponent', () => {
       ],
       providers: [
         AlertsService,
+        SnowplowService,
         { provide: AppConfigService, useValue: { config: { NEWS_URL: "" } } },
         { provide: BASE_PATH, useValue: environment.apiUrl },
         { provide: AuthService, useClass: mockAuth },
