@@ -143,9 +143,7 @@ describe('ThemeFormComponent', () => {
     it('should close on delete message', () => {
       spyOn(messagesService, 'deleteMessage').and.returnValue(of({}));
       spyOn(component, 'close');
-
       component.delete();
-
       expect(component.close).toHaveBeenCalled();
       expect(messagesService.deleteMessage).not.toHaveBeenCalled();
     });
@@ -153,9 +151,7 @@ describe('ThemeFormComponent', () => {
     it('should show alert on create error', () => {
       spyOn(component, 'handleError');
       spyOn(messagesService, 'addMessage').and.returnValue(throwError('error'));
-
-      component.create({title: 'title'})
-
+      component.create({title: 'title'});
       expect(component.handleError).toHaveBeenCalled();
     });
   });
