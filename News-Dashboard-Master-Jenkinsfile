@@ -41,7 +41,7 @@ timeout(600) {
   stage('Deploy on Prod') {
       input "Deploy to Prod?"
       node('master') {
-          openshiftTag destStream: 'news-dashboard-master-static', verbose: 'true', destTag: 'prod', srcStream: 'news-dashboard-master-static', srcTag: 'MASTER-$BUILD_ID'
+        openshiftTag destStream: 'news-dashboard-master-static', verbose: 'true', destTag: 'prod', srcStream: 'news-dashboard-master-static', srcTag: 'MASTER-$BUILD_ID'
       }
   }
 }
