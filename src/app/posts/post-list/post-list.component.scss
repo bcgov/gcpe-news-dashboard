@@ -37,3 +37,17 @@
     }
   }
 
+.card-custom {
+    @media (min-width: 576px) {
+        width: 500px;
+    }
+    @media (min-width: 768px) {
+        width: 320px;
+    }
+    @media (min-width: 992px) {
+        width: 420px;
+    }
+    @media (min-width: 1200px) {
+        width: 380px;
+    }
+}
