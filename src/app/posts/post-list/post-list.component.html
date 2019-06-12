@@ -1,6 +1,6 @@
 <app-hq-dashboard-sub-menu [userMinistriesForFilteringPosts]="userMinistriesForFilteringPosts"></app-hq-dashboard-sub-menu>
 <div *ngIf="selectedPosts.length > 0; else elseBlock" id="post-list" class="container-fluid pl-0 pr-0 pt-0">
-  <div class="row mt-5">
+  <div class="row mt-5 d-flex justify-content-left">
       <div *ngFor="let post of selectedPosts" class="card card-custom mx-2 mb-3">
           <blockquote *ngIf="post.fbAssetClass" class="{{post.fbAssetClass}}" attr.data-href="{{post.assetUrl}} | async" id="{{post.key}}"></blockquote>
           <div class="embed-responsive embed-responsive-16by9"  *ngIf="post.youtubeId">
