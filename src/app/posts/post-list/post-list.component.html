@@ -1,20 +1,17 @@
 <app-hq-dashboard-sub-menu [userMinistriesForFilteringPosts]="userMinistriesForFilteringPosts"></app-hq-dashboard-sub-menu>
-<div *ngIf="selectedPosts.length > 0; else elseBlock" id="post-list" class="container-fluid pl-0 pr-0 pt-0">
-  <div class="row mt-5">
-      <div *ngFor="let post of selectedPosts" class="card card-custom mx-2 mb-3">
-          <blockquote *ngIf="post.fbAssetClass" class="{{post.fbAssetClass}}" attr.data-href="{{post.assetUrl}} | async" id="{{post.key}}"></blockquote>
-          <div class="embed-responsive embed-responsive-16by9"  *ngIf="post.youtubeId">
-              <iframe class="embed-responsive-item" [src]="videoURL(post)" frameborder="0" allowfullscreen></iframe>
-          </div>
-          <img *ngIf="post.assetUrl && !post.fbAssetClass && !post.youtubeId" class="card-img-top img-fluid i" src="{{post.assetUrl}}" alt="Card image cap">
-          <div class="card-body">
-            <h6 *ngIf="post.leadMinistryName" class="card-subtitle mb-2 text-muted">{{post.leadMinistryName}}</h6>
-            <h5 *ngIf="post.documents" class="card-title"><a target="_blank" href="{{BASE_NEWS_URL}}/{{post.kind.toLowerCase() | pluralizeKind}}/{{post.key}}">{{post.documents[0].headline}}</a></h5>
-            <p *ngIf="post.summary" class="card-text justify-content-between">{{post.summary}}</p>
-            <p class="card-text">{{post.publishDateTime | date:'mediumDate'}}</p>
-          </div>
-
-      </div>
+<div *ngIf="selectedPosts.length > 0; else elseBlock" id="post-list" class="card-columns pl-0 pr-0 pt-3">
+  <div *ngFor="let post of selectedPosts" class="card">
+    <blockquote *ngIf="post.fbAssetClass" class="{{post.fbAssetClass}}" attr.data-href="{{post.assetUrl}} | async" id="{{post.key}}"></blockquote>
+    <div class="embed-responsive embed-responsive-16by9"  *ngIf="post.youtubeId">
+        <iframe class="embed-responsive-item" [src]="videoURL(post)" frameborder="0" allowfullscreen></iframe>
+    </div>
+    <img *ngIf="post.assetUrl && !post.fbAssetClass && !post.youtubeId" class="card-img-top img-fluid" src="{{post.assetUrl}}" alt="Card image cap">
+    <div class="card-body">
+      <h6 *ngIf="post.leadMinistryName" class="card-subtitle mb-2 text-muted">{{post.leadMinistryName}}</h6>
+      <h5 *ngIf="post.documents" class="card-title"><a target="_blank" href="{{BASE_NEWS_URL}}/{{post.kind.toLowerCase() | pluralizeKind}}/{{post.key}}">{{post.documents[0].headline}}</a></h5>
+      <p *ngIf="post.summary" class="card-text justify-content-between">{{post.summary}}</p>
+      <p class="card-text">{{post.publishDateTime | date:'mediumDate'}}</p>
+    </div>
   </div>
 </div>
 <ng-template #elseBlock>
