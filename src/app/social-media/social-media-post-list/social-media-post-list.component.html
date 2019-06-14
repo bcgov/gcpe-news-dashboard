@@ -1,13 +1,9 @@
 <app-hq-dashboard-sub-menu [socialmediatypes]="socialmediatypes" ></app-hq-dashboard-sub-menu>
 <app-loading-spinner [isLoading]="isLoading"></app-loading-spinner>
-
-<div id="social-media-list" class="container-fluid pt-0 pl-0 pr-0">
-  <div class="row">
-      <div *ngFor="let item of selectedSocialMedia" [ngSwitch]="item.mediaType">
-          <app-social-media-post [postExt]="item" [isLoading]="isLoading"></app-social-media-post>
-        </div>
+<div id="social-media-list" class="card-columns">
+  <div *ngFor="let item of selectedSocialMedia" [ngSwitch]="item.mediaType">
+    <app-social-media-post [postExt]="item" [isLoading]="isLoading"></app-social-media-post>
   </div>
-
   <div *ngIf="selectedSocialMedia.length < 1 && !isLoading" class="empty-list">
     <div class="card">
       <div class="card-body">
