@@ -15,4 +15,5 @@ export class SocialMediaPostComponent implements OnInit {
 
   ngOnInit() {
   }
+
 }

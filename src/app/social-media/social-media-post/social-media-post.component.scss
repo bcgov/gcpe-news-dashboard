@@ -12,26 +12,3 @@
 .card-no-border {
   border: none;
 }
-
-.social-media-post {
-    margin-left:10px;
-    margin-right:10px;
-}
-
-.card-custom {
-    @media (min-width: 576px) {
-        width: 500px;
-    }
-    @media (min-width: 768px) {
-        width: 350px;
-    }
-    @media (min-width: 992px) {
-        width: 420px;
-    }
-    @media (min-width: 1200px) {
-        width: 420px;
-    }
-    @media (min-width: 1600px) {
-        width: 450px;
-    }
-}
