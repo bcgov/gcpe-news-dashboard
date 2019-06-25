@@ -27,6 +27,16 @@ export class SocialMediaRenderService {
    });
   }
 
+  loadFacebookWidgetsForNode(node: string) {
+    FB.init({
+      xfbml: true,
+      version: 'v3.2'
+    });
+    Array.from(document.getElementById(node).getElementsByClassName('fb-post')).forEach(function(item) {
+      FB.XFBML.parse(item);
+   });
+  }
+
   loadInstagramWidgets() {
     instgrm.Embeds.process();
   }

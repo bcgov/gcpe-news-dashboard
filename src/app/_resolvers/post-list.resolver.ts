@@ -10,7 +10,7 @@ export class PostListResolver implements Resolve<Post[]> {
     constructor(private postsService: PostsService, private router: Router) { }
 
     resolve(route: ActivatedRouteSnapshot): Observable<Post[]> {
-        return this.postsService.getLatestPosts(7)
+        return this.postsService.getLatestPosts(35)
         .pipe(
             catchError(error => {
                 return of(null);
