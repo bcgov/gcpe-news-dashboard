@@ -56,7 +56,6 @@ import { HomeComponent } from './home/home.component';
 import { UtilsService } from './services/utils.service';
 import { MinistriesProvider } from './_providers/ministries.provider';
 import { SnowplowService } from './services/snowplow.service';
-import { PostNewLayoutComponent } from './post-new-layout/post-new-layout.component';
 
 const appInitializerFn = (appConfig: AppConfigService) => {
   return () => {
@@ -97,8 +96,7 @@ export function ministriesProviderFactory(provider: MinistriesProvider) {
     HasRoleDirective,
     // Pipes
     TimeAgoPipe,
-    PluralizeKindPipe,
-    PostNewLayoutComponent
+    PluralizeKindPipe
   ],
   imports: [
     AppRoutingModule,

@@ -21,7 +21,6 @@ import { UserMinistryListResolver } from './_resolvers/user-ministry-list.resolv
 import { MinistriesResolver } from './_resolvers/ministries.resolver';
 import { HqDashboardSubMenuComponent } from './core/hq-dashboard-sub-menu/hq-dashboard-sub-menu.component';
 import { HomeComponent } from './home/home.component';
-import { PostNewLayoutComponent } from './post-new-layout/post-new-layout.component';
 
 const appRoutes: Routes = [
   { path: 'account-settings', component: AccountSettingsComponent, resolve: { ministries: MinistriesResolver } },
@@ -107,11 +106,6 @@ const appRoutes: Routes = [
       roles: ['Contributor']
     },
     resolve: { theme: MessageResolver }
-  },
-  {
-    path: 'postlist',
-    component: PostNewLayoutComponent,
-    resolve: { posts: PostListResolver, userMinistries: UserMinistryListResolver },
   },
   {
     path: '',

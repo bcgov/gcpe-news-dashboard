@@ -11,6 +11,13 @@ export class SocialMediaRenderService {
   constructor() {
   }
 
+  initFacebook() {
+    FB.init({
+      xfbml: true,
+      version: 'v3.2'
+    });
+  }
+
   loadTwitterWidgets() {
     if (twttr.ready()) {
       twttr.widgets.load();
@@ -18,21 +25,8 @@ export class SocialMediaRenderService {
   }
 
   loadFacebookWidgets() {
-    FB.init({
-      xfbml: true,
-      version: 'v3.2'
-    });
+    this.initFacebook();
     Array.from(document.getElementsByClassName('fb-post')).forEach(function(item) {
-      FB.XFBML.parse(item);
-   });
-  }
-
-  loadFacebookWidgetsForNode(node: string) {
-    FB.init({
-      xfbml: true,
-      version: 'v3.2'
-    });
-    Array.from(document.getElementById(node).getElementsByClassName('fb-post')).forEach(function(item) {
       FB.XFBML.parse(item);
    });
   }
@@ -52,5 +46,17 @@ export class SocialMediaRenderService {
       case 'Instagram':
         this.loadInstagramWidgets();
     }
+  }
+
+  // load facebookwidget by parsing node id and hide the fb-post or fb-video iframe while loading
+  loadFacebookWidgesbyNodeId(node_id: string) {
+    FB.XFBML.parse(document.getElementById(node_id), function () {
+      const posts = document.getElementById('new-post-list').getElementsByTagName('iframe');
+      Array.from(posts).forEach(function(item) {
+        setTimeout(function() {
+          item.style.visibility = 'hidden';
+        }, 100);
+     });
+    });
   }
 }
