@@ -17,6 +17,8 @@ import { mockAuth } from 'src/app/test-helpers/mock-auth';
 import { MinistriesProvider } from 'src/app/_providers/ministries.provider';
 import { MockMinistriesProvider } from 'src/app/_providers/mock-ministries.provider';
 import { SnowplowService } from '../../services/snowplow.service';
+import { LoadingSpinnerComponent } from 'src/app/core/loading-spinner/loading-spinner.component';
+import { SocialMediaRenderService } from '../../services/socialMediaRender.service';
 
 describe('PostListComponent', () => {
   let component: PostListComponent;
@@ -42,12 +44,14 @@ describe('PostListComponent', () => {
         PostListComponent,
         HqDashboardSubMenuComponent,
         HasRoleDirective,
-        PluralizeKindPipe
+        PluralizeKindPipe,
+        LoadingSpinnerComponent
       ],
       providers: [
         AlertsService,
         SnowplowService,
-        { provide: AppConfigService, useValue: { config: { NEWS_URL: "" } } },
+        SocialMediaRenderService,
+        { provide: AppConfigService, useValue: { config: { NEWS_URL: '' } } },
         { provide: BASE_PATH, useValue: environment.apiUrl },
         { provide: AuthService, useClass: mockAuth },
         { provide: MinistriesProvider, useClass: MockMinistriesProvider }
@@ -69,7 +73,7 @@ describe('PostListComponent', () => {
     component = fixture.componentInstance;
     component.selectedPosts = FakePostsData(20);
     fixture.detectChanges();
-    div = fixture.nativeElement.querySelector('#post-list');
+    div = fixture.nativeElement.querySelector('#new-post-list');
   });
 
   it('should create', () => {
@@ -84,7 +88,7 @@ describe('PostListComponent', () => {
 
   it('should get 20 posts', () => {
     component.ngOnInit();
-    expect(div.querySelectorAll('.card').length).toBe(20);
+    expect(div.querySelectorAll('.content').length).toBe(20);
   });
 
   describe('get 5 posts filtered by my selected ministry', () => {
@@ -100,14 +104,14 @@ describe('PostListComponent', () => {
       component = fixture.componentInstance;
       component.selectedPosts = FakePostsData(5);
       fixture.detectChanges();
-      div = fixture.nativeElement.querySelector('#post-list');
+      div = fixture.nativeElement.querySelector('#new-post-list');
     });
     it('should create', ()  => {
       expect(component).toBeTruthy();
     });
     it('should get 5 Fake Ministry posts', ()  => {
       component.ngOnInit();
-      expect(div.querySelectorAll('.card').length).toBe(5);
+      expect(div.querySelectorAll('.content').length).toBe(5);
       const posts = component.selectedPosts.filter(s => s.leadMinistryName === userMinistry);
       expect(posts.length).toEqual(5);
     });

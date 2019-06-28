@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Renderer2 , OnInit, AfterViewInit, OnDestroy } from '@angular/core';
 import { Post } from '../../view-models/post';
 import { SocialMediaType } from '../../view-models/social-media-type';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -8,8 +8,13 @@ import { DomSanitizer } from '@angular/platform-browser';
 import { UtilsService } from 'src/app/services/utils.service';
 import { MinistriesProvider } from 'src/app/_providers/ministries.provider';
 import { SnowplowService } from '../../services/snowplow.service';
+import { Subscription } from 'rxjs/Subscription';
+import { Observable } from 'rxjs/Observable';
+import 'rxjs/add/observable/timer';
+import { SocialMediaRenderService } from '../../services/socialMediaRender.service';
 
 declare const FB: any;
+declare function resizeAllGridItems(): any;
 
 @Component({
   selector: 'app-post-list',
@@ -17,12 +22,22 @@ declare const FB: any;
   styleUrls: ['./post-list.component.scss']
 })
 
-export class PostListComponent implements OnInit {
+export class PostListComponent implements OnInit, AfterViewInit, OnDestroy {
   public userMinistriesForFilteringPosts: Array<string> = [];
   public posts: Post[] = [];
   public selectedPosts: Post[] = [];
   private BASE_NEWS_URL: string;
   filterBySocialMediaType: string;
+  hasFacebookAssets = true;
+  private resizeListener: any;
+
+  private subscription: Subscription;
+  private timer: Observable<any>;
+  private fbEvents: Observable<any>;
+
+  isLoading = true;
+  internetExplorer = false;
+
 
   constructor(
     private router: Router,
@@ -32,12 +47,18 @@ export class PostListComponent implements OnInit {
     private utils: UtilsService,
     private ministriesProvider: MinistriesProvider,
     private sanitizer: DomSanitizer,
-    private snowplowService: SnowplowService) {
-    this.BASE_NEWS_URL = this.appConfig.config.NEWS_URL;
-    this.router.routeReuseStrategy.shouldReuseRoute = () => false;
+    private snowplowService: SnowplowService,
+    public renderer: Renderer2,
+    private socialMediaRenderService: SocialMediaRenderService) {
+      this.BASE_NEWS_URL = this.appConfig.config.NEWS_URL;
+      this.router.routeReuseStrategy.shouldReuseRoute = () => false;
+      this.resizeListener = this.renderer.listen('window', 'resize', (event) => {
+        this.setTimer();
+      });
   }
 
   ngOnInit() {
+    this.getBrowser();
     this.route.data.subscribe(data => {
       if (typeof data['posts'] === 'undefined' || data['posts'] === null) {
         this.alerts.showError('An error occurred while retrieving posts');
@@ -56,12 +77,8 @@ export class PostListComponent implements OnInit {
         }
       });
       this.posts = data['posts'];
-      if (hasFacebookAssets) {
-        FB.init({
-          xfbml: true,
-          version: 'v3.2'
-        });
-        FB.XFBML.parse();
+      if (this.hasFacebookAssets) {
+        this.socialMediaRenderService.initFacebook();
       }
       if (typeof data['userMinistries'] === 'undefined' || data['userMinistries'] === null) {
         this.alerts.showError('An error occurred while retrieving your ministries');
@@ -91,6 +108,20 @@ export class PostListComponent implements OnInit {
     this.snowplowService.trackPageView();
   }
 
+  ngAfterViewInit() {
+    this.setTimer();
+  }
+
+  ngOnDestroy() {
+    this.resizeListener();
+    if ( this.subscription && this.subscription instanceof Subscription) {
+      this.subscription.unsubscribe();
+    }
+    if ( this.fbEvents && this.fbEvents instanceof Subscription) {
+      this.fbEvents.unsubscribe();
+    }
+  }
+
   extractVideoID( url: string ): string {
     const regExp = /^.*((youtu.be\/)|(v\/)|(\/u\/\w\/)|(embed\/)|(watch\?))\??v?=?([^#\&\?]*).*/;
     const match = url.match(regExp);
@@ -103,5 +134,43 @@ export class PostListComponent implements OnInit {
 
   videoURL( item: any ) {
     return this.sanitizer.bypassSecurityTrustResourceUrl('https://www.youtube.com/embed/' + item.youtubeId);
+  }
+
+  public toggleFacebookPosts(visible: boolean) {
+    const posts = document.getElementById('new-post-list').getElementsByTagName('iframe');
+    Array.from(posts).forEach(function(item) {
+      setTimeout(function() {
+        item.style.visibility = visible ? 'visible' : 'hidden';
+      }, 100);
+    });
+  }
+
+  setTimer() {
+    this.isLoading = true;
+    const post_list = document.getElementById('new-post-list');
+    post_list.style.visibility = 'hidden';
+    if (this.hasFacebookAssets) {
+     this.socialMediaRenderService.loadFacebookWidgesbyNodeId('new-post-list');
+    }
+
+    this.timer = Observable.timer(4000); // 4000 millisecond means 4 seconds
+    this.subscription = this.timer.subscribe(() => {
+      resizeAllGridItems();
+      this.isLoading = false;
+      post_list.style.visibility = 'visible';
+      if (this.hasFacebookAssets) {
+        this.toggleFacebookPosts(true);
+      }
+    });
+  }
+
+  // get browser type: if using ie, the display the posts vertically first since ie does not fully support css grid or flex box
+  // reference from : https://developer.mozilla.org/en-US/docs/Web/API/Window/navigator
+  getBrowser() {
+    if (window.navigator.userAgent.indexOf('Trident') !== -1) {
+        this.internetExplorer = true;
+    } else {
+        this.internetExplorer = false;
+    }
   }
 }
