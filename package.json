@@ -33,6 +33,7 @@
     "rxjs-compat": "^6.4.0",
     "time-ago-pipe": "^1.3.2",
     "underscore": "^1.9.1",
+    "voca": "^1.4.0",
     "zone.js": "^0.8.29"
   },
   "devDependencies": {

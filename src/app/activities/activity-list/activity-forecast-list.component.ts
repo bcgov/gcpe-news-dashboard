@@ -81,29 +81,15 @@ export class ActivityForecastListComponent implements OnInit {
   }
 
   overwriteTitleDetailsFromHqComments(activity: Activity) {
-    let hqComments: string = activity.hqComments;
-    if (hqComments) {
-      while (true) {
-        let marker = '**';
-        let startPos: number = hqComments.indexOf(marker);
-        if (startPos === -1) {
-          marker = '_';
-          startPos = hqComments.indexOf(marker);
-        }
-        if (startPos === -1) { break; }
-        const endPos: number = hqComments.indexOf(marker, startPos + marker.length);
-        if (endPos === -1) { return; } // invalid
-
-        const toMarkdown: string = hqComments.substring(startPos + marker.length, endPos);
-        if (startPos === 0) {
-          activity.title = toMarkdown;
-          hqComments = hqComments.substring(endPos + marker.length);
-        } else {
-          hqComments = hqComments.substring(0, startPos) + toMarkdown + hqComments.substring(endPos + marker.length);
-        }
+    const hqComments: string = activity.hqComments;
+    if(hqComments) {
+      const pattern = /\*{2}(.*?)\*{2}/g;
+      const matches = pattern.exec(hqComments);
+      if (!matches)  {
+        activity.title = activity.hqComments;
+        activity.details = '';
       }
-      activity.details = hqComments;
-    }
+   }
   }
 
   getStartDow(i: number) {
