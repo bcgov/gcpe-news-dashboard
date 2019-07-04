@@ -15,6 +15,7 @@ import { SocialMediaRenderService } from '../../services/socialMediaRender.servi
 
 declare const FB: any;
 declare function resizeAllGridItems(): any;
+const ieDisclaimerText = 'NOTE: using IE (Internet Explorer) slightly changes the layout on this page. For a better user experience, please use another browser such as Chrome, Firefox, or Edge when viewing Dashboard content.';
 
 @Component({
   selector: 'app-post-list',
@@ -37,7 +38,6 @@ export class PostListComponent implements OnInit, AfterViewInit, OnDestroy {
 
   isLoading = true;
   internetExplorer = false;
-
 
   constructor(
     private router: Router,
@@ -106,6 +106,10 @@ export class PostListComponent implements OnInit, AfterViewInit, OnDestroy {
       });
     });
     this.snowplowService.trackPageView();
+    if (this.internetExplorer) {
+      this.alerts.cancelable = true;
+      this.alerts.showInfo(ieDisclaimerText);
+    }
   }
 
   ngAfterViewInit() {
