@@ -82,12 +82,34 @@ export class ActivityForecastListComponent implements OnInit {
 
   overwriteTitleDetailsFromHqComments(activity: Activity) {
     const hqComments: string = activity.hqComments;
-    if(hqComments) {
-      const pattern = /\*{2}(.*?)\*{2}/g;
-      const matches = pattern.exec(hqComments);
-      if (!matches)  {
-        activity.title = activity.hqComments;
-        activity.details = '';
+    if (hqComments) {
+      activity.details = null;
+      activity.title = null;
+
+      // bolded text surrounded by asterisks followed by text
+      let pattern = /\*{2}(.*?)\*{2}(.*)/g;
+      let matches = pattern.exec(hqComments);
+      if (matches) {
+        activity.title = matches[1].trim();
+        // remove any other asterisks
+        activity.details = matches[2].replace(/\*/g, '').trim();
+        return;
+      }
+
+      // any un-bolded text
+      pattern = /(.*)/g;
+      matches = pattern.exec(hqComments);
+      if (matches) {
+        activity.title = matches[1].trim();
+        return;
+      }
+
+      // text followed by bolded text surrounded by asterisks
+      pattern = /(.*)\*{2}(.*?)\*{2}/g;
+      matches = pattern.exec(hqComments);
+      if (matches) {
+        activity.title = `${matches[1].trim()} ${matches[2].trim()}`;
+        return;
       }
    }
   }

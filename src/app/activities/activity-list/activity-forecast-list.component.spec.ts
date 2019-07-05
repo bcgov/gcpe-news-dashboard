@@ -23,12 +23,14 @@ describe('ActivityForecastListComponent', () => {
   let alerts: AlertsService;
   let div: HTMLElement;
 
-  function FakeActivity(hqComments: string): Activity {
-    return {
-      title: 'title',
-      details: 'details',
-      hqComments: hqComments
-    } as Activity;
+  class MockActivity {
+    title = 'title';
+    details = 'details';
+    hqComments;
+
+    constructor(hqComments: string) {
+      this.hqComments = hqComments;
+    }
   }
 
   class MockActivatedRoute {
@@ -133,23 +135,21 @@ describe('ActivityForecastListComponent', () => {
   });
 
   it('should overwrite title and details with hqComments', () => {
-    // const activity = FakeActivity('**hq title**hq _details_');
-    // component.overwriteTitleDetailsFromHqComments(activity);
-    // expect(activity.title).toBe('hq title');
-    // expect(activity.details).toBe('hq details');
+    const activity = <Activity> new MockActivity('**hq title** hq details');
+    component.overwriteTitleDetailsFromHqComments(activity);
+    expect(activity.title).toBe('hq title');
+    expect(activity.details).toBe('hq details');
   });
 
-  it('should overwrite title with hqComments', () => {
-    // const activity = FakeActivity('**hq comment**');
-    // component.overwriteTitleDetailsFromHqComments(activity);
-    // expect(activity.title).toBe('hq comment');
-    // expect(activity.details).toBe('');
+  it('should overwrite title with bold-only hqComments', () => {
+    const activity = <Activity> new MockActivity('**hq comment**');
+    component.overwriteTitleDetailsFromHqComments(activity);
+    expect(activity.title).toBe('hq comment');
   });
 
-  it('should overwrite details with hqComments', () => {
-    // const activity = FakeActivity('hq comment');
-    // component.overwriteTitleDetailsFromHqComments(activity);
-    // expect(activity.title).toBe('title');
-    // expect(activity.details).toBe('hq comment');
+  it('should overwrite title with un-bolded hqComments', () => {
+    const activity = <Activity> new MockActivity('hq comment');
+    component.overwriteTitleDetailsFromHqComments(activity);
+    expect(activity.title).toBe('hq comment');
   });
 });
