@@ -1,5 +1,5 @@
 <app-hq-dashboard-sub-menu [userMinistriesForFilteringPosts]="userMinistriesForFilteringPosts"></app-hq-dashboard-sub-menu>
-<app-loading-spinner [isLoading]="isLoading"></app-loading-spinner>
+<app-loading-spinner [isLoading]="isLoading && !internetExplorer"></app-loading-spinner>
 <div *ngIf="selectedPosts.length > 0 && !internetExplorer" id="new-post-list" class='masonry' [ngStyle]="{'visibility': isLoading? 'hidden': 'visible'}">
   <div *ngFor="let post of selectedPosts" class="item">
     <div class='content' >
