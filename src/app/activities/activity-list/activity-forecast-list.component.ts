@@ -87,7 +87,7 @@ export class ActivityForecastListComponent implements OnInit {
       activity.title = null;
 
       // bolded text surrounded by asterisks followed by text
-      let pattern = /\*{2}(.*?)\*{2}(.*)/g;
+      let pattern = /[\r\n]*\*{2}(.*?)\*{2}(.*)/g;
       let matches = pattern.exec(hqComments);
       if (matches) {
         activity.title = matches[1].trim();
