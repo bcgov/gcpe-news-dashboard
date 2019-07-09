@@ -134,11 +134,24 @@ describe('ActivityForecastListComponent', () => {
     expect(showingAllActivities).toBe(false);
   });
 
-  it('should overwrite title and details with hqComments', () => {
+  it('should not overwrite title and details with hqComments if hqComments have a default value of **', () => {
+    const activity = <Activity> new MockActivity('**');
+    component.overwriteTitleDetailsFromHqComments(activity);
+    expect(activity.title).toBe('title');
+    expect(activity.details).toBe('details');
+  });
+
+  it('should overwrite title and details with hqComments with bolded text followed by regular text', () => {
     const activity = <Activity> new MockActivity('**hq title** hq details');
     component.overwriteTitleDetailsFromHqComments(activity);
     expect(activity.title).toBe('hq title');
     expect(activity.details).toBe('hq details');
+  });
+
+  it('should overwrite title and details with hqComments regular text followed by bolded text', () => {
+    const activity = <Activity> new MockActivity('hq details **hq title**');
+    component.overwriteTitleDetailsFromHqComments(activity);
+    expect(activity.title).toBe('hq details hq title');
   });
 
   it('should overwrite title with bold-only hqComments', () => {
