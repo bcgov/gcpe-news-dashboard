@@ -1,21 +1,12 @@
 import {Injectable} from '@angular/core';
-import { SocialMediaPostExtended } from '../view-models/social-media-post-extended';
-import 'rxjs/add/observable/timer';
-import { Observable } from 'rxjs/Observable';
-import { Subscription } from 'rxjs';
 
 // the following contants should not be rename and they are matching the social media javascript library
 declare const FB: any;
 declare const twttr: any;
 declare const instgrm: any;
-declare function resizeAllGridItems(divName, hasBorder): any;
 
 @Injectable()
 export class SocialMediaRenderService {
-
-  isLoading: boolean = true;
-  private timer: Observable<any>;
-
   constructor() {
   }
 
