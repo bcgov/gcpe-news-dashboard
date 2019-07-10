@@ -1,12 +1,20 @@
 import {Injectable} from '@angular/core';
+import { SocialMediaPostExtended } from '../view-models/social-media-post-extended';
+import 'rxjs/add/observable/timer';
+import { Observable } from 'rxjs/Observable';
+import { Subscription } from 'rxjs';
 
 // the following contants should not be rename and they are matching the social media javascript library
 declare const FB: any;
 declare const twttr: any;
 declare const instgrm: any;
+declare function resizeAllGridItems(divName, hasBorder): any;
 
 @Injectable()
 export class SocialMediaRenderService {
+
+  isLoading: boolean = true;
+  private timer: Observable<any>;
 
   constructor() {
   }
@@ -48,15 +56,66 @@ export class SocialMediaRenderService {
     }
   }
 
+  loadWidgetsWithOptions(mediaType: string, hide: boolean, node: string) {
+    switch (mediaType) {
+      case 'Facebook':
+        this.loadFacebookWidgesbyNodeId(node, hide);
+        break;
+      case 'Twitter':
+        this.loadTwitterWidgets();
+        break;
+      case 'Instagram':
+        this.loadInstagramWidgets();
+    }
+  }
+
   // load facebookwidget by parsing node id and hide the fb-post or fb-video iframe while loading
-  loadFacebookWidgesbyNodeId(node_id: string) {
+  loadFacebookWidgesbyNodeId(node_id: string, hide: boolean) {
+    this.initFacebook();
     FB.XFBML.parse(document.getElementById(node_id), function () {
-      const posts = document.getElementById('new-post-list').getElementsByTagName('iframe');
-      Array.from(posts).forEach(function(item) {
-        setTimeout(function() {
-          item.style.visibility = 'hidden';
-        }, 100);
-     });
+      if (hide) {
+        const posts = document.getElementById(node_id).getElementsByTagName('iframe');
+        Array.from(posts).forEach(function(item) {
+          setTimeout(function() {
+            item.style.visibility = 'hidden';
+          }, 50);
+       });
+      }
     });
   }
+
+  // hiden twitter post while fist loaded
+  HideTwitterPostsAfterLoaded() {
+    twttr.events.bind(
+      'loaded',
+      function (event) {
+        event.widgets.forEach(function (widget) {
+          widget.style.marginTop = 0;
+          widget.style.visibility = 'hidden';
+        });
+      }
+    );
+  }
+
+  toggleTwitterPosts(visible: boolean) {
+    const twitterList = document.getElementsByTagName('twitter-widget');
+    Array.from(twitterList).forEach(function(item) {
+      setTimeout(function() {
+        const id = item.id;
+        const elem = document.getElementById(id);
+        elem.style.visibility = visible ? 'visible' : 'hidden';
+      }, 50);
+    });
+  }
+
+  // toggle iframe post, includes facebook and instagram
+  toggleIframePosts(node: string, visible: boolean) {
+    const facebookList = document.getElementById(node).getElementsByTagName('iframe');
+    Array.from(facebookList).forEach(function(item) {
+      setTimeout(function() {
+        item.style.visibility = visible ? 'visible' : 'hidden';
+      }, 50);
+    });
+  }
+
 }

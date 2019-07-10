@@ -12,10 +12,10 @@ import { Subscription } from 'rxjs/Subscription';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/observable/timer';
 import { SocialMediaRenderService } from '../../services/socialMediaRender.service';
+import { BrowserInfoService } from '../../services/browser-info.service';
 
-declare const FB: any;
-declare function resizeAllGridItems(): any;
-const ieDisclaimerText = 'NOTE: using IE (Internet Explorer) slightly changes the layout on this page. For a better user experience, please use another browser such as Chrome, Firefox, or Edge when viewing Dashboard content.';
+declare function resizeAllGridItems(divName, hasBorder): any;
+const PostListDivId = 'new-post-list';
 
 @Component({
   selector: 'app-post-list',
@@ -49,7 +49,8 @@ export class PostListComponent implements OnInit, AfterViewInit, OnDestroy {
     private sanitizer: DomSanitizer,
     private snowplowService: SnowplowService,
     public renderer: Renderer2,
-    private socialMediaRenderService: SocialMediaRenderService) {
+    private socialMediaRenderService: SocialMediaRenderService,
+    private browserService: BrowserInfoService) {
       this.BASE_NEWS_URL = this.appConfig.config.NEWS_URL;
       this.router.routeReuseStrategy.shouldReuseRoute = () => false;
       this.resizeListener = this.renderer.listen('window', 'resize', (event) => {
@@ -58,7 +59,6 @@ export class PostListComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   ngOnInit() {
-    this.getBrowser();
     this.route.data.subscribe(data => {
       if (typeof data['posts'] === 'undefined' || data['posts'] === null) {
         this.alerts.showError('An error occurred while retrieving posts');
@@ -105,10 +105,11 @@ export class PostListComponent implements OnInit, AfterViewInit, OnDestroy {
         this.filterBySocialMediaType = queryParams.type;
       });
     });
+    this.internetExplorer = this.browserService.getBrowser();
     this.snowplowService.trackPageView();
     if (this.internetExplorer) {
       this.alerts.cancelable = true;
-      this.alerts.showInfo(ieDisclaimerText);
+      this.alerts.showInfo(this.browserService.getIEDisclaimer());
     }
   }
 
@@ -141,7 +142,7 @@ export class PostListComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   public toggleFacebookPosts(visible: boolean) {
-    const posts = document.getElementById('new-post-list').getElementsByTagName('iframe');
+    const posts = document.getElementById(PostListDivId).getElementsByTagName('iframe');
     Array.from(posts).forEach(function(item) {
       setTimeout(function() {
         item.style.visibility = visible ? 'visible' : 'hidden';
@@ -151,30 +152,21 @@ export class PostListComponent implements OnInit, AfterViewInit, OnDestroy {
 
   setTimer() {
     this.isLoading = true;
-    const post_list = document.getElementById('new-post-list');
+    const post_list = document.getElementById(PostListDivId);
     post_list.style.visibility = 'hidden';
     if (this.hasFacebookAssets) {
-     this.socialMediaRenderService.loadFacebookWidgesbyNodeId('new-post-list');
+     this.socialMediaRenderService.loadFacebookWidgesbyNodeId(PostListDivId, true);
     }
 
     this.timer = Observable.timer(4000); // 4000 millisecond means 4 seconds
     this.subscription = this.timer.subscribe(() => {
-      resizeAllGridItems();
+      resizeAllGridItems(PostListDivId, true);
       this.isLoading = false;
       post_list.style.visibility = 'visible';
       if (this.hasFacebookAssets) {
+        this.socialMediaRenderService.toggleIframePosts(PostListDivId, true);
         this.toggleFacebookPosts(true);
       }
     });
-  }
-
-  // get browser type: if using ie, the display the posts vertically first since ie does not fully support css grid or flex box
-  // reference from : https://developer.mozilla.org/en-US/docs/Web/API/Window/navigator
-  getBrowser() {
-    if (window.navigator.userAgent.indexOf('Trident') !== -1) {
-        this.internetExplorer = true;
-    } else {
-        this.internetExplorer = false;
-    }
   }
 }
