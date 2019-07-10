@@ -18,6 +18,8 @@ import { LoadingSpinnerComponent } from 'src/app/core/loading-spinner/loading-sp
 import { SocialMediaPostComponent } from '../social-media-post/social-media-post.component';
 import { SnowplowService } from '../../services/snowplow.service';
 
+const SocialMediaListDivName = '#new-social-media-list';
+
 describe('SocialMediaPostListComponent', () => {
   let component: SocialMediaPostListComponent;
   let fixture: ComponentFixture<SocialMediaPostListComponent>;
@@ -68,7 +70,7 @@ describe('SocialMediaPostListComponent', () => {
       fixture = TestBed.createComponent(SocialMediaPostListComponent);
       component = fixture.componentInstance;
       fixture.detectChanges();
-      div = fixture.nativeElement.querySelector('#social-media-list');
+      div = fixture.nativeElement.querySelector(SocialMediaListDivName);
     });
     it('should create', ()  => {
       expect(component).toBeTruthy();
@@ -92,7 +94,7 @@ describe('SocialMediaPostListComponent', () => {
       fixture = TestBed.createComponent(SocialMediaPostListComponent);
       component = fixture.componentInstance;
       fixture.detectChanges();
-      div = fixture.nativeElement.querySelector('#social-media-list');
+      div = fixture.nativeElement.querySelector(SocialMediaListDivName);
     });
     it('should create', ()  => {
       expect(component).toBeTruthy();
@@ -116,7 +118,7 @@ describe('SocialMediaPostListComponent', () => {
       fixture = TestBed.createComponent(SocialMediaPostListComponent);
       component = fixture.componentInstance;
       fixture.detectChanges();
-      div = fixture.nativeElement.querySelector('#social-media-list');
+      div = fixture.nativeElement.querySelector(SocialMediaListDivName);
     });
     it('should create', ()  => {
       expect(component).toBeTruthy();
@@ -140,7 +142,7 @@ describe('SocialMediaPostListComponent', () => {
       fixture = TestBed.createComponent(SocialMediaPostListComponent);
       component = fixture.componentInstance;
       fixture.detectChanges();
-      div = fixture.nativeElement.querySelector('#social-media-list');
+      div = fixture.nativeElement.querySelector(SocialMediaListDivName);
     });
     it('should create', ()  => {
       expect(component).toBeTruthy();
