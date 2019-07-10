@@ -23,12 +23,14 @@ describe('ActivityForecastListComponent', () => {
   let alerts: AlertsService;
   let div: HTMLElement;
 
-  function FakeActivity(hqComments: string): Activity {
-    return {
-      title: 'title',
-      details: 'details',
-      hqComments: hqComments
-    } as Activity;
+  class MockActivity {
+    title = 'title';
+    details = 'details';
+    hqComments;
+
+    constructor(hqComments: string) {
+      this.hqComments = hqComments;
+    }
   }
 
   class MockActivatedRoute {
@@ -132,24 +134,35 @@ describe('ActivityForecastListComponent', () => {
     expect(showingAllActivities).toBe(false);
   });
 
-  it('should overwrite title and details with hqComments', () => {
-    // const activity = FakeActivity('**hq title**hq _details_');
-    // component.overwriteTitleDetailsFromHqComments(activity);
-    // expect(activity.title).toBe('hq title');
-    // expect(activity.details).toBe('hq details');
+  it('should not overwrite title and details with hqComments if hqComments have a default value of **', () => {
+    const activity = <Activity> new MockActivity('**');
+    component.overwriteTitleDetailsFromHqComments(activity);
+    expect(activity.title).toBe('title');
+    expect(activity.details).toBe('details');
   });
 
-  it('should overwrite title with hqComments', () => {
-    // const activity = FakeActivity('**hq comment**');
-    // component.overwriteTitleDetailsFromHqComments(activity);
-    // expect(activity.title).toBe('hq comment');
-    // expect(activity.details).toBe('');
+  it('should overwrite title and details with hqComments with bolded text followed by regular text', () => {
+    const activity = <Activity> new MockActivity('**hq title** hq details');
+    component.overwriteTitleDetailsFromHqComments(activity);
+    expect(activity.title).toBe('hq title');
+    expect(activity.details).toBe('hq details');
   });
 
-  it('should overwrite details with hqComments', () => {
-    // const activity = FakeActivity('hq comment');
-    // component.overwriteTitleDetailsFromHqComments(activity);
-    // expect(activity.title).toBe('title');
-    // expect(activity.details).toBe('hq comment');
+  it('should overwrite title and details with hqComments regular text followed by bolded text', () => {
+    const activity = <Activity> new MockActivity('hq details **hq title**');
+    component.overwriteTitleDetailsFromHqComments(activity);
+    expect(activity.title).toBe('hq details hq title');
+  });
+
+  it('should overwrite title with bold-only hqComments', () => {
+    const activity = <Activity> new MockActivity('**hq comment**');
+    component.overwriteTitleDetailsFromHqComments(activity);
+    expect(activity.title).toBe('hq comment');
+  });
+
+  it('should overwrite title with un-bolded hqComments', () => {
+    const activity = <Activity> new MockActivity('hq comment');
+    component.overwriteTitleDetailsFromHqComments(activity);
+    expect(activity.title).toBe('hq comment');
   });
 });

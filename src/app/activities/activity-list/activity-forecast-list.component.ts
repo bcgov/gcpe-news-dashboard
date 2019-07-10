@@ -49,6 +49,8 @@ export class ActivityForecastListComponent implements OnInit {
 
       let todayDow = this.today.getDay();
       if (todayDow === 6) { todayDow = 0; } // group Sunday with Saturday
+
+
       data['activities'].forEach(v => {
         this.overwriteTitleDetailsFromHqComments(v);
 
@@ -82,12 +84,57 @@ export class ActivityForecastListComponent implements OnInit {
 
   overwriteTitleDetailsFromHqComments(activity: Activity) {
     const hqComments: string = activity.hqComments;
-    if(hqComments) {
-      const pattern = /\*{2}(.*?)\*{2}/g;
-      const matches = pattern.exec(hqComments);
-      if (!matches)  {
-        activity.title = activity.hqComments;
-        activity.details = '';
+    if (hqComments) {
+
+      if (hqComments === '**') { return; }
+
+      activity.details = null;
+      activity.title = null;
+
+      const nthIndex = (haystack, needle, position) => {
+        const len = haystack.length;
+        let idx = -1;
+        while (position-- && idx++ < len) {
+            idx = haystack.indexOf(needle, idx);
+            if (idx < 0) {
+              break;
+            }
+        }
+        return idx;
+      };
+
+      // bolded text surrounded by asterisks followed by text
+      let pattern = /\*{2}(.*?)\*{2}(.+)/g;
+      let matches = pattern.exec(hqComments);
+      if (matches) {
+        activity.title = matches[1].trim();
+        const startPos = nthIndex(hqComments, '**', 2);
+        activity.details = hqComments.substring(startPos, hqComments.length).replace(/\*/g, '').trim();
+        return;
+      }
+
+      // bold only
+      pattern = /^\*{2}(.*?)\*{2}$/g;
+      matches = pattern.exec(hqComments);
+      if (matches) {
+        activity.title = matches[1];
+        return;
+      }
+
+      // text followed by bolded text
+      pattern = /(.+)\*{2}(.*?)\*{2}/g;
+      matches = pattern.exec(hqComments);
+      if (matches) {
+        activity.title = `${matches[1].trim()} ${matches[2].replace(/\*/g, '').trim()}`;
+        return;
+      }
+
+      // any un-bolded text
+      pattern = /(.*)/g;
+      matches = pattern.exec(hqComments);
+      if (matches) {
+        activity.title = matches[1].trim();
+        return;
       }
    }
   }
