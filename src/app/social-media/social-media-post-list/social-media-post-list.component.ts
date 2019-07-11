@@ -33,7 +33,7 @@ export class SocialMediaPostListComponent implements OnInit, AfterViewInit, OnDe
   private fbEvents: Observable<any>;
   private resizeListener: any;
 
-  private internetExplorer = false;
+  internetExplorer = false;
 
   constructor(
     private router: Router,

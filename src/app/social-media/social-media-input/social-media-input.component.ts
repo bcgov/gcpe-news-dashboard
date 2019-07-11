@@ -36,7 +36,7 @@ export class SocialMediaInputComponent implements OnInit, AfterViewInit, OnDestr
   private fbEvents: Observable<any>;
   private resizeListener: any;
 
-  private internetExplorer = false;
+  internetExplorer = false;
 
   constructor(
     private router: Router,
@@ -66,8 +66,6 @@ export class SocialMediaInputComponent implements OnInit, AfterViewInit, OnDestr
   }
 
   ngAfterViewInit() {
-    const selectedSocialmediatypes = [];
-    //this.subscription = this.socialMediaRenderService.loadSocialMediaList(false, this.socialmedia, SocialMediaListDivName);
     this.setTimer(false);
   }
 
