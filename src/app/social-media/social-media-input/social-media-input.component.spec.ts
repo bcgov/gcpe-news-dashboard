@@ -14,6 +14,11 @@ import { By } from '@angular/platform-browser';
 import { LoadingSpinnerComponent } from 'src/app/core/loading-spinner/loading-spinner.component';
 import { SocialMediaPostComponent } from '../social-media-post/social-media-post.component';
 import { SnowplowService } from '../../services/snowplow.service';
+import { RouterModule } from '@angular/router';
+import { AuthService } from 'src/app/_auth/auth.service';
+import { mockAuth } from 'src/app/test-helpers/mock-auth';
+
+const SocialMediaInputListDivName = '#new-social-media-input-list';
 
 describe('SocialMediaInputComponent', () => {
   let component: SocialMediaInputComponent;
@@ -35,7 +40,8 @@ describe('SocialMediaInputComponent', () => {
       ],
       imports: [
         RouterTestingModule,
-        HttpClientTestingModule
+        HttpClientTestingModule,
+        RouterModule
       ],
       providers: [
         SocialMediaPostsService,
@@ -43,7 +49,8 @@ describe('SocialMediaInputComponent', () => {
         SocialMediaRenderService,
         SnowplowService,
         { provide: BASE_PATH, useValue: environment.apiUrl },
-        { provide: ActivatedRoute, useClass: MockActivatedRoute }
+        { provide: ActivatedRoute, useClass: MockActivatedRoute },
+        { provide: AuthService, useClass: mockAuth }
       ]
     })
     .compileComponents();
@@ -60,8 +67,8 @@ describe('SocialMediaInputComponent', () => {
     component = fixture.componentInstance;
     spyOn(TestBed.get(NavmenuService), 'hide');
     spyOn(TestBed.get(NavmenuService), 'show');
-    div = fixture.nativeElement.querySelector('#social-media-input-list');
     fixture.detectChanges();
+    div = fixture.nativeElement.querySelector(SocialMediaInputListDivName);
   });
 
   it('should create', () => {
@@ -70,6 +77,7 @@ describe('SocialMediaInputComponent', () => {
 
   it('should create 9 social media post input entries', ()  => {
     component.ngOnInit();
+    component.ngAfterViewInit();
     expect(div.querySelectorAll('.social-media-post').length).toBe(9);
   });
 

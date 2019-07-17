@@ -6,21 +6,21 @@
 
 #theme-list {
     @include media-breakpoint-down(xs) {
-        order: 2;
+        order: 1;
     }
 }
 
 .message {
     padding: 1.25rem 0;
     @include media-breakpoint-down(xs) {
-        order: 1;
+        order: 2;
     }
 }
 
 .message-header {
     border-bottom: 1px solid map-get($theme-colors, light);
     padding-bottom: 10px;
-    margin-bottom: 30px;
+    margin-bottom: 17px;
     color: map-get($theme-colors, dark);
     font-size: 0.9em;
 }
