@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Renderer2 , OnInit, AfterViewInit, OnDestroy } from '@angular/core';
 import { Post } from '../../view-models/post';
 import { SocialMediaType } from '../../view-models/social-media-type';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -8,8 +8,14 @@ import { DomSanitizer } from '@angular/platform-browser';
 import { UtilsService } from 'src/app/services/utils.service';
 import { MinistriesProvider } from 'src/app/_providers/ministries.provider';
 import { SnowplowService } from '../../services/snowplow.service';
+import { Subscription } from 'rxjs/Subscription';
+import { Observable } from 'rxjs/Observable';
+import 'rxjs/add/observable/timer';
+import { SocialMediaRenderService } from '../../services/socialMediaRender.service';
+import { BrowserInfoService } from '../../services/browser-info.service';
 
-declare const FB: any;
+declare function resizeAllGridItems(divName, hasBorder): any;
+const PostListDivId = 'new-post-list';
 
 @Component({
   selector: 'app-post-list',
@@ -17,12 +23,21 @@ declare const FB: any;
   styleUrls: ['./post-list.component.scss']
 })
 
-export class PostListComponent implements OnInit {
+export class PostListComponent implements OnInit, AfterViewInit, OnDestroy {
   public userMinistriesForFilteringPosts: Array<string> = [];
   public posts: Post[] = [];
   public selectedPosts: Post[] = [];
   private BASE_NEWS_URL: string;
   filterBySocialMediaType: string;
+  hasFacebookAssets = true;
+  private resizeListener: any;
+
+  private subscription: Subscription;
+  private timer: Observable<any>;
+  private fbEvents: Observable<any>;
+
+  isLoading = true;
+  internetExplorer = false;
 
   constructor(
     private router: Router,
@@ -32,9 +47,15 @@ export class PostListComponent implements OnInit {
     private utils: UtilsService,
     private ministriesProvider: MinistriesProvider,
     private sanitizer: DomSanitizer,
-    private snowplowService: SnowplowService) {
-    this.BASE_NEWS_URL = this.appConfig.config.NEWS_URL;
-    this.router.routeReuseStrategy.shouldReuseRoute = () => false;
+    private snowplowService: SnowplowService,
+    public renderer: Renderer2,
+    private socialMediaRenderService: SocialMediaRenderService,
+    private browserService: BrowserInfoService) {
+      this.BASE_NEWS_URL = this.appConfig.config.NEWS_URL;
+      this.router.routeReuseStrategy.shouldReuseRoute = () => false;
+      this.resizeListener = this.renderer.listen('window', 'resize', (event) => {
+        this.setTimer();
+      });
   }
 
   ngOnInit() {
@@ -56,12 +77,8 @@ export class PostListComponent implements OnInit {
         }
       });
       this.posts = data['posts'];
-      if (hasFacebookAssets) {
-        FB.init({
-          xfbml: true,
-          version: 'v3.2'
-        });
-        FB.XFBML.parse();
+      if (this.hasFacebookAssets) {
+        this.socialMediaRenderService.initFacebook();
       }
       if (typeof data['userMinistries'] === 'undefined' || data['userMinistries'] === null) {
         this.alerts.showError('An error occurred while retrieving your ministries');
@@ -88,7 +105,26 @@ export class PostListComponent implements OnInit {
         this.filterBySocialMediaType = queryParams.type;
       });
     });
+    this.internetExplorer = this.browserService.getBrowser();
     this.snowplowService.trackPageView();
+    if (this.internetExplorer) {
+      this.alerts.cancelable = true;
+      this.alerts.showInfo(this.browserService.getIEDisclaimer());
+    }
+  }
+
+  ngAfterViewInit() {
+    this.setTimer();
+  }
+
+  ngOnDestroy() {
+    this.resizeListener();
+    if ( this.subscription && this.subscription instanceof Subscription) {
+      this.subscription.unsubscribe();
+    }
+    if ( this.fbEvents && this.fbEvents instanceof Subscription) {
+      this.fbEvents.unsubscribe();
+    }
   }
 
   extractVideoID( url: string ): string {
@@ -103,5 +139,34 @@ export class PostListComponent implements OnInit {
 
   videoURL( item: any ) {
     return this.sanitizer.bypassSecurityTrustResourceUrl('https://www.youtube.com/embed/' + item.youtubeId);
+  }
+
+  public toggleFacebookPosts(visible: boolean) {
+    const posts = document.getElementById(PostListDivId).getElementsByTagName('iframe');
+    Array.from(posts).forEach(function(item) {
+      setTimeout(function() {
+        item.style.visibility = visible ? 'visible' : 'hidden';
+      }, 100);
+    });
+  }
+
+  setTimer() {
+    this.isLoading = true;
+    const post_list = document.getElementById(PostListDivId);
+    post_list.style.visibility = 'hidden';
+    if (this.hasFacebookAssets) {
+     this.socialMediaRenderService.loadFacebookWidgesbyNodeId(PostListDivId, true);
+    }
+
+    this.timer = Observable.timer(4000); // 4000 millisecond means 4 seconds
+    this.subscription = this.timer.subscribe(() => {
+      resizeAllGridItems(PostListDivId, true);
+      this.isLoading = false;
+      post_list.style.visibility = 'visible';
+      if (this.hasFacebookAssets) {
+        this.socialMediaRenderService.toggleIframePosts(PostListDivId, true);
+        this.toggleFacebookPosts(true);
+      }
+    });
   }
 }

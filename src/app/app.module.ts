@@ -107,7 +107,7 @@ export function ministriesProviderFactory(provider: MinistriesProvider) {
     GcpeSharedModule,
     NgbModule.forRoot(),
     ReactiveFormsModule,
-    OAuthModule.forRoot()
+    OAuthModule.forRoot(),
   ],
   providers: [
     AppConfigService,

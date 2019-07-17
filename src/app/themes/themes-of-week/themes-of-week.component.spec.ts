@@ -69,7 +69,7 @@ describe('ThemesOfWeekComponent', () => {
 
     it('should show 10 theme cards', () => {
       component.ngOnInit();
-      const themeList = div.querySelector('#theme-list');
+      const themeList = div.querySelector('.message');
       expect(themeList.querySelectorAll('app-theme-card').length).toBe(10);
     });
   });
@@ -97,7 +97,7 @@ describe('ThemesOfWeekComponent', () => {
 
     it('should show 20 theme cards', () => {
       component.ngOnInit();
-      const themeList = div.querySelector('#theme-list');
+      const themeList = div.querySelector('.message');
       expect(themeList.querySelectorAll('app-theme-card').length).toBe(20);
     });
 
@@ -127,7 +127,7 @@ describe('ThemesOfWeekComponent', () => {
 
     it('should have 2 theme cards', () => {
       component.ngOnInit();
-      const themeList = div.querySelector('#theme-list');
+      const themeList = div.querySelector('.message');
       expect(themeList.querySelectorAll('app-theme-card').length).toBe(2);
     });
   });

@@ -49,6 +49,8 @@ export class ActivityForecastListComponent implements OnInit {
 
       let todayDow = this.today.getDay();
       if (todayDow === 6) { todayDow = 0; } // group Sunday with Saturday
+
+
       data['activities'].forEach(v => {
         this.overwriteTitleDetailsFromHqComments(v);
 
@@ -81,29 +83,60 @@ export class ActivityForecastListComponent implements OnInit {
   }
 
   overwriteTitleDetailsFromHqComments(activity: Activity) {
-    let hqComments: string = activity.hqComments;
+    const hqComments: string = activity.hqComments;
     if (hqComments) {
-      while (true) {
-        let marker = '**';
-        let startPos: number = hqComments.indexOf(marker);
-        if (startPos === -1) {
-          marker = '_';
-          startPos = hqComments.indexOf(marker);
-        }
-        if (startPos === -1) { break; }
-        const endPos: number = hqComments.indexOf(marker, startPos + marker.length);
-        if (endPos === -1) { return; } // invalid
 
-        const toMarkdown: string = hqComments.substring(startPos + marker.length, endPos);
-        if (startPos === 0) {
-          activity.title = toMarkdown;
-          hqComments = hqComments.substring(endPos + marker.length);
-        } else {
-          hqComments = hqComments.substring(0, startPos) + toMarkdown + hqComments.substring(endPos + marker.length);
+      if (hqComments === '**') { return; }
+
+      activity.details = null;
+      activity.title = null;
+
+      const nthIndex = (haystack, needle, position) => {
+        const len = haystack.length;
+        let idx = -1;
+        while (position-- && idx++ < len) {
+            idx = haystack.indexOf(needle, idx);
+            if (idx < 0) {
+              break;
+            }
         }
+        return idx;
+      };
+
+      // bolded text surrounded by asterisks followed by text
+      let pattern = /\*{2}(.*?)\*{2}(.+)/g;
+      let matches = pattern.exec(hqComments);
+      if (matches) {
+        activity.title = matches[1].trim();
+        const startPos = nthIndex(hqComments, '**', 2);
+        activity.details = hqComments.substring(startPos, hqComments.length).replace(/\*/g, '').trim();
+        return;
       }
-      activity.details = hqComments;
-    }
+
+      // bold only
+      pattern = /^\*{2}(.*?)\*{2}$/g;
+      matches = pattern.exec(hqComments);
+      if (matches) {
+        activity.title = matches[1];
+        return;
+      }
+
+      // text followed by bolded text
+      pattern = /(.+)\*{2}(.*?)\*{2}/g;
+      matches = pattern.exec(hqComments);
+      if (matches) {
+        activity.title = `${matches[1].trim()} ${matches[2].replace(/\*/g, '').trim()}`;
+        return;
+      }
+
+      // any un-bolded text
+      pattern = /(.*)/g;
+      matches = pattern.exec(hqComments);
+      if (matches) {
+        activity.title = matches[1].trim();
+        return;
+      }
+   }
   }
 
   getStartDow(i: number) {
