@@ -44,12 +44,9 @@ export class SocialMediaPostListComponent implements OnInit, AfterViewInit, OnDe
     private browserService: BrowserInfoService,
     private alerts: AlertsService) {
     this.router.routeReuseStrategy.shouldReuseRoute = () => false;
-    this.internetExplorer = this.browserService.getBrowser();
-    if (!this.internetExplorer) {
-      this.resizeListener = this.renderer.listen('window', 'resize', (event) => {
-        this.setTimer(true);
-      });
-    }
+    this.resizeListener = this.renderer.listen('window', 'resize', (event) => {
+      this.setTimer(true);
+    });
   }
 
   ngOnInit() {
@@ -67,6 +64,7 @@ export class SocialMediaPostListComponent implements OnInit, AfterViewInit, OnDe
       this.filterBySocialMediaType = queryParams.type;
     });
     this.snowplowService.trackPageView();
+    this.internetExplorer = this.browserService.getBrowser();
     if (this.internetExplorer) {
       this.alerts.cancelable = true;
       this.alerts.showInfo(this.browserService.getIEDisclaimer());
