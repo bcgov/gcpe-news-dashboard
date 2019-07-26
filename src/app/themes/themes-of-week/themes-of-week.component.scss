@@ -11,21 +11,32 @@
 }
 
 .message {
-    padding: 1.25rem 0;
+    padding: 0.45rem 0;
     @include media-breakpoint-down(xs) {
         order: 2;
     }
 }
 
 .message-header {
-    border-bottom: 1px solid map-get($theme-colors, light);
-    padding-bottom: 10px;
-    margin-bottom: 17px;
     color: map-get($theme-colors, dark);
-    font-size: 0.9em;
+    border-bottom: 1px solid #D3D3D3;
+    padding-bottom: 15px;
+}
+
+.message-title {
+    padding-bottom: 0.5rem;
+    padding-top: 0.875rem;
+    border-bottom: 0.0625rem solid #D3D3D3;
 }
 
 .col-4 {
     padding-left:100px;
     color: map-get($theme-colors, medium);
+}
+
+span.message-title-info {
+    color: #c9c9c9;
+    margin-bottom: 0.5rem;
+    font-style: italic;
+    display: block;
 }
