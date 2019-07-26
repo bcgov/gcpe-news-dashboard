@@ -23,7 +23,7 @@ export class ThemesOfWeekComponent implements OnInit {
   ngOnInit() {
     this.route.data.subscribe(data => {
       if(typeof data['themes'] === 'undefined' || data['themes'] === null) {
-        this.alerts.showError('An error occurred while retrieving themes');
+        this.alerts.showError('An error occurred while retrieving messages');
         return;
       };
       this.themes = data['themes'].filter((theme) => !theme.isHighlighted && theme.isPublished);
