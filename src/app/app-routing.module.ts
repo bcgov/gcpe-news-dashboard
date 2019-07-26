@@ -42,7 +42,7 @@ const appRoutes: Routes = [
     }
   },
   {
-    path: 'themes-of-the-week',
+    path: 'message-centre',
     runGuardsAndResolvers: 'always',
     component: ThemesOfWeekComponent,
     resolve: { themes: MessageListResolver },
