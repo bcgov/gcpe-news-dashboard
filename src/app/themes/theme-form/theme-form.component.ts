@@ -86,7 +86,7 @@ export class ThemeFormComponent implements OnInit, OnDestroy {
         this.close();
       },
       () => {
-        this.handleError('Failed to create theme');
+        this.handleError('Failed to create message');
       }
     );
   }
@@ -98,7 +98,7 @@ export class ThemeFormComponent implements OnInit, OnDestroy {
         this.close();
       },
       () => {
-        this.handleError('Failed to update theme');
+        this.handleError('Failed to update message');
       }
     );
   }
