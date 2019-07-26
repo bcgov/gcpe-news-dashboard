@@ -117,9 +117,9 @@ export class ThemeFormComponent implements OnInit, OnDestroy {
 
   close() {
     if (this.theme.isPublished) {
-      this.router.navigate(['themes'], { queryParams: { type: 'Published' }});
+      this.router.navigate(['messages'], { queryParams: { type: 'Published' }});
     } else {
-      this.router.navigate(['themes'], { queryParams: { type: 'Drafts' }});
+      this.router.navigate(['messages'], { queryParams: { type: 'Drafts' }});
     }
   }
 
@@ -131,7 +131,7 @@ export class ThemeFormComponent implements OnInit, OnDestroy {
     this.messagesService.deleteMessage(this.theme.id)
     .subscribe(
       () => { this.close(); },
-      () => { this.handleError('Failed to delete theme'); }
+      () => { this.handleError('Failed to delete message'); }
     );
   }
 }
