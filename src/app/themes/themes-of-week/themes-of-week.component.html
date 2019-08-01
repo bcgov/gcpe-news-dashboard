@@ -1,11 +1,10 @@
-
 <app-hq-dashboard-sub-menu></app-hq-dashboard-sub-menu>
 <div id="theme-list-container" class="row pl-0 pr-0 pt-3">
     <div id="theme-list" [ngClass]="highlightedTheme ? 'col-sm-8' : 'col-sm-12'">
        <div *ngIf="highlightedTheme" class="message-body">
         <h5 *ngIf="highlightedTheme.title" class="message-title">IN FOCUS</h5>
         <span class="message-title-info mb-5">*IN FOCUS contains frequently updated content about the different ways our government is working to make life better for people. These are the stories we want to tell.</span>
-        <h6 *ngIf="highlightedTheme.title">{{highlightedTheme.title}}</h6>
+        <h5 *ngIf="highlightedTheme.title">{{highlightedTheme.title}}</h5>
         <p *ngIf="highlightedTheme.description" class="message-text justify-content-between">{{highlightedTheme.description}}</p>
       </div>
     </div>
@@ -17,3 +16,4 @@
       </ng-container>
     </div>
   </div>
+
