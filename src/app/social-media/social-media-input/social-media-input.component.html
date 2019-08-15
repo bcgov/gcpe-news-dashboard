@@ -11,7 +11,7 @@
     </div>
   </div>
 
-  <div *ngIf="socialmedia.length > 0 && !internetExplorer" id="new-social-media-input-list" class='masonry'>
+  <div *ngIf="socialmedia.length > 0 && !internetExplorer && !isMobile" id="new-social-media-input-list" class='masonry'>
       <div *ngFor="let item of socialmedia" [ngSwitch]="item.mediaType" class="item">
         <div class='content'>
             <div class="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups">
@@ -27,7 +27,7 @@
       </div>
     </div>
 
-    <div *ngIf="socialmedia.length > 0 && internetExplorer" id="social-media-input-list" class="card-columns">
+    <div *ngIf="socialmedia.length > 0 && (internetExplorer || isMobile)" id="social-media-input-list" class="card-columns">
         <div *ngFor="let item of socialmedia" [ngSwitch]="item.mediaType" class="card">
           <div class="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups">
             <button class="btn btn-link pin-social-media-post-btn mr-auto" type="button" (click)="pinSocialMediaPost(item)"><i class="fa fa-thumb-tack fa-lg" [className]="item.sortOrder!==0 ? 'fa fa-thumb-tack fa-lg unpinned': 'fa fa-thumb-tack fa-lg pinned'"></i></button>

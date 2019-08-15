@@ -1,6 +1,6 @@
 <app-hq-dashboard-sub-menu [userMinistriesForFilteringPosts]="userMinistriesForFilteringPosts"></app-hq-dashboard-sub-menu>
 <app-loading-spinner [isLoading]="isLoading && !internetExplorer"></app-loading-spinner>
-<div *ngIf="selectedPosts.length > 0 && !internetExplorer" id="new-post-list" class='masonry' [ngStyle]="{'visibility': isLoading? 'hidden': 'visible'}">
+<div *ngIf="selectedPosts.length > 0 && !internetExplorer && !isMobile" id="new-post-list" class='masonry' [ngStyle]="{'visibility': isLoading? 'hidden': 'visible'}">
   <div *ngFor="let post of selectedPosts" class="item">
     <div class='content' >
       <div class="facebook-post" *ngIf="post.fbAssetClass">
@@ -20,7 +20,7 @@
   </div>
 </div>
 
-<div *ngIf="selectedPosts.length > 0 && internetExplorer" id="post-list" class="card-columns pl-0 pr-0 pt-3">
+<div *ngIf="selectedPosts.length > 0 && (internetExplorer || isMobile)" id="post-list" class="card-columns pl-0 pr-0 pt-3">
   <div *ngFor="let post of selectedPosts" class="card">
     <blockquote *ngIf="post.fbAssetClass" class="{{post.fbAssetClass}}" attr.data-href="{{post.assetUrl}} | async" id="{{post.key}}"></blockquote>
     <div class="embed-responsive embed-responsive-16by9"  *ngIf="post.youtubeId">

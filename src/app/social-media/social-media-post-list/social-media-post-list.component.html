@@ -1,6 +1,6 @@
 <app-hq-dashboard-sub-menu [socialmediatypes]="socialmediatypes" ></app-hq-dashboard-sub-menu>
 <app-loading-spinner [isLoading]="isLoading && !internetExplorer"></app-loading-spinner>
-<div *ngIf="selectedSocialMedia.length > 0 && !internetExplorer" id="new-social-media-list" class='masonry'>
+<div *ngIf="selectedSocialMedia.length > 0 && !internetExplorer && !isMobile" id="new-social-media-list" class='masonry'>
   <div *ngFor="let post of selectedSocialMedia" class="item">
     <div class='content'>
       <app-social-media-post [postExt]="post" [isLoading]="isLoading"></app-social-media-post>
@@ -8,7 +8,7 @@
   </div>
 </div>
 
-<div *ngIf="selectedSocialMedia.length > 0 && internetExplorer" id="social-media-list" class="card-columns">
+<div *ngIf="selectedSocialMedia.length > 0 && (internetExplorer || isMobile)" id="social-media-list" class="card-columns">
   <div *ngFor="let item of selectedSocialMedia" [ngSwitch]="item.mediaType">
     <app-social-media-post [postExt]="item" [isLoading]="isLoading"></app-social-media-post>
   </div>
