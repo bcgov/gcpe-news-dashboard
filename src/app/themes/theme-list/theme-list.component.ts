@@ -28,7 +28,7 @@ export class ThemeListComponent implements OnInit {
 
   parseThemes(data) {
     if(typeof data['themelist'] === 'undefined' || data['themelist'] === null) {
-      this.handleError('An error occurred while retrieving themes');
+      this.handleError('An error occurred while retrieving messages');
       return;
     };
     this.themes = data['themelist'];
@@ -38,7 +38,7 @@ export class ThemeListComponent implements OnInit {
     this.messagesService.updateMessage(theme.id, {...theme, isPublished: false})
     .subscribe(
       () => { this.removeThemeFromList(theme.id); },
-      () => { this.handleError('Failed to unpublish theme'); }
+      () => { this.handleError('Failed to unpublish message'); }
     );
   }
 
@@ -57,7 +57,7 @@ export class ThemeListComponent implements OnInit {
       this.messagesService.updateMessage(this.themes[index].id, { ...this.themes[index], sortOrder: this.themes[index].sortOrder - 1 })
         .subscribe(result => {
           if (result.sortOrder >= this.themes[index].sortOrder) {
-            alert("Another user is also currently changing the order of themes");
+            alert("Another user is also currently changing the order of messages");
             return;
           }
           this.themes[index - 1].sortOrder = this.themes[index].sortOrder;
@@ -69,7 +69,7 @@ export class ThemeListComponent implements OnInit {
       this.messagesService.updateMessage(this.themes[index].id, { ...this.themes[index], sortOrder: this.themes[index].sortOrder + 1 })
         .subscribe(result => {
           if (result.sortOrder <= this.themes[index].sortOrder) {
-            alert("Another user is also currently changing the order of themes");
+            alert("Another user is also currently changing the order of messages");
             return;
           }
           this.themes[index + 1].sortOrder = this.themes[index].sortOrder;

@@ -42,7 +42,7 @@ const appRoutes: Routes = [
     }
   },
   {
-    path: 'themes-of-the-week',
+    path: 'message-centre',
     runGuardsAndResolvers: 'always',
     component: ThemesOfWeekComponent,
     resolve: { themes: MessageListResolver },
@@ -81,7 +81,7 @@ const appRoutes: Routes = [
     runGuardsAndResolvers: 'always'
   },
   {
-    path: 'themes',
+    path: 'messages',
     component: ThemeListComponent,
     canActivate: [AuthGuard, RoleGuard],
     data: {
@@ -91,7 +91,7 @@ const appRoutes: Routes = [
     runGuardsAndResolvers: 'paramsOrQueryParamsChange'
   },
   {
-    path: 'theme/new',
+    path: 'message/new',
     component: ThemeFormComponent,
     canActivate: [AuthGuard, RoleGuard],
     data: {
@@ -99,7 +99,7 @@ const appRoutes: Routes = [
     }
   },
   {
-    path: 'theme/edit/:id',
+    path: 'message/edit/:id',
     component: ThemeFormComponent,
     canActivate: [AuthGuard, RoleGuard],
     data: {

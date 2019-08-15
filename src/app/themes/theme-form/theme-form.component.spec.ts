@@ -131,11 +131,11 @@ describe('ThemeFormComponent', () => {
       const router = TestBed.get(Router);
       spyOn(router, 'navigate');
       component.close();
-      expect(router.navigate).toHaveBeenCalledWith(['themes'], { queryParams: { type: 'Drafts' }});
+      expect(router.navigate).toHaveBeenCalledWith(['messages'], { queryParams: { type: 'Drafts' }});
       component.theme.isPublished = true;
       component.close();
 
-      expect(router.navigate).toHaveBeenCalledWith(['themes'], { queryParams: { type: 'Published' }});
+      expect(router.navigate).toHaveBeenCalledWith(['messages'], { queryParams: { type: 'Published' }});
     });
 
     it('should close on delete message', () => {

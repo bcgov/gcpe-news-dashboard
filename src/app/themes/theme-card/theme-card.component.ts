@@ -19,7 +19,7 @@ export class ThemeCardComponent {
   constructor(private router: Router) {}
 
   navigateToTheme() {
-    this.router.navigate([`/theme/edit/${this.theme.id}`]);
+    this.router.navigate([`/message/edit/${this.theme.id}`]);
   }
 
   unpublish() {
