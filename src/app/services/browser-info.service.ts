@@ -16,6 +16,14 @@ export class BrowserInfoService {
     }
   }
 
+  isMobile(): boolean {
+    if (window.innerWidth <= 800 && window.innerHeight <= 600) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
   getIEDisclaimer(): string {
     return this.ieDisclaimerText;
   }
