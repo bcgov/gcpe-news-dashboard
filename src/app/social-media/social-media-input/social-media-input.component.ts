@@ -37,7 +37,7 @@ export class SocialMediaInputComponent implements OnInit, AfterViewInit, OnDestr
   private resizeListener: any;
 
   internetExplorer = false;
-  public isMobile: boolean;
+  isMobile = false;
 
   constructor(
     private router: Router,

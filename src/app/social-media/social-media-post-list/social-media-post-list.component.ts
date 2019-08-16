@@ -34,7 +34,7 @@ export class SocialMediaPostListComponent implements OnInit, AfterViewInit, OnDe
   private resizeListener: any;
 
   internetExplorer = false;
-  public isMobile: boolean;
+  isMobile = false;
 
   constructor(
     private router: Router,
