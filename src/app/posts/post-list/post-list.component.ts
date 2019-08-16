@@ -38,7 +38,7 @@ export class PostListComponent implements OnInit, AfterViewInit, OnDestroy {
 
   isLoading = true;
   internetExplorer = false;
-  public isMobile: boolean;
+  isMobile = false;
 
   constructor(
     private router: Router,
