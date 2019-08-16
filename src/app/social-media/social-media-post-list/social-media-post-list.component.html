@@ -1,5 +1,5 @@
 <app-hq-dashboard-sub-menu [socialmediatypes]="socialmediatypes" ></app-hq-dashboard-sub-menu>
-<app-loading-spinner [isLoading]="isLoading && !internetExplorer"></app-loading-spinner>
+<app-loading-spinner [isLoading]="isLoading && !internetExplorer && !isMobile"></app-loading-spinner>
 <div *ngIf="selectedSocialMedia.length > 0 && !internetExplorer && !isMobile" id="new-social-media-list" class='masonry'>
   <div *ngFor="let post of selectedSocialMedia" class="item">
     <div class='content'>
