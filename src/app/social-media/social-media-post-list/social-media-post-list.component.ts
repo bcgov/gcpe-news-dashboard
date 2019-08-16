@@ -34,6 +34,7 @@ export class SocialMediaPostListComponent implements OnInit, AfterViewInit, OnDe
   private resizeListener: any;
 
   internetExplorer = false;
+  public isMobile: boolean;
 
   constructor(
     private router: Router,
@@ -65,6 +66,7 @@ export class SocialMediaPostListComponent implements OnInit, AfterViewInit, OnDe
     });
     this.snowplowService.trackPageView();
     this.internetExplorer = this.browserService.getBrowser();
+    this.isMobile = this.browserService.isMobile();
     if (this.internetExplorer) {
       this.alerts.cancelable = true;
       this.alerts.showInfo(this.browserService.getIEDisclaimer());

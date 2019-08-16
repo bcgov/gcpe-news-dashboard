@@ -37,6 +37,7 @@ export class SocialMediaInputComponent implements OnInit, AfterViewInit, OnDestr
   private resizeListener: any;
 
   internetExplorer = false;
+  public isMobile: boolean;
 
   constructor(
     private router: Router,
@@ -51,7 +52,6 @@ export class SocialMediaInputComponent implements OnInit, AfterViewInit, OnDestr
     this.resizeListener = this.renderer.listen('window', 'resize', (event) => {
       this.setTimer(true);
     });
-    this.internetExplorer = this.browserService.getBrowser();
   }
 
   ngOnInit() {
@@ -59,6 +59,8 @@ export class SocialMediaInputComponent implements OnInit, AfterViewInit, OnDestr
       this.socialmedia = data['socialmedia'];
     });
     this.snowplowService.trackPageView();
+    this.internetExplorer = this.browserService.getBrowser();
+    this.isMobile = this.browserService.isMobile();
     if (this.internetExplorer) {
       this.alerts.cancelable = true;
       this.alerts.showInfo(this.browserService.getIEDisclaimer());
