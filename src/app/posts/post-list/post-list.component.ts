@@ -38,6 +38,7 @@ export class PostListComponent implements OnInit, AfterViewInit, OnDestroy {
 
   isLoading = true;
   internetExplorer = false;
+  public isMobile: boolean;
 
   constructor(
     private router: Router,
@@ -106,6 +107,7 @@ export class PostListComponent implements OnInit, AfterViewInit, OnDestroy {
       });
     });
     this.internetExplorer = this.browserService.getBrowser();
+    this.isMobile = this.browserService.isMobile();
     this.snowplowService.trackPageView();
     if (this.internetExplorer) {
       this.alerts.cancelable = true;
