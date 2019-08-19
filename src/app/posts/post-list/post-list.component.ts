@@ -117,6 +117,9 @@ export class PostListComponent implements OnInit, AfterViewInit, OnDestroy {
 
   ngAfterViewInit() {
     this.setTimer();
+    if (this.isMobile || this.internetExplorer) {
+      this.isLoading = false;
+    }
   }
 
   ngOnDestroy() {

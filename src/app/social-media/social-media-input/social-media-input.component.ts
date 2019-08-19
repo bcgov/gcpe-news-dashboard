@@ -69,6 +69,9 @@ export class SocialMediaInputComponent implements OnInit, AfterViewInit, OnDestr
 
   ngAfterViewInit() {
     this.setTimer(false);
+    if (this.isMobile || this.internetExplorer) {
+      this.isLoading = false;
+    }
   }
 
   ngOnDestroy() {
