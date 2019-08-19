@@ -40,22 +40,5 @@
           <app-social-media-post [postExt]="item"></app-social-media-post>
         </div>
     </div>
-<!--
-<div id="social-media-input-list" class="card-columns">
-
-    <div *ngFor="let item of socialmedia" [ngSwitch]="item.mediaType" class="card">
-      <div class="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups">
-        <button class="btn btn-link pin-social-media-post-btn mr-auto" type="button" (click)="pinSocialMediaPost(item)"><i class="fa fa-thumb-tack fa-lg" [className]="item.sortOrder!==0 ? 'fa fa-thumb-tack fa-lg unpinned': 'fa fa-thumb-tack fa-lg pinned'"></i></button>
-        <div *ngIf="item.id===deleteConfirmationId; else deleteBtn" class="delete-confirmation">
-          <button class="btn btn-link btn-red" (click)="confirmDeleteSocialMediaPost(item)">Delete</button>
-          <button class="btn btn-link" (click)="deleteConfirmationId=''">Cancel</button>
-        </div>
-        <ng-template #deleteBtn><button class="btn btn-link delete-social-media-post-btn" type="button" (click)="deleteSocialMediaPost(item)"><i class="fa fa-times fa-lg"></i></button></ng-template>
-      </div>
-      <app-social-media-post [postExt]="item"></app-social-media-post>
-    </div>
-  </div>
--->
-
 </div>
 
