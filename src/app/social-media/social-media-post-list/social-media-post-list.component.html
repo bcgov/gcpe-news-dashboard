@@ -20,3 +20,12 @@
     </div>
   </div>
 </div>
+<div *ngIf="selectedSocialMedia.length == 0 && !isLoading">
+  <div id="no-social-media-post-list" class="pl-0 pr-0 pt-3 pb-3">
+    <div class="card">
+      <div class="card-body">
+        <h5 class="card-title mb-0">No posts available</h5>
+      </div>
+    </div>
+  </div>
+</div>

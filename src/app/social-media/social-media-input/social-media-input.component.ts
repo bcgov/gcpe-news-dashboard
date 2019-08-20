@@ -22,7 +22,6 @@ const SocialMediaListDivName = 'new-social-media-input-list';
 
 export class SocialMediaInputComponent implements OnInit, AfterViewInit, OnDestroy {
   socialmedia: SocialMediaPostExtended[];
-  selectedSocialMedia: SocialMediaPostExtended[];
 
   socialmediatypes: SocialMediaType[];
   filterBySocialMediaType: string;
@@ -68,8 +67,10 @@ export class SocialMediaInputComponent implements OnInit, AfterViewInit, OnDestr
   }
 
   ngAfterViewInit() {
-    this.setTimer(false);
-    if (this.isMobile || this.internetExplorer) {
+    if (this.socialmedia.length > 0 ) {
+      this.setTimer(false);
+    }
+    if (this.isMobile || this.internetExplorer || this.socialmedia.length === 0) {
       this.isLoading = false;
     }
   }
