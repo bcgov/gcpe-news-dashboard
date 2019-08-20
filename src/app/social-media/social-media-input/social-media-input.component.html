@@ -2,7 +2,7 @@
 <!--
 
 -->
-<div id="admin-social-media-list-input-form" class="container-fluid pl-0 pr-0 pt-5" [ngClass]="{'hidden': isLoading}">
+<div id="admin-social-media-list-input-form" class="container-fluid pl-0 pr-0 pt-5" [ngClass]="{'hidden': isLoading && (!internetExplorer && !isMobile)}">
   <div class="header">
     <h2 class="d-inline-block">Edit Social Media</h2>
     <div class="btn-group pull-right">
@@ -11,7 +11,7 @@
     </div>
   </div>
 
-  <div *ngIf="socialmedia.length > 0 && !internetExplorer && !isMobile" id="new-social-media-input-list" class='masonry'>
+  <div *ngIf="socialmedia.length > 0 &&  (!internetExplorer && !isMobile)" id="new-social-media-input-list" class='masonry'>
       <div *ngFor="let item of socialmedia" [ngSwitch]="item.mediaType" class="item">
         <div class='content'>
             <div class="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups">
@@ -22,7 +22,7 @@
                 </div>
                 <ng-template #deleteBtn><button class="btn btn-link delete-social-media-post-btn" type="button" (click)="deleteSocialMediaPost(item)"><i class="fa fa-times fa-lg"></i></button></ng-template>
               </div>
-              <app-social-media-post [postExt]="item"></app-social-media-post>
+              <app-social-media-post [postExt]="item" [isLoading]="isLoading"></app-social-media-post>
         </div>
       </div>
     </div>
@@ -37,7 +37,7 @@
             </div>
             <ng-template #deleteBtn><button class="btn btn-link delete-social-media-post-btn" type="button" (click)="deleteSocialMediaPost(item)"><i class="fa fa-times fa-lg"></i></button></ng-template>
           </div>
-          <app-social-media-post [postExt]="item"></app-social-media-post>
+          <app-social-media-post [postExt]="item" [isLoading]="(isLoading && internetExplorer)"></app-social-media-post>
         </div>
     </div>
 </div>
