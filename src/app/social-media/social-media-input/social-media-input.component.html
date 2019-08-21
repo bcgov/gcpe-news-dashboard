@@ -1,8 +1,8 @@
-<app-loading-spinner [isLoading]="isLoading && (!internetExplorer && !isMobile)"></app-loading-spinner>
+<app-loading-spinner [isLoading]="isLoading"></app-loading-spinner>
 <!--
 
 -->
-<div id="admin-social-media-list-input-form" class="container-fluid pl-0 pr-0 pt-5" [ngClass]="{'hidden': isLoading && (!internetExplorer && !isMobile)}">
+<div id="admin-social-media-list-input-form" class="container-fluid pl-0 pr-0 pt-5" [ngClass]="{'hidden': isLoading}">
   <div class="header">
     <h2 class="d-inline-block">Edit Social Media</h2>
     <div class="btn-group pull-right">
@@ -11,7 +11,7 @@
     </div>
   </div>
 
-  <div *ngIf="socialmedia.length > 0 &&  (!internetExplorer && !isMobile)" id="new-social-media-input-list" class='masonry'>
+  <div *ngIf="socialmedia.length > 0 && !internetExplorer" id="new-social-media-input-list" class='masonry'>
       <div *ngFor="let item of socialmedia" [ngSwitch]="item.mediaType" class="item">
         <div class='content'>
             <div class="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups">
@@ -22,12 +22,12 @@
                 </div>
                 <ng-template #deleteBtn><button class="btn btn-link delete-social-media-post-btn" type="button" (click)="deleteSocialMediaPost(item)"><i class="fa fa-times fa-lg"></i></button></ng-template>
               </div>
-              <app-social-media-post [postExt]="item" [isLoading]="isLoading"></app-social-media-post>
+              <app-social-media-post [postExt]="item"></app-social-media-post>
         </div>
       </div>
     </div>
 
-    <div *ngIf="socialmedia.length > 0 && (internetExplorer || isMobile)" id="social-media-input-list" class="card-columns">
+    <div *ngIf="socialmedia.length > 0 && internetExplorer" id="social-media-input-list" class="card-columns">
         <div *ngFor="let item of socialmedia" [ngSwitch]="item.mediaType" class="card">
           <div class="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups">
             <button class="btn btn-link pin-social-media-post-btn mr-auto" type="button" (click)="pinSocialMediaPost(item)"><i class="fa fa-thumb-tack fa-lg" [className]="item.sortOrder!==0 ? 'fa fa-thumb-tack fa-lg unpinned': 'fa fa-thumb-tack fa-lg pinned'"></i></button>
@@ -37,17 +37,25 @@
             </div>
             <ng-template #deleteBtn><button class="btn btn-link delete-social-media-post-btn" type="button" (click)="deleteSocialMediaPost(item)"><i class="fa fa-times fa-lg"></i></button></ng-template>
           </div>
-          <app-social-media-post [postExt]="item" [isLoading]="(isLoading && internetExplorer)"></app-social-media-post>
+          <app-social-media-post [postExt]="item"></app-social-media-post>
         </div>
     </div>
-</div>
-<div *ngIf="socialmedia.length == 0">
-  <div id="no-social-media-post-input-list" class="pl-0 pr-0 pt-3 pb-3">
-    <div class="card">
-      <div class="card-body">
-        <h5 class="card-title mb-0">No posts available</h5>
+<!--
+<div id="social-media-input-list" class="card-columns">
+
+    <div *ngFor="let item of socialmedia" [ngSwitch]="item.mediaType" class="card">
+      <div class="btn-toolbar" role="toolbar" aria-label="Toolbar with button groups">
+        <button class="btn btn-link pin-social-media-post-btn mr-auto" type="button" (click)="pinSocialMediaPost(item)"><i class="fa fa-thumb-tack fa-lg" [className]="item.sortOrder!==0 ? 'fa fa-thumb-tack fa-lg unpinned': 'fa fa-thumb-tack fa-lg pinned'"></i></button>
+        <div *ngIf="item.id===deleteConfirmationId; else deleteBtn" class="delete-confirmation">
+          <button class="btn btn-link btn-red" (click)="confirmDeleteSocialMediaPost(item)">Delete</button>
+          <button class="btn btn-link" (click)="deleteConfirmationId=''">Cancel</button>
+        </div>
+        <ng-template #deleteBtn><button class="btn btn-link delete-social-media-post-btn" type="button" (click)="deleteSocialMediaPost(item)"><i class="fa fa-times fa-lg"></i></button></ng-template>
       </div>
+      <app-social-media-post [postExt]="item"></app-social-media-post>
     </div>
   </div>
+-->
+
 </div>
 

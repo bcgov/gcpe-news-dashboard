@@ -22,6 +22,7 @@ const SocialMediaListDivName = 'new-social-media-input-list';
 
 export class SocialMediaInputComponent implements OnInit, AfterViewInit, OnDestroy {
   socialmedia: SocialMediaPostExtended[];
+  selectedSocialMedia: SocialMediaPostExtended[];
 
   socialmediatypes: SocialMediaType[];
   filterBySocialMediaType: string;
@@ -35,8 +36,7 @@ export class SocialMediaInputComponent implements OnInit, AfterViewInit, OnDestr
   private fbEvents: Observable<any>;
   private resizeListener: any;
 
-  internetExplorer = false;
-  isMobile = false;
+  private internetExplorer = false;
 
   constructor(
     private router: Router,
@@ -51,6 +51,7 @@ export class SocialMediaInputComponent implements OnInit, AfterViewInit, OnDestr
     this.resizeListener = this.renderer.listen('window', 'resize', (event) => {
       this.setTimer(true);
     });
+    this.internetExplorer = this.browserService.getBrowser();
   }
 
   ngOnInit() {
@@ -58,8 +59,6 @@ export class SocialMediaInputComponent implements OnInit, AfterViewInit, OnDestr
       this.socialmedia = data['socialmedia'];
     });
     this.snowplowService.trackPageView();
-    this.internetExplorer = this.browserService.getBrowser();
-    this.isMobile = this.browserService.isMobile();
     if (this.internetExplorer) {
       this.alerts.cancelable = true;
       this.alerts.showInfo(this.browserService.getIEDisclaimer());
@@ -67,12 +66,9 @@ export class SocialMediaInputComponent implements OnInit, AfterViewInit, OnDestr
   }
 
   ngAfterViewInit() {
-    if (this.socialmedia.length > 0 ) {
-      this.setTimer(false);
-    }
-    if (this.isMobile || this.internetExplorer || this.socialmedia.length === 0) {
-      this.isLoading = false;
-    }
+    const selectedSocialmediatypes = [];
+    //this.subscription = this.socialMediaRenderService.loadSocialMediaList(false, this.socialmedia, SocialMediaListDivName);
+    this.setTimer(false);
   }
 
   ngOnDestroy() {

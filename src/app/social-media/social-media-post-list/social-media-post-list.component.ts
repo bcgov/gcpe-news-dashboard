@@ -33,8 +33,7 @@ export class SocialMediaPostListComponent implements OnInit, AfterViewInit, OnDe
   private fbEvents: Observable<any>;
   private resizeListener: any;
 
-  internetExplorer = false;
-  isMobile = false;
+  private internetExplorer = false;
 
   constructor(
     private router: Router,
@@ -45,9 +44,12 @@ export class SocialMediaPostListComponent implements OnInit, AfterViewInit, OnDe
     private browserService: BrowserInfoService,
     private alerts: AlertsService) {
     this.router.routeReuseStrategy.shouldReuseRoute = () => false;
-    this.resizeListener = this.renderer.listen('window', 'resize', (event) => {
-      this.setTimer(true);
-    });
+    this.internetExplorer = this.browserService.getBrowser();
+    if (!this.internetExplorer) {
+      this.resizeListener = this.renderer.listen('window', 'resize', (event) => {
+        this.setTimer(true);
+      });
+    }
   }
 
   ngOnInit() {
@@ -65,8 +67,6 @@ export class SocialMediaPostListComponent implements OnInit, AfterViewInit, OnDe
       this.filterBySocialMediaType = queryParams.type;
     });
     this.snowplowService.trackPageView();
-    this.internetExplorer = this.browserService.getBrowser();
-    this.isMobile = this.browserService.isMobile();
     if (this.internetExplorer) {
       this.alerts.cancelable = true;
       this.alerts.showInfo(this.browserService.getIEDisclaimer());
@@ -74,12 +74,7 @@ export class SocialMediaPostListComponent implements OnInit, AfterViewInit, OnDe
   }
 
   ngAfterViewInit() {
-    if (this.selectedSocialMedia.length > 0) {
-      this.setTimer(false);
-    }
-    if (this.isMobile || this.internetExplorer || this.selectedSocialMedia.length === 0) {
-      this.isLoading = false;
-    }
+    this.setTimer(false);
   }
 
   ngOnDestroy() {
