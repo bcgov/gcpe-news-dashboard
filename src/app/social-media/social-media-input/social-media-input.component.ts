@@ -22,7 +22,6 @@ const SocialMediaListDivName = 'new-social-media-input-list';
 
 export class SocialMediaInputComponent implements OnInit, AfterViewInit, OnDestroy {
   socialmedia: SocialMediaPostExtended[];
-  selectedSocialMedia: SocialMediaPostExtended[];
 
   socialmediatypes: SocialMediaType[];
   filterBySocialMediaType: string;
