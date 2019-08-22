@@ -1,4 +1,4 @@
-<app-loading-spinner [isLoading]="isLoading"></app-loading-spinner>
+<app-loading-spinner [isLoading]="isLoading && !internetExplorer && !isMobile"></app-loading-spinner>
 <div id="admin-social-media-list-input-form" class="container-fluid pl-0 pr-0 pt-5" [ngClass]="{'hidden': isLoading}">
   <div class="header">
     <h2 class="d-inline-block">Edit Social Media</h2>
