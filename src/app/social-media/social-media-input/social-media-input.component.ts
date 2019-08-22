@@ -67,10 +67,9 @@ export class SocialMediaInputComponent implements OnInit, AfterViewInit, OnDestr
   }
 
   ngAfterViewInit() {
-    if (this.socialmedia.length > 0 ) {
-      this.setTimer(false);
-    }
-    if (this.isMobile || this.internetExplorer || this.socialmedia.length === 0) {
+    const selectedSocialmediatypes = [];
+    this.setTimer(false);
+    if (this.internetExplorer || this.isMobile || this.socialmedia.length === 0) {
       this.isLoading = false;
     }
   }
@@ -131,7 +130,7 @@ export class SocialMediaInputComponent implements OnInit, AfterViewInit, OnDestr
 
   setTimer(isResize: boolean) {
     this.isLoading = true;
-    if (!this.internetExplorer) {
+    if (!this.internetExplorer && !this.isMobile) {
       if (isResize) {
         this.socialMediaRenderService.toggleTwitterPosts(false);
       } else {

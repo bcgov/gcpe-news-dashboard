@@ -45,9 +45,11 @@ export class SocialMediaPostListComponent implements OnInit, AfterViewInit, OnDe
     private browserService: BrowserInfoService,
     private alerts: AlertsService) {
     this.router.routeReuseStrategy.shouldReuseRoute = () => false;
-    this.resizeListener = this.renderer.listen('window', 'resize', (event) => {
-      this.setTimer(true);
-    });
+    if (!this.internetExplorer) {
+      this.resizeListener = this.renderer.listen('window', 'resize', (event) => {
+        this.setTimer(true);
+      });
+    }
   }
 
   ngOnInit() {
@@ -74,10 +76,8 @@ export class SocialMediaPostListComponent implements OnInit, AfterViewInit, OnDe
   }
 
   ngAfterViewInit() {
-    if (this.selectedSocialMedia.length > 0) {
-      this.setTimer(false);
-    }
-    if (this.isMobile || this.internetExplorer || this.selectedSocialMedia.length === 0) {
+    this.setTimer(false);
+    if (this.internetExplorer || this.isMobile || this.selectedSocialMedia.length === 0) {
       this.isLoading = false;
     }
   }
@@ -94,7 +94,7 @@ export class SocialMediaPostListComponent implements OnInit, AfterViewInit, OnDe
 
   setTimer(isResize: boolean) {
     this.isLoading = true;
-    if (!this.internetExplorer) {
+    if (!this.internetExplorer && !this.isMobile) {
       if (isResize) {
         this.socialMediaRenderService.toggleTwitterPosts(false);
       } else {
