@@ -18,8 +18,8 @@ const reg = '(https?://)?([\\da-z.-]+)\\.([a-z.]{2,6})[/\\w .-=\\?\\&-]*/?';
 })
 
 export class AddSocialMediaPostComponent implements OnInit {
-  @ViewChild('previewPost', { read: ViewContainerRef }) previewPost: ViewContainerRef;
-  @ViewChild('preview') tpl: TemplateRef<any>;
+  @ViewChild('previewPost', { read: ViewContainerRef, static: true }) previewPost: ViewContainerRef;
+  @ViewChild('preview', { static: true }) tpl: TemplateRef<any>;
 
   addSocialMediaPostForm: FormGroup;
   url: string;
