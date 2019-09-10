@@ -2,7 +2,7 @@
 FROM centos/nodejs-10-centos7
 
 
-ENV PATH="/opt/rh/rh-nodejs8/root/usr/bin/:$PATH"
+ENV PATH="/opt/rh/rh-nodejs10/root/usr/bin/:$PATH"
 
 # Switch to root for package installs
 USER 0
