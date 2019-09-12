@@ -1,17 +1,17 @@
 # GCPE News Dashboard
 
 BC Gov News Dashboard frontend application for keeping Ministry Offices and stakeholders informed.
-This application is built with Angular 7.
+This application is built with Angular 8.
 
 ## Prerequisites
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 7.0.3 and requires the following:
+This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 8.3.3 and requires the following:
 
 #### Node and NPM
 
 **Node Version Requirement**
 
-Angular CLI and the generated project requires [Node 8.9](https://nodejs.org/en/) or higher, together with NPM 5.5.1 or higher.  You can manage multiple versions of Node on the same machine with [nvm](https://github.com/creationix/nvm) or [nvm-windows](https://github.com/coreybutler/nvm-windows).
+Angular CLI and the generated project requires [Node 10.0](https://nodejs.org/en/) or higher, together with NPM 5.5.1 or higher.  You can manage multiple versions of Node on the same machine with [nvm](https://github.com/creationix/nvm) or [nvm-windows](https://github.com/coreybutler/nvm-windows).
 
 :warning: NOTE: You’ll need to have Node on your **local development machine** (but it’s not required on the server).
 
