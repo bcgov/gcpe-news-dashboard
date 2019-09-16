@@ -1,5 +1,5 @@
 # base image - latest LTS
-FROM node:carbon
+FROM node:dubnium
 
 # install chrome for protractor tests
 RUN wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | apt-key add -
