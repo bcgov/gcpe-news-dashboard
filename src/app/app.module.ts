@@ -56,6 +56,7 @@ import { HomeComponent } from './home/home.component';
 import { UtilsService } from './services/utils.service';
 import { MinistriesProvider } from './_providers/ministries.provider';
 import { SnowplowService } from './services/snowplow.service';
+import { DatePipe } from '@angular/common';
 
 const appInitializerFn = (appConfig: AppConfigService) => {
   return () => {
@@ -124,6 +125,7 @@ export function ministriesProviderFactory(provider: MinistriesProvider) {
       deps: [MinistriesProvider],
       multi: true
     },
+    DatePipe,
     // Services
     { provide: AuthProvider, useFactory: AuthProviderFactory, deps: [AppConfigService, OAuthService] },
     ActivitiesService,
