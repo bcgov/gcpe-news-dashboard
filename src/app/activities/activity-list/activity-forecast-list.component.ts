@@ -167,7 +167,11 @@ export class ActivityForecastListComponent implements OnInit {
     return new Date(this.today.valueOf() + i * this.msInaDay);
   }
 
+<<<<<<< HEAD
   getFormattedStartDate(activity: Activity): String {
+=======
+  getFormattedStartDate(activity: Activity) {
+>>>>>>> ecda13d40f95346a8e4ed0ad19841311ed72597e
 
     // all day activity
     if (activity.isAllDay === true) {
