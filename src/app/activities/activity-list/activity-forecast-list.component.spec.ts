@@ -167,4 +167,91 @@ describe('ActivityForecastListComponent', () => {
     component.overwriteTitleDetailsFromHqComments(activity);
     expect(activity.title).toBe('hq comment');
   });
+
+  it('should be an all day activity if all day is set to true', () => {
+    const activity = <Activity> new MockActivity('');
+    activity.isAllDay = true;
+    const displayTime = component.getFormattedStartDate(activity);
+    expect(displayTime).toBe('All Day');
+  });
+
+  it('should display the release date time if it is populated', () => {
+    const activity = <Activity> new MockActivity('');
+    const d = new Date(2019, 11, 26, 10, 0, 0, 0);
+    activity.nrDateTime = d;
+    const displayTime = component.getFormattedStartDate(activity);
+    expect(displayTime).toBe('10 am');
+  });
+
+  it('should display the release date time as HH:MM if it is populated and it is not top of the hour', () => {
+    const activity = <Activity> new MockActivity('');
+    const d = new Date(2019, 11, 26, 10, 30, 0, 0);
+    activity.nrDateTime = d;
+    const displayTime = component.getFormattedStartDate(activity);
+    expect(displayTime).toBe('10:30 am');
+  });
+
+  it('should display the release date time as Midnight if it is populated and it is 12:00 am', () => {
+    const activity = <Activity> new MockActivity('');
+    const d = new Date(2019, 11, 26, 0, 0, 0, 0);
+    activity.nrDateTime = d;
+    const displayTime = component.getFormattedStartDate(activity);
+    expect(displayTime).toBe('Midnight');
+  });
+
+  it('should display the release date time as Noon if it is populated and it is 12:00 pm', () => {
+    const activity = <Activity> new MockActivity('');
+    const d = new Date(2019, 11, 26, 12, 0, 0, 0);
+    activity.nrDateTime = d;
+    const displayTime = component.getFormattedStartDate(activity);
+    expect(displayTime).toBe('Noon');
+  });
+
+  it('should display Time TBD if the activity is not confirmed and it starts at 8 am and ends at 6 pm', () => {
+    const activity = <Activity> new MockActivity('');
+    activity.nrDateTime = null; // has to be done explicitly to mimic what's done in real data
+    activity.isConfirmed = false;
+    const startDate = new Date(2019, 11, 26, 8, 0, 0, 0);
+    const endDate = new Date(2019, 11, 26, 18, 0, 0, 0);
+    activity.startDateTime = startDate;
+    activity.endDateTime = endDate;
+    const displayTime = component.getFormattedStartDate(activity);
+    expect(displayTime).toBe('Time TBD');
+  });
+
+  it('should display the start date time if it is populated', () => {
+    const activity = <Activity> new MockActivity('');
+    const d = new Date(2019, 11, 26, 10, 0, 0, 0);
+    activity.nrDateTime = null;
+    activity.startDateTime = d;
+    const displayTime = component.getFormattedStartDate(activity);
+    expect(displayTime).toBe('10 am');
+  });
+
+  it('should display the start date time as HH:MM if it is populated and it is not top of the hour', () => {
+    const activity = <Activity> new MockActivity('');
+    const d = new Date(2019, 11, 26, 10, 30, 0, 0);
+    activity.nrDateTime = null;
+    activity.startDateTime = d;
+    const displayTime = component.getFormattedStartDate(activity);
+    expect(displayTime).toBe('10:30 am');
+  });
+
+  it('should display the start date time as Midnight if it is populated and it is 12:00 am', () => {
+    const activity = <Activity> new MockActivity('');
+    const d = new Date(2019, 11, 26, 0, 0, 0, 0);
+    activity.nrDateTime = null;
+    activity.startDateTime = d;
+    const displayTime = component.getFormattedStartDate(activity);
+    expect(displayTime).toBe('Midnight');
+  });
+
+  it('should display the start date time as Noon if it is populated and it is 12:00 pm', () => {
+    const activity = <Activity> new MockActivity('');
+    const d = new Date(2019, 11, 26, 12, 0, 0, 0);
+    activity.nrDateTime = null;
+    activity.startDateTime = d;
+    const displayTime = component.getFormattedStartDate(activity);
+    expect(displayTime).toBe('Noon');
+  });
 });
