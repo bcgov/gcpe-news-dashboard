@@ -6,6 +6,7 @@ import { WeekDay } from '@angular/common';
 import { AlertsService } from 'src/app/services/alerts.service';
 import { UtilsService } from 'src/app/services/utils.service';
 import { SnowplowService } from '../../services/snowplow.service';
+import { DatePipe } from '@angular/common';
 
 @Component({
   selector: 'app-activity-forecast-list',
@@ -29,7 +30,8 @@ export class ActivityForecastListComponent implements OnInit {
     appConfig: AppConfigService,
     private alerts: AlertsService,
     private utils: UtilsService,
-    private snowplowService: SnowplowService) {
+    private snowplowService: SnowplowService,
+    private datePipe: DatePipe) {
     this.BASE_HUB_URL = appConfig.config.HUB_URL;
   }
 
@@ -163,5 +165,61 @@ export class ActivityForecastListComponent implements OnInit {
   getStartDate(i: number) {
     if (i + this.today.getDay() > 6) { i++; } // for the week-end
     return new Date(this.today.valueOf() + i * this.msInaDay);
+  }
+
+  getFormattedStartDate(activity: Activity) {
+
+    // all day activity
+    if (activity.isAllDay === true) {
+      return 'All Day';
+    }
+
+    // release date time is filled in
+    if (activity.nrDateTime !== null) {
+      const releaseDate = this.datePipe.transform(activity.nrDateTime, 'shortTime').toLowerCase();
+
+      if (releaseDate.indexOf(':00') > -1) {
+         const formattedReleaseDate = releaseDate.replace(':00', '');
+
+        if (formattedReleaseDate === '12 pm') {
+          return 'Noon';
+        }
+
+        if (formattedReleaseDate === '12 am') {
+          return 'Midnight';
+        }
+
+        return formattedReleaseDate;
+      } else {
+        return releaseDate;
+      }
+    }
+
+    // activity is between 8 am and 6 pm and is not confirmed
+    if (activity.isConfirmed === false
+      && this.datePipe.transform(activity.startDateTime, 'shortTime').toLowerCase().indexOf(':00') > -1
+      && this.datePipe.transform(activity.endDateTime, 'shortTime').toLowerCase().indexOf(':00') > -1
+      && this.datePipe.transform(activity.startDateTime, 'shortTime').toLowerCase().replace(':00', '') === '8 am'
+      && this.datePipe.transform(activity.endDateTime, 'shortTime').toLowerCase().replace(':00', '') === '6 pm') {
+      return 'Time TBD';
+    }
+
+    // default start date case
+    const startDate = this.datePipe.transform(activity.startDateTime, 'shortTime').toLowerCase();
+    if (startDate.indexOf(':00') > -1) {
+      const formattedStartDate = startDate.replace(':00', '');
+
+        if (formattedStartDate === '12 pm') {
+          return 'Noon';
+        }
+
+        if (formattedStartDate === '12 am') {
+          return 'Midnight';
+        }
+
+        return formattedStartDate;
+    }
+
+    return this.datePipe.transform(activity.startDateTime, 'shortTime').toLowerCase();
   }
 }

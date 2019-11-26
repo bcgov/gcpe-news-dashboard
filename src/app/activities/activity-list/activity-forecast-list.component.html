@@ -13,7 +13,10 @@
                 <p class="card-text">
                   {{activity.details}}
                 </p>
-                <span class="text-muted card-ministry-abbr">{{activity.contactMinistryAbbreviation}}-{{activity.id}}</span>
+                <div class="row">
+                  <div class="col text-left">{{getFormattedStartDate(activity)}}</div>
+                  <div class="col text-right">{{activity.contactMinistryAbbreviation}}-{{activity.id}}</div>
+                </div>
               </div>
             </div>
         </div>
