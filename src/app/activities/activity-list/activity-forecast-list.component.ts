@@ -88,7 +88,8 @@ export class ActivityForecastListComponent implements OnInit {
     const hqComments: string = activity.hqComments;
     if (hqComments) {
 
-      if (hqComments === '**') { return; }
+      // hqSection being === 4 means not assigned to a section of the look ahead
+      if (hqComments === '**' && !activity.isConfidential && activity.hqSection !== 4) { return; }
 
       activity.details = null;
       activity.title = null;
@@ -166,7 +167,7 @@ export class ActivityForecastListComponent implements OnInit {
     if (i + this.today.getDay() > 6) { i++; } // for the week-end
     return new Date(this.today.valueOf() + i * this.msInaDay);
   }
-  
+
   getFormattedStartDate(activity: Activity): String {
     // all day activity
     if (activity.isAllDay === true) {
