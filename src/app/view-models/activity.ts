@@ -31,8 +31,10 @@ export interface Activity {
     otherCity?: string;
     isActive?: boolean;
     isConfirmed?: boolean;
+    isConfidential?: boolean;
     isIssue?: boolean;
     isAllDay?: boolean;
+    hqSection?: number;
     nrDateTime?: Date;
     lastUpdatedDateTime?: Date;
     categories?: Array<string>;
