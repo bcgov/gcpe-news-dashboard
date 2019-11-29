@@ -143,6 +143,14 @@ describe('ActivityForecastListComponent', () => {
     expect(activity.details).toBe('details');
   });
 
+  it('should use hqComments if the activity is not for look ahead and is included in a section of the look ahead report', () => {
+    const activity = <Activity> new MockActivity('**');
+    activity.isConfidential = true;
+    activity.hqSection = 3;
+    component.overwriteTitleDetailsFromHqComments(activity);
+    expect(activity.title).toBe('**');
+  });
+
   it('should overwrite title and details with hqComments with bolded text followed by regular text', () => {
     const activity = <Activity> new MockActivity('**hq title** hq details');
     component.overwriteTitleDetailsFromHqComments(activity);
