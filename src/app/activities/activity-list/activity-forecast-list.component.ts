@@ -174,27 +174,6 @@ export class ActivityForecastListComponent implements OnInit {
       return 'All Day';
     }
 
-    // release date time is filled in
-    if (activity.nrDateTime !== null) {
-      const releaseDate = this.datePipe.transform(activity.nrDateTime, 'shortTime').toLowerCase();
-
-      if (releaseDate.indexOf(':00') > -1) {
-         const formattedReleaseDate = releaseDate.replace(':00', '');
-
-        if (formattedReleaseDate === '12 pm') {
-          return 'Noon';
-        }
-
-        if (formattedReleaseDate === '12 am') {
-          return 'Midnight';
-        }
-
-        return formattedReleaseDate;
-      } else {
-        return releaseDate;
-      }
-    }
-
     // activity is between 8 am and 6 pm and is not confirmed
     if (activity.isConfirmed === false
       && this.datePipe.transform(activity.startDateTime, 'shortTime').toLowerCase().indexOf(':00') > -1
