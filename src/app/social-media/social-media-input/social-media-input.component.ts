@@ -35,6 +35,7 @@ export class SocialMediaInputComponent implements OnInit, AfterViewInit, OnDestr
   private fbEvents: Observable<any>;
   private resizeListener: any;
 
+  hardwareConcurrency = 0;
   internetExplorer = false;
   isMobile = false;
 
@@ -148,7 +149,12 @@ export class SocialMediaInputComponent implements OnInit, AfterViewInit, OnDestr
       });
     }
 
-    this.timer = Observable.timer(3000); // 5000 millisecond means 5 seconds
+    if ( this.hardwareConcurrency >= 4 ) {
+      this.timer = Observable.timer(4000); // 5000 millisecond means 5 seconds
+    } else {
+      this.timer = Observable.timer(6000);
+    }
+
     this.subscription = this.timer.subscribe(() => {
       resizeAllGridItems(SocialMediaListDivName, true);
       this.isLoading = false;

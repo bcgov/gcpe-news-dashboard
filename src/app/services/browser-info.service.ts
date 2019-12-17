@@ -34,4 +34,8 @@ export class BrowserInfoService {
   getIEDisclaimer(): string {
     return this.ieDisclaimerText;
   }
+
+  getDeviceMemory(): number {
+    return window.navigator.hardwareConcurrency;
+  }
 }
