@@ -143,12 +143,12 @@ export class SocialMediaInputComponent implements OnInit, AfterViewInit, OnDestr
       this.socialmedia.forEach(post => {
         if (selectedSocialmediatypes.indexOf(post.mediaType) === -1) {
           selectedSocialmediatypes.push(post.mediaType);
-          this.socialMediaRenderService.loadWidgetsWithOptions(post.mediaType, true, SocialMediaListDivName);
+          this.socialMediaRenderService.loadWidgetsWithOptions(post.mediaType, false, SocialMediaListDivName);
         }
       });
     }
 
-    this.timer = Observable.timer(5000); // 5000 millisecond means 5 seconds
+    this.timer = Observable.timer(3000); // 5000 millisecond means 5 seconds
     this.subscription = this.timer.subscribe(() => {
       resizeAllGridItems(SocialMediaListDivName, true);
       this.isLoading = false;
