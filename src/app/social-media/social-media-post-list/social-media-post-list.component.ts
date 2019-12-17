@@ -35,6 +35,7 @@ export class SocialMediaPostListComponent implements OnInit, AfterViewInit, OnDe
 
   internetExplorer = false;
   isMobile = false;
+  hardwareConcurrency = 0;
 
   constructor(
     private router: Router,
@@ -68,6 +69,8 @@ export class SocialMediaPostListComponent implements OnInit, AfterViewInit, OnDe
     });
     this.snowplowService.trackPageView();
     this.internetExplorer = this.browserService.getBrowser();
+    this.hardwareConcurrency = this.browserService.getDeviceMemory();
+    console.log(this.hardwareConcurrency);
     this.isMobile = this.browserService.isMobile();
     if (this.internetExplorer) {
       this.alerts.cancelable = true;
@@ -112,7 +115,13 @@ export class SocialMediaPostListComponent implements OnInit, AfterViewInit, OnDe
       });
     }
 
-    this.timer = Observable.timer(3000); // 5000 millisecond means 5 seconds
+    // if it is older cpu, then wait longer
+    if ( this.hardwareConcurrency >= 4 ) {
+      this.timer = Observable.timer(4000); // 5000 millisecond means 5 seconds
+    } else {
+      this.timer = Observable.timer(6000);
+    }
+
     this.subscription = this.timer.subscribe(() => {
       resizeAllGridItems(SocialMediaListDivName, false);
       this.isLoading = false;
