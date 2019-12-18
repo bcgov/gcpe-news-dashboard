@@ -149,7 +149,7 @@ export class SocialMediaInputComponent implements OnInit, AfterViewInit, OnDestr
       });
     }
 
-    if ( this.hardwareConcurrency >= 4 ) {
+    if ( this.hardwareConcurrency >= 8 ) {
       this.timer = Observable.timer(4000); // 5000 millisecond means 5 seconds
     } else {
       this.timer = Observable.timer(6000);

@@ -116,7 +116,7 @@ export class SocialMediaPostListComponent implements OnInit, AfterViewInit, OnDe
     }
 
     // if it is older cpu, then wait longer
-    if ( this.hardwareConcurrency >= 4 ) {
+    if ( this.hardwareConcurrency >= 8 ) {
       this.timer = Observable.timer(4000); // 5000 millisecond means 5 seconds
     } else {
       this.timer = Observable.timer(6000);
