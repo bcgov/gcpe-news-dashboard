@@ -73,6 +73,8 @@ objects:
                   value: "${AUTH_TYPE}"
                 - name: KEYCLOAK_SSO_PREFIX
                   value: "${KEYCLOAK_SSO_PREFIX}"
+                - name: LOADING_TIME_EDGE
+                  value: "${LOADING_TIME_EDGE}"
               resources:
                 requests:
                   cpu: "${CPU_REQUEST}"
@@ -248,3 +250,7 @@ parameters:
     displayName: KEYCLOAK SSO PREFIX
     description: KEYCLOAK SSO PREFIX
     value: sso-dev
+  - name: LOADING_TIME_EDGE
+      displayName: LOADING TIME EDGE
+      description: social media loading time for edge
+      value: 10

@@ -14,6 +14,7 @@
 APPLICATION_DOMAIN=dev.dashboard.news.gov.bc.ca
 NEWS_URL=https://dev.news.gov.bc.ca
 HUB_URL=https://dev.hub.gcpe.gov.bc.ca
+LOADING_TIME_EDGE=12
 TAG_NAME=dev
 # HTTP_BASIC=
 # HTTP_BASIC_USERNAME=

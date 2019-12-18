@@ -16,6 +16,15 @@ export class BrowserInfoService {
     }
   }
 
+  // checking explorer whether it is Edge
+  isEdge() {
+    if (window.navigator.userAgent.indexOf('Edge') !== -1) {
+      return true;
+    } else {
+        return false;
+    }
+  }
+
   isMobile(): boolean {
       if ( navigator.userAgent.match(/Android/i)
       || navigator.userAgent.match(/webOS/i)
