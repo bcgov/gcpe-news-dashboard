@@ -9,7 +9,6 @@ import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/observable/timer';
 import { BrowserInfoService } from '../../services/browser-info.service';
 import { AlertsService } from 'src/app/services/alerts.service';
-import { AppConfigService } from '../../app-config.service';
 
 declare function resizeAllGridItems(divname, hasBorder): any;
 const SocialMediaListDivName = 'new-social-media-list';
@@ -47,17 +46,12 @@ export class SocialMediaPostListComponent implements OnInit, AfterViewInit, OnDe
     private snowplowService: SnowplowService,
     public renderer: Renderer2,
     private browserService: BrowserInfoService,
-    private alerts: AlertsService,
-    appConfig: AppConfigService) {
+    private alerts: AlertsService) {
     this.router.routeReuseStrategy.shouldReuseRoute = () => false;
     if (!this.internetExplorer) {
       this.resizeListener = this.renderer.listen('window', 'resize', (event) => {
         this.setTimer(true);
       });
-    }
-
-    if (Number(appConfig.config.LOADING_TIME_EDGE) !== NaN) {
-      this.loading_time_edge =  Number( appConfig.config.LOADING_TIME_EDGE );
     }
   }
 
@@ -134,10 +128,9 @@ export class SocialMediaPostListComponent implements OnInit, AfterViewInit, OnDe
       }
     } else {
       if (!this.isEdge) {
-
         this.timer = Observable.timer(7000); // 5000 millisecond means 5 seconds
       } else {
-        this.timer = Observable.timer(this.loading_time_edge *  1000); // 5000 millisecond means 5 seconds
+        this.timer = Observable.timer(this.loading_time_edge *  1100); // 5000 millisecond means 5 seconds
       }
     }
 

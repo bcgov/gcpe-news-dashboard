@@ -17,7 +17,6 @@ import { mockAuth } from 'src/app/test-helpers/mock-auth';
 import { LoadingSpinnerComponent } from 'src/app/core/loading-spinner/loading-spinner.component';
 import { SocialMediaPostComponent } from '../social-media-post/social-media-post.component';
 import { SnowplowService } from '../../services/snowplow.service';
-import { AppConfigService } from '../../app-config.service';
 
 const SocialMediaListDivName = '#new-social-media-list';
 
@@ -54,7 +53,6 @@ describe('SocialMediaPostListComponent', () => {
         SocialMediaRenderService,
         { provide: AuthService, useClass: mockAuth },
         SnowplowService,
-        { provide: AppConfigService, useValue: { config: { LOADING_TIME_EDGE: '' } } },
       ]
     })
     .compileComponents();
