@@ -10,7 +10,6 @@ import { Subscription } from 'rxjs/Subscription';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/observable/timer';
 import { BrowserInfoService } from '../../services/browser-info.service';
-import { AppConfigService } from '../../app-config.service';
 
 declare function resizeAllGridItems(divName, hasBorder): any;
 const SocialMediaListDivName = 'new-social-media-input-list';
@@ -50,15 +49,11 @@ export class SocialMediaInputComponent implements OnInit, AfterViewInit, OnDestr
     private alerts: AlertsService,
     private snowplowService: SnowplowService,
     public renderer: Renderer2,
-    private browserService: BrowserInfoService,
-    appConfig: AppConfigService) {
+    private browserService: BrowserInfoService) {
     this.router.routeReuseStrategy.shouldReuseRoute = () => false;
     this.resizeListener = this.renderer.listen('window', 'resize', (event) => {
       this.setTimer(true);
     });
-    if (Number(appConfig.config.LOADING_TIME_EDGE) !== NaN) {
-      this.loading_time_edge =  Number( appConfig.config.LOADING_TIME_EDGE );
-    }
   }
 
   ngOnInit() {
@@ -162,14 +157,13 @@ export class SocialMediaInputComponent implements OnInit, AfterViewInit, OnDestr
       if (!this.isEdge) {
         this.timer = Observable.timer(5000); // 5000 millisecond means 5 seconds
       } else {
-        this.timer = Observable.timer(this.loading_time_edge *  1000); // 5000 millisecond means 5 seconds
+        this.timer = Observable.timer(this.loading_time_edge *  1000); // 12000 millisecond means 12 seconds
       }
     } else {
       if (!this.isEdge) {
-
         this.timer = Observable.timer(7000); // 5000 millisecond means 5 seconds
       } else {
-        this.timer = Observable.timer(this.loading_time_edge *  1000); // 5000 millisecond means 5 seconds
+        this.timer = Observable.timer(this.loading_time_edge *  1100); // 12000 millisecond means 12 seconds
       }
     }
 
