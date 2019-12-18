@@ -17,6 +17,7 @@ import { SnowplowService } from '../../services/snowplow.service';
 import { RouterModule } from '@angular/router';
 import { AuthService } from 'src/app/_auth/auth.service';
 import { mockAuth } from 'src/app/test-helpers/mock-auth';
+import { AppConfigService } from '../../app-config.service';
 
 const SocialMediaInputListDivName = '#new-social-media-input-list';
 
@@ -48,6 +49,7 @@ describe('SocialMediaInputComponent', () => {
         NavmenuService,
         SocialMediaRenderService,
         SnowplowService,
+        { provide: AppConfigService, useValue: { config: { LOADING_TIME_EDGE: '' } } },
         { provide: BASE_PATH, useValue: environment.apiUrl },
         { provide: ActivatedRoute, useClass: MockActivatedRoute },
         { provide: AuthService, useClass: mockAuth }

@@ -9,6 +9,7 @@ import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/observable/timer';
 import { BrowserInfoService } from '../../services/browser-info.service';
 import { AlertsService } from 'src/app/services/alerts.service';
+import { AppConfigService } from '../../app-config.service';
 
 declare function resizeAllGridItems(divname, hasBorder): any;
 const SocialMediaListDivName = 'new-social-media-list';
@@ -36,6 +37,8 @@ export class SocialMediaPostListComponent implements OnInit, AfterViewInit, OnDe
   internetExplorer = false;
   isMobile = false;
   hardwareConcurrency = 0;
+  isEdge = false;
+  loading_time_edge = 12;
 
   constructor(
     private router: Router,
@@ -44,12 +47,17 @@ export class SocialMediaPostListComponent implements OnInit, AfterViewInit, OnDe
     private snowplowService: SnowplowService,
     public renderer: Renderer2,
     private browserService: BrowserInfoService,
-    private alerts: AlertsService) {
+    private alerts: AlertsService,
+    appConfig: AppConfigService) {
     this.router.routeReuseStrategy.shouldReuseRoute = () => false;
     if (!this.internetExplorer) {
       this.resizeListener = this.renderer.listen('window', 'resize', (event) => {
         this.setTimer(true);
       });
+    }
+
+    if (Number(appConfig.config.LOADING_TIME_EDGE) !== NaN) {
+      this.loading_time_edge =  Number( appConfig.config.LOADING_TIME_EDGE );
     }
   }
 
@@ -69,8 +77,10 @@ export class SocialMediaPostListComponent implements OnInit, AfterViewInit, OnDe
     });
     this.snowplowService.trackPageView();
     this.internetExplorer = this.browserService.getBrowser();
+    this.isEdge = this.browserService.isEdge();
     this.hardwareConcurrency = this.browserService.getDeviceMemory();
     console.log(this.hardwareConcurrency);
+    console.log(this.loading_time_edge);
     this.isMobile = this.browserService.isMobile();
     if (this.internetExplorer) {
       this.alerts.cancelable = true;
@@ -117,9 +127,18 @@ export class SocialMediaPostListComponent implements OnInit, AfterViewInit, OnDe
 
     // if it is older cpu, then wait longer
     if ( this.hardwareConcurrency >= 8 ) {
-      this.timer = Observable.timer(4000); // 5000 millisecond means 5 seconds
+      if (!this.isEdge) {
+        this.timer = Observable.timer(5000); // 5000 millisecond means 5 seconds
+      } else {
+        this.timer = Observable.timer(this.loading_time_edge *  1000); // 5000 millisecond means 5 seconds
+      }
     } else {
-      this.timer = Observable.timer(6000);
+      if (!this.isEdge) {
+
+        this.timer = Observable.timer(7000); // 5000 millisecond means 5 seconds
+      } else {
+        this.timer = Observable.timer(this.loading_time_edge *  1000); // 5000 millisecond means 5 seconds
+      }
     }
 
     this.subscription = this.timer.subscribe(() => {
