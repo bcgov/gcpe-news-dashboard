@@ -171,7 +171,7 @@ export class ActivityForecastListComponent implements OnInit {
   getFormattedStartDate(activity: Activity): String {
     // all day activity
     if (activity.isAllDay === true) {
-      return 'All Day';
+      return 'Today';
     }
 
     // activity is between 8 am and 6 pm and is not confirmed
