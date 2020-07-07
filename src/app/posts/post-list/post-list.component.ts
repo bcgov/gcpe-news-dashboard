@@ -75,6 +75,7 @@ export class PostListComponent implements OnInit, AfterViewInit, OnDestroy {
         if (p.assetUrl.indexOf('youtube') >= 0) {
           (<any>p).youtubeId = this.extractVideoID(p.assetUrl);
           hasYoutubeAssets = true;
+          p.assetUrl = this.videoURL(p);
         }
       });
       this.posts = data['posts'];
