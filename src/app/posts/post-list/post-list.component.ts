@@ -55,6 +55,7 @@ export class PostListComponent implements OnInit, AfterViewInit, OnDestroy {
       this.BASE_NEWS_URL = this.appConfig.config.NEWS_URL;
       this.router.routeReuseStrategy.shouldReuseRoute = () => false;
       this.resizeListener = this.renderer.listen('window', 'resize', (event) => {
+        console.log('resize event triggered');
         this.setTimer();
       });
   }
@@ -75,6 +76,7 @@ export class PostListComponent implements OnInit, AfterViewInit, OnDestroy {
         if (p.assetUrl.indexOf('youtube') >= 0) {
           (<any>p).youtubeId = this.extractVideoID(p.assetUrl);
           hasYoutubeAssets = true;
+          p.assetUrl = this.sanitizer.bypassSecurityTrustResourceUrl('https://www.youtube.com/embed/' + p.youtubeId);
         }
       });
       this.posts = data['posts'];
@@ -172,7 +174,7 @@ export class PostListComponent implements OnInit, AfterViewInit, OnDestroy {
       post_list.style.visibility = 'visible';
       if (this.hasFacebookAssets) {
         this.socialMediaRenderService.toggleIframePosts(PostListDivId, true);
-        //this.toggleFacebookPosts(true);
+        this.toggleFacebookPosts(true);
       }
     });
   }

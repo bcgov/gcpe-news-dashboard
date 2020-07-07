@@ -7,7 +7,7 @@
           <blockquote *ngIf="post.fbAssetClass"  class="{{post.fbAssetClass}}" style="width:100%; height:100%;" attr.data-href="{{post.assetUrl}} | async" id="{{post.key}}" [ngClass]="{'hidden': isLoading}"></blockquote>
       </div>
       <div class="embed-responsive embed-responsive-16by9"  *ngIf="post.youtubeId">
-          <iframe class="embed-responsive-item" [src]="videoURL(post)" frameborder="0" allowfullscreen></iframe>
+          <iframe class="embed-responsive-item" [src]="post.assetUrl" frameborder="0" allowfullscreen style="display:block;"></iframe>
       </div>
       <img *ngIf="post.assetUrl && !post.fbAssetClass && !post.youtubeId" class="img-fluid" src="{{post.assetUrl}}" alt="Card image cap">
       <div class="card-body">
