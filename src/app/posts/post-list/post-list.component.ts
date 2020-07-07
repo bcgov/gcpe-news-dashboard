@@ -174,7 +174,7 @@ export class PostListComponent implements OnInit, AfterViewInit, OnDestroy {
       post_list.style.visibility = 'visible';
       if (this.hasFacebookAssets) {
         this.socialMediaRenderService.toggleIframePosts(PostListDivId, true);
-        this.toggleFacebookPosts(true);
+        //this.toggleFacebookPosts(true);
       }
     });
   }
