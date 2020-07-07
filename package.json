@@ -59,7 +59,7 @@
     "karma-coverage-istanbul-reporter": "^2.0.5",
     "karma-jasmine": "~1.1.2",
     "karma-jasmine-html-reporter": "^0.2.2",
-    "npm": "^6.13.4",
+    "npm": "^6.14.6",
     "protractor": "~5.4.0",
     "puppeteer": "^1.19.0",
     "snyk": "^1.134.2",
