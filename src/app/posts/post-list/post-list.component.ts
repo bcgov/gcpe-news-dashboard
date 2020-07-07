@@ -55,7 +55,6 @@ export class PostListComponent implements OnInit, AfterViewInit, OnDestroy {
       this.BASE_NEWS_URL = this.appConfig.config.NEWS_URL;
       this.router.routeReuseStrategy.shouldReuseRoute = () => false;
       this.resizeListener = this.renderer.listen('window', 'resize', (event) => {
-        console.log('resize event triggered');
         this.setTimer();
       });
   }
