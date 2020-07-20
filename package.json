@@ -16,6 +16,7 @@
   },
   "private": true,
   "dependencies": {
+    "@angular-devkit/schematics": "^10.0.3",
     "@angular/common": "~9.0.5",
     "@angular/compiler": "9.0.5",
     "@angular/core": "~9.0.5",
