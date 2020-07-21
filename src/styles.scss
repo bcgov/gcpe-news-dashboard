@@ -1,10 +1,10 @@
 /* You can add global styles to this file, and also import other style files */
 @font-face {
-  font-family: 'Myriad-Pro';
-  src: url('assets/fonts/MyriadWebPro.eot'); 
-  src: url('assets/fonts/MyriadWebPro.woff2') format('woff2'), 
-  url('assets/fonts/MyriadWebPro.woff') format('woff'), 
-  url('assets/fonts/MyriadWebPro.ttf')  format('truetype');
+    font-family: "Myriad-Pro";
+    src: url("assets/fonts/MyriadWebPro.eot");
+    src: url("assets/fonts/MyriadWebPro.woff2") format("woff2"),
+        url("assets/fonts/MyriadWebPro.woff") format("woff"),
+        url("assets/fonts/MyriadWebPro.ttf") format("truetype");
 }
 
 $fa-font-path: "../node_modules/font-awesome/fonts";
@@ -13,7 +13,7 @@ $fa-font-path: "../node_modules/font-awesome/fonts";
 
 // Layout
 @import "assets/styles/variables.scss";
-@import '../node_modules/bootstrap/scss/bootstrap.scss';
-@import 'assets/styles/layout.scss';
+@import "../node_modules/bootstrap/scss/bootstrap.scss";
+@import "assets/styles/layout.scss";
 
-@import 'assets/styles/dropdown.scss';
+@import "assets/styles/dropdown.scss";
