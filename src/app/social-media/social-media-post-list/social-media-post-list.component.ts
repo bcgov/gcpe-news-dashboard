@@ -1,4 +1,4 @@
-import { Component, OnInit, AfterViewInit, OnDestroy, Renderer2 } from '@angular/core';
+import { Component, OnInit, AfterViewInit, OnDestroy, Renderer2, ChangeDetectorRef } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { SocialMediaType } from '../../view-models/social-media-type';
 import { SocialMediaPostExtended } from '../../view-models/social-media-post-extended';
@@ -40,6 +40,7 @@ export class SocialMediaPostListComponent implements OnInit, AfterViewInit, OnDe
   loading_time_edge = 12;
 
   constructor(
+    private cdr: ChangeDetectorRef,
     private router: Router,
     private activatedRoute: ActivatedRoute,
     private socialMediaRenderService: SocialMediaRenderService,
@@ -87,14 +88,15 @@ export class SocialMediaPostListComponent implements OnInit, AfterViewInit, OnDe
     if (this.internetExplorer || this.isMobile || this.selectedSocialMedia.length === 0) {
       this.isLoading = false;
     }
+    this.cdr.detectChanges();
   }
 
   ngOnDestroy() {
     this.resizeListener();
-    if ( this.subscription && this.subscription instanceof Subscription) {
+    if (this.subscription && this.subscription instanceof Subscription) {
       this.subscription.unsubscribe();
     }
-    if ( this.fbEvents && this.fbEvents instanceof Subscription) {
+    if (this.fbEvents && this.fbEvents instanceof Subscription) {
       this.fbEvents.unsubscribe();
     }
   }
@@ -120,17 +122,17 @@ export class SocialMediaPostListComponent implements OnInit, AfterViewInit, OnDe
     }
 
     // if it is older cpu, then wait longer
-    if ( this.hardwareConcurrency >= 8 ) {
+    if (this.hardwareConcurrency >= 8) {
       if (!this.isEdge) {
         this.timer = Observable.timer(5000); // 5000 millisecond means 5 seconds
       } else {
-        this.timer = Observable.timer(this.loading_time_edge *  1000); // 5000 millisecond means 5 seconds
+        this.timer = Observable.timer(this.loading_time_edge * 1000); // 5000 millisecond means 5 seconds
       }
     } else {
       if (!this.isEdge) {
         this.timer = Observable.timer(7000); // 5000 millisecond means 5 seconds
       } else {
-        this.timer = Observable.timer(this.loading_time_edge *  1100); // 5000 millisecond means 5 seconds
+        this.timer = Observable.timer(this.loading_time_edge * 1100); // 5000 millisecond means 5 seconds
       }
     }
 

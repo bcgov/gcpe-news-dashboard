@@ -88,7 +88,7 @@ $grid-breakpoints: (
     xl: 1200px,
     xxl: 1800px,
     // this is custom breakpoint
-        xxxl: 2200px // this is custom breakpoint,
+        xxxl: 2200px // this is custom breakpoint,,
 );
 
-// @import "../../../node_modules/bootstrap/scss/bootstrap.scss";
+@import "../../../node_modules/bootstrap/scss/bootstrap.scss";

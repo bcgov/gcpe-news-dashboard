@@ -1,4 +1,4 @@
-import { Component, Renderer2 , OnInit, AfterViewInit, OnDestroy } from '@angular/core';
+import { Component, Renderer2, OnInit, AfterViewInit, OnDestroy, ChangeDetectorRef } from '@angular/core';
 import { Post } from '../../view-models/post';
 import { SocialMediaType } from '../../view-models/social-media-type';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -41,6 +41,7 @@ export class PostListComponent implements OnInit, AfterViewInit, OnDestroy {
   isMobile = false;
 
   constructor(
+    private cdr: ChangeDetectorRef,
     private router: Router,
     private route: ActivatedRoute,
     private appConfig: AppConfigService,
@@ -52,11 +53,11 @@ export class PostListComponent implements OnInit, AfterViewInit, OnDestroy {
     public renderer: Renderer2,
     private socialMediaRenderService: SocialMediaRenderService,
     private browserService: BrowserInfoService) {
-      this.BASE_NEWS_URL = this.appConfig.config.NEWS_URL;
-      this.router.routeReuseStrategy.shouldReuseRoute = () => false;
-      this.resizeListener = this.renderer.listen('window', 'resize', (event) => {
-        this.setTimer();
-      });
+    this.BASE_NEWS_URL = this.appConfig.config.NEWS_URL;
+    this.router.routeReuseStrategy.shouldReuseRoute = () => false;
+    this.resizeListener = this.renderer.listen('window', 'resize', (event) => {
+      this.setTimer();
+    });
   }
 
   ngOnInit() {
@@ -93,16 +94,16 @@ export class PostListComponent implements OnInit, AfterViewInit, OnDestroy {
         if (!queryParams.ministries || queryParams.ministries === 'All') {
           this.selectedPosts = this.posts;
         } else {
-            this.selectedPosts = this.posts.filter(p => {
+          this.selectedPosts = this.posts.filter(p => {
 
-              const postMinistries: Array<string> = [];
-              p.ministries.forEach((val, idx, arr) => {
-                postMinistries.push(this.ministriesProvider.getMinistry(val).key);
-              });
-
-              return this.utils.includes(this.userMinistriesForFilteringPosts, p.leadMinistryKey)
-                || this.utils.intersection(this.userMinistriesForFilteringPosts, postMinistries).length > 0;
+            const postMinistries: Array<string> = [];
+            p.ministries.forEach((val, idx, arr) => {
+              postMinistries.push(this.ministriesProvider.getMinistry(val).key);
             });
+
+            return this.utils.includes(this.userMinistriesForFilteringPosts, p.leadMinistryKey)
+              || this.utils.intersection(this.userMinistriesForFilteringPosts, postMinistries).length > 0;
+          });
         }
         this.filterBySocialMediaType = queryParams.type;
       });
@@ -123,36 +124,37 @@ export class PostListComponent implements OnInit, AfterViewInit, OnDestroy {
     if (this.isMobile || this.internetExplorer || this.selectedPosts.length === 0) {
       this.isLoading = false;
     }
+    this.cdr.detectChanges();
   }
 
   ngOnDestroy() {
     this.resizeListener();
-    if ( this.subscription && this.subscription instanceof Subscription) {
+    if (this.subscription && this.subscription instanceof Subscription) {
       this.subscription.unsubscribe();
     }
-    if ( this.fbEvents && this.fbEvents instanceof Subscription) {
+    if (this.fbEvents && this.fbEvents instanceof Subscription) {
       this.fbEvents.unsubscribe();
     }
   }
 
-  extractVideoID( url: string ): string {
+  extractVideoID(url: string): string {
     const regExp = /^.*((youtu.be\/)|(v\/)|(\/u\/\w\/)|(embed\/)|(watch\?))\??v?=?([^#\&\?]*).*/;
     const match = url.match(regExp);
-    if ( match && match[7].length === 11 ) {
-        return match[7];
+    if (match && match[7].length === 11) {
+      return match[7];
     } else {
-        return '';
+      return '';
     }
   }
 
-  videoURL( item: any ) {
+  videoURL(item: any) {
     return this.sanitizer.bypassSecurityTrustResourceUrl('https://www.youtube.com/embed/' + item.youtubeId);
   }
 
   public toggleFacebookPosts(visible: boolean) {
     const posts = document.getElementById(PostListDivId).getElementsByTagName('iframe');
-    Array.from(posts).forEach(function(item) {
-      setTimeout(function() {
+    Array.from(posts).forEach(function (item) {
+      setTimeout(function () {
         item.style.visibility = visible ? 'visible' : 'hidden';
       }, 100);
     });
@@ -161,9 +163,9 @@ export class PostListComponent implements OnInit, AfterViewInit, OnDestroy {
   setTimer() {
     this.isLoading = true;
     const post_list = document.getElementById(PostListDivId);
-    post_list.style.visibility = 'hidden';
+    if (post_list) { post_list.style.visibility = 'hidden'; }
     if (this.hasFacebookAssets) {
-     this.socialMediaRenderService.loadFacebookWidgesbyNodeId(PostListDivId, true);
+      this.socialMediaRenderService.loadFacebookWidgesbyNodeId(PostListDivId, true);
     }
 
     this.timer = Observable.timer(4000); // 4000 millisecond means 4 seconds
