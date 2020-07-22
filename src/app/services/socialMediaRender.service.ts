@@ -65,12 +65,15 @@ export class SocialMediaRenderService {
     this.initFacebook();
     FB.XFBML.parse(document.getElementById(node_id), function () {
       if (hide) {
-        const posts = document.getElementById(node_id).getElementsByTagName('iframe');
-        Array.from(posts).forEach(function (item) {
-          setTimeout(function () {
-            item.style.visibility = 'hidden';
-          }, 50);
-        });
+        const node = document.getElementById(node_id);
+        if (node) {
+          const posts = document.getElementById(node_id).getElementsByTagName('iframe');
+          Array.from(posts).forEach(function (item) {
+            setTimeout(function () {
+              item.style.visibility = 'hidden';
+            }, 50);
+          });
+        }
       }
     });
   }

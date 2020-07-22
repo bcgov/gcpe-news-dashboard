@@ -172,10 +172,12 @@ export class PostListComponent implements OnInit, AfterViewInit, OnDestroy {
     this.subscription = this.timer.subscribe(() => {
       resizeAllGridItems(PostListDivId, true);
       this.isLoading = false;
-      post_list.style.visibility = 'visible';
-      if (this.hasFacebookAssets) {
-        this.socialMediaRenderService.toggleIframePosts(PostListDivId, true);
-        //this.toggleFacebookPosts(true);
+      if (post_list) {
+        post_list.style.visibility = 'visible';
+        if (this.hasFacebookAssets) {
+          this.socialMediaRenderService.toggleIframePosts(PostListDivId, true);
+          //this.toggleFacebookPosts(true);
+        }
       }
     });
   }
