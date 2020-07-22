@@ -47,6 +47,7 @@ export class SocialMediaPostListComponent implements OnInit, AfterViewInit, OnDe
     public renderer: Renderer2,
     private browserService: BrowserInfoService,
     private alerts: AlertsService) {
+    this.setTimer.bind(this);
     this.router.routeReuseStrategy.shouldReuseRoute = () => false;
     if (!this.internetExplorer) {
       this.resizeListener = this.renderer.listen('window', 'resize', (event) => {
