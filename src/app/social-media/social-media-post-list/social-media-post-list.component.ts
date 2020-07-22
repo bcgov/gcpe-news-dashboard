@@ -83,7 +83,7 @@ export class SocialMediaPostListComponent implements OnInit, AfterViewInit, OnDe
   }
 
   ngAfterViewInit() {
-    this.setTimer.bind(this);
+    console.log(this);
     this.setTimer(false);
     if (this.internetExplorer || this.isMobile || this.selectedSocialMedia.length === 0) {
       this.isLoading = false;
