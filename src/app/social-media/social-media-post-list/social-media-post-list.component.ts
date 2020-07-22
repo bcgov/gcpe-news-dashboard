@@ -40,7 +40,6 @@ export class SocialMediaPostListComponent implements OnInit, AfterViewInit, OnDe
   loading_time_edge = 12;
 
   constructor(
-    private cdr: ChangeDetectorRef,
     private router: Router,
     private activatedRoute: ActivatedRoute,
     private socialMediaRenderService: SocialMediaRenderService,
@@ -88,7 +87,6 @@ export class SocialMediaPostListComponent implements OnInit, AfterViewInit, OnDe
     if (this.internetExplorer || this.isMobile || this.selectedSocialMedia.length === 0) {
       this.isLoading = false;
     }
-    this.cdr.detectChanges();
   }
 
   ngOnDestroy() {
@@ -142,6 +140,5 @@ export class SocialMediaPostListComponent implements OnInit, AfterViewInit, OnDe
       this.socialMediaRenderService.toggleTwitterPosts(true);
       this.socialMediaRenderService.toggleIframePosts(SocialMediaListDivName, true);
     });
-    this.cdr.detectChanges();
   }
 }
