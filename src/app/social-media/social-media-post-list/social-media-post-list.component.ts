@@ -142,5 +142,6 @@ export class SocialMediaPostListComponent implements OnInit, AfterViewInit, OnDe
       this.socialMediaRenderService.toggleTwitterPosts(true);
       this.socialMediaRenderService.toggleIframePosts(SocialMediaListDivName, true);
     });
+    this.cdr.detectChanges();
   }
 }
