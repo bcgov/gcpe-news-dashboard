@@ -15,21 +15,22 @@ export class MsalService extends AuthProvider {
 
   constructor() {
     super();
-    this.msal = new UserAgentApplication(
-      {
-        auth: {
-          clientId: azureADConfig.clientID, validateAuthority: azureADConfig.validateAuthority,
-          redirectUri: this.redirectUrl,
-        },
-      });
+    this.msal = new UserAgentApplication(azureADConfig.clientID, azureADConfig.authority, (errorDesc, token, error) => {
+
+    }, {
+      validateAuthority: azureADConfig.validateAuthority,
+      redirectUri: this.redirectUrl,
+      navigateToLoginRequestUrl: false,
+      storeAuthStateInCookie: /msie\s|trident\/|edge\//i.test(window.navigator.userAgent)
+    });
   }
 
   public login() {
-    this.msal.loginRedirect({ scopes: [azureADConfig.clientID] });
+    this.msal.loginRedirect([azureADConfig.clientID]);
   }
 
   public getUser() {
-    const msalUser = this.msal.getAccount();
+    const msalUser = this.msal.getUser();
     if (msalUser === null) {
       return null;
     }
@@ -47,7 +48,7 @@ export class MsalService extends AuthProvider {
   }
 
   public tryLogin() {
-    if (this.msal.getAccount()) {
+    if (this.msal.getUser()) {
       this.getToken();
     } else {
       this.login();
@@ -56,10 +57,10 @@ export class MsalService extends AuthProvider {
 
   public getToken() {
     this.isRefreshingToken = true;
-    this.msal.acquireTokenSilent({ scopes: [azureADConfig.clientID] })
-      .then(authResponse => {
+    this.msal.acquireTokenSilent([azureADConfig.clientID])
+      .then(accessToken => {
         this.isRefreshingToken = false;
-        this.accessTokenSubject.next(authResponse.accessToken);
+        this.accessTokenSubject.next(accessToken);
       }, error => {
         this.isRefreshingToken = false;
         this.accessTokenSubject.next('');
