@@ -125,13 +125,15 @@ export class SocialMediaPostListComponent implements OnInit, AfterViewInit, OnDe
       if (!this.isEdge) {
         this.timer = timer(5000); // 5000 millisecond means 5 seconds
       } else {
-        this.timer = timer(this.loading_time_edge * 1000); // 5000 millisecond means 5 seconds
+        const t1 = this.loading_time_edge * 1000;
+        this.timer = timer(t1); // 5000 millisecond means 5 seconds
       }
     } else {
       if (!this.isEdge) {
         this.timer = timer(7000); // 5000 millisecond means 5 seconds
       } else {
-        this.timer = timer(this.loading_time_edge * 1100); // 5000 millisecond means 5 seconds
+        const t2 = this.loading_time_edge * 1100;
+        this.timer = timer(t2); // 5000 millisecond means 5 seconds
       }
     }
 
