@@ -10,7 +10,7 @@ import { MinistriesProvider } from 'src/app/_providers/ministries.provider';
 import { SnowplowService } from '../../services/snowplow.service';
 import { Subscription } from 'rxjs/Subscription';
 import { Observable } from 'rxjs/Observable';
-import 'rxjs/add/observable/timer';
+import { timer } from 'rxjs';
 import { SocialMediaRenderService } from '../../services/socialMediaRender.service';
 import { BrowserInfoService } from '../../services/browser-info.service';
 
@@ -168,7 +168,7 @@ export class PostListComponent implements OnInit, AfterViewInit, OnDestroy {
       this.socialMediaRenderService.loadFacebookWidgesbyNodeId(PostListDivId, true);
     }
 
-    this.timer = Observable.timer(4000); // 4000 millisecond means 4 seconds
+    this.timer = timer(4000); // 4000 millisecond means 4 seconds
     this.subscription = this.timer.subscribe(() => {
       resizeAllGridItems(PostListDivId, true);
       this.isLoading = false;
