@@ -91,7 +91,7 @@ export class SocialMediaPostListComponent implements OnInit, AfterViewInit, OnDe
 
   ngOnDestroy() {
     this.resizeListener();
-    if (this.subscription && this.subscription instanceof Subscription) {
+    if (this.subscription) {
       this.subscription.unsubscribe();
     }
     if (this.fbEvents && this.fbEvents instanceof Subscription) {
