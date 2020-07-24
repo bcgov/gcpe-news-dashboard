@@ -129,7 +129,7 @@ export class PostListComponent implements OnInit, AfterViewInit, OnDestroy {
 
   ngOnDestroy() {
     this.resizeListener();
-    if (this.subscription && this.subscription instanceof Subscription) {
+    if (this.subscription) {
       this.subscription.unsubscribe();
     }
     if (this.fbEvents && this.fbEvents instanceof Subscription) {
