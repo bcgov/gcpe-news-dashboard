@@ -1,4 +1,4 @@
-import {Injectable} from '@angular/core';
+import { Injectable } from '@angular/core';
 
 // the following contants should not be rename and they are matching the social media javascript library
 declare const FB: any;
@@ -25,9 +25,9 @@ export class SocialMediaRenderService {
 
   loadFacebookWidgets() {
     this.initFacebook();
-    Array.from(document.getElementsByClassName('fb-post')).forEach(function(item) {
+    Array.from(document.getElementsByClassName('fb-post')).forEach(function (item) {
       FB.XFBML.parse(item);
-   });
+    });
   }
 
   loadInstagramWidgets() {
@@ -65,12 +65,15 @@ export class SocialMediaRenderService {
     this.initFacebook();
     FB.XFBML.parse(document.getElementById(node_id), function () {
       if (hide) {
-        const posts = document.getElementById(node_id).getElementsByTagName('iframe');
-        Array.from(posts).forEach(function(item) {
-          setTimeout(function() {
-            item.style.visibility = 'hidden';
-          }, 50);
-       });
+        const node = document.getElementById(node_id);
+        if (node) {
+          const posts = document.getElementById(node_id).getElementsByTagName('iframe');
+          Array.from(posts).forEach(function (item) {
+            setTimeout(function () {
+              item.style.visibility = 'hidden';
+            }, 50);
+          });
+        }
       }
     });
   }
@@ -90,8 +93,8 @@ export class SocialMediaRenderService {
 
   toggleTwitterPosts(visible: boolean) {
     const twitterList = document.getElementsByTagName('twitter-widget');
-    Array.from(twitterList).forEach(function(item) {
-      setTimeout(function() {
+    Array.from(twitterList).forEach(function (item) {
+      setTimeout(function () {
         const id = item.id;
         const elem = document.getElementById(id);
         elem.style.visibility = visible ? 'visible' : 'hidden';
@@ -101,12 +104,15 @@ export class SocialMediaRenderService {
 
   // toggle iframe post, includes facebook and instagram
   toggleIframePosts(node: string, visible: boolean) {
-    const facebookList = document.getElementById(node).getElementsByTagName('iframe');
-    Array.from(facebookList).forEach(function(item) {
-      setTimeout(function() {
-        item.style.visibility = visible ? 'visible' : 'hidden';
-      }, 50);
-    });
+    const nodeEl = document.getElementById(node);
+    if (nodeEl) {
+      const facebookList = document.getElementById(node).getElementsByTagName('iframe');
+      Array.from(facebookList).forEach(function (item) {
+        setTimeout(function () {
+          item.style.visibility = visible ? 'visible' : 'hidden';
+        }, 50);
+      });
+    }
   }
 
 }
