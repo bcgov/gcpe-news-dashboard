@@ -1,6 +1,6 @@
 export PROJECT_NAMESPACE=${PROJECT_NAMESPACE:05e933}
-export GIT_URI=${GIT_URI:-"https://github.com/bcgov/gcpe-news-dashboard.git"}
-export GIT_REF=${GIT_REF:-"master"}
+export GIT_URI=${GIT_URI:-"https://github.com/AlessiaYChen/gcpe-news-dashboard.git"}
+export GIT_REF=${GIT_REF:-"ocp4-migration"}
 
 # The project components
 # - They are all contained under the main OpenShift folder.
