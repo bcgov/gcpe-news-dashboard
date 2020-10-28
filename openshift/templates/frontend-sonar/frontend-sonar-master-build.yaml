@@ -2,7 +2,7 @@ kind: Template
 apiVersion: v1
 metadata:
   name: "${NAME}-sonar-build-template"
-  creationTimestamp: 
+  creationTimestamp:
 objects:
 - kind: BuildConfig
   apiVersion: v1
@@ -114,7 +114,7 @@ parameters:
   displayName: SonarQube URL
   description: The SonarQube URL
   required: true
-  value: 'https://sonarqube-ntu9uh-tools.pathfinder.gov.bc.ca'
+  value: 'https://sonarqube-05e933-tools.pathfinder.gov.bc.ca'
 - name: SONAR_PROJECT_KEY
   displayName: SonarQube Project Key
   description: The SonarQube project to add data to

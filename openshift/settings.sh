@@ -1,4 +1,4 @@
-export PROJECT_NAMESPACE=${PROJECT_NAMESPACE:-ntu9uh}
+export PROJECT_NAMESPACE=${PROJECT_NAMESPACE:05e933}
 export GIT_URI=${GIT_URI:-"https://github.com/bcgov/gcpe-news-dashboard.git"}
 export GIT_REF=${GIT_REF:-"master"}
 

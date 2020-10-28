@@ -161,7 +161,7 @@ parameters:
     displayName: Image Namespace
     description: The namespace where to get the above image name
     required: true
-    value: ntu9uh-tools
+    value: 05e933-tools
   - name: REAL_IP_FROM
     displayName: OpenShift Cluster IP Range
     description: >-
