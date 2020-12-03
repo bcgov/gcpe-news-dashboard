@@ -250,7 +250,3 @@ parameters:
     displayName: KEYCLOAK SSO PREFIX
     description: KEYCLOAK SSO PREFIX
     value: sso-dev
-  - name: LOADING_TIME_EDGE
-      displayName: LOADING TIME EDGE
-      description: social media loading time for edge
-      value: 10
