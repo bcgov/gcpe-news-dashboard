@@ -21,8 +21,10 @@ export class AccountSettingsComponent implements OnInit {
       'E6177CCB-93EC-4AB5-A75C-F795337A39CF',
       '579184C3-DB0C-47D7-BC86-E0BDF78AE4D0',
       '768DBF29-89C6-48D1-901E-017A8A3557A4',
-      'child-care',
-      'trade'];
+      '321D9C68-96BA-417B-BB89-78C7CE275458',
+      'bc-coroners-service'];
+      // 'child-care',
+      // 'trade'];
 
     @ViewChildren('checkbox') checkboxes: QueryList<GcpeCheckboxComponent>;
 
