@@ -4,12 +4,7 @@ node('master') {
 			openshift.withProject() {
 			  echo "Assembling frontend..."
 				def bc3 = openshift.selector('bc', 'news-dashboard-develop')
-
-        timeout(5) {
-                    bc3.untilEach(1) {
-                      return (it.object().status.phase == "Complete")
-                    }
-                  }
+				def buildSelector3 = bc3.startBuild('--follow')
 			}
 		}
   }
