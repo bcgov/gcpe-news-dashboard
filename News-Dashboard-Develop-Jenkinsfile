@@ -4,10 +4,10 @@ node('master') {
 		openshift.withCluster() {
 			openshift.withProject() {
 			  echo "Building builder..."
-				def bc = openshift.selector('bc', 'news-dashbord-develop')
+				def bc = openshift.selector('bc', 'news-dashboard-develop')
 				def buildSelector1 = bc.startBuild()
-        openshift.tag("news-dashbord:latest", "news-dashbord:dev")
-			  openshift.tag("news-dashbord:latest", "news-dashbord:test")
+        openshift.tag("news-dashboard:latest", "news-dashboard:dev")
+			  openshift.tag("news-dashboard:latest", "news-dashboard:test")
 			}
 		}
   }
@@ -16,7 +16,7 @@ node('master') {
 		openshift.withCluster() {
       openshift.withProject("05e933-dev") {
 		    echo "Deploying to dev..."
-			  openshift.selector("dc", "news-dashbord").rollout().latest()
+			  openshift.selector("dc", "news-dashboard").rollout().latest()
 		  }
 		}
 	}
@@ -25,7 +25,7 @@ node('master') {
       input "Deploy to test?"
       openshift.withCluster() {
         openshift.withProject("05e933-test") {
-          openshift.selector("dc", "news-dashbord").rollout().latest()
+          openshift.selector("dc", "news-dashboard").rollout().latest()
         }
       }
     }
