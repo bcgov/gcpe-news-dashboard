@@ -1,13 +1,53 @@
 node('master') {
 
-  stage('Build') {
+
+  stage('Build builder') {
 		openshift.withCluster() {
 			openshift.withProject() {
 			  echo "Building builder..."
-				def bc = openshift.selector('bc', 'news-dashboard-develop')
-				def buildSelector1 = bc.startBuild()
-        openshift.tag("news-dashboard:latest", "news-dashboard:dev")
-			  openshift.tag("news-dashboard:latest", "news-dashboard:test")
+				def bc1 = openshift.selector('bc', 'frontend-yarn-builder')
+				def buildSelector1 = bc1.startBuild()
+			}
+		}
+  }
+
+  stage('Building runtime') {
+		openshift.withCluster() {
+			openshift.withProject() {
+			  echo "Building runtime..."
+				def bc2 = openshift.selector('bc', 'frontend-nginx-runtime')
+				def buildSelector2 = bc2.startBuild()
+			}
+		}
+  }
+
+  stage('Assembling frontend') {
+		openshift.withCluster() {
+			openshift.withProject() {
+			  echo "Assembling frontend..."
+				def bc3 = openshift.selector('bc', 'news-dashboard-develop')
+				def buildSelector3 = bc3.startBuild()
+			}
+		}
+  }
+
+  stage('Inject into runtime') {
+		openshift.withCluster() {
+			openshift.withProject() {
+			  echo "Inject into runtime..."
+				def bc4 = openshift.selector('bc', 'news-dashboard-static')
+				def buildSelector4 = bc4.startBuild()
+			}
+		}
+  }
+
+
+  stage('Tag Build') {
+		openshift.withCluster() {
+			openshift.withProject() {
+			  echo "Tagging build..."
+        openshift.tag("news-dashboard-static:latest", "news-dashboard:dev")
+			  openshift.tag("news-dashboard-static:latest", "news-dashboard:test")
 			}
 		}
   }
