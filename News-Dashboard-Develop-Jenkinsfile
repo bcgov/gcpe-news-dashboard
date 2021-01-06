@@ -1,27 +1,28 @@
 node('master') {
   stage('Build builder') {
-		openshift.withCluster() {
-			openshift.withProject() {
-			  echo "Building builder..."
-				def bc1 = openshift.selector('bc', 'frontend-yarn-builder')
-				//def buildSelector1 = bc1.startBuild()
-        timeout(5) {
-          bc1.untilEach(1) {
-             (it.object().status.phase == "Complete")
-          }
-        }
-			}
-		}
+    steps{
+      openshift.withCluster() {
+			  openshift.withProject() {
+          echo "Building builder..."
+          def bc1 = openshift.selector('bc', 'frontend-yarn-builder')
+          def buildSelector1 = bc1.startBuild()
+		    }
+      }
+    }
   }
 
+
   stage('Building runtime') {
-		openshift.withCluster() {
+    steps{
+      openshift.withCluster() {
 			openshift.withProject() {
 			  echo "Building runtime..."
 				def bc2 = openshift.selector('bc', 'frontend-nginx-runtime')
 				def buildSelector2 = bc2.startBuild()
 			}
 		}
+    }
+
   }
 
   stage('Assembling frontend') {
