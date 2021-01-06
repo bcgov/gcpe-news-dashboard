@@ -1,12 +1,12 @@
 node('master') {
-  stage('Build builder') {
-      openshift.withCluster() {
-			  openshift.withProject() {
-          echo "Building builder..."
-          def bc1 = openshift.selector('bc', 'frontend-yarn-builder')
-          def buildSelector1 = bc1.startBuild()
-		    }
-      }
+  stage('Assembling frontend') {
+		openshift.withCluster() {
+			openshift.withProject() {
+			  echo "Assembling frontend..."
+				def bc3 = openshift.selector('bc', 'news-dashboard-develop')
+				def buildSelector3 = bc3.startBuild()
+			}
+		}
   }
 
   stage('Tag Build') {
