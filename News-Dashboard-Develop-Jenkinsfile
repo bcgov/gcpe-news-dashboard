@@ -1,40 +1,34 @@
 node('master') {
 
-    stage('Building builder') {
-        echo "Building builder..."
-        openshiftBuild bldCfg: 'frontend-yarn-builder', showBuildLogs: 'true', waitTime: '900000'
-    }
-    stage('Building runtime') {
-        echo "Building runtime..."
-        openshiftBuild bldCfg: 'frontend-nginx-runtime', showBuildLogs: 'true', waitTime: '900000'
-    }
-    stage('Assembling frontend') {
-        echo "Assembling frontend..."
-        openshiftBuild bldCfg: 'news-dashboard', showBuildLogs: 'true', waitTime: '900000'
-    }
-    stage('Inject into runtime') {
-        echo "Injecting app into runtime..."
-        openshiftBuild bldCfg: 'news-dashboard-static', showBuildLogs: 'true', waitTime: '900000'
-    }
-    stage('Tagging build') {
-        echo "Tagging image..."
-        openshiftTag destStream: 'news-dashboard-static', verbose: 'true', destTag: 'DEVELOP-$BUILD_ID', srcStream: 'news-dashboard-static', srcTag: 'latest'
-    }
+  stage('Build') {
+		openshift.withCluster() {
+			openshift.withProject() {
+			  echo "Building builder..."
+				def bc = openshift.selector('bc', 'news-dashbord-develop')
+				def buildSelector1 = bc.startBuild()
+        openshift.tag("news-dashbord:latest", "news-dashbord:dev")
+			  openshift.tag("news-dashbord:latest", "news-dashbord:test")
+			}
+		}
+  }
 
-    stage('Deploy on Dev') {
-        echo "Deploying to dev..."
-        openshiftTag destStream: 'news-dashboard-static', verbose: 'true', destTag: 'dev', srcStream: 'news-dashboard-static', srcTag: 'DEVELOP-$BUILD_ID'
-        // Sleeping for a while to wait deployment completes
-	    sh 'sleep 1m'
-    }
-
-    timeout(60) {
-        stage('Deploy on Test') {
-            input "Deploy to test?"
-            echo "Deploying to test..."
-            openshiftTag destStream: 'news-dashboard-static', verbose: 'true', destTag: 'test', srcStream: 'news-dashboard-static', srcTag: 'dev'
-            // Sleeping for a while to wait deployment completes
-            sh 'sleep 1m'
+  stage('Deploy on Dev') {
+		openshift.withCluster() {
+      openshift.withProject("05e933-dev") {
+		    echo "Deploying to dev..."
+			  openshift.selector("dc", "news-dashbord").rollout().latest()
+		  }
+		}
+	}
+  timeout(240) {
+    stage('Deploy on Test') {
+      input "Deploy to test?"
+      openshift.withCluster() {
+        openshift.withProject("05e933-test") {
+          openshift.selector("dc", "news-dashbord").rollout().latest()
         }
+      }
     }
+  }
+
 }
