@@ -4,7 +4,12 @@ node('master') {
 			openshift.withProject() {
 			  echo "Building builder..."
 				def bc1 = openshift.selector('bc', 'frontend-yarn-builder')
-				def buildSelector1 = bc1.startBuild()
+				//def buildSelector1 = bc1.startBuild()
+        timeout(5) {
+          bc1.untilEach(1) {
+             (it.object().status.phase == "Complete")
+          }
+        }
 			}
 		}
   }
