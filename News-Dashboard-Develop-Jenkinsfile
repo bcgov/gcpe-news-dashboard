@@ -1,6 +1,5 @@
 node('master') {
-  stages{
-    stage('Build builder') {
+  stage('Build builder') {
 		openshift.withCluster() {
 			openshift.withProject() {
 			  echo "Building builder..."
@@ -69,7 +68,5 @@ node('master') {
       }
     }
   }
-  }
-
 
 }
