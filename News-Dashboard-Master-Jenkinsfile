@@ -1,4 +1,78 @@
 node('master') {
+ stage('Build builder') {
+      openshift.withCluster() {
+			  openshift.withProject() {
+          echo "Building builder..."
+          def bc1 = openshift.selector('bc', 'frontend-npm-master-builder')
+          def buildSelector1 = bc1.startBuild('--follow')
+		    }
+      }
+  }
+
+
+  stage('Building runtime') {
+      openshift.withCluster() {
+			openshift.withProject() {
+			  echo "Building runtime..."
+				def bc2 = openshift.selector('bc', 'frontend-nginx-master-runtime')
+				def buildSelector2 = bc2.startBuild('--follow')
+			}
+		}
+
+  }
+
+  stage('Assembling frontend') {
+		openshift.withCluster() {
+			openshift.withProject() {
+			  echo "Assembling frontend..."
+				def bc3 = openshift.selector('bc', 'news-dashboard-master')
+				def buildSelector3 = bc3.startBuild('--follow')
+			}
+		}
+  }
+
+  stage('Inject into runtime') {
+		openshift.withCluster() {
+			openshift.withProject() {
+			  echo "Inject into runtime..."
+				def bc4 = openshift.selector('bc', 'news-dashboard-master-static')
+				def buildSelector4 = bc4.startBuild('--follow')
+			}
+		}
+  }
+
+
+  stage('Tag Build') {
+		openshift.withCluster() {
+			openshift.withProject() {
+			  echo "Tagging build..."
+        openshift.tag("news-dashboard-master-static:latest", "news-dashboard-static:MASTER-$BUILD_ID")
+        openshift.tag("news-dashboard-static:MASTER-$BUILD_ID", "news-dashboard:test")
+			  openshift.tag("news-dashboard-static:MASTER-$BUILD_ID", "news-dashboard:prod")
+			}
+		}
+  }
+
+  stage('Deploy on Test') {
+		openshift.withCluster() {
+      openshift.withProject("05e933-test") {
+		    echo "Deploying to dev..."
+			  openshift.selector("dc", "news-dashboard").rollout().latest()
+		  }
+		}
+	}
+  stage('Deploy on Prod') {
+      input "Deploy to test?"
+      openshift.withCluster() {
+        openshift.withProject("05e933-prod") {
+          openshift.selector("dc", "news-dashboard").rollout().latest()
+        }
+      }
+    }
+}
+
+
+node('master') {
     stage('Code Quality') {
         echo "Running SonarQube static code analysis."
         openshiftBuild bldCfg: 'frontend-sonar-master', showBuildLogs: 'true'
