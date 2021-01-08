@@ -1,25 +1,4 @@
 node('master') {
- stage('Build builder') {
-      openshift.withCluster() {
-			  openshift.withProject() {
-          echo "Building builder..."
-          def bc1 = openshift.selector('bc', 'frontend-yarn-builder')
-          def buildSelector1 = bc1.startBuild('--follow')
-		    }
-      }
-  }
-
-
-  stage('Building runtime') {
-      openshift.withCluster() {
-			openshift.withProject() {
-			  echo "Building runtime..."
-				def bc2 = openshift.selector('bc', 'frontend-nginx-runtime')
-				def buildSelector2 = bc2.startBuild('--follow')
-			}
-		}
-
-  }
 
   stage('Assembling frontend') {
 		openshift.withCluster() {
