@@ -57,7 +57,7 @@ node('master') {
 		openshift.withCluster() {
       openshift.withProject("05e933-dev") {
 		    echo "Deploying to dev..."
-			  openshift.selector("dc", "news-dashboard").rollout().latest()
+			  openshift.selector("dc", "news-dashboard").rollout()
 		  }
 		}
 	}
@@ -65,7 +65,7 @@ node('master') {
       input "Deploy to test?"
       openshift.withCluster() {
         openshift.withProject("05e933-test") {
-          openshift.selector("dc", "news-dashboard").rollout().latest()
+          openshift.selector("dc", "news-dashboard").rollout()
         }
       }
     }
