@@ -47,8 +47,8 @@ node('master') {
 			openshift.withProject() {
 			  echo "Tagging build..."
         openshift.tag("news-dashboard-master-static:latest", "news-dashboard-static:MASTER-$BUILD_ID")
-        openshift.tag("news-dashboard-static:MASTER-$BUILD_ID", "news-dashboard:test")
-			  openshift.tag("news-dashboard-static:MASTER-$BUILD_ID", "news-dashboard:prod")
+        openshift.tag("news-dashboard-static:MASTER-$BUILD_ID", "news-dashboard-static:test")
+			  openshift.tag("news-dashboard-static:MASTER-$BUILD_ID", "news-dashboard-static:prod")
 			}
 		}
   }
@@ -56,13 +56,13 @@ node('master') {
   stage('Deploy on Test') {
 		openshift.withCluster() {
       openshift.withProject("05e933-test") {
-		    echo "Deploying to dev..."
+		    echo "Deploying to test..."
 			  openshift.selector("dc", "news-dashboard").rollout().latest()
 		  }
 		}
 	}
   stage('Deploy on Prod') {
-      input "Deploy to test?"
+      input "Deploy to prod?"
       openshift.withCluster() {
         openshift.withProject("05e933-prod") {
           openshift.selector("dc", "news-dashboard").rollout().latest()
