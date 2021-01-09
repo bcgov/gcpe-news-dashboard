@@ -1,12 +1,32 @@
 node('master') {
 
+  stage('Build builder') {
+      openshift.withCluster() {
+			  openshift.withProject() {
+          echo "Building builder..."
+          def bc1 = openshift.selector('bc', 'frontend-yarn-builder')
+          def buildSelector1 = bc1.startBuild('--follow')
+		    }
+      }
+  }
+
+  stage('Building runtime') {
+      openshift.withCluster() {
+			openshift.withProject() {
+			  echo "Building runtime..."
+				def bc2 = openshift.selector('bc', 'frontend-nginx-runtime')
+				def buildSelector2 = bc2.startBuild('--follow')
+			}
+		}
+  }
+
   stage('Assembling frontend') {
 		openshift.withCluster() {
 			openshift.withProject() {
 			  echo "Assembling frontend..."
 				def bc3 = openshift.selector('bc', 'news-dashboard-develop')
 				def buildSelector3 = bc3.startBuild('--follow')
-        sleep(30)
+        sleep(10)
 			}
 		}
   }
@@ -17,6 +37,7 @@ node('master') {
 			  echo "Inject into runtime..."
 				def bc4 = openshift.selector('bc', 'news-dashboard-static')
 				def buildSelector4 = bc4.startBuild('--follow')
+        sleep(10)
 			}
 		}
   }
@@ -26,8 +47,9 @@ node('master') {
 		openshift.withCluster() {
 			openshift.withProject() {
 			  echo "Tagging build..."
-        openshift.tag("news-dashboard-static:latest", "news-dashboard-static:dev")
-			  openshift.tag("news-dashboard-static:latest", "news-dashboard-static:test")
+        openshift.tag("news-dashboard-static:latest", "news-dashboard-static:DEVELOP-$BUILD_ID")
+        openshift.tag("news-dashboard-static:DEVELOP-$BUILD_ID", "news-dashboard-static:dev")
+			  openshift.tag("news-dashboard-static:DEVELOP-$BUILD_ID", "news-dashboard-static:test")
 			}
 		}
   }
