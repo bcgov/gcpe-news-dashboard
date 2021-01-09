@@ -26,7 +26,7 @@ node('master') {
 		openshift.withCluster() {
 			openshift.withProject() {
 			  echo "Tagging build..."
-        openshift.tag(""news-dashboard-static:latest", "news-dashboard-static:dev")
+        openshift.tag("news-dashboard-static:latest", "news-dashboard-static:dev")
 			  openshift.tag("news-dashboard-static:latest", "news-dashboard-static:test")
 			}
 		}
