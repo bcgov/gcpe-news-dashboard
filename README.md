@@ -1,7 +1,7 @@
-# GCPE News Dashboard
+# GCPE News Dashboard 
 
 BC Gov News Dashboard frontend application for keeping Ministry Offices and stakeholders informed.
-This application is built with Angular 8.
+This application is built with Angular 10.
 
 ## Prerequisites
 
