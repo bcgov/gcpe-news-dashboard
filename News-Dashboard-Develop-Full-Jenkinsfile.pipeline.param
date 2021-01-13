@@ -1,6 +1,6 @@
 #=========================================================
 # OpenShift Jenkins pipeline template parameters for:
-# Jenkinsfile: ../News-Dashboard-Develop-Full-Jenkinsfile
+# Jenkinsfile: ./News-Dashboard-Develop-Full-Jenkinsfile
 # Template File: https://raw.githubusercontent.com/BCDevOps/openshift-tools/master/provisioning/pipeline/resources/pipeline-build.json
 #=========================================================
 NAME=news-dashboard-develop-full
