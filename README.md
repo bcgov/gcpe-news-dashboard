@@ -5,7 +5,7 @@ This application is built with Angular 10.
 
 ## Prerequisites
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 8.3.3 and requires the following:
+This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 10.0.4 and requires the following:
 
 #### Node and NPM
 
