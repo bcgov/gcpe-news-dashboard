@@ -145,7 +145,7 @@ oc-cluster-up.sh
 ```
 Using Docker shared volumes for OpenShift volumes
 Using 10.0.75.2 as the server IP
-Starting OpenShift using openshift/origin:v3.9.0 ...
+Starting OpenShift using openshift/origin:v4.5.0 ...
 OpenShift server started.
 
 The server is accessible via web console at:
