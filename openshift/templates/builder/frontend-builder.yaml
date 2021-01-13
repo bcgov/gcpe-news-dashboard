@@ -62,14 +62,14 @@ parameters:
     displayName: Git Repository URL
     description: The URL of the repository with your application source code.
     required: true
-    value: "https://github.com/AlessiaYChen/gcpe-news-dashboard.git"
+    value: "https://github.com/bcgov/gcpe-news-dashboard.git"
   - name: GIT_REF
     displayName: Git Reference
     description:
       Set this to a branch name, tag or other ref of your repository if you are
       not using the default branch.
     required: true
-    value: ocp4-migration
+    value: develop
   - name: SOURCE_CONTEXT_DIR
     displayName: Context Directory
     description:

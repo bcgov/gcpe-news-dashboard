@@ -62,7 +62,7 @@ parameters:
     displayName: Git Repository URL
     description: The URL of the repository with your application source code.
     required: true
-    value: "https://github.com/AlessiaYChen/gcpe-news-dashboard.git"
+    value: "https://github.com/bcgov/gcpe-news-dashboard.git"
   - name: GIT_REF
     displayName: Git Reference
     description: >-
