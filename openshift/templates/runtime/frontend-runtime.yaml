@@ -1,5 +1,5 @@
-kind: Template
 apiVersion: v1
+kind: Template
 labels:
   role: webserver
 metadata:

@@ -300,7 +300,7 @@ genDepls.sh -l -e prod
 
 The current version of the automated OpenShift scripts ([openshift-project-tools](https://github.com/BCDevOps/openshift-project-tools)) use a hardcoded URL when creating the routes to your application deployment environments.
 
-All routes created by these scripts are explicitly defined for the Pathfinder (BC Government) instance of OpenShift; i.e. your app URL (in dev) is defined as https://news-dashboard-ntu9uh-dev.pathfinder.gov.bc.ca/ instead of pointing to your local instance.
+All routes created by these scripts are explicitly defined for the Pathfinder (BC Government) instance of OpenShift; i.e. your app URL (in dev) is defined as https://news-dashboard-05e933-dev.pathfinder.gov.bc.ca/ instead of pointing to your local instance.
 
 Run;
 
@@ -315,11 +315,11 @@ This will fix the routes in your local deployment environments (dev, test, prod)
 
 Before:
 
-https://news-dashboard-ntu9uh-dev.pathfinder.gov.bc.ca/
+https://news-dashboard-05e933-dev.pathfinder.gov.bc.ca/
 
 After:
 
-https://news-dashboard-ntu9uh-dev.10.0.75.2.nip.io/
+https://news-dashboard-05e933-dev.10.0.75.2.nip.io/
 
 ------
 
@@ -374,7 +374,7 @@ At a minimum this file should contain definitions for your `PROJECT_NAMESPACE`, 
 **For Example:**
 
 ```bash
-export PROJECT_NAMESPACE=${PROJECT_NAMESPACE:-ntu9uh}
+export PROJECT_NAMESPACE=${PROJECT_NAMESPACE:-05e933}
 export GIT_URI=${GIT_URI:-"https://github.com/bcgov/gcpe-news-dashboard.git"}
 export GIT_REF=${GIT_REF:-"develop"}
 ```
