@@ -475,7 +475,7 @@ This script will generate the deployment configurations for the selected environ
 Once you have a working OpenShift cluster, you might want to connect your build pipeline to GitHub (via webhooks) so that when there's a new commit (or pull request) pushed to your repo, it triggers a new build in OpenShift:
 
 1. Log into the web console and switch to the project: "Your App (tools)"
-2. Select Builds => Pipelines => [name-of-your-build-pipeline] => Configuration
+2. Select Builds => BuildConfig => [name-of-your-build-pipeline] => Configuration
 3. Under the Triggers section, copy the GitHub Webhook URL
 
 [TODO: screenshot]
