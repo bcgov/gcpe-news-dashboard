@@ -35,7 +35,7 @@ node('master') {
 				def buildSelector3 = bc3.startBuild()
         sleep(5)
 				buildSelector3.logs('-f')
-				sleep(30)
+				sleep(20)
 			}
 		}
   }
@@ -46,7 +46,7 @@ node('master') {
 			  echo "Inject into runtime..."
 				def bc4 = openshift.selector('bc', 'news-dashboard-static')
 				def buildSelector4 = bc4.startBuild('')
-        sleep(30)
+
 				buildSelector4.logs('-f')
 				sleep(30)
 			}
