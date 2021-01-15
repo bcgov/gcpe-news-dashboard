@@ -26,7 +26,6 @@ node('master') {
 			  echo "Assembling frontend..."
 				def bc3 = openshift.selector('bc', 'news-dashboard-develop')
 				def buildSelector3 = bc3.startBuild('--follow')
-        sleep(10)
 			}
 		}
   }
@@ -37,7 +36,6 @@ node('master') {
 			  echo "Inject into runtime..."
 				def bc4 = openshift.selector('bc', 'news-dashboard-static')
 				def buildSelector4 = bc4.startBuild('--follow')
-        sleep(10)
 			}
 		}
   }
