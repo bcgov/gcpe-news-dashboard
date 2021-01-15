@@ -48,7 +48,12 @@ node('master') {
 				def buildSelector4 = bc4.startBuild('')
 
 				buildSelector4.logs('-f')
-				sleep(30)
+				timeout(10) {
+						buildSelector4.logs('-f')
+				}
+
+
+
 			}
 		}
   }
