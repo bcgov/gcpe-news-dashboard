@@ -50,7 +50,7 @@ node('master') {
 				def buildSelector4 = bc4.startBuild('')
 
 				buildSelector4.logs('-f')
-				timeout(10) {
+				timeout(25) {
 						buildSelector4.logs('-f')
 				}
 
