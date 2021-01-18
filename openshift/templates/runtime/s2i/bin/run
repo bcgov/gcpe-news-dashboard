@@ -73,6 +73,7 @@ getReplacementPattern() {
 # export ENV vars
 export RealIpFrom="${RealIpFrom:-172.51.0.0/16}"
 export API_URL=$(getApiUrl)
+export ENVIRONMENT_TAG = "${ENVIRONMENT_TAG}"
 
 if [ -z "$API_URL" ]; then
   echo "Could not find API Service to proxy to, exiting."
@@ -83,16 +84,17 @@ echo "---> Replacing Configuration ..."
 echo "Setting:"
 echo "RealIpFrom = ${RealIpFrom}"
 echo "API_URL = ${API_URL}"
+echo "ENVIRONMENT_TAG = ${ENVIRONMENT_TAG}"
 
 REPLACE_VARS="
-  RealIpFrom API_URL
+  RealIpFrom API_URL ENVIRONMENT_TAG
 "
 
 JSON_APP_CONFIG_REPLACE_VARS="
   NEWS_URL HUB_URL AUTH_TYPE KEYCLOAK_SSO_PREFIX LOADING_TIME_EDGE
 "
 
-sudo sed "$(getReplacementPattern $JSON_APP_CONFIG_REPLACE_VARS)" /tmp/app/dist/assets/config/appConfig.json.template > /tmp/app/dist/assets/config/appConfig.json
+sed "$(getReplacementPattern $JSON_APP_CONFIG_REPLACE_VARS)" /tmp/app/dist/assets/config/appConfig.json.template > /tmp/app/dist/assets/config/appConfig.json
 sed "$(getReplacementPattern $REPLACE_VARS)" /tmp/nginx.conf.template > /etc/nginx/nginx.conf
 
 echo "---> Starting nginx ..."
