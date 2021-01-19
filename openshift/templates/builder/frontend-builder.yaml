@@ -1,12 +1,12 @@
-kind: Template
 apiVersion: v1
+kind: Template
 metadata:
   name: "${BUILDER_IMAGE_NAME}"
   creationTimestamp: null
   annotations:
     tags: "builder,nodejs,yarn"
     iconClass: icon-nodejs
-    description: >-
+    description:
       This template defines resources needed to build Angular frontend
       applications. This is your builder image that compiles the Angular source
       code. This builder image uses YARN instead of NPM to build the frontend.
@@ -53,7 +53,7 @@ objects:
 parameters:
   - name: BUILDER_IMAGE_NAME
     displayName: Builder Image
-    description: >-
+    description:
       The name assigned to the builder image defined in this template. You
       should keep this as default unless you know what you are doing.
     required: true
@@ -65,14 +65,14 @@ parameters:
     value: "https://github.com/bcgov/gcpe-news-dashboard.git"
   - name: GIT_REF
     displayName: Git Reference
-    description: >-
+    description:
       Set this to a branch name, tag or other ref of your repository if you are
       not using the default branch.
     required: true
     value: develop
   - name: SOURCE_CONTEXT_DIR
     displayName: Context Directory
-    description: >-
+    description:
       Set this to the relative path to the Dockerfile that describes this
       builder image, if it is not in the root of your repository.
     required: true

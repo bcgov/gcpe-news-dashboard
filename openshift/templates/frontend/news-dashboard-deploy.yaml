@@ -161,7 +161,7 @@ parameters:
     displayName: Image Namespace
     description: The namespace where to get the above image name
     required: true
-    value: ntu9uh-tools
+    value: 05e933-tools
   - name: REAL_IP_FROM
     displayName: OpenShift Cluster IP Range
     description: >-
@@ -250,7 +250,3 @@ parameters:
     displayName: KEYCLOAK SSO PREFIX
     description: KEYCLOAK SSO PREFIX
     value: sso-dev
-  - name: LOADING_TIME_EDGE
-      displayName: LOADING TIME EDGE
-      description: social media loading time for edge
-      value: 10

@@ -1,12 +1,12 @@
-kind: Template
 apiVersion: v1
+kind: Template
 metadata:
   name: "${BUILDER_IMAGE_NAME}"
   creationTimestamp: null
   annotations:
     tags: "builder,nodejs,yarn"
     iconClass: icon-nodejs
-    description: >-
+    description:
       This template defines resources needed to build Angular frontend
       applications. This is your builder image that compiles the Angular source
       code. This builder image uses YARN instead of NPM to build the frontend.

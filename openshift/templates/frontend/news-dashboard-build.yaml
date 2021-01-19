@@ -1,5 +1,5 @@
-kind: Template
 apiVersion: v1
+kind: Template
 labels:
   app: "${NAME}"
   template: "${NAME}-build-template"
