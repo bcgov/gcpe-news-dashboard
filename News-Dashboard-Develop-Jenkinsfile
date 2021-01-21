@@ -44,7 +44,12 @@ node('master') {
 			openshift.withProject() {
 			  echo "Inject into runtime..."
 				def bc4 = openshift.selector('bc', 'news-dashboard-static')
-				def buildSelector4 = bc4.startBuild('--follow')
+				def buildSelector4 = bc4.startBuild()
+        buildSelector4.logs('-f')
+        timeout(30) {
+						buildSelector4.logs('-f')
+					}
+
 			}
 		}
   }
@@ -53,6 +58,7 @@ node('master') {
   stage('Tag Build') {
 		openshift.withCluster() {
 			openshift.withProject() {
+        sleep()
 			  echo "Tagging build..."
         openshift.tag("news-dashboard-static:latest", "news-dashboard-static:DEVELOP-$BUILD_ID")
         openshift.tag("news-dashboard-static:DEVELOP-$BUILD_ID", "news-dashboard-static:dev")
