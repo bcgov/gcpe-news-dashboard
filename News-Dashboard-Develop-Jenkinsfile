@@ -39,13 +39,24 @@ node('master') {
 		}
   }
 
+  stage('Inject into runtime') {
+		openshift.withCluster() {
+			openshift.withProject() {
+			  echo "Inject into runtime..."
+				def bc4 = openshift.selector('bc', 'news-dashboard-static')
+				def buildSelector4 = bc4.startBuild()
+			}
+		}
+  }
+
+
   stage('Tag Build') {
 		openshift.withCluster() {
 			openshift.withProject() {
 			  echo "Tagging build..."
-        openshift.tag("news-dashboard:latest", "news-dashboard:DEVELOP-$BUILD_ID")
-        openshift.tag("news-dashboard:DEVELOP-$BUILD_ID", "news-dashboard:dev")
-			  openshift.tag("news-dashboard:DEVELOP-$BUILD_ID", "news-dashboard:test")
+        openshift.tag("news-dashboard-static:latest", "news-dashboard-static:DEVELOP-$BUILD_ID")
+        openshift.tag("news-dashboard-static:DEVELOP-$BUILD_ID", "news-dashboard-static:dev")
+			  openshift.tag("news-dashboard-static:DEVELOP-$BUILD_ID", "news-dashboard-static:test")
 			}
 		}
   }
