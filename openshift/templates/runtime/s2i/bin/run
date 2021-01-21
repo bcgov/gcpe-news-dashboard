@@ -73,7 +73,6 @@ getReplacementPattern() {
 # export ENV vars
 export RealIpFrom="${RealIpFrom:-172.51.0.0/16}"
 export API_URL=$(getApiUrl)
-export ENVIRONMENT_TAG="${ENVIRONMENT_TAG}"
 
 if [ -z "$API_URL" ]; then
   echo "Could not find API Service to proxy to, exiting."
@@ -84,10 +83,9 @@ echo "---> Replacing Configuration ..."
 echo "Setting:"
 echo "RealIpFrom = ${RealIpFrom}"
 echo "API_URL = ${API_URL}"
-echo "ENVIRONMENT_TAG = ${ENVIRONMENT_TAG}"
 
 REPLACE_VARS="
-  RealIpFrom API_URL ENVIRONMENT_TAG
+  RealIpFrom API_URL
 "
 
 JSON_APP_CONFIG_REPLACE_VARS="
