@@ -1,6 +1,6 @@
 export const keycloakConfig = {
   issuer: '',
-  issuerPath: 'pathfinder.gov.bc.ca/auth/realms/zdw7o87p',
+  issuerPath: 'gov.bc.ca/auth/realms/zdw7o87p',
   clientId: 'news-dashboard',
   scope: 'openid profile email',
   requireHttps: false,
