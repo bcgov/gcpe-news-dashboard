@@ -8,7 +8,7 @@ import { AlertsService } from 'src/app/services/alerts.service';
 import { SnowplowService } from '../../services/snowplow.service';
 import { Subscription } from 'rxjs/Subscription';
 import { Observable } from 'rxjs/Observable';
-import 'rxjs/add/observable/timer';
+import { timer } from 'rxjs';
 import { BrowserInfoService } from '../../services/browser-info.service';
 
 declare function resizeAllGridItems(divName, hasBorder): any;
@@ -80,10 +80,10 @@ export class SocialMediaInputComponent implements OnInit, AfterViewInit, OnDestr
 
   ngOnDestroy() {
     this.resizeListener();
-    if ( this.subscription && this.subscription instanceof Subscription) {
+    if (this.subscription) {
       this.subscription.unsubscribe();
     }
-    if ( this.fbEvents && this.fbEvents instanceof Subscription) {
+    if (this.fbEvents && this.fbEvents instanceof Subscription) {
       this.fbEvents.unsubscribe();
     }
   }
@@ -153,17 +153,17 @@ export class SocialMediaInputComponent implements OnInit, AfterViewInit, OnDestr
     }
 
     // if it is older cpu, then wait longer
-    if ( this.hardwareConcurrency >= 8 ) {
+    if (this.hardwareConcurrency >= 8) {
       if (!this.isEdge) {
-        this.timer = Observable.timer(5000); // 5000 millisecond means 5 seconds
+        this.timer = timer(5000); // 5000 millisecond means 5 seconds
       } else {
-        this.timer = Observable.timer(this.loading_time_edge *  1000); // 12000 millisecond means 12 seconds
+        this.timer = timer(this.loading_time_edge * 1000); // 12000 millisecond means 12 seconds
       }
     } else {
       if (!this.isEdge) {
-        this.timer = Observable.timer(7000); // 5000 millisecond means 5 seconds
+        this.timer = timer(7000); // 5000 millisecond means 5 seconds
       } else {
-        this.timer = Observable.timer(this.loading_time_edge *  1100); // 12000 millisecond means 12 seconds
+        this.timer = timer(this.loading_time_edge * 1100); // 12000 millisecond means 12 seconds
       }
     }
 

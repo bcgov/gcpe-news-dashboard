@@ -2,7 +2,7 @@ kind: Template
 apiVersion: v1
 metadata:
   name: "${NAME}-snyk-build-template"
-  creationTimestamp: 
+  creationTimestamp:
 objects:
 - kind: BuildConfig
   apiVersion: v1

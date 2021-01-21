@@ -5,16 +5,16 @@ p a {
 
 // Sticky footer
 html {
-   position: relative;
-   min-height: 100%;
+    position: relative;
+    min-height: 100%;
 }
 body {
-   /* Margin bottom by footer height */
-   margin-bottom: 65px !important;
+    /* Margin bottom by footer height */
+    margin-bottom: 65px !important;
 }
 
-.lighter-font{
-    color: map-get($theme-colors, medium)!important;
+.lighter-font {
+    color: map-get($theme-colors, medium) !important;
 }
 
 /* wider screen layout
@@ -25,27 +25,27 @@ body {
 }
 */
 
-main .jumbotron{
+main .jumbotron {
     background-color: #fff;
     padding: $heading-large-height 0;
     @include media-breakpoint-down(sm) {
         padding: $heading-small-height 0;
     }
 }
-  
-#hq-dashboard-body h2{
-    color:map-get($theme-colors, dark)!important;
+
+#hq-dashboard-body h2 {
+    color: map-get($theme-colors, dark) !important;
 }
 
-.list-inline .list-inline-item{
-    color: map-get($theme-colors, light)!important;
-    padding-right:20px;
+.list-inline .list-inline-item {
+    color: map-get($theme-colors, light) !important;
+    padding-right: 20px;
     @include media-breakpoint-down(sm) {
         padding-right: 0;
     }
 }
 
-.list-inline .list-inline-item a{
+.list-inline .list-inline-item a {
     color: map-get($theme-colors, medium);
     text-decoration: none;
     padding-bottom: 10px;
@@ -53,15 +53,15 @@ main .jumbotron{
         padding-bottom: 0;
     }
 }
-  
+
 .list-inline .active {
-    color: map-get($theme-colors, dark)!important;
-    border-bottom: 2px solid map-get($theme-colors, primary-nav)!important;
+    color: map-get($theme-colors, dark) !important;
+    border-bottom: 2px solid map-get($theme-colors, primary-nav) !important;
 }
 
 .btn-outline {
-    border: 1px solid map-get($theme-colors, light)!important;
-    color: map-get($theme-colors, primary-nav)!important;
+    border: 1px solid map-get($theme-colors, light) !important;
+    color: map-get($theme-colors, primary-nav) !important;
 }
 
 .btn-print {
@@ -69,10 +69,10 @@ main .jumbotron{
         display: none !important;
     }
 }
-  
-.full-width{
+
+.full-width {
     width: 95% !important;
- }
+}
 
 @media print {
     .doNotPrint {
@@ -81,13 +81,14 @@ main .jumbotron{
 }
 
 $grid-breakpoints: (
-  xs: 0,
-  sm: 576px,
-  md: 768px,
-  lg: 992px,
-  xl: 1200px,
-  xxl: 1800px, // this is custom breakpoint
-  xxxl: 2200px // this is custom breakpoint
+    xs: 0,
+    sm: 576px,
+    md: 768px,
+    lg: 992px,
+    xl: 1200px,
+    xxl: 1800px,
+    // this is custom breakpoint
+        xxxl: 2200px // this is custom breakpoint,,
 );
 
 @import "../../../node_modules/bootstrap/scss/bootstrap.scss";

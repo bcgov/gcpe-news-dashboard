@@ -57,10 +57,10 @@ describe('ThemeFormComponent', () => {
   describe('New Theme', () => {
     beforeEach(() => {
       fixture = TestBed.createComponent(ThemeFormComponent);
-      spyOn(TestBed.get(AlertsService), 'showError');
-      spyOn(TestBed.get(NavmenuService), 'hide');
-      spyOn(TestBed.get(NavmenuService), 'show');
-      messagesService = TestBed.get(MessagesService);
+      spyOn(TestBed.inject(AlertsService), 'showError');
+      spyOn(TestBed.inject(NavmenuService), 'hide');
+      spyOn(TestBed.inject(NavmenuService), 'show');
+      messagesService = TestBed.inject(MessagesService);
       component = fixture.componentInstance;
       fixture.detectChanges();
     });
@@ -71,12 +71,12 @@ describe('ThemeFormComponent', () => {
     });
 
     it('should hide nav', () => {
-      expect(TestBed.get(NavmenuService).hide).toHaveBeenCalled();
+      expect(TestBed.inject(NavmenuService).hide).toHaveBeenCalled();
     });
 
     it('should show nav when destroyed', () => {
       fixture.destroy();
-      expect(TestBed.get(NavmenuService).show).toHaveBeenCalled();
+      expect(TestBed.inject(NavmenuService).show).toHaveBeenCalled();
     });
 
     it('should not save if invalid', () => {
@@ -93,21 +93,21 @@ describe('ThemeFormComponent', () => {
       expect(component.create).toHaveBeenCalled();
     });
 
-    it('should add message using message service', async(async() => {
+    it('should add message using message service', () => {
       const observe = of({});
       spyOn(messagesService, 'addMessage').and.returnValue(observe);
       spyOn(component, 'close');
 
       component.create({ title: 'test title' });
-      await observe.toPromise();
+      observe.toPromise();
 
       expect(messagesService.addMessage).toHaveBeenCalledWith({
         title: 'test title'
       });
       expect(component.close).toHaveBeenCalled();
-    }));
+    });
 
-    it('should toggle published and create', async(async() => {
+    it('should toggle published and create', () => {
       spyOn(component, 'create');
       component.themeForm.patchValue({title: 'Publish me!'});
 
@@ -119,16 +119,16 @@ describe('ThemeFormComponent', () => {
         isHighlighted: false,
         isPublished: true
       });
-    }));
+    });
 
-    it('should not toggle published if invalid', async(async() => {
+    it('should not toggle published if invalid', () => {
       spyOn(component, 'create');
       component.togglePublished();
       expect(component.create).not.toHaveBeenCalled();
-    }));
+    });
 
     it('should navigate to proper route on close', () => {
-      const router = TestBed.get(Router);
+      const router = TestBed.inject(Router);
       spyOn(router, 'navigate');
       component.close();
       expect(router.navigate).toHaveBeenCalledWith(['messages'], { queryParams: { type: 'Drafts' }});
@@ -157,8 +157,8 @@ describe('ThemeFormComponent', () => {
   describe('Edit Theme', () => {
     beforeEach(() => {
       TestBed.overrideProvider(ActivatedRoute, { useValue: { data: of(FakeEditRoute) } });
-      spyOn(TestBed.get(NavmenuService), 'hide');
-      spyOn(TestBed.get(NavmenuService), 'show');
+      spyOn(TestBed.inject(NavmenuService), 'hide');
+      spyOn(TestBed.inject(NavmenuService), 'show');
       fixture = TestBed.createComponent(ThemeFormComponent);
       component = fixture.componentInstance;
       fixture.detectChanges();
@@ -177,21 +177,21 @@ describe('ThemeFormComponent', () => {
       expect(component.update).toHaveBeenCalled();
     });
 
-    it('should update message using messages service', async(async() => {
+    it('should update message using messages service', () => {
       const observe = of({});
-      spyOn(TestBed.get(MessagesService), 'updateMessage').and.returnValue(observe);
+      spyOn(TestBed.inject(MessagesService), 'updateMessage').and.returnValue(observe);
       spyOn(component, 'close');
 
       component.update({ title: 'test title' });
-      await observe.toPromise();
+      observe.toPromise();
 
-      expect(TestBed.get(MessagesService).updateMessage).toHaveBeenCalledWith(FakeEditRoute.theme.id, {
+      expect(TestBed.inject(MessagesService).updateMessage).toHaveBeenCalledWith(FakeEditRoute.theme.id, {
         title: 'test title'
       });
       expect(component.close).toHaveBeenCalled();
-    }));
+    });
 
-    it('should toggle published and update', async(async() => {
+    it('should toggle published and update', () => {
       spyOn(component, 'update');
       component.themeForm.patchValue({title: 'unPublish me!'});
       component.togglePublished();
@@ -201,26 +201,26 @@ describe('ThemeFormComponent', () => {
         isPublished: false,
         isHighlighted: false,
       });
-    }));
+    });
 
     it('should delete message', () => {
-      spyOn(TestBed.get(MessagesService), 'deleteMessage').and.returnValue(of({}));
+      spyOn(TestBed.inject(MessagesService), 'deleteMessage').and.returnValue(of({}));
       spyOn(component, 'close');
       component.delete();
       expect(component.close).toHaveBeenCalled();
-      expect(TestBed.get(MessagesService).deleteMessage).toHaveBeenCalledWith(component.theme.id);
+      expect(TestBed.inject(MessagesService).deleteMessage).toHaveBeenCalledWith(component.theme.id);
     });
 
     it('should show alert on delete error', () => {
       spyOn(component, 'handleError');
-      spyOn(TestBed.get(MessagesService), 'deleteMessage').and.returnValue(throwError('error'));
+      spyOn(TestBed.inject(MessagesService), 'deleteMessage').and.returnValue(throwError('error'));
       component.delete();
       expect(component.handleError).toHaveBeenCalled();
     });
 
     it('should show alert on update error', () => {
       spyOn(component, 'handleError');
-      spyOn(TestBed.get(MessagesService), 'updateMessage').and.returnValue(throwError('error'));
+      spyOn(TestBed.inject(MessagesService), 'updateMessage').and.returnValue(throwError('error'));
       component.update({title: 'title'});
       expect(component.handleError).toHaveBeenCalled();
     });

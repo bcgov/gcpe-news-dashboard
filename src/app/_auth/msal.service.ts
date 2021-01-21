@@ -62,8 +62,8 @@ export class MsalService extends AuthProvider {
         this.isRefreshingToken = false;
         this.accessTokenSubject.next(accessToken);
       }, error => {
-          this.isRefreshingToken = false;
-          this.accessTokenSubject.next('');
+        this.isRefreshingToken = false;
+        this.accessTokenSubject.next('');
       });
   }
 }
