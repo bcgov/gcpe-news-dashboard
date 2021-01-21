@@ -42,7 +42,6 @@ node('master') {
   stage('Tag Build') {
 		openshift.withCluster() {
 			openshift.withProject() {
-        sleep()
 			  echo "Tagging build..."
         openshift.tag("news-dashboard:latest", "news-dashboard:DEVELOP-$BUILD_ID")
         openshift.tag("news-dashboard:DEVELOP-$BUILD_ID", "news-dashboard:dev")
