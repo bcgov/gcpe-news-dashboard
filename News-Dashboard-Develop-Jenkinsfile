@@ -54,7 +54,10 @@ node('master') {
 		  }
 		}
 	}
-  stage('Deploy on Test') {
+
+  timeout(3000)
+  {
+    stage('Deploy on Test') {
       input "Deploy to test?"
       openshift.withCluster() {
         openshift.withProject("05e933-test") {
@@ -62,4 +65,6 @@ node('master') {
         }
       }
     }
+  }
+
 }
