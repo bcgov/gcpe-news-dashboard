@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 {
   "NEWS_URL": "https://dev.news.gov.bc.ca",
   "HUB_URL": "https://dev.hub.gcpe.gov.bc.ca",
@@ -5,3 +6,13 @@
   "KEYCLOAK_SSO_PREFIX": "sso-dev",
   "LOADING_TIME_EDGE": "12"
 }
+||||||| merged common ancestors
+=======
+{
+  "NEWS_URL": "https://dev.news.gov.bc.ca",
+  "HUB_URL": "https://dev.hub.gcpe.gov.bc.ca",
+  "AUTH_TYPE": "AzureAD",
+  "KEYCLOAK_SSO_PREFIX": "dev.oidc",
+  "LOADING_TIME_EDGE": "12"
+}
+>>>>>>> d9504fb8109aeb0ff0393f6a636b241ad46b4cc7
