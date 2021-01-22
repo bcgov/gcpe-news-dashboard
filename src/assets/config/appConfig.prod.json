@@ -2,6 +2,6 @@
   "NEWS_URL": "https://news.gov.bc.ca",
   "HUB_URL": "https://hub.gcpe.gov.bc.ca",
   "AUTH_TYPE": "AzureAD",
-  "KEYCLOAK_SSO_PREFIX": "sso-dev",
+  "KEYCLOAK_SSO_PREFIX": "oidc",
   "LOADING_TIME_EDGE": "12"
 }

@@ -44,7 +44,7 @@ node('master') {
 			openshift.withProject() {
 			  echo "Inject into runtime..."
 				def bc4 = openshift.selector('bc', 'news-dashboard-static')
-				def buildSelector4 = bc4.startBuild('--follow')
+				def buildSelector4 = bc4.startBuild()
 			}
 		}
   }
