@@ -1,44 +1,36 @@
 node('master') {
- stage('Build builder') {
+  timeout(30)
+  {
+    stage('Build image') {
       openshift.withCluster() {
 			  openshift.withProject() {
           echo "Building builder..."
           def bc1 = openshift.selector('bc', 'frontend-npm-master-builder')
-          def buildSelector1 = bc1.startBuild('--follow')
+          def buildSelector1 = bc1.startBuild()
+          sleep(5)
+					buildSelector1.logs('-f')
+					sleep(10)
+
+          echo "Building runtime..."
+          def bc2 = openshift.selector('bc', 'frontend-nginx-master-runtime')
+          def buildSelector2 = bc2.startBuild()
+          sleep(5)
+          buildSelector2.logs('-f')
+          sleep(10)
+
+          echo "Assembling frontend..."
+          def bc3 = openshift.selector('bc', 'news-dashboard-master')
+          def buildSelector3 = bc3.startBuild()
+          sleep(5)
+          buildSelector3.logs('-f')
+
+          echo "Inject into runtime..."
+          def bc4 = openshift.selector('bc', 'news-dashboard-master-static')
+          def buildSelector4 = bc4.startBuild()
+          sleep(180)
 		    }
       }
-  }
-
-
-  stage('Building runtime') {
-      openshift.withCluster() {
-			openshift.withProject() {
-			  echo "Building runtime..."
-				def bc2 = openshift.selector('bc', 'frontend-nginx-master-runtime')
-				def buildSelector2 = bc2.startBuild('--follow')
-			}
-		}
-
-  }
-
-  stage('Assembling frontend') {
-		openshift.withCluster() {
-			openshift.withProject() {
-			  echo "Assembling frontend..."
-				def bc3 = openshift.selector('bc', 'news-dashboard-master')
-				def buildSelector3 = bc3.startBuild('--follow')
-			}
-		}
-  }
-
-  stage('Inject into runtime') {
-		openshift.withCluster() {
-			openshift.withProject() {
-			  echo "Inject into runtime..."
-				def bc4 = openshift.selector('bc', 'news-dashboard-master-static')
-				def buildSelector4 = bc4.startBuild('--follow')
-			}
-		}
+    }
   }
 
 
@@ -61,7 +53,10 @@ node('master') {
 		  }
 		}
 	}
-  stage('Deploy on Prod') {
+
+  timeout(3000)
+  {
+    stage('Deploy on Prod') {
       input "Deploy to prod?"
       openshift.withCluster() {
         openshift.withProject("05e933-prod") {
@@ -69,4 +64,6 @@ node('master') {
         }
       }
     }
+  }
+
 }
