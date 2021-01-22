@@ -8,6 +8,7 @@ export class AuthProvider {
   public redirectUrl: string;
   constructor() {
     this.redirectUrl = `${window.location.protocol}//${window.location.hostname + (window.location.port ? ':' + window.location.port : '')}`;
+    console.log('redirect: ' + this.redirectUrl);
   }
   tryLogin() {}
   logout() {}

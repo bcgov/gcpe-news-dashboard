@@ -8,7 +8,7 @@ import { AlertsService } from 'src/app/services/alerts.service';
 import { SnowplowService } from '../../services/snowplow.service';
 import { Subscription } from 'rxjs/Subscription';
 import { Observable } from 'rxjs/Observable';
-import 'rxjs/add/observable/timer';
+import { timer } from 'rxjs';
 import { BrowserInfoService } from '../../services/browser-info.service';
 
 declare function resizeAllGridItems(divName, hasBorder): any;
@@ -22,7 +22,6 @@ const SocialMediaListDivName = 'new-social-media-input-list';
 
 export class SocialMediaInputComponent implements OnInit, AfterViewInit, OnDestroy {
   socialmedia: SocialMediaPostExtended[];
-  selectedSocialMedia: SocialMediaPostExtended[];
 
   socialmediatypes: SocialMediaType[];
   filterBySocialMediaType: string;
@@ -36,7 +35,11 @@ export class SocialMediaInputComponent implements OnInit, AfterViewInit, OnDestr
   private fbEvents: Observable<any>;
   private resizeListener: any;
 
+  hardwareConcurrency = 0;
   internetExplorer = false;
+  isMobile = false;
+  isEdge = false;
+  loading_time_edge = 12;
 
   constructor(
     private router: Router,
@@ -51,7 +54,6 @@ export class SocialMediaInputComponent implements OnInit, AfterViewInit, OnDestr
     this.resizeListener = this.renderer.listen('window', 'resize', (event) => {
       this.setTimer(true);
     });
-    this.internetExplorer = this.browserService.getBrowser();
   }
 
   ngOnInit() {
@@ -59,6 +61,9 @@ export class SocialMediaInputComponent implements OnInit, AfterViewInit, OnDestr
       this.socialmedia = data['socialmedia'];
     });
     this.snowplowService.trackPageView();
+    this.internetExplorer = this.browserService.getBrowser();
+    this.isEdge = this.browserService.isEdge();
+    this.isMobile = this.browserService.isMobile();
     if (this.internetExplorer) {
       this.alerts.cancelable = true;
       this.alerts.showInfo(this.browserService.getIEDisclaimer());
@@ -66,15 +71,19 @@ export class SocialMediaInputComponent implements OnInit, AfterViewInit, OnDestr
   }
 
   ngAfterViewInit() {
+    const selectedSocialmediatypes = [];
     this.setTimer(false);
+    if (this.internetExplorer || this.isMobile || this.socialmedia.length === 0) {
+      this.isLoading = false;
+    }
   }
 
   ngOnDestroy() {
     this.resizeListener();
-    if ( this.subscription && this.subscription instanceof Subscription) {
+    if (this.subscription) {
       this.subscription.unsubscribe();
     }
-    if ( this.fbEvents && this.fbEvents instanceof Subscription) {
+    if (this.fbEvents && this.fbEvents instanceof Subscription) {
       this.fbEvents.unsubscribe();
     }
   }
@@ -125,7 +134,7 @@ export class SocialMediaInputComponent implements OnInit, AfterViewInit, OnDestr
 
   setTimer(isResize: boolean) {
     this.isLoading = true;
-    if (!this.internetExplorer) {
+    if (!this.internetExplorer && !this.isMobile) {
       if (isResize) {
         this.socialMediaRenderService.toggleTwitterPosts(false);
       } else {
@@ -138,12 +147,26 @@ export class SocialMediaInputComponent implements OnInit, AfterViewInit, OnDestr
       this.socialmedia.forEach(post => {
         if (selectedSocialmediatypes.indexOf(post.mediaType) === -1) {
           selectedSocialmediatypes.push(post.mediaType);
-          this.socialMediaRenderService.loadWidgetsWithOptions(post.mediaType, true, SocialMediaListDivName);
+          this.socialMediaRenderService.loadWidgetsWithOptions(post.mediaType, false, SocialMediaListDivName);
         }
       });
     }
 
-    this.timer = Observable.timer(5000); // 5000 millisecond means 5 seconds
+    // if it is older cpu, then wait longer
+    if (this.hardwareConcurrency >= 8) {
+      if (!this.isEdge) {
+        this.timer = timer(5000); // 5000 millisecond means 5 seconds
+      } else {
+        this.timer = timer(this.loading_time_edge * 1000); // 12000 millisecond means 12 seconds
+      }
+    } else {
+      if (!this.isEdge) {
+        this.timer = timer(7000); // 5000 millisecond means 5 seconds
+      } else {
+        this.timer = timer(this.loading_time_edge * 1100); // 12000 millisecond means 12 seconds
+      }
+    }
+
     this.subscription = this.timer.subscribe(() => {
       resizeAllGridItems(SocialMediaListDivName, true);
       this.isLoading = false;

@@ -16,7 +16,35 @@ export class BrowserInfoService {
     }
   }
 
+  // checking explorer whether it is Edge
+  isEdge() {
+    if (window.navigator.userAgent.indexOf('Edge') !== -1) {
+      return true;
+    } else {
+        return false;
+    }
+  }
+
+  isMobile(): boolean {
+      if ( navigator.userAgent.match(/Android/i)
+      || navigator.userAgent.match(/webOS/i)
+      || navigator.userAgent.match(/iPhone/i)
+      || navigator.userAgent.match(/iPad/i)
+      || navigator.userAgent.match(/iPod/i)
+      || navigator.userAgent.match(/BlackBerry/i)
+      || navigator.userAgent.match(/Windows Phone/i)
+      ) {
+         return true;
+       } else {
+         return false;
+       }
+  }
+
   getIEDisclaimer(): string {
     return this.ieDisclaimerText;
+  }
+
+  getDeviceMemory(): number {
+    return window.navigator.hardwareConcurrency;
   }
 }

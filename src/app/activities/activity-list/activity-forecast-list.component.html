@@ -12,8 +12,11 @@
                 <h5 *appHasRole="['Viewer']" class="card-title">{{activity.title}}</h5>
                 <p class="card-text">
                   {{activity.details}}
-                  <span class="text-muted card-ministry-abbr">{{activity.contactMinistryAbbreviation}}</span>
                 </p>
+                <div class="row">
+                  <div class="col text-left">{{getFormattedStartDate(activity)}}</div>
+                  <div class="col text-right">{{activity.contactMinistryAbbreviation}}-{{activity.id}}</div>
+                </div>
               </div>
             </div>
         </div>

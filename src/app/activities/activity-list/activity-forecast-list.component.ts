@@ -6,6 +6,7 @@ import { WeekDay } from '@angular/common';
 import { AlertsService } from 'src/app/services/alerts.service';
 import { UtilsService } from 'src/app/services/utils.service';
 import { SnowplowService } from '../../services/snowplow.service';
+import { DatePipe } from '@angular/common';
 
 @Component({
   selector: 'app-activity-forecast-list',
@@ -29,7 +30,8 @@ export class ActivityForecastListComponent implements OnInit {
     appConfig: AppConfigService,
     private alerts: AlertsService,
     private utils: UtilsService,
-    private snowplowService: SnowplowService) {
+    private snowplowService: SnowplowService,
+    private datePipe: DatePipe) {
     this.BASE_HUB_URL = appConfig.config.HUB_URL;
   }
 
@@ -86,7 +88,8 @@ export class ActivityForecastListComponent implements OnInit {
     const hqComments: string = activity.hqComments;
     if (hqComments) {
 
-      if (hqComments === '**') { return; }
+      // hqSection being === 4 means not assigned to a section of the look ahead
+      if (hqComments === '**' && !activity.isConfidential && activity.hqSection !== 4) { return; }
 
       activity.details = null;
       activity.title = null;
@@ -163,5 +166,39 @@ export class ActivityForecastListComponent implements OnInit {
   getStartDate(i: number) {
     if (i + this.today.getDay() > 6) { i++; } // for the week-end
     return new Date(this.today.valueOf() + i * this.msInaDay);
+  }
+
+  getFormattedStartDate(activity: Activity): String {
+    // all day activity
+    if (activity.isAllDay === true) {
+      return 'Today';
+    }
+
+    // activity is between 8 am and 6 pm and is not confirmed
+    if (activity.isConfirmed === false
+      && this.datePipe.transform(activity.startDateTime, 'shortTime').toLowerCase().indexOf(':00') > -1
+      && this.datePipe.transform(activity.endDateTime, 'shortTime').toLowerCase().indexOf(':00') > -1
+      && this.datePipe.transform(activity.startDateTime, 'shortTime').toLowerCase().replace(':00', '') === '8 am'
+      && this.datePipe.transform(activity.endDateTime, 'shortTime').toLowerCase().replace(':00', '') === '6 pm') {
+      return 'Time TBD';
+    }
+
+    // default start date case
+    const startDate = this.datePipe.transform(activity.startDateTime, 'shortTime').toLowerCase();
+    if (startDate.indexOf(':00') > -1) {
+      const formattedStartDate = startDate.replace(':00', '');
+
+        if (formattedStartDate === '12 pm') {
+          return 'Noon';
+        }
+
+        if (formattedStartDate === '12 am') {
+          return 'Midnight';
+        }
+
+        return formattedStartDate;
+    }
+
+    return this.datePipe.transform(activity.startDateTime, 'shortTime').toLowerCase();
   }
 }

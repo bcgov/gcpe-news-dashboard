@@ -1,47 +1,72 @@
 node('master') {
-    stage('Code Quality') {
-        echo "Running SonarQube static code analysis."
-        openshiftBuild bldCfg: 'frontend-sonar-master', showBuildLogs: 'true'
-    }
-
-    stage('Dependency Security Check') {
-        echo "Running Snyk analysis of dependencies"
-        openshiftBuild bldCfg: 'frontend-snyk-master', showBuildLogs: 'true'
-    }
-
-    stage('Building builder') {
-        echo "Building builder..."
-        openshiftBuild bldCfg: 'frontend-npm-master-builder', showBuildLogs: 'true', waitTime: '900000'
-    }
-    stage('Building runtime') {
-        echo "Building runtime..."
-        openshiftBuild bldCfg: 'frontend-nginx-master-runtime', showBuildLogs: 'true', waitTime: '900000'
-    }
-    stage('Assembling frontend') {
-        echo "Assembling frontend..."
-        openshiftBuild bldCfg: 'news-dashboard-master', showBuildLogs: 'true', waitTime: '900000'
-    }
-    stage('Inject into runtime') {
-        echo "Injecting app into runtime..."
-        openshiftBuild bldCfg: 'news-dashboard-master-static', showBuildLogs: 'true', waitTime: '900000'
-    }
-    stage('Tagging build') {
-        echo "Tagging image..."
-        openshiftTag destStream: 'news-dashboard-master-static', verbose: 'true', destTag: 'MASTER-$BUILD_ID', srcStream: 'news-dashboard-master-static', srcTag: 'latest'
-    }
-    stage('Deploy on Test') {
-        echo "Deploying to test..."
-        openshiftTag destStream: 'news-dashboard-static', verbose: 'true', destTag: 'test', srcStream: 'news-dashboard-master-static', srcTag: 'MASTER-$BUILD_ID'
-        // Sleeping for a while to wait deployment completes
-	    sh 'sleep 1m'
-    }
-}
-
-timeout(600) {
-  stage('Deploy on Prod') {
-      input "Deploy to Prod?"
-      node('master') {
-        openshiftTag destStream: 'news-dashboard-master-static', verbose: 'true', destTag: 'prod', srcStream: 'news-dashboard-master-static', srcTag: 'MASTER-$BUILD_ID'
+ stage('Build builder') {
+      openshift.withCluster() {
+			  openshift.withProject() {
+          echo "Building builder..."
+          def bc1 = openshift.selector('bc', 'frontend-npm-master-builder')
+          def buildSelector1 = bc1.startBuild('--follow')
+		    }
       }
   }
+
+
+  stage('Building runtime') {
+      openshift.withCluster() {
+			openshift.withProject() {
+			  echo "Building runtime..."
+				def bc2 = openshift.selector('bc', 'frontend-nginx-master-runtime')
+				def buildSelector2 = bc2.startBuild('--follow')
+			}
+		}
+
+  }
+
+  stage('Assembling frontend') {
+		openshift.withCluster() {
+			openshift.withProject() {
+			  echo "Assembling frontend..."
+				def bc3 = openshift.selector('bc', 'news-dashboard-master')
+				def buildSelector3 = bc3.startBuild('--follow')
+			}
+		}
+  }
+
+  stage('Inject into runtime') {
+		openshift.withCluster() {
+			openshift.withProject() {
+			  echo "Inject into runtime..."
+				def bc4 = openshift.selector('bc', 'news-dashboard-master-static')
+				def buildSelector4 = bc4.startBuild('--follow')
+			}
+		}
+  }
+
+
+  stage('Tag Build') {
+		openshift.withCluster() {
+			openshift.withProject() {
+			  echo "Tagging build..."
+        openshift.tag("news-dashboard-master-static:latest", "news-dashboard-static:MASTER-$BUILD_ID")
+        openshift.tag("news-dashboard-static:MASTER-$BUILD_ID", "news-dashboard-static:test")
+			  openshift.tag("news-dashboard-static:MASTER-$BUILD_ID", "news-dashboard-static:prod")
+			}
+		}
+  }
+
+  stage('Deploy on Test') {
+		openshift.withCluster() {
+      openshift.withProject("05e933-test") {
+		    echo "Deploying to test..."
+			  openshift.selector("dc", "news-dashboard").rollout().latest()
+		  }
+		}
+	}
+  stage('Deploy on Prod') {
+      input "Deploy to prod?"
+      openshift.withCluster() {
+        openshift.withProject("05e933-prod") {
+          openshift.selector("dc", "news-dashboard").rollout().latest()
+        }
+      }
+    }
 }

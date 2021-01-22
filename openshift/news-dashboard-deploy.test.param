@@ -4,7 +4,7 @@
 # Template File: templates/frontend/news-dashboard-deploy.yaml
 #=========================================================
 # NAME=news-dashboard
-# IMAGE_NAMESPACE=ntu9uh-tools
+# IMAGE_NAMESPACE=05e933-tools
 # REAL_IP_FROM=172.51.0.0/16
 API_URL=https://test.api.hub.gcpe.gov.bc.ca/
 # API_SERVICE_NAME=hub-api
@@ -14,6 +14,7 @@ API_URL=https://test.api.hub.gcpe.gov.bc.ca/
 APPLICATION_DOMAIN=test.dashboard.news.gov.bc.ca
 NEWS_URL=https://test.news.gov.bc.ca
 HUB_URL=https://test.hub.gcpe.gov.bc.ca
+LOADING_TIME_EDGE=12
 TAG_NAME=test
 # HTTP_BASIC=
 # HTTP_BASIC_USERNAME=

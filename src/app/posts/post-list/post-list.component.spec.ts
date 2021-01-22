@@ -88,6 +88,7 @@ describe('PostListComponent', () => {
 
   it('should get 20 posts', () => {
     component.ngOnInit();
+    component.ngAfterViewInit();
     expect(div.querySelectorAll('.content').length).toBe(20);
   });
 
@@ -111,6 +112,8 @@ describe('PostListComponent', () => {
     });
     it('should get 5 Fake Ministry posts', ()  => {
       component.ngOnInit();
+      component.ngAfterViewInit();
+      fixture.detectChanges();
       expect(div.querySelectorAll('.content').length).toBe(5);
       const posts = component.selectedPosts.filter(s => s.leadMinistryName === userMinistry);
       expect(posts.length).toEqual(5);

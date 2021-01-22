@@ -1,7 +1,7 @@
 <nav id="theme-nav" class="navbar fixed-top navbar-expand-xs bg-primary navbar-light pt-0 pb-0">
   <div class="container-fluid">
     <div class="navbar-brand title mr-auto" id="site-title" >
-      <h4>New Theme</h4>
+      <h4>New Message</h4>
     </div>
     <ul class="navbar-nav navbar-right">
       <li *ngIf="!isNew || themeForm.dirty; else cancel" ngbDropdown class="nav-item my-auto">
@@ -35,7 +35,7 @@
       <div class="form-group row">
         <div class="form-check custom-control custom-checkbox col-sm-10 offset-sm-2">
           <input id="isHighlighted" type="checkbox" class="form-check-input custom-control-input" formControlName="isHighlighted" [attr.checked]="themeForm['isHighlighted']">
-          <label for="isHighlighted" class="custom-control-label">Highlighted Message</label>
+          <label for="isHighlighted" class="custom-control-label">In Focus</label>
         </div>
       </div>
       <div class="form-group row">
@@ -52,5 +52,5 @@
       </div>
       <div class="text-right character-count mr-3" [style.color]="themeForm.get('description').invalid ? 'red' : ''">{{themeForm.value.description.length}}/4000 characters</div>
     </form>
-  </div>  
-</div> 
+  </div>
+</div>

@@ -1,5 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule, APP_INITIALIZER } from '@angular/core';
+import { NgModule, APP_INITIALIZER, Pipe } from '@angular/core';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
@@ -56,6 +56,7 @@ import { HomeComponent } from './home/home.component';
 import { UtilsService } from './services/utils.service';
 import { MinistriesProvider } from './_providers/ministries.provider';
 import { SnowplowService } from './services/snowplow.service';
+import { DatePipe } from '@angular/common';
 
 const appInitializerFn = (appConfig: AppConfigService) => {
   return () => {
@@ -66,6 +67,13 @@ const appInitializerFn = (appConfig: AppConfigService) => {
 export function ministriesProviderFactory(provider: MinistriesProvider) {
   return () => provider.load();
 }
+
+// tslint:disable-next-line: use-pipe-transform-interface
+@Pipe({
+  name: 'timeAgo',
+  pure: false
+})
+export class TimeAgoExtendsPipe extends TimeAgoPipe {}
 
 @NgModule({
   declarations: [
@@ -95,7 +103,7 @@ export function ministriesProviderFactory(provider: MinistriesProvider) {
     ClickPreventDefaultDirective,
     HasRoleDirective,
     // Pipes
-    TimeAgoPipe,
+    TimeAgoExtendsPipe,
     PluralizeKindPipe
   ],
   imports: [
@@ -124,6 +132,7 @@ export function ministriesProviderFactory(provider: MinistriesProvider) {
       deps: [MinistriesProvider],
       multi: true
     },
+    DatePipe,
     // Services
     { provide: AuthProvider, useFactory: AuthProviderFactory, deps: [AppConfigService, OAuthService] },
     ActivitiesService,

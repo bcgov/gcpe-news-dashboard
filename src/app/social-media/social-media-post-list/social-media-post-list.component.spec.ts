@@ -52,7 +52,7 @@ describe('SocialMediaPostListComponent', () => {
         { provide: ActivatedRoute, useClass: MockActivatedRoute },
         SocialMediaRenderService,
         { provide: AuthService, useClass: mockAuth },
-        SnowplowService
+        SnowplowService,
       ]
     })
     .compileComponents();

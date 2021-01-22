@@ -73,6 +73,8 @@ objects:
                   value: "${AUTH_TYPE}"
                 - name: KEYCLOAK_SSO_PREFIX
                   value: "${KEYCLOAK_SSO_PREFIX}"
+                - name: LOADING_TIME_EDGE
+                  value: "${LOADING_TIME_EDGE}"
               resources:
                 requests:
                   cpu: "${CPU_REQUEST}"
@@ -159,7 +161,7 @@ parameters:
     displayName: Image Namespace
     description: The namespace where to get the above image name
     required: true
-    value: ntu9uh-tools
+    value: 05e933-tools
   - name: REAL_IP_FROM
     displayName: OpenShift Cluster IP Range
     description: >-

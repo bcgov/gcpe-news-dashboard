@@ -1,16 +1,19 @@
-
 <app-hq-dashboard-sub-menu></app-hq-dashboard-sub-menu>
 <div id="theme-list-container" class="row pl-0 pr-0 pt-3">
     <div id="theme-list" [ngClass]="highlightedTheme ? 'col-sm-8' : 'col-sm-12'">
        <div *ngIf="highlightedTheme" class="message-body">
-        <h5 *ngIf="highlightedTheme.title" class="message-title">{{highlightedTheme.title}}</h5>
+        <h5 *ngIf="highlightedTheme.title" class="message-title">IN FOCUS</h5>
+        <span class="message-title-info mb-4">*IN FOCUS contains frequently updated content about the different ways our government is working to make life better for people. These are the stories we want to tell.</span>
+        <h5 *ngIf="highlightedTheme.title">{{highlightedTheme.title}}</h5>
         <p *ngIf="highlightedTheme.description" class="message-text justify-content-between">{{highlightedTheme.description}}</p>
       </div>
     </div>
     <div class="message col-sm-4">
-      <h5 class="message-header">{{'message' | uppercase}}</h5>
+      <h5 class="message-header">{{'core messages' | uppercase}}</h5>
+      <span class="message-title-info">*The CORE MESSAGE is the overarching message frame for government. It’s what we want people to be thinking at the end of the day.</span>
       <ng-container *ngFor="let theme of themes; let first = first; let last = last">
         <app-theme-card [theme]="theme" [first]="first" [last]="last"></app-theme-card>
       </ng-container>
     </div>
   </div>
+

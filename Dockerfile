@@ -1,5 +1,5 @@
 # base image - latest LTS
-FROM node:carbon
+FROM node:dubnium
 
 # install chrome for protractor tests
 RUN wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | apt-key add -
@@ -11,7 +11,7 @@ RUN mkdir /usr/src/app
 WORKDIR /usr/src/app
 
 # angular cli
-RUN npm install -g @angular/cli@7.0.3
+RUN npm install -g @angular/cli@8.3.3
 
 # add `/usr/src/app/node_modules/.bin` to $PATH
 ENV PATH /usr/src/app/node_modules/.bin:$PATH

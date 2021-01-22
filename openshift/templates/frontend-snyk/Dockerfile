@@ -1,7 +1,7 @@
 # Get community edition of nodejs v8.x (LTS)
-FROM centos/nodejs-8-centos7
+FROM centos/nodejs-10-centos7
 
-ENV PATH="/opt/rh/rh-nodejs8/root/usr/bin/:$PATH"
+ENV PATH="/opt/rh/rh-nodejs10/root/usr/bin/:$PATH"
 
 RUN npm install -g snyk
 
