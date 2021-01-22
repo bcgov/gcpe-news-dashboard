@@ -1,7 +1,7 @@
 {
   "NEWS_URL": "https://test.news.gov.bc.ca",
   "HUB_URL": "https://test.hub.gcpe.gov.bc.ca",
-  "AUTH_TYPE": "Keycloak",
-  "KEYCLOAK_SSO_PREFIX": "dev.oidc",
+  "AUTH_TYPE": "AzureAD",
+  "KEYCLOAK_SSO_PREFIX": "test.oidc",
   "LOADING_TIME_EDGE": "12"
 }
