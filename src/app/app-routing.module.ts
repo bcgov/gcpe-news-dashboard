@@ -119,7 +119,7 @@ const appRoutes: Routes = [
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(appRoutes, { initialNavigation: false })],
+  imports: [RouterModule.forRoot(appRoutes, { initialNavigation: 'disabled', relativeLinkResolution: 'legacy' })],
   exports: [RouterModule]
 })
 

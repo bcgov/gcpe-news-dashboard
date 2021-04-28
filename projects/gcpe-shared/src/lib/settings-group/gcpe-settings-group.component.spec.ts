@@ -1,11 +1,11 @@
-import { ComponentFixture, TestBed, async } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { GcpeSettingsGroupComponent } from './gcpe-settings-group.component';
 
 describe('GcpeSettingsGroupComponent', () => {
     let component: GcpeSettingsGroupComponent;
     let fixture: ComponentFixture<GcpeSettingsGroupComponent>;
 
-    beforeEach(async(() => {
+    beforeEach(waitForAsync(() => {
         TestBed.configureTestingModule({
           declarations: [
             GcpeSettingsGroupComponent

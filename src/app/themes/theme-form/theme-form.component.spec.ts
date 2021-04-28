@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { ReactiveFormsModule, FormBuilder } from '@angular/forms';
 import { ThemeFormComponent } from './theme-form.component';
 import { MessagesService } from 'src/app/services/messages.service';
@@ -38,7 +38,7 @@ describe('ThemeFormComponent', () => {
   let fixture: ComponentFixture<ThemeFormComponent>;
   let messagesService: MessagesService;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       imports: [ ReactiveFormsModule ],
       declarations: [ ThemeFormComponent ],

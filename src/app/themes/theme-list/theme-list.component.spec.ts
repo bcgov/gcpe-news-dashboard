@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { ThemeSubMenuComponent } from '../../core/theme-sub-menu/theme-sub-menu.component'
 import { ThemeListComponent } from './theme-list.component';
 import { RouterModule } from '@angular/router';
@@ -23,7 +23,7 @@ describe('ThemeListComponent', () => {
   let alerts: AlertsService;
   let themes: Message[] = FakeThemeData(10, 0, false);
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       imports: [
         RouterModule,

@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { HqDashboardSubMenuComponent } from '../../core/hq-dashboard-sub-menu/hq-dashboard-sub-menu.component';
 import { environment } from '../../../environments/environment';
 import { ThemesOfWeekComponent } from './themes-of-week.component';
@@ -22,7 +22,7 @@ describe('ThemesOfWeekComponent', () => {
   let fixture: ComponentFixture<ThemesOfWeekComponent>;
   let div: HTMLElement;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       imports: [
         RouterModule,

@@ -1,4 +1,4 @@
-import { ComponentFixture, TestBed, async } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { AccountSettingsComponent } from './account-settings.component';
 import { AuthService } from '../_auth/auth.service';
 import { FormsModule } from '@angular/forms';
@@ -22,7 +22,7 @@ describe('AccountSettingsComponent', () => {
         });
       }
 
-    beforeEach(async(() => {
+    beforeEach(waitForAsync(() => {
         TestBed.configureTestingModule({
           imports: [
             FormsModule,

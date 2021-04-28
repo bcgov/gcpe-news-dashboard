@@ -1,11 +1,11 @@
-import { ComponentFixture, TestBed, async } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { GcpeCheckboxComponent } from './gcpe-checkbox.component';
 
 describe('AccountSettingsComponent', () => {
     let component: GcpeCheckboxComponent;
     let fixture: ComponentFixture<GcpeCheckboxComponent>;
 
-    beforeEach(async(() => {
+    beforeEach(waitForAsync(() => {
         TestBed.configureTestingModule({
           declarations: [
             GcpeCheckboxComponent
