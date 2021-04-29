@@ -11,14 +11,14 @@ import { SnowplowService } from '../../services/snowplow.service';
 
 @Injectable()
 class MockMessagesService {
-  addMessage() {}
-  updateMessage() {}
-  deleteMessage() {}
+  addMessage() { }
+  updateMessage() { }
+  deleteMessage() { }
 }
 
 @Injectable()
 class MockRouter {
-  navigate(route, opts) {}
+  navigate(route, opts) { }
 }
 
 const FakeEditRoute = {
@@ -40,8 +40,8 @@ describe('ThemeFormComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      imports: [ ReactiveFormsModule ],
-      declarations: [ ThemeFormComponent ],
+      imports: [ReactiveFormsModule],
+      declarations: [ThemeFormComponent],
       providers: [
         AlertsService,
         NavmenuService,
@@ -88,7 +88,7 @@ describe('ThemeFormComponent', () => {
 
     it('should save if valid', () => {
       spyOn(component, 'create');
-      component.themeForm.patchValue({title: 'Test'});
+      component.themeForm.patchValue({ title: 'Test' });
       component.save();
       expect(component.create).toHaveBeenCalled();
     });
@@ -109,7 +109,7 @@ describe('ThemeFormComponent', () => {
 
     it('should toggle published and create', () => {
       spyOn(component, 'create');
-      component.themeForm.patchValue({title: 'Publish me!'});
+      component.themeForm.patchValue({ title: 'Publish me!' });
 
       component.togglePublished();
 
@@ -131,11 +131,11 @@ describe('ThemeFormComponent', () => {
       const router = TestBed.inject(Router);
       spyOn(router, 'navigate');
       component.close();
-      expect(router.navigate).toHaveBeenCalledWith(['messages'], { queryParams: { type: 'Drafts' }});
+      expect(router.navigate).toHaveBeenCalledWith(['messages'], { queryParams: { type: 'Drafts' } });
       component.theme.isPublished = true;
       component.close();
 
-      expect(router.navigate).toHaveBeenCalledWith(['messages'], { queryParams: { type: 'Published' }});
+      expect(router.navigate).toHaveBeenCalledWith(['messages'], { queryParams: { type: 'Published' } });
     });
 
     it('should close on delete message', () => {
@@ -149,7 +149,7 @@ describe('ThemeFormComponent', () => {
     it('should show alert on create error', () => {
       spyOn(component, 'handleError');
       spyOn(messagesService, 'addMessage').and.returnValue(throwError('error'));
-      component.create({title: 'title'});
+      component.create({ title: 'title' });
       expect(component.handleError).toHaveBeenCalled();
     });
   });
@@ -172,7 +172,7 @@ describe('ThemeFormComponent', () => {
 
     it('should save if valid', () => {
       spyOn(component, 'update');
-      component.themeForm.patchValue({title: 'Test'});
+      component.themeForm.patchValue({ title: 'Test' });
       component.save();
       expect(component.update).toHaveBeenCalled();
     });
@@ -193,7 +193,7 @@ describe('ThemeFormComponent', () => {
 
     it('should toggle published and update', () => {
       spyOn(component, 'update');
-      component.themeForm.patchValue({title: 'unPublish me!'});
+      component.themeForm.patchValue({ title: 'unPublish me!' });
       component.togglePublished();
       expect(component.update).toHaveBeenCalledWith({
         title: 'unPublish me!',
@@ -221,7 +221,7 @@ describe('ThemeFormComponent', () => {
     it('should show alert on update error', () => {
       spyOn(component, 'handleError');
       spyOn(TestBed.inject(MessagesService), 'updateMessage').and.returnValue(throwError('error'));
-      component.update({title: 'title'});
+      component.update({ title: 'title' });
       expect(component.handleError).toHaveBeenCalled();
     });
   });

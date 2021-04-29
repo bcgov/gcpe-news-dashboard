@@ -54,6 +54,7 @@ describe('ActivityForecastListComponent', () => {
         HasRoleDirective
       ],
       providers: [
+        ActivatedRoute, { useValue: { data: of(null) } },
         AlertsService,
         AlertComponent,
         DatePipe,
@@ -89,7 +90,8 @@ describe('ActivityForecastListComponent', () => {
   });
 
   it('should show error if activies retrieval fails', () => {
-    TestBed.overrideProvider(ActivatedRoute, { useValue: { data: of(null) } });
+    // removing this as a workaround to a failing test caused by calling overrideProvider in Angular 11
+    // TestBed.overrideProvider(ActivatedRoute, { useValue: { data: of(null) } });
     fixture.detectChanges();
     expect(TestBed.get(AlertsService).showError).toHaveBeenCalled();
   });

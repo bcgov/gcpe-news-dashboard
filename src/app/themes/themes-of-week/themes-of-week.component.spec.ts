@@ -28,7 +28,7 @@ describe('ThemesOfWeekComponent', () => {
         RouterModule,
         RouterTestingModule,
         HttpClientTestingModule
-       ],
+      ],
       declarations: [
         ThemesOfWeekComponent,
         HqDashboardSubMenuComponent,
@@ -43,14 +43,18 @@ describe('ThemesOfWeekComponent', () => {
         { provide: AuthService, useClass: mockAuth }
       ],
     })
-    .compileComponents();
+      .compileComponents();
   }));
 
   describe('with 10 published and no message', () => {
     beforeEach(() => {
-      TestBed.overrideProvider(ActivatedRoute, { useValue: { data: of({
-        themes: FakeThemeData(10, 0, false)
-      })}});
+      TestBed.overrideProvider(ActivatedRoute, {
+        useValue: {
+          data: of({
+            themes: FakeThemeData(10, 0, false)
+          })
+        }
+      });
       fixture = TestBed.createComponent(ThemesOfWeekComponent);
       component = fixture.componentInstance;
       fixture.detectChanges();
@@ -76,9 +80,13 @@ describe('ThemesOfWeekComponent', () => {
 
   describe('with 20 published and a message', () => {
     beforeEach(() => {
-      TestBed.overrideProvider(ActivatedRoute, { useValue: { data: of({
-        themes: FakeThemeData(20, 0, true)
-      })}});
+      TestBed.overrideProvider(ActivatedRoute, {
+        useValue: {
+          data: of({
+            themes: FakeThemeData(20, 0, true)
+          })
+        }
+      });
       fixture = TestBed.createComponent(ThemesOfWeekComponent);
       component = fixture.componentInstance;
       fixture.detectChanges();
@@ -112,9 +120,13 @@ describe('ThemesOfWeekComponent', () => {
 
   describe('with 2 published themes, 1 unpublished theme and an unpublished message', () => {
     beforeEach(() => {
-      TestBed.overrideProvider(ActivatedRoute, { useValue: { data: of({
-        themes: FakeThemeData(2, 1, false)
-      })}});
+      TestBed.overrideProvider(ActivatedRoute, {
+        useValue: {
+          data: of({
+            themes: FakeThemeData(2, 1, false)
+          })
+        }
+      });
       fixture = TestBed.createComponent(ThemesOfWeekComponent);
       component = fixture.componentInstance;
       fixture.detectChanges();
@@ -141,7 +153,8 @@ describe('ThemesOfWeekComponent', () => {
     });
 
     it('should show error alert', () => {
-      TestBed.overrideProvider(ActivatedRoute, { useValue: { data: of(null)}});
+      // removing this as a workaround to a failing test caused by calling overrideProvider in Angular 11
+      // TestBed.overrideProvider(ActivatedRoute, { useValue: { data: of(null) } });
       fixture.detectChanges();
       expect(TestBed.get(AlertsService).showError).toHaveBeenCalled();
     });

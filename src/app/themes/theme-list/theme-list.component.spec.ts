@@ -29,7 +29,7 @@ describe('ThemeListComponent', () => {
         RouterModule,
         RouterTestingModule,
         HttpClientModule,
-       ],
+      ],
       declarations: [
         ThemeListComponent,
         ThemeSubMenuComponent,
@@ -46,9 +46,13 @@ describe('ThemeListComponent', () => {
   }));
 
   beforeEach(() => {
-    TestBed.overrideProvider(ActivatedRoute, { useValue: { data: of({
-      themes: FakeThemeData(10, 0, false)
-    })}});
+    TestBed.overrideProvider(ActivatedRoute, {
+      useValue: {
+        data: of({
+          themes: FakeThemeData(10, 0, false)
+        })
+      }
+    });
     fixture = TestBed.createComponent(ThemeListComponent);
     alerts = TestBed.get(AlertsService);
     messagesService = TestBed.get(MessagesService);
@@ -66,7 +70,7 @@ describe('ThemeListComponent', () => {
     spyOn(messagesService, 'updateMessage').and.returnValue(observe);
     spyOn(component, 'removeThemeFromList');
     component.unpublishTheme(theme);
-    expect(messagesService.updateMessage).toHaveBeenCalledWith(theme.id, {...theme, isPublished: false});
+    expect(messagesService.updateMessage).toHaveBeenCalledWith(theme.id, { ...theme, isPublished: false });
     expect(component.removeThemeFromList).toHaveBeenCalledWith(theme.id);
   });
 
@@ -81,7 +85,7 @@ describe('ThemeListComponent', () => {
     spyOn(messagesService, 'updateMessage').and.returnValue(of({}));
     const themeToSort = themes[1];
     component.sortEventReceived({ direction: 'up', themeId: themeToSort.id });
-    expect(messagesService.updateMessage).toHaveBeenCalledWith(themeToSort.id, {...themeToSort, sortOrder: themeToSort.sortOrder - 1});
+    expect(messagesService.updateMessage).toHaveBeenCalledWith(themeToSort.id, { ...themeToSort, sortOrder: themeToSort.sortOrder - 1 });
   });
 
   it('should ignore an invalid sort up event', () => {
@@ -97,7 +101,7 @@ describe('ThemeListComponent', () => {
     spyOn(messagesService, 'updateMessage').and.returnValue(of({}));
     const themeToSort = themes[0];
     component.sortEventReceived({ direction: 'down', themeId: themeToSort.id });
-    expect(messagesService.updateMessage).toHaveBeenCalledWith(themeToSort.id, {...themeToSort, sortOrder: themeToSort.sortOrder + 1});
+    expect(messagesService.updateMessage).toHaveBeenCalledWith(themeToSort.id, { ...themeToSort, sortOrder: themeToSort.sortOrder + 1 });
   });
 
   it('should ignore an invalid sort down event', () => {
@@ -117,7 +121,7 @@ describe('ThemeListComponent', () => {
   it('should show error alert if theme fails to unpublish', () => {
     spyOn(messagesService, 'updateMessage').and.returnValue(throwError('error'));
     spyOn(alerts, 'showError');
-    component.unpublishTheme({title: 'theme'});
+    component.unpublishTheme({ title: 'theme' });
     expect(alerts.showError).toHaveBeenCalled();
   });
 });
