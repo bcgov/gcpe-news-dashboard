@@ -1,4 +1,4 @@
-import { TestBed, async, ComponentFixture } from '@angular/core/testing';
+import { TestBed, ComponentFixture, waitForAsync } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 import { HttpClientModule } from '@angular/common/http';
 import { Router, NavigationEnd, NavigationStart } from '@angular/router';
@@ -34,7 +34,7 @@ describe('AppComponent', () => {
   let component: AppComponent;
   let fixture: ComponentFixture<AppComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     const mockRouterService = new MockRouterService();
     TestBed.configureTestingModule({
       imports: [

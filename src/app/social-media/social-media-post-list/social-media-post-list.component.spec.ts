@@ -1,4 +1,4 @@
-import { ComponentFixture, async, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { SocialMediaPostListComponent } from './social-media-post-list.component';
 import { SocialMediaPostsService } from '../../services/socialMediaPosts.service';
 import { RouterModule } from '@angular/router';
@@ -32,7 +32,7 @@ describe('SocialMediaPostListComponent', () => {
     });
   }
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       imports: [
         RouterModule,
@@ -75,7 +75,7 @@ describe('SocialMediaPostListComponent', () => {
     it('should create', ()  => {
       expect(component).toBeTruthy();
     });
-    it('should get 9 social media posts', async(()  => {
+    it('should get 9 social media posts', waitForAsync(()  => {
       component.ngOnInit();
       component.ngAfterViewInit();
       expect(div.querySelectorAll('.social-media-post').length).toBe(9);

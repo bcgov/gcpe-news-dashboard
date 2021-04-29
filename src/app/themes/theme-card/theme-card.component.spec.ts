@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { ThemeCardComponent } from './theme-card.component';
 import { Message } from '../../view-models/message';
 import { TimeAgoPipe } from 'time-ago-pipe';
@@ -8,7 +8,7 @@ describe('ThemeCardComponent', () => {
   let component: ThemeCardComponent;
   let fixture: ComponentFixture<ThemeCardComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       imports: [ RouterTestingModule.withRoutes(
         [{path: 'theme/new', component: ThemeCardComponent}]

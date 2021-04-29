@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { ReactiveFormsModule, FormBuilder } from '@angular/forms';
 import { AddSocialMediaPostComponent } from './add-social-media-post.component';
 import { SocialMediaRenderService } from '../../services/socialMediaRender.service';
@@ -17,7 +17,7 @@ describe('AddSocialMediaPostComponent', () => {
   let component: AddSocialMediaPostComponent;
   let fixture: ComponentFixture<AddSocialMediaPostComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       declarations: [
         AddSocialMediaPostComponent,
