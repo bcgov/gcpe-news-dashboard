@@ -5,10 +5,10 @@
     </blockquote>
   </div>
   <div *ngSwitchCase="'Facebook'" class="card card-no-border facebook-wrapper" [ngClass]="{'hidden': isLoading}">
-    <blockquote style="width: 100%;" class="{{postExt.postType}}" data-width="450" attr.data-href="{{postExt.url}} | async"></blockquote>
+    <blockquote style="width: 100%;" class="{{postExt.postType}}" attr.data-href="{{postExt.url}} | async"></blockquote>
   </div>
   <div *ngSwitchCase="'Instagram'" class="card-no-border instagram-wrapper" [ngClass]="{'hidden': isLoading}">
-    <blockquote style="width: 98%; max-width: 100%;" class="instagram-media" data-instgrm-captioned
+    <blockquote style="width: 95%; max-width: 100%;" class="instagram-media" data-instgrm-captioned
     attr.data-instgrm-permalink="{{postExt.url}}?OMITSCRIPT=true&hidecaption=true | async" data-instgrm-version="9">
       <a href="{{postExt.url}}?OMITSCRIPT=true&hidecaption=true | async"></a>
     </blockquote>
