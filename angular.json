@@ -46,7 +46,9 @@
                   "replace": "src/environments/environment.ts",
                   "with": "src/environments/environment.local.ts"
                 }
-              ]
+              ],
+              "optimization": false,
+              "buildOptimizer": false
             },
             "production": {
               "fileReplacements": [
