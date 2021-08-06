@@ -1,10 +1,40 @@
 /* You can add global styles to this file, and also import other style files */
 @font-face {
-    font-family: "Myriad-Pro";
-    src: url("assets/fonts/MyriadWebPro.eot");
-    src: url("assets/fonts/MyriadWebPro.woff2") format("woff2"),
-        url("assets/fonts/MyriadWebPro.woff") format("woff"),
-        url("assets/fonts/MyriadWebPro.ttf") format("truetype");
+    font-family: 'BCSans';
+    font-style: normal;
+    font-weight: normal;
+    src: url('assets/fonts/BCSans-Regular.woff2') format('woff2'),
+         url('assets/fonts/BCSans-Regular.eot') format('eot'),
+         url('assets/fonts/BCSans-Regular.woff') format('woff'),
+         url('assets/fonts/BCSans-Regular.ttf') format('truetype');
+}
+
+@font-face {
+    font-family: 'BCSans';
+    font-style: italic;
+    src: url('assets/fonts/BCSans-Italic.woff2') format('woff2'), /* Optimized for very modern browsers */
+         url('assets/fonts/BCSans-Italic.woff') format('woff'), /* Modern Browsers */
+         url('assets/fonts/BCSans-Italic.eot') format('eot'),
+         url('assets/fonts/BCSans-Italic.ttf') format('truetype');
+}
+
+@font-face {
+    font-family: 'BCSans';
+    font-weight: 700;
+    src: url('assets/fonts/BCSans-Bold.woff2') format('woff2'), /* Optimized for very modern browsers */
+         url('assets/fonts/BCSans-Bold.woff') format('woff'), /* Modern Browsers */
+         url('assets/fonts/BCSans-Bold.eot') format('eot'),
+         url('assets/fonts/BCSans-Bold.ttf') format('truetype');
+}
+
+@font-face {
+    font-family: 'BCSans';
+    font-style: italic;
+    font-weight: 700;
+    src: url('assets/fonts/BCSans-BoldItalic.woff2') format('woff2'), /* Optimized for very modern browsers */
+         url('assets/fonts/BCSans-BoldItalic.woff') format('woff'), /* Modern Browsers */
+         url('assets/fonts/BCSans-BoldItalic.eot') format('eot'),
+         url('assets/fonts/BCSans-BoldItalic.ttf') format('truetype');
 }
 
 $fa-font-path: "../node_modules/font-awesome/fonts";
