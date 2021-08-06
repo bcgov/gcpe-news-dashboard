@@ -7,11 +7,39 @@
 // Declare primary font, we provide all types for various browsers/devices
 // the web browser will choose which one it wants ondemand instead of CSS onload
 @font-face {
-  font-family: 'Myriad-Pro';
-  src: url('../fonts/MyriadWebPro.eot'); /* IE9 Compat Modes */
-  src: url('../fonts/MyriadWebPro.eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */
-  url('../fonts/MyriadWebPro.woff2') format('woff2'), /* Super Modern Browsers */
-  url('../fonts/MyriadWebPro.woff') format('woff'), /* Pretty Modern Browsers */
-  url('../fonts/MyriadWebPro.ttf')  format('truetype'), /* Safari, Android, iOS */
-  url('../fonts/MyriadWebPro.svg#svgFontName') format('svg'); /* Legacy iOS */
+    font-family: 'BCSans';
+    font-style: normal;
+    font-weight: normal;
+    src: url('../fonts/BCSans-Regular.woff2') format('woff2'),
+         url('../fonts/BCSans-Regular.eot') format('eot'),
+         url('../fonts/BCSans-Regular.woff') format('woff'),
+         url('../fonts/BCSans-Regular.ttf') format('truetype');
+}
+
+@font-face {
+    font-family: 'BCSans';
+    font-style: italic;
+    src: url('../fonts/BCSans-Italic.woff2') format('woff2'), /* Optimized for very modern browsers */
+         url('../fonts/BCSans-Italic.woff') format('woff'), /* Modern Browsers */
+         url('../fonts/BCSans-Italic.eot') format('eot'),
+         url('../fonts/BCSans-Italic.ttf') format('truetype');
+}
+
+@font-face {
+    font-family: 'BCSans';
+    font-weight: 700;
+    src: url('../fonts/BCSans-Bold.woff2') format('woff2'), /* Optimized for very modern browsers */
+         url('../fonts/BCSans-Bold.woff') format('woff'), /* Modern Browsers */
+         url('../fonts/BCSans-Bold.eot') format('eot'),
+         url('../fonts/BCSans-Bold.ttf') format('truetype');
+}
+
+@font-face {
+    font-family: 'BCSans';
+    font-style: italic;
+    font-weight: 700;
+    src: url('../fonts/BCSans-BoldItalic.woff2') format('woff2'), /* Optimized for very modern browsers */
+         url('../fonts/BCSans-BoldItalic.woff') format('woff'), /* Modern Browsers */
+         url('../fonts/BCSans-BoldItalic.eot') format('eot'),
+         url('../fonts/BCSans-BoldItalic.ttf') format('truetype');
 }
