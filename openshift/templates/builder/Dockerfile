@@ -34,7 +34,7 @@ RUN yum -y install pango.x86_64 \
       rm -rf /var/cache/yum/*
 
 # update npm
-RUN npm i npm@6.4.1 -g	&& \
+RUN npm i npm@6.14.6 -g	&& \
   rm -R /opt/rh/rh-nodejs12/root/usr/lib/node_modules/npm
 
 # Required in order to mount .npm as a volume to cache downloaded files
