@@ -1,5 +1,5 @@
 # Use the offical nginx (based on debian)
-FROM nginx:stable
+FROM nginx:latest
 
 ENV STI_SCRIPTS_PATH=/usr/libexec/s2i
 
@@ -26,7 +26,7 @@ COPY nginx.conf.template /tmp/
 # - The application artifacts live in /tmp
 # ---------------------------------------------------------------------------------
 RUN chmod -R g+rwx $STI_SCRIPTS_PATH
-RUN chmod g+rw /var/cache/nginx \ 
+RUN chmod g+rw /var/cache/nginx \
                /var/run \
                /var/log/nginx \
                /etc/nginx/nginx.conf \
