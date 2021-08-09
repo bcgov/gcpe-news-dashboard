@@ -1,5 +1,5 @@
 # Get community edition of nodejs v8.x (LTS)
-FROM centos/nodejs-10-centos7
+FROM centos/nodejs-12-centos7
 
 
 ENV PATH="/opt/rh/rh-nodejs10/root/usr/bin/:$PATH"
@@ -34,12 +34,12 @@ RUN yum -y install pango.x86_64 \
       rm -rf /var/cache/yum/*
 
 # update npm
-RUN npm i npm@6.4.1 -g	&& \       
+RUN npm i npm@6.4.1 -g	&& \
   rm -R /opt/rh/rh-nodejs10/root/usr/lib/node_modules/npm
 
 # Required in order to mount .npm as a volume to cache downloaded files
 RUN chown -R 1001:0 .npm && \
-  chmod -R ug+rwx .npm && \  
+  chmod -R ug+rwx .npm && \
   chown -R 1001:0 /opt/app-root/src/.config
 
 # Run container by default as user with id 1001 (default)
