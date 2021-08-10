@@ -1,43 +1,31 @@
-//---------------------------------------------------------------------------------------
-// Variables from Bootstrap are change here, only CHANGED variables are here,
-// so if your looking for something, check out the varibles.scss file in bootstrap
-//---------------------------------------------------------------------------------------
-// Reference: http://www2.gov.bc.ca/gov/content/governments/services-for-government/policies-procedures/web-content-development-guides/developers-guide/css-elements
-
 @import "~bootstrap/scss/functions";
 @import "~bootstrap/scss/variables";
 @import "~bootstrap/scss/mixins";
 @import "@bcgov/bc-sans/css/BCSans.css";
 
-// Change theme-colors
 $theme-colors: ();
 $theme-colors: map-merge((
-  //primary: #036,
   primary: #FFF,
   secondary: #fcba19,
   light: $gray-300,
   dark: $gray-800,
   medium: $gray-500,
-  primary-nav: #38598a,  // This is new
-  secondary-nav: #5475a7 // This is new too
+  primary-nav: #38598a,
+  secondary-nav: #5475a7
 ), $theme-colors);
 
-// Add our font as default
 $font-family-sans-serif: 'BCSans', 'Noto Sans', Verdana, Arial, sans-serif;
 $font-family-base: $font-family-sans-serif;
 $body-color: #494949;
 
-// Headings
 $headings-font-weight:   600;
 $headings-color: #494949;
 $heading-large-height: 80px;
 $heading-small-height: 50px;
 
-// Links
 $link-color:            #1a5a96;
 $link-hover-color:      #1a5a96;
 
-// Breadcrumbs
 $breadcrumb-bg: transparent;
 
 $navbar-padding-x: 0;
