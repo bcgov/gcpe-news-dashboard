@@ -1,5 +1,5 @@
 # Use the offical nginx (based on debian)
-FROM nginx:latest
+FROM nginx:stable
 
 ENV STI_SCRIPTS_PATH=/usr/libexec/s2i
 
