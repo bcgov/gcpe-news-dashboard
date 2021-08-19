@@ -57,6 +57,7 @@ import { UtilsService } from './services/utils.service';
 import { MinistriesProvider } from './_providers/ministries.provider';
 import { SnowplowService } from './services/snowplow.service';
 import { DatePipe } from '@angular/common';
+import { SocialMediaPageViewComponent } from './social-media/social-media-page-view/social-media-page-view.component';
 
 const appInitializerFn = (appConfig: AppConfigService) => {
   return () => {
@@ -104,7 +105,8 @@ export class TimeAgoExtendsPipe extends TimeAgoPipe {}
     HasRoleDirective,
     // Pipes
     TimeAgoExtendsPipe,
-    PluralizeKindPipe
+    PluralizeKindPipe,
+    SocialMediaPageViewComponent
   ],
   imports: [
     AppRoutingModule,
