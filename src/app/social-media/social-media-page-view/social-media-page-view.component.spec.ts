@@ -1,6 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { SocialMediaPageViewComponent } from './social-media-page-view.component';
+import { SocialMediaRenderService } from '../../services/socialMediaRender.service';
 
 describe('SocialMediaPageViewComponent', () => {
   let component: SocialMediaPageViewComponent;
@@ -8,7 +9,8 @@ describe('SocialMediaPageViewComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ SocialMediaPageViewComponent ]
+      declarations: [ SocialMediaPageViewComponent ],
+      providers: [SocialMediaRenderService]
     })
     .compileComponents();
   });
