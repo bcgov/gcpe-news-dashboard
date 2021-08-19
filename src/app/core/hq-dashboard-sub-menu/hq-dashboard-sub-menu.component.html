@@ -18,6 +18,7 @@
             <li class="list-inline-item" (click)="toggleSubmenu()" [ngClass]="{'open': submenuOpen}"><a routerLink="/next-7-day-activity-list" routerLinkActive="active">{{'7 day forecast' | uppercase}}</a></li>
             <!-- <li class="list-inline-item" (click)="toggleSubmenu()" [ngClass]="{'open': submenuOpen}"><a routerLink="/message-centre" routerLinkActive="active">{{'message centre' | uppercase}}</a></li> -->
             <li class="list-inline-item" (click)="toggleSubmenu()" [ngClass]="{'open': submenuOpen}"><a routerLink="/social-media-list" routeLinkActiveOptions="{exact: false}" routerLinkActive="active">{{'social media' | uppercase}}</a></li>
+            <li class="list-inline-item" (click)="toggleSubmenu()" [ngClass]="{'open': submenuOpen}"><a routerLink="/social-media-page-view" routerLinkActive="active">{{'social media page view' | uppercase}}</a></li>
 
             <li id="social-media-filter" class="list-inline-item ml-auto open" *ngIf="socialmediatypes">
                 <div ngbDropdown placement="bottom-right" id="social-media-filter-dropdown-menu">
