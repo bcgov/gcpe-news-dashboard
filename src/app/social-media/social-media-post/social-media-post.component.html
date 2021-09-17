@@ -8,7 +8,7 @@
     <blockquote style="width: 95%;" class="{{postExt.postType}}" attr.data-href="{{postExt.url}} | async"></blockquote>
   </div>
   <div *ngSwitchCase="'Instagram'" class="card-no-border instagram-wrapper" [ngClass]="{'hidden': isLoading}">
-    <blockquote style="width: 95%; max-width: 95%;" class="instagram-media" data-instgrm-captioned
+    <blockquote style="width: 95%; max-width: 95%;" class="instagram-media"
     attr.data-instgrm-permalink="{{postExt.url}}?OMITSCRIPT=true&hidecaption=true | async" data-instgrm-version="9">
       <a href="{{postExt.url}}?OMITSCRIPT=true&hidecaption=true | async"></a>
     </blockquote>

@@ -2,25 +2,43 @@
 
 <div class="container-fluid" style="margin-top:30px;">
   <div class="row">
-    <div class="col">
+    <div class="col-3">
       <div class="fb-page"
-        data-tabs="timeline,events"
+        data-tabs="timeline"
         data-href="https://www.facebook.com/BCProvincialGovernment"
-        data-width="380" height="580"
+        data-width="380" height="3000"
         data-hide-cover="false"
         data-show-facepile="false">
         <div class="fb-xfbml-parse-ignore"></div>
       </div>
-    </div>
-    <div class="col">
-      <a class="twitter-timeline" height="600" data-width="380"
+      <a class="twitter-timeline" height="3000" data-width="380"
         href="https://twitter.com/BCGovNews">
       Tweets by @BCGovNews
       </a>
     </div>
-    <div class="col">
-      <iframe src="https://www.youtube.com/embed/?listType=user_uploads&list=ProvinceofBC" width="480" height="400"></iframe>
+    <!--
+<div class="col">
+      <div *ngIf="selectedSocialMedia.length > 0" id="new-social-media-list" class='masonry'>
+        <div *ngFor="let post of selectedSocialMedia" class="item">
+          <div class='content'>
+            <app-social-media-post [postExt]="post" [isLoading]="isLoading"></app-social-media-post>
+          </div>
+        </div>
+      </div>
     </div>
+    -->
+    <div class="col-9">
+      <div class="row">
+        <div *ngFor="let post of selectedSocialMedia" class="col-md-4">
+          <div class='content'>
+            <app-social-media-post [postExt]="post" [isLoading]="isLoading"></app-social-media-post>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+
   </div>
 
 
