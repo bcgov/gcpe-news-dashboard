@@ -65,6 +65,7 @@ const appRoutes: Routes = [
   {
     path: 'social-media-page-view',
     component: SocialMediaPageViewComponent,
+    resolve: { socialmedia: SociaMediaPostListResolver, socialmediatype: SociaMediaTypeListResolver }
   },
   {
     path: 'social-media-input',
