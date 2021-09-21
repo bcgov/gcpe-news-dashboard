@@ -6,12 +6,15 @@
       <div class="fb-page"
         data-tabs="timeline"
         data-href="https://www.facebook.com/BCProvincialGovernment"
-        data-width="380" height="3000"
+        data-width="350" height="3000"
         data-hide-cover="false"
         data-show-facepile="false">
         <div class="fb-xfbml-parse-ignore"></div>
       </div>
-      <a class="twitter-timeline" height="3000" data-width="380"
+
+    </div>
+    <div class="col-3">
+      <a class="twitter-timeline" height="3000" data-width="350"
         href="https://twitter.com/BCGovNews">
       Tweets by @BCGovNews
       </a>
@@ -27,9 +30,9 @@
       </div>
     </div>
     -->
-    <div class="col-9">
+    <div class="col-6">
       <div class="row">
-        <div *ngFor="let post of selectedSocialMedia" class="col-md-4">
+        <div *ngFor="let post of selectedSocialMedia" class="col-md-6 col-lg-6">
           <div class='content'>
             <app-social-media-post [postExt]="post" [isLoading]="isLoading"></app-social-media-post>
           </div>
