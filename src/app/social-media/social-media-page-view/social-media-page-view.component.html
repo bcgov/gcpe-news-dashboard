@@ -2,21 +2,27 @@
 
 <div class="container-fluid" style="margin-top:30px;">
   <div class="row">
-    <div class="col-3">
-      <div class="fb-page"
+    <div class="col-xxl-3 col-xl-4 col-lg-4 col-md-4 col-sm-12 col-xs-12">
+      <div class="fb-page d-none-md d-none-lg"
         data-tabs="timeline"
         data-href="https://www.facebook.com/BCProvincialGovernment"
-        data-width="350" height="3000"
+        data-width="500" height="3000" data-adapt-container-width="true"
         data-hide-cover="false"
         data-show-facepile="false">
-        <div class="fb-xfbml-parse-ignore"></div>
+        <blockquote class="fb-xfbml-parse-ignore"></blockquote>
       </div>
-
+      <div class="fb-page d-none-xs d-none-sm d-none-xxl"
+        data-tabs="timeline"
+        data-href="https://www.facebook.com/BCProvincialGovernment"
+        data-width="350" height="3000" data-adapt-container-width="true"
+        data-hide-cover="false"
+        data-show-facepile="false">
+        <blockquote class="fb-xfbml-parse-ignore"></blockquote>
+      </div>
     </div>
-    <div class="col-3">
-      <a class="twitter-timeline" height="3000" data-width="350"
+    <div class="col-xxl-3 col-xl-4 col-lg-4 col-md-4 col-sm-12 col-xs-12" style="border: 1px rgba(15,70,100,.12) solid">
+      <a class="twitter-timeline" height="3000"
         href="https://twitter.com/BCGovNews">
-      Tweets by @BCGovNews
       </a>
     </div>
     <!--
@@ -30,9 +36,9 @@
       </div>
     </div>
     -->
-    <div class="col-6">
+    <div class="col-xxl-3 col-xl-4 col-lg-4 col-md-4 col-sm-12 col-xs-12 ">
       <div class="row">
-        <div *ngFor="let post of selectedSocialMedia" class="col-md-6 col-lg-6">
+        <div *ngFor="let post of selectedSocialMedia" class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-6">
           <div class='content'>
             <app-social-media-post [postExt]="post" [isLoading]="isLoading"></app-social-media-post>
           </div>
