@@ -5,7 +5,7 @@ import { SocialMediaPostExtended } from '../../view-models/social-media-post-ext
 import { Router, ActivatedRoute } from '@angular/router';
 
 const SocialMediaListDivName = 'new-social-media-list';
-
+declare const window: any;
 @Component({
   selector: 'app-social-media-page-view',
   templateUrl: './social-media-page-view.component.html',
@@ -27,7 +27,7 @@ export class SocialMediaPageViewComponent implements OnInit, AfterViewInit, OnDe
     private activatedRoute: ActivatedRoute,
     public renderer: Renderer2) {
       this.resizeListener = this.renderer.listen('window', 'resize', (event) => {
-        this.resizeview();
+        window.location.reload();
       });
     }
 
@@ -36,37 +36,25 @@ export class SocialMediaPageViewComponent implements OnInit, AfterViewInit, OnDe
       this.socialmedia = data['socialmedia'];
       this.socialmediatypes = data['socialmediatype'];
     });
-    console.log(this.socialmedia);
 
     this.activatedRoute.queryParams.subscribe(() => {
       this.selectedSocialMedia = this.socialmedia.filter(s => s.mediaType === 'Instagram');
       this.filterBySocialMediaType = 'Instagram';
     });
-    console.log('length ' + this.selectedSocialMedia.length);
-    this.socialMediaRenderService.initFacebook();
-    this.socialMediaRenderService.loadFacebookTimeline();
   }
   ngAfterViewInit() {
+    this.socialMediaRenderService.loadFacebookTimeline();
+    this.socialMediaRenderService.loadTwitterWidgets();
     this.selectedSocialMedia.forEach(post => {
       this.socialMediaRenderService.loadWidgetsWithOptions(post.mediaType, false, SocialMediaListDivName);
     });
     this.isLoading = false;
-
-    this.socialMediaRenderService.loadTwitterWidgets();
-    this.socialMediaRenderService.loadFacebookTimeline();
-
   }
 
   ngOnDestroy() {
   }
 
-  private resizeview(){
-    this.socialMediaRenderService.loadFacebookTimeline();
-    this.socialMediaRenderService.loadTwitterWidgets();
-    this.selectedSocialMedia.forEach(post => {
-      this.socialMediaRenderService.loadWidgetsWithOptions(post.mediaType, false, SocialMediaListDivName);
-    });
   }
 
 
-}
+

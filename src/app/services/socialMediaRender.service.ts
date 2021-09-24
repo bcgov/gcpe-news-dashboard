@@ -13,7 +13,7 @@ export class SocialMediaRenderService {
   initFacebook() {
     FB.init({
       xfbml: true,
-      version: 'v3.2'
+      version: 'v3.2',
     });
   }
 
