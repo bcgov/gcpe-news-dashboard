@@ -14,7 +14,6 @@ export class SocialMediaRenderService {
     FB.init({
       xfbml: true,
       version: 'v3.2',
-      appId: '290738601563206'
     });
   }
 
