@@ -1,45 +1,30 @@
 <app-hq-dashboard-sub-menu></app-hq-dashboard-sub-menu>
 
-<div class="container-fluid" style="margin-top:30px;">
-  <div class="row">
-    <div class="col-xxl-3 col-xl-4 col-lg-4 col-md-4 col-sm-12 col-xs-12">
+<div class="container-fluid" style="margin-top:30px; padding-left:0; padding-right: 0;">
+  <div class="row justify-content-md-center justify-content-xxl-center">
+    <div class="col-xxl-3 col-xl-4 col-lg-4 col-md-7 col-sm-12 col-xs-12">
       <div class="fb-page"
         data-tabs="timeline"
         data-href="https://www.facebook.com/BCProvincialGovernment"
-        data-width="500" height="3000" data-adapt-container-width="true"
-        data-hide-cover="false"
+        data-width="500" data-adapt-container-width="true" data-small-header="true"
+        data-hide-cover="false" data-height="6000"
         data-show-facepile="false">
-        <blockquote class="fb-xfbml-parse-ignore"></blockquote>
+        <blockquote cite="https://www.facebook.com/BCProvincialGovernment" class="fb-xfbml-parse-ignore"><a href="https://www.facebook.com/BCProvincialGovernment">Facebook</a></blockquote>
       </div>
     </div>
-    <div class="col-xxl-3 col-xl-4 col-lg-4 col-md-4 col-sm-12 col-xs-12" style="border: 1px rgba(15,70,100,.12) solid">
-      <a class="twitter-timeline" height="3000"
-        href="https://twitter.com/BCGovNews">
+    <div class="col-xxl-3 col-xl-4 col-lg-4 col-md-7 col-sm-12 col-xs-12" style="border: 1px rgba(15,70,100,.12) solid; margin-top: 20px;;">
+      <a class="twitter-timeline" data-chrome="noscrollbar"
+        href="https://twitter.com/BCGovNews" max-width='500'>
       </a>
     </div>
-    <!--
-<div class="col">
-      <div *ngIf="selectedSocialMedia.length > 0" id="new-social-media-list" class='masonry'>
-        <div *ngFor="let post of selectedSocialMedia" class="item">
+    <div class="col-xxl-3 col-xl-4 col-lg-4 col-md-7 col-sm-12 col-xs-12" style="margin-top: 20px;">
+      <h6 class="card-title"><i class="fa fa-instagram"></i>Instagram by <a href="https://www.instagram.com/governmentofbc/">governmentofbc</a></h6>
+        <div *ngFor="let post of selectedSocialMedia" >
           <div class='content'>
             <app-social-media-post [postExt]="post" [isLoading]="isLoading"></app-social-media-post>
           </div>
         </div>
-      </div>
     </div>
-    -->
-    <div class="col-xxl-3 col-xl-4 col-lg-4 col-md-4 col-sm-12 col-xs-12 ">
-      <div class="row">
-        <div *ngFor="let post of selectedSocialMedia" class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-12 col-xxl-6">
-          <div class='content'>
-            <app-social-media-post [postExt]="post" [isLoading]="isLoading"></app-social-media-post>
-          </div>
-        </div>
-      </div>
-
-    </div>
-
-
   </div>
 
 
