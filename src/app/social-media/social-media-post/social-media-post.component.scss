@@ -21,18 +21,8 @@
     display: none !important;
 }
 
-.HoverCard {
-    display: none !important;
-}
-
-.Feedback {
-    display: none !important;
-}
-
-.SocialProof {
-    display: none !important;
-}
-
-.embed .Footer{
-    display: none !important;
-}
+@media screen and (max-width: 992px) {
+    .instagram-media {
+      min-width: unset !important;
+    }
+  }

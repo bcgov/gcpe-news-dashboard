@@ -23,6 +23,11 @@ export class SocialMediaRenderService {
     }
   }
 
+  loadFacebookTimeline() {
+    this.initFacebook();
+    FB.XFBML.parse();
+  }
+
   loadFacebookWidgets() {
     this.initFacebook();
     Array.from(document.getElementsByClassName('fb-post')).forEach(function (item) {
@@ -113,6 +118,11 @@ export class SocialMediaRenderService {
         }, 50);
       });
     }
+  }
+
+  // init twitter timeline
+  initTwitterTimeline() {
+
   }
 
 }
