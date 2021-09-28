@@ -3,6 +3,9 @@ import { SocialMediaRenderService } from '../../services/socialMediaRender.servi
 import { SocialMediaType } from '../../view-models/social-media-type';
 import { SocialMediaPostExtended } from '../../view-models/social-media-post-extended';
 import { Router, ActivatedRoute } from '@angular/router';
+import { Subscription } from 'rxjs/Subscription';
+import { Observable } from 'rxjs/Observable';
+import { timer } from 'rxjs';
 
 const SocialMediaListDivName = 'new-social-media-list';
 declare const window: any;
@@ -21,6 +24,9 @@ export class SocialMediaPageViewComponent implements OnInit, AfterViewInit, OnDe
 
   isLoading = true;
   private resizeListener: any;
+  private subscription: Subscription;
+  private timer: Observable<any>;
+  private fbEvents: Observable<any>;
 
   constructor(private socialMediaRenderService: SocialMediaRenderService,
     private router: Router,
@@ -41,17 +47,28 @@ export class SocialMediaPageViewComponent implements OnInit, AfterViewInit, OnDe
       this.selectedSocialMedia = this.socialmedia.filter(s => s.mediaType === 'Instagram');
       this.filterBySocialMediaType = 'Instagram';
     });
+    this.socialMediaRenderService.initFacebook();
   }
   ngAfterViewInit() {
-    this.socialMediaRenderService.loadFacebookTimeline();
-    this.socialMediaRenderService.loadTwitterWidgets();
-    this.selectedSocialMedia.forEach(post => {
-      this.socialMediaRenderService.loadWidgetsWithOptions(post.mediaType, false, SocialMediaListDivName);
+    this.timer = timer(1000);
+    this.subscription = this.timer.subscribe(() => {
+      this.socialMediaRenderService.loadTwitterWidgets();
+      this.socialMediaRenderService.loadFacebookTimeline();
+      this.selectedSocialMedia.forEach(post => {
+        this.socialMediaRenderService.loadWidgetsWithOptions(post.mediaType, false, SocialMediaListDivName);
+      });
+      this.isLoading = false;
     });
-    this.isLoading = false;
   }
 
   ngOnDestroy() {
+    this.resizeListener();
+    if (this.subscription) {
+      this.subscription.unsubscribe();
+    }
+    if (this.fbEvents && this.fbEvents instanceof Subscription) {
+      this.fbEvents.unsubscribe();
+    }
   }
 
   }

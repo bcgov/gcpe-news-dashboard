@@ -15,6 +15,7 @@ export class SocialMediaRenderService {
       xfbml: true,
       version: 'v3.2',
     });
+
   }
 
   loadTwitterWidgets() {
@@ -24,7 +25,7 @@ export class SocialMediaRenderService {
   }
 
   loadFacebookTimeline() {
-    this.initFacebook();
+    //this.initFacebook();
     FB.XFBML.parse();
   }
 
@@ -118,11 +119,6 @@ export class SocialMediaRenderService {
         }, 50);
       });
     }
-  }
-
-  // init twitter timeline
-  initTwitterTimeline() {
-
   }
 
 }
