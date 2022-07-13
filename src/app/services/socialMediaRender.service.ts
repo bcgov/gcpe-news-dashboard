@@ -12,9 +12,9 @@ export class SocialMediaRenderService {
 
   initFacebook() {
     FB.init({
-      xfbml: false,
+      xfbml: true,
       version: 'v14.0',
-      autoLogAppEvents : true,
+      autoLogAppEvents : false,
     });
 
   }
