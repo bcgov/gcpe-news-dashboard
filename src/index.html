@@ -6,7 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Dashboard</title>
   <base href="/">
-  <script src="https://connect.facebook.net/en_US/sdk.js"></script>
+
   <script src="//www.instagram.com/embed.js"></script>
   <script src="https://platform.twitter.com/widgets.js"></script>
   <script src="/assets/scripts/snowplow_tracker.js"></script>
@@ -16,19 +16,18 @@
 </head>
 <body>
   <div id="fb-root"></div>
-  <script type="text/javascript">
-    window.fbAsyncInit = function () {
-        window.setTimeout(function () {
-            FB.Canvas.setAutoGrow()
-        }, 250)
+  <script>
+    window.fbAsyncInit = function() {
+      FB.init({
+        appId            : '290738601563206',
+        autoLogAppEvents : false,
+        xfbml            : true,
+        version          : 'v14.0'
+      });
     };
-    (function () {
-        var e = document.createElement('script');
-        e.async = true;
-        e.src = document.location.protocol + '//connect.facebook.net/en_US/all.js';
-        document.getElementById('fb-root').appendChild(e)
-    }());
-    </script>
+  </script>
+  <script async defer crossorigin="anonymous" src="https://connect.facebook.net/en_US/sdk.js"></script>
+
   <app-root></app-root>
 </body>
 </html>
