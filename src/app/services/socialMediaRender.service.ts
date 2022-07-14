@@ -12,9 +12,11 @@ export class SocialMediaRenderService {
 
   initFacebook() {
     FB.init({
+      appId: '290738601563206',
       xfbml: true,
       version: 'v14.0',
       autoLogAppEvents : false,
+
     });
 
   }
