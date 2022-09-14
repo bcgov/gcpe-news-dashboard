@@ -217,6 +217,9 @@
       }
     }
   },
-  "defaultProject": "news-dashboard"
+  "defaultProject": "news-dashboard",
+  "cli": {
+    "analytics": false
+  }
 }
 
