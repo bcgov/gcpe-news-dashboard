@@ -1,5 +1,5 @@
 # Get community edition of nodejs v8.x (LTS)
-FROM centos/nodejs-12-centos7
+FROM node:16.10-bullseye
 
 ENV PATH="/opt/rh/rh-nodejs12/root/usr/bin/:$PATH"
 
