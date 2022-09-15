@@ -7,7 +7,8 @@ ENV PATH="/opt/rh/rh-nodejs16/root/usr/bin/:$PATH"
 USER 0
 
 # install Chrome Headless dependencies
-RUN yum -y install pango.x86_64 \
+RUN apt-get update && apt-get -y upgrade
+RUN apt -y install pango.x86_64 \
       libXcomposite.x86_64 \
       libXcursor.x86_64 \
       libXdamage.x86_64 \
@@ -28,10 +29,6 @@ RUN yum -y install pango.x86_64 \
       xorg-x11-fonts-cyrillic \
       xorg-x11-fonts-Type1 \
       xorg-x11-fonts-misc \
-      && yum clean all -y && \
-# yum cache files may still exist (and quite large in size)
-      rm -rf /var/cache/yum/*
-
 # update npm
 RUN npm i npm@7.24.0 -g	&& \
   rm -R /opt/rh/rh-nodejs12/root/usr/lib/node_modules/npm
