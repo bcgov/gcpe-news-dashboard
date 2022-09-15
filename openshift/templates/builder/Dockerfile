@@ -31,7 +31,7 @@ RUN apt -y install pango.x86_64 \
       xorg-x11-fonts-misc \
 # update npm
 RUN npm i npm@7.24.0 -g	&& \
-  rm -R /opt/rh/rh-nodejs12/root/usr/lib/node_modules/npm
+  rm -R /opt/rh/rh-nodejs16/root/usr/lib/node_modules/npm
 
 # Required in order to mount .npm as a volume to cache downloaded files
 RUN chown -R 1001:0 .npm && \
