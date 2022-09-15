@@ -29,9 +29,6 @@ RUN apt -y install pango.x86_64 \
       xorg-x11-fonts-cyrillic \
       xorg-x11-fonts-Type1 \
       xorg-x11-fonts-misc \
-# update npm
-RUN npm i npm@7.24.0 -g
-
 # Required in order to mount .npm as a volume to cache downloaded files
 RUN chown -R 1001:0 .npm && \
   chmod -R ug+rwx .npm && \
