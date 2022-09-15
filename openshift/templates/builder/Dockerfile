@@ -1,8 +1,8 @@
 # Get community edition of nodejs v8.x (LTS)
-FROM centos/nodejs-12-centos7
+FROM centos/nodejs-16-centos7
 
 
-ENV PATH="/opt/rh/rh-nodejs12/root/usr/bin/:$PATH"
+ENV PATH="/opt/rh/rh-nodejs16/root/usr/bin/:$PATH"
 
 # Switch to root for package installs
 USER 0
@@ -34,7 +34,7 @@ RUN yum -y install pango.x86_64 \
       rm -rf /var/cache/yum/*
 
 # update npm
-RUN npm i npm@6.14.6 -g	&& \
+RUN npm i npm@7.24.0 -g	&& \
   rm -R /opt/rh/rh-nodejs12/root/usr/lib/node_modules/npm
 
 # Required in order to mount .npm as a volume to cache downloaded files
