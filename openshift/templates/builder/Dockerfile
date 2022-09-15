@@ -31,4 +31,8 @@ RUN apt -y install pango.x86_64 \
       xorg-x11-fonts-misc \
 # Required in order to mount .npm as a volume to cache downloaded files
 # Run container by default as user with id 1001 (default)
-USER 1001
+WORKDIR /usr/src/app
+COPY . /usr/src/app
+RUN npm install
+CMD "npm" "start"
+
