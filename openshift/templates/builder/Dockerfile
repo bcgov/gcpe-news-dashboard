@@ -1,5 +1,5 @@
 # Get community edition of nodejs v8.x (LTS)
-FROM node:16.10-bullseye
+FROM quay.io/centos7/nodejs-14-centos7
 
 ENV PATH="/opt/rh/rh-nodejs16/root/usr/bin/:$PATH"
 
@@ -7,8 +7,7 @@ ENV PATH="/opt/rh/rh-nodejs16/root/usr/bin/:$PATH"
 USER 0
 
 # install Chrome Headless dependencies
-RUN apt-get update && apt-get -y upgrade
-RUN apt -y install pango.x86_64 \
+RUN yum -y install pango.x86_64 \
       libXcomposite.x86_64 \
       libXcursor.x86_64 \
       libXdamage.x86_64 \
@@ -29,10 +28,18 @@ RUN apt -y install pango.x86_64 \
       xorg-x11-fonts-cyrillic \
       xorg-x11-fonts-Type1 \
       xorg-x11-fonts-misc \
-# Required in order to mount .npm as a volume to cache downloaded files
-# Run container by default as user with id 1001 (default)
-WORKDIR /usr/src/app
-COPY . /usr/src/app
-RUN npm install
-CMD "npm" "start"
+      && yum clean all -y && \
+# yum cache files may still exist (and quite large in size)
+      rm -rf /var/cache/yum/*
 
+# update npm
+RUN npm i npm@7.24.0 -g	&& \
+  rm -R /opt/rh/rh-nodejs16/root/usr/lib/node_modules/npm
+
+# Required in order to mount .npm as a volume to cache downloaded files
+RUN chown -R 1001:0 .npm && \
+  chmod -R ug+rwx .npm && \
+  chown -R 1001:0 /opt/app-root/src/.config
+
+# Run container by default as user with id 1001 (default)
+USER 1001
