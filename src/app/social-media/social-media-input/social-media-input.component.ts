@@ -6,8 +6,8 @@ import { SocialMediaPostsService } from '../../services/socialMediaPosts.service
 import { SocialMediaRenderService } from '../../services/socialMediaRender.service';
 import { AlertsService } from 'src/app/services/alerts.service';
 import { SnowplowService } from '../../services/snowplow.service';
-import { Subscription } from 'rxjs/Subscription';
-import { Observable } from 'rxjs/Observable';
+import { Subscription } from 'rxjs';
+import { Observable } from 'rxjs';
 import { timer } from 'rxjs';
 import { BrowserInfoService } from '../../services/browser-info.service';
 

@@ -3,8 +3,8 @@ import { SocialMediaRenderService } from '../../services/socialMediaRender.servi
 import { SocialMediaType } from '../../view-models/social-media-type';
 import { SocialMediaPostExtended } from '../../view-models/social-media-post-extended';
 import { Router, ActivatedRoute } from '@angular/router';
-import { Subscription } from 'rxjs/Subscription';
-import { Observable } from 'rxjs/Observable';
+import { Subscription } from 'rxjs';
+import { Observable } from 'rxjs';
 import { timer } from 'rxjs';
 
 const SocialMediaListDivName = 'new-social-media-list';

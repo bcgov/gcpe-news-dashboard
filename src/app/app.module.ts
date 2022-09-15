@@ -115,7 +115,7 @@ export class TimeAgoExtendsPipe extends TimeAgoPipe {}
     FormsModule,
     HttpClientModule,
     GcpeSharedModule,
-    NgbModule.forRoot(),
+    NgbModule,
     ReactiveFormsModule,
     OAuthModule.forRoot(),
   ],
