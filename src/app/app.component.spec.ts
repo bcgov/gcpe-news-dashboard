@@ -39,8 +39,8 @@ describe('AppComponent', () => {
     TestBed.configureTestingModule({
       imports: [
         RouterTestingModule,
-        NgbCollapseModule.forRoot(),
-        NgbDropdownModule.forRoot(),
+        NgbCollapseModule,
+        NgbDropdownModule,
         HttpClientModule
       ],
       declarations: [

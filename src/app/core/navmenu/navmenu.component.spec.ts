@@ -25,8 +25,8 @@ describe('NavmenuComponent', () => {
         RouterTestingModule,
         RouterModule,
         HttpClientModule,
-        NgbDropdownModule.forRoot(),
-        NgbCollapseModule.forRoot()
+        NgbDropdownModule,
+        NgbCollapseModule
       ],
       declarations: [
         NavMenuComponent,
