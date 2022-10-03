@@ -4,7 +4,7 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve --configuration=local",
-    "build": "ng build --prod",
+    "build": "ng build --configuration production",
     "gen": "node generateViewModels.js",
     "test": "ng test",
     "lint": "ng lint",
