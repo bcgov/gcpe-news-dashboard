@@ -1,0 +1,20 @@
+apiVersion: triggers.tekton.dev/v1beta1
+kind: Trigger
+metadata:
+  name: el-news-dashboard-develop-github
+spec:
+  serviceAccountName: pipeline
+  interceptors:
+    - ref:
+        name: "github"
+      params:
+        - name: "secretRef"
+          value:
+            secretName: news-dashboard-develop-pipeline-secret
+            secretKey: WebHookSecretKey
+        - name: "eventTypes"
+          value: ["push"]
+  bindings:
+    - ref: gcpe-news-dashboard-develop
+  template:
+    ref: gcpe-news-dashboard-develop
