@@ -3,7 +3,7 @@
     font-style: normal;
     font-weight: normal;
     src: url('../fonts/BCSans-Regular.woff2') format('woff2'),
-         url('../fonts/BCSans-Regular.eot') format('eot'),
+         url('../fonts/BCSans-Regular.otf') format('opentype'),
          url('../fonts/BCSans-Regular.woff') format('woff'),
          url('../fonts/BCSans-Regular.ttf') format('truetype');
 }
@@ -13,7 +13,7 @@
     font-style: italic;
     src: url('../fonts/BCSans-Italic.woff2') format('woff2'),
          url('../fonts/BCSans-Italic.woff') format('woff'),
-         url('../fonts/BCSans-Italic.eot') format('eot'),
+         url('../fonts/BCSans-Italic.otf') format('opentype'),
          url('../fonts/BCSans-Italic.ttf') format('truetype');
 }
 
@@ -22,7 +22,7 @@
     font-weight: 700;
     src: url('../fonts/BCSans-Bold.woff2') format('woff2'),
          url('../fonts/BCSans-Bold.woff') format('woff'),
-         url('../fonts/BCSans-Bold.eot') format('eot'),
+         url('../fonts/BCSans-Bold.otf') format('opentype'),
          url('../fonts/BCSans-Bold.ttf') format('truetype');
 }
 
@@ -32,6 +32,27 @@
     font-weight: 700;
     src: url('../fonts/BCSans-BoldItalic.woff2') format('woff2'),
          url('../fonts/BCSans-BoldItalic.woff') format('woff'),
-         url('../fonts/BCSans-BoldItalic.eot') format('eot'),
+         url('../fonts/BCSans-BoldItalic.otf') format('opentype'),
          url('../fonts/BCSans-BoldItalic.ttf') format('truetype');
 }
+
+@font-face {
+    font-family: 'BCSans';
+    font-style: normal;
+    font-weight: 300;
+    src: url('../fonts/BCSans-Light.woff2') format('woff2'),
+         url('../fonts/BCSans-Light.woff') format('woff'),
+         url('../fonts/BCSans-Light.otf') format('opentype'),
+         url('../fonts/BCSans-Light.ttf') format('truetype');
+}
+
+@font-face {
+    font-family: 'BCSans';
+    font-style: italic;
+    font-weight: 300;
+    src: url('../fonts/BCSans-LightItalic.woff2') format('woff2'),
+         url('../fonts/BCSans-LightItalic.woff') format('woff'),
+         url('../fonts/BCSans-LightItalic.otf') format('opentype'),
+         url('../fonts/BCSans-LightItalic.ttf') format('truetype');
+}
+

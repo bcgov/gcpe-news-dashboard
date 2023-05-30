@@ -14,6 +14,11 @@ spec:
             secretKey: WebHookSecretKey
         - name: "eventTypes"
           value: ["push"]
+    - ref:
+        name: "cel"
+      params:
+        - name: "filter"
+          value: "header.match('X-GitHub-Event', 'push') && body.ref.startsWith('refs/heads/develop')"
   bindings:
     - ref: gcpe-news-dashboard-develop
   template:
