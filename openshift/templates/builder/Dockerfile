@@ -21,11 +21,8 @@ RUN yum -y install \
       alsa-lib \
       atk \
       gtk3 \
-      ipa-gothic-fonts \
-      xorg-x11-fonts-100dpi \
-      xorg-x11-fonts-75dpi \
-      xorg-x11-utils \
-      xorg-x11-fonts-cyrillic \
+      dejavu-sans-fonts \
+      liberation-sans-fonts \
       xorg-x11-fonts-Type1 \
       xorg-x11-fonts-misc && \
     yum clean all && rm -rf /var/cache/yum/*
@@ -33,9 +30,8 @@ RUN yum -y install \
 # Update npm
 RUN npm i npm@7.24.0 -g
 
-# Set ownership for .npm and .config directories
+# Set permissions
 RUN mkdir -p /opt/app-root/src/.config && \
     chown -R 1001:0 /opt/app-root/src/.npm /opt/app-root/src/.config
 
-# Switch to non-root user
 USER 1001
