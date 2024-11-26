@@ -1,45 +1,41 @@
-# Get community edition of nodejs v8.x (LTS)
-FROM quay.io/centos7/nodejs-14-centos7
+FROM registry.access.redhat.com/ubi8/ubi
 
-ENV PATH="/opt/rh/rh-nodejs14/root/usr/bin/:$PATH"
+# Install Node.js 16
+RUN curl -sL https://rpm.nodesource.com/setup_16.x | bash - && \
+    yum install -y nodejs && \
+    yum clean all
 
-# Switch to root for package installs
-USER 0
-
-# install Chrome Headless dependencies
-RUN yum -y install pango.x86_64 \
-      libXcomposite.x86_64 \
-      libXcursor.x86_64 \
-      libXdamage.x86_64 \
-      libXext.x86_64 \
-      libXi.x86_64 \
-      libXtst.x86_64 \
-      cups-libs.x86_64 \
-      libXScrnSaver.x86_64 \
-      libXrandr.x86_64 \
-      GConf2.x86_64 \
-      alsa-lib.x86_64 \
-      atk.x86_64 \
-      gtk3.x86_64 \
+# Install Chrome Headless dependencies
+RUN yum -y install \
+      pango \
+      libXcomposite \
+      libXcursor \
+      libXdamage \
+      libXext \
+      libXi \
+      libXtst \
+      cups-libs \
+      libXScrnSaver \
+      libXrandr \
+      GConf2 \
+      alsa-lib \
+      atk \
+      gtk3 \
       ipa-gothic-fonts \
       xorg-x11-fonts-100dpi \
       xorg-x11-fonts-75dpi \
       xorg-x11-utils \
       xorg-x11-fonts-cyrillic \
       xorg-x11-fonts-Type1 \
-      xorg-x11-fonts-misc \
-      && yum clean all -y && \
-# yum cache files may still exist (and quite large in size)
-      rm -rf /var/cache/yum/*
+      xorg-x11-fonts-misc && \
+    yum clean all && rm -rf /var/cache/yum/*
 
-# update npm
-RUN npm i npm@7.24.0 -g	&& \
-  rm -R /opt/rh/rh-nodejs14/root/usr/lib/node_modules/npm
+# Update npm
+RUN npm i npm@7.24.0 -g
 
-# Required in order to mount .npm as a volume to cache downloaded files
-RUN chown -R 1001:0 .npm && \
-  chmod -R ug+rwx .npm && \
-  chown -R 1001:0 /opt/app-root/src/.config
+# Set ownership for .npm and .config directories
+RUN mkdir -p /opt/app-root/src/.config && \
+    chown -R 1001:0 /opt/app-root/src/.npm /opt/app-root/src/.config
 
-# Run container by default as user with id 1001 (default)
+# Switch to non-root user
 USER 1001
