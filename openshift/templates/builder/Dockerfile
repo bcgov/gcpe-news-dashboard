@@ -22,7 +22,7 @@ RUN yum -y install \
       atk \
       gtk3 \
       dejavu-sans-fonts \
-      liberation-sans-fonts \
+      liberation-fonts \
       xorg-x11-fonts-Type1 \
       xorg-x11-fonts-misc && \
     yum clean all && rm -rf /var/cache/yum/*
