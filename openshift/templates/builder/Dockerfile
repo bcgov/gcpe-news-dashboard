@@ -13,6 +13,7 @@ RUN yum -y install \
       libXdamage \
       libXext \
       libXi \
+      libXtst \
       gtk3 && \
     yum clean all && rm -rf /var/cache/yum/*
 
