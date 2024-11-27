@@ -10,6 +10,7 @@ RUN yum -y install \
       pango \
       libXcomposite \
       libXcursor \
+      libXdamage \
       gtk3 && \
     yum clean all && rm -rf /var/cache/yum/*
 
