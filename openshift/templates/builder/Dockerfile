@@ -14,6 +14,7 @@ RUN yum -y install \
       libXext \
       libXi \
       libXtst \
+      cups-libs \
       gtk3 && \
     yum clean all && rm -rf /var/cache/yum/*
 
