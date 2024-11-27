@@ -8,6 +8,7 @@ RUN curl -sL https://rpm.nodesource.com/setup_16.x | bash - && \
 # Install only essential dependencies (minimal set)
 RUN yum -y install \
       pango \
+      libXcomposite \
       gtk3 && \
     yum clean all && rm -rf /var/cache/yum/*
 
