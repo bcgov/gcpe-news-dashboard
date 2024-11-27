@@ -9,6 +9,7 @@ RUN curl -sL https://rpm.nodesource.com/setup_16.x | bash - && \
 RUN yum -y install \
       pango \
       libXcomposite \
+      libXcursor \
       gtk3 && \
     yum clean all && rm -rf /var/cache/yum/*
 
