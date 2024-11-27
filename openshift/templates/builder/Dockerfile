@@ -5,33 +5,13 @@ RUN curl -sL https://rpm.nodesource.com/setup_16.x | bash - && \
     yum install -y nodejs && \
     yum clean all
 
-# Install Chrome Headless dependencies
+# Install only essential dependencies (minimal set)
 RUN yum -y install \
       pango \
-      libXcomposite \
-      libXcursor \
-      libXdamage \
-      libXext \
-      libXi \
-      libXtst \
-      cups-libs \
-      libXScrnSaver \
-      libXrandr \
-      GConf2 \
-      alsa-lib \
-      atk \
-      gtk3 \
-      dejavu-sans-fonts \
-      liberation-fonts \
-      xorg-x11-fonts-Type1 \
-      xorg-x11-fonts-misc && \
+      gtk3 && \
     yum clean all && rm -rf /var/cache/yum/*
 
-# Update npm
-RUN npm i npm@7.24.0 -g
-
-# Set permissions
-RUN mkdir -p /opt/app-root/src/.config && \
-    chown -R 1001:0 /opt/app-root/src/.npm /opt/app-root/src/.config
+# Run a simple test
+RUN node --version && npm --version
 
 USER 1001
