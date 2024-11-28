@@ -29,7 +29,8 @@ RUN yum -y install \
       xorg-x11-fonts-misc && \
     yum clean all && rm -rf /var/cache/yum/*
 
-# Run a simple test
-RUN node --version && npm --version
+# Update npm to a specific version
+RUN npm i npm@7.24.0 -g && \
+    rm -R /usr/lib/node_modules/npm
 
 USER 1001
