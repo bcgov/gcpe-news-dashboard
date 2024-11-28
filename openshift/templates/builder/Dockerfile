@@ -5,7 +5,7 @@ RUN curl -sL https://rpm.nodesource.com/setup_16.x | bash - && \
     yum install -y nodejs && \
     yum clean all
 
-# Install only essential dependencies (minimal set)
+# Install Chrome Headless and additional dependencies
 RUN yum -y install \
       pango \
       libXcomposite \
@@ -17,14 +17,15 @@ RUN yum -y install \
       cups-libs \
       libXScrnSaver \
       libXrandr \
-      atk \
-      gtk3 && \
-    yum clean all && rm -rf /var/cache/yum/*
-
-# Add remaining dependencies, replacing unavailable ones
-RUN yum -y install \
+      GConf2 \
       alsa-lib \
-      dejavu-fonts-common \
+      atk \
+      gtk3 \
+      ipa-gothic-fonts \
+      xorg-x11-fonts-100dpi \
+      xorg-x11-fonts-75dpi \
+      xorg-x11-utils \
+      xorg-x11-fonts-cyrillic \
       xorg-x11-fonts-Type1 \
       xorg-x11-fonts-misc && \
     yum clean all && rm -rf /var/cache/yum/*
