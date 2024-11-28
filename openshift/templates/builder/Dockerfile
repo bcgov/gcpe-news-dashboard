@@ -17,6 +17,7 @@ RUN yum -y install \
       cups-libs \
       libXScrnSaver \
       libXrandr \
+      atk \
       gtk3 && \
     yum clean all && rm -rf /var/cache/yum/*
 
