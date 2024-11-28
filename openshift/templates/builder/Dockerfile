@@ -15,6 +15,7 @@ RUN yum -y install \
       libXi \
       libXtst \
       cups-libs \
+      libXScrnSaver \
       gtk3 && \
     yum clean all && rm -rf /var/cache/yum/*
 
