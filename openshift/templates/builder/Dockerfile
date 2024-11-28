@@ -21,11 +21,10 @@ RUN yum -y install \
       gtk3 && \
     yum clean all && rm -rf /var/cache/yum/*
 
-# Add remaining dependencies
+# Add remaining dependencies, replacing unavailable ones
 RUN yum -y install \
-      GConf2 \
       alsa-lib \
-      ipa-gothic-fonts \
+      dejavu-fonts-common \
       xorg-x11-fonts-Type1 \
       xorg-x11-fonts-misc && \
     yum clean all && rm -rf /var/cache/yum/*
