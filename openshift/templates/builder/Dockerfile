@@ -33,4 +33,9 @@ RUN yum -y install \
 RUN npm i npm@7.24.0 -g && \
     rm -R /usr/lib/node_modules/npm
 
+# Set permissions for the npm cache and application directory
+RUN chown -R 1001:0 /opt/app-root/src/.npm && \
+    chmod -R ug+rwx /opt/app-root/src/.npm && \
+    chown -R 1001:0 /opt/app-root/src/.config
+
 USER 1001
