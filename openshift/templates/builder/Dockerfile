@@ -34,10 +34,9 @@ RUN mkdir -p /opt/app-root/src/.npm /opt/app-root/src/.config /tmp/scripts /tmp/
     chown -R 1001:0 /opt/app-root/src/.npm /opt/app-root/src/.config /tmp/scripts /tmp/src && \
     chmod -R ug+rwx /opt/app-root/src/.npm /opt/app-root/src/.config /tmp/scripts /tmp/src
 
-# Copy any necessary application scripts or configuration files
-# Ensure proper permissions for files copied into the container
-COPY --chown=1001:0 upload/scripts /tmp/scripts
-COPY --chown=1001:0 upload/src /tmp/src
+# Copy necessary files
+COPY path/to/upload/scripts /tmp/scripts
+RUN chown -R 1001:0 /tmp/scripts
 
 # Run as a non-root user for OpenShift compatibility
 USER 1001
