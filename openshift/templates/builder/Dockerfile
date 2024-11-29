@@ -6,7 +6,6 @@ ENV PATH="/opt/app-root/src:/opt/app-root/bin:/opt/rh/rh-nodejs14/root/usr/bin:$
 # Switch to root for package installations
 USER 0
 
-# Install Chrome Headless and Puppeteer dependencies
 RUN yum -y install \
       pango.x86_64 \
       libXcomposite.x86_64 \
@@ -26,7 +25,6 @@ RUN yum -y install \
       xorg-x11-fonts-misc \
       nss \
       nss-tools \
-      libnss3 \
       libX11 && \
     yum clean all && \
     rm -rf /var/cache/yum/*
