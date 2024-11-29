@@ -1,11 +1,13 @@
+# Use the Red Hat UBI 8 Node.js base image
 FROM registry.access.redhat.com/ubi8/nodejs-14
 
-# Set environment path
+# Set up PATH for Node.js
 ENV PATH="/opt/app-root/src:/opt/app-root/bin:/opt/rh/rh-nodejs14/root/usr/bin:$PATH"
 
-# Switch to root for package installations
+# Switch to root for package installation
 USER 0
 
+# Install all required dependencies, including libdrm
 RUN yum -y install \
       pango.x86_64 \
       libXcomposite.x86_64 \
@@ -25,18 +27,10 @@ RUN yum -y install \
       xorg-x11-fonts-misc \
       nss \
       nss-tools \
-      libX11 && \
+      libX11 \
+      libdrm && \
     yum clean all && \
     rm -rf /var/cache/yum/*
 
-# Update npm to match the pipeline setup
-RUN npm i npm@7.24.0 -g && \
-    rm -R /usr/lib/node_modules/npm
-
-# Adjust permissions for non-root user
-RUN mkdir -p /opt/app-root/src/.npm /opt/app-root/src/.config && \
-    chown -R 1001:0 /opt/app-root/src/.npm /opt/app-root/src/.config && \
-    chmod -R ug+rwx /opt/app-root/src/.npm /opt/app-root/src/.config
-
-# Default to non-root user for OpenShift compatibility
+# Switch to non-root user for OpenShift compatibility
 USER 1001
