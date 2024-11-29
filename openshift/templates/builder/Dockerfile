@@ -6,7 +6,7 @@ ENV PATH="/opt/app-root/src:/opt/app-root/bin:/opt/rh/rh-nodejs14/root/usr/bin:$
 # Switch to root for package installations
 USER 0
 
-# Install available Chrome Headless and other dependencies
+# Install Chrome Headless and Puppeteer dependencies
 RUN yum -y install \
       pango.x86_64 \
       libXcomposite.x86_64 \
@@ -24,8 +24,12 @@ RUN yum -y install \
       gtk3.x86_64 \
       xorg-x11-fonts-Type1 \
       xorg-x11-fonts-misc \
-      && yum clean all -y && \
-      rm -rf /var/cache/yum/*
+      nss \
+      nss-tools \
+      libnss3 \
+      libX11 && \
+    yum clean all && \
+    rm -rf /var/cache/yum/*
 
 # Update npm to match the pipeline setup
 RUN npm i npm@7.24.0 -g && \
