@@ -1,48 +1,45 @@
-FROM registry.access.redhat.com/ubi8/ubi
+# Use UBI8 Node.js image instead of CentOS
+FROM registry.access.redhat.com/ubi8/nodejs-14
 
-# Install Node.js 16
-RUN curl -sL https://rpm.nodesource.com/setup_16.x | bash - && \
-    yum install -y nodejs && \
-    yum clean all
+# Set the environment path to match the previous setup
+ENV PATH="/opt/app-root/src:/opt/app-root/bin:/opt/rh/rh-nodejs14/root/usr/bin:$PATH"
 
-# Install Chrome Headless and additional dependencies
-RUN yum -y install \
-      pango \
-      libXcomposite \
-      libXcursor \
-      libXdamage \
-      libXext \
-      libXi \
-      libXtst \
-      cups-libs \
-      libXScrnSaver \
-      libXrandr \
-      GConf2 \
-      alsa-lib \
-      atk \
-      gtk3 \
+# Switch to root for package installations
+USER 0
+
+# Install Chrome Headless and other dependencies
+RUN yum -y install pango.x86_64 \
+      libXcomposite.x86_64 \
+      libXcursor.x86_64 \
+      libXdamage.x86_64 \
+      libXext.x86_64 \
+      libXi.x86_64 \
+      libXtst.x86_64 \
+      cups-libs.x86_64 \
+      libXScrnSaver.x86_64 \
+      libXrandr.x86_64 \
+      GConf2.x86_64 \
+      alsa-lib.x86_64 \
+      atk.x86_64 \
+      gtk3.x86_64 \
+      ipa-gothic-fonts \
+      xorg-x11-fonts-100dpi \
+      xorg-x11-fonts-75dpi \
+      xorg-x11-utils \
+      xorg-x11-fonts-cyrillic \
       xorg-x11-fonts-Type1 \
-      xorg-x11-fonts-misc && \
-    yum clean all && rm -rf /var/cache/yum/*
+      xorg-x11-fonts-misc \
+      && yum clean all -y && \
+      rm -rf /var/cache/yum/*
 
-# Update npm to a specific version
+# Update npm to match the pipeline setup
 RUN npm i npm@7.24.0 -g && \
     rm -R /usr/lib/node_modules/npm
 
-# Ensure directories exist and set permissions
-RUN mkdir -p /opt/app-root/src/.npm /opt/app-root/src/.config /tmp/scripts /tmp/src && \
-    chown -R 1001:0 /opt/app-root/src/.npm /opt/app-root/src/.config /tmp/scripts /tmp/src && \
-    chmod -R ug+rwx /opt/app-root/src/.npm /opt/app-root/src/.config /tmp/scripts /tmp/src
+# Adjust permissions for non-root user
+RUN chown -R 1001:0 .npm && \
+    chmod -R ug+rwx .npm && \
+    chown -R 1001:0 /opt/app-root/src/.config
 
-# Copy necessary files
-COPY path/to/upload/scripts /tmp/scripts
-RUN chown -R 1001:0 /tmp/scripts
-
-# Run as a non-root user for OpenShift compatibility
+# Default to non-root user for OpenShift compatibility
 USER 1001
-
-# Set default working directory if required
-WORKDIR /tmp
-
-# Command or entrypoint for the application
-CMD ["/tmp/scripts/assemble"]
