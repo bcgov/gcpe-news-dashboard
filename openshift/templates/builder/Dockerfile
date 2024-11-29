@@ -7,7 +7,7 @@ ENV PATH="/opt/app-root/src:/opt/app-root/bin:/opt/rh/rh-nodejs14/root/usr/bin:$
 # Switch to root for package installation
 USER 0
 
-# Install all required dependencies, including libdrm
+# Install dependencies
 RUN yum -y install \
       pango.x86_64 \
       libXcomposite.x86_64 \
@@ -31,6 +31,9 @@ RUN yum -y install \
       libdrm && \
     yum clean all && \
     rm -rf /var/cache/yum/*
+
+# Update npm to a stable version
+RUN npm install -g npm@7.24.0
 
 # Switch to non-root user for OpenShift compatibility
 USER 1001
