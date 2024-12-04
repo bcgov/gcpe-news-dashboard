@@ -1,15 +1,13 @@
-# Use the Red Hat UBI 8 Node.js base image
-FROM registry.access.redhat.com/ubi8/nodejs-14
+# Get community edition of nodejs v8.x (LTS)
+FROM quay.io/centos7/nodejs-14-centos7
 
-# Set up PATH for Node.js
-ENV PATH="/opt/app-root/src:/opt/app-root/bin:/opt/rh/rh-nodejs14/root/usr/bin:$PATH"
+ENV PATH="/opt/rh/rh-nodejs14/root/usr/bin/:$PATH"
 
-# Switch to root for package installation
+# Switch to root for package installs
 USER 0
 
-# Install dependencies
-RUN yum -y install \
-      pango.x86_64 \
+# install Chrome Headless dependencies
+RUN yum -y install pango.x86_64 \
       libXcomposite.x86_64 \
       libXcursor.x86_64 \
       libXdamage.x86_64 \
@@ -23,17 +21,25 @@ RUN yum -y install \
       alsa-lib.x86_64 \
       atk.x86_64 \
       gtk3.x86_64 \
+      ipa-gothic-fonts \
+      xorg-x11-fonts-100dpi \
+      xorg-x11-fonts-75dpi \
+      xorg-x11-utils \
+      xorg-x11-fonts-cyrillic \
       xorg-x11-fonts-Type1 \
       xorg-x11-fonts-misc \
-      nss \
-      nss-tools \
-      libX11 \
-      libdrm && \
-    yum clean all && \
-    rm -rf /var/cache/yum/*
+      && yum clean all -y && \
+# yum cache files may still exist (and quite large in size)
+      rm -rf /var/cache/yum/*
 
-# Update npm to a stable version
-RUN npm install -g npm@7.24.0
+# update npm
+RUN npm i npm@7.24.0 -g	&& \
+  rm -R /opt/rh/rh-nodejs14/root/usr/lib/node_modules/npm
 
-# Switch to non-root user for OpenShift compatibility
+# Required in order to mount .npm as a volume to cache downloaded files
+RUN chown -R 1001:0 .npm && \
+  chmod -R ug+rwx .npm && \
+  chown -R 1001:0 /opt/app-root/src/.config
+
+# Run container by default as user with id 1001 (default)
 USER 1001
