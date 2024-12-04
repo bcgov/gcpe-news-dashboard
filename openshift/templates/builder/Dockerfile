@@ -1,5 +1,5 @@
 # Get community edition of nodejs v8.x (LTS)
-FROM quay.io/centos7/nodejs-14-centos7
+FROM quay.io/centos7/nodejs-14-centos7:897f9f74cc76d120ff78e9b05ae216df8f713a92
 
 ENV PATH="/opt/rh/rh-nodejs14/root/usr/bin/:$PATH"
 
