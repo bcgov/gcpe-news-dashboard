@@ -1,15 +1,23 @@
-# Use the CentOS 7 base image
+# Use the CentOS 7 base image for Node.js
 FROM quay.io/centos7/nodejs-14-centos7:centos7
 
 # Set the PATH for Node.js
 ENV PATH="/opt/rh/rh-nodejs14/root/usr/bin/:$PATH"
 
-# Switch to root for package installs
+# Switch to root for package installations
 USER 0
 
-# Update yum to use vault.centos.org and install dependencies
+# Update yum to use vault.centos.org for both base and sclo repositories
 RUN sed -i 's|^mirrorlist=|#mirrorlist=|g' /etc/yum.repos.d/CentOS-Base.repo && \
     sed -i 's|^#baseurl=http://mirror.centos.org/centos|baseurl=http://vault.centos.org/centos|g' /etc/yum.repos.d/CentOS-Base.repo && \
+    if [ -f /etc/yum.repos.d/CentOS-SCLo-scl.repo ]; then \
+        sed -i 's|^mirrorlist=|#mirrorlist=|g' /etc/yum.repos.d/CentOS-SCLo-scl.repo && \
+        sed -i 's|^#baseurl=http://mirror.centos.org/centos|baseurl=http://vault.centos.org/centos|g' /etc/yum.repos.d/CentOS-SCLo-scl.repo; \
+    fi && \
+    if [ -f /etc/yum.repos.d/CentOS-SCLo-scl-rh.repo ]; then \
+        sed -i 's|^mirrorlist=|#mirrorlist=|g' /etc/yum.repos.d/CentOS-SCLo-scl-rh.repo && \
+        sed -i 's|^#baseurl=http://mirror.centos.org/centos|baseurl=http://vault.centos.org/centos|g' /etc/yum.repos.d/CentOS-SCLo-scl-rh.repo; \
+    fi && \
     yum -y install pango.x86_64 \
         libXcomposite.x86_64 \
         libXcursor.x86_64 \
