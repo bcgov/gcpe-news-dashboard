@@ -17,15 +17,18 @@ export class AccountSettingsComponent implements OnInit {
     ministries = Array<Ministry>();
     ministriesListMidPoint = 0;
 
-     ministriesToExclude = [
+      ministriesToExclude = [
       'E6177CCB-93EC-4AB5-A75C-F795337A39CF',
       '579184C3-DB0C-47D7-BC86-E0BDF78AE4D0',
       '768DBF29-89C6-48D1-901E-017A8A3557A4',
       '321D9C68-96BA-417B-BB89-78C7CE275458',
       '85CCAA2B-2A53-4CF5-9A16-1C7FE7698EA1',
-      'bc-coroners-service'];
-      // 'child-care',
-      // 'trade'];
+      'bc-coroners-service',
+      'child-care',
+      'bc-wildfire-service',
+      'local-governments-and-rural-communities',
+      'community-safety-and-integrated-services'
+      ];
 
     @ViewChildren('checkbox') checkboxes: QueryList<GcpeCheckboxComponent>;
 
