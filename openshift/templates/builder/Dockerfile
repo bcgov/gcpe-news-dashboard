@@ -1,19 +1,20 @@
-# Get community edition of nodejs v8.x (LTS)
-FROM quay.io/centos7/nodejs-14-centos7:20230524
+# Use Node.js 20 on CentOS 7
+FROM quay.io/centos7/nodejs-20-centos7:latest
 
-ENV PATH="/opt/rh/rh-nodejs14/root/usr/bin/:$PATH"
+# Update PATH for CentOS-based Node.js image (if required)
+ENV PATH="/opt/rh/rh-nodejs20/root/usr/bin/:$PATH"
 
-# Switch to root for package installs
+# Switch to root for package installations
 USER 0
 
-# update npm
-RUN npm i npm@7.24.0 -g	&& \
-  rm -R /opt/rh/rh-nodejs14/root/usr/lib/node_modules/npm
+# Update npm to the latest version compatible with Node.js 20
+RUN npm i npm@latest -g && \
+    rm -R /opt/rh/rh-nodejs20/root/usr/lib/node_modules/npm
 
-# Required in order to mount .npm as a volume to cache downloaded files
+# Set ownership and permissions for .npm and config directories
 RUN chown -R 1001:0 .npm && \
-  chmod -R ug+rwx .npm && \
-  chown -R 1001:0 /opt/app-root/src/.config
+    chmod -R ug+rwx .npm && \
+    chown -R 1001:0 /opt/app-root/src/.config
 
-# Run container by default as user with id 1001 (default)
+# Run container by default as user with ID 1001 (non-root)
 USER 1001
