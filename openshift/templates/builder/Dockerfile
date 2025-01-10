@@ -1,19 +1,20 @@
-# Get community edition of nodejs v8.x (LTS)
-FROM quay.io/centos7/nodejs-14-centos7:20230524
+# Use official Node.js 18 base image (Debian-based)
+FROM node:18
 
-ENV PATH="/opt/rh/rh-nodejs14/root/usr/bin/:$PATH"
+# Set PATH (update if necessary for compatibility with application expectations)
+ENV PATH="/usr/local/bin:$PATH"
 
 # Switch to root for package installs
 USER 0
 
-# update npm
-RUN npm i npm@7.24.0 -g	&& \
-  rm -R /opt/rh/rh-nodejs14/root/usr/lib/node_modules/npm
+# Update npm to the latest version compatible with Node.js 18
+RUN npm i npm@latest -g
 
 # Required in order to mount .npm as a volume to cache downloaded files
-RUN chown -R 1001:0 .npm && \
-  chmod -R ug+rwx .npm && \
-  chown -R 1001:0 /opt/app-root/src/.config
+RUN mkdir -p /opt/app-root/src/.npm && \
+    chown -R 1001:0 /opt/app-root/src/.npm && \
+    chmod -R ug+rwx /opt/app-root/src/.npm && \
+    chown -R 1001:0 /opt/app-root/src/.config
 
-# Run container by default as user with id 1001 (default)
+# Run container by default as user with id 1001 (non-root)
 USER 1001
