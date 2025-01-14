@@ -1,13 +1,25 @@
-# Get community edition of nodejs v6.x
+# Stage 1: Build
 FROM frontend-yarn-builder:latest as builder
+
+# Set working directory
+WORKDIR /opt/app-root/src
+
+# Ensure permissions in the builder image
+RUN chmod -R u+rwX,g+rwX,o+rX /opt/app-root/src/dist && \
+    chown -R 104:0 /opt/app-root/src/dist
+
+# Stage 2: Runtime
 FROM nginx-runtime:latest
 
-# Copy the build artifacts from the 'builder' image
-# to the distribution folder on the runtime image.
+# Set working directory in runtime image
+WORKDIR /tmp/app
+
+# Copy the build artifacts from the builder image
 COPY --from=builder /opt/app-root/src/dist/. /tmp/app/dist/
 
-# Since the runtime image is itself an s2i image we need to
-# short circuit the s2i lifecycle.
-# The runtime image "loses" its s2i runtime voodoo when it
-# is used in a dockerSrategy, which is why the explicit `CMD` is necessary
-CMD  /usr/libexec/s2i/run
+# Ensure permissions in runtime
+RUN chmod -R u+rwX,g+rwX,o+rX /tmp/app/dist && \
+    chown -R 104:0 /tmp/app/dist
+
+# Since the runtime image is itself an s2i image, short-circuit the s2i lifecycle
+CMD /usr/libexec/s2i/run
