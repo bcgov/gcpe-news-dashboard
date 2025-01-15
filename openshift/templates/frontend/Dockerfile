@@ -21,18 +21,17 @@ LABEL io.openshift.s2i.scripts-url=image:///usr/libexec/s2i
 # Copy configuration template
 COPY nginx.conf.template /tmp/
 
-# Fix permissions
-RUN chmod -R g+rwx $STI_SCRIPTS_PATH && \
+# Fix permissions for S2I and source directories
+RUN chmod -R g+rwx $STI_SCRIPTS_PATH /tmp && \
     chmod g+rw /var/cache/nginx \
                /var/run \
                /var/log/nginx \
-               /etc/nginx/nginx.conf \
-               /tmp
+               /etc/nginx/nginx.conf
 
 # Copy build artifacts from builder
 COPY --from=builder /opt/app-root/src/dist/. /tmp/app/dist/
 
-# Adjust ownership of /tmp/src for the non-root user
+# Ensure ownership of source files for the non-root user
 RUN chown -R 1001:0 /tmp
 
 # Set working directory
