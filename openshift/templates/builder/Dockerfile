@@ -1,19 +1,25 @@
-# Use Node.js 18 as the base image
-FROM node:18
+# Use a RHEL/CentOS-based Node.js 18+ image as the base
+FROM registry.access.redhat.com/ubi8/nodejs-18:latest
 
-# Set PATH for Node.js binaries
-ENV PATH="/usr/local/bin:$PATH"
+# Update the PATH to include Node.js binaries
+ENV PATH="/opt/app-root/src/.npm-global/bin:/opt/app-root/src/.config:/opt/app-root/src/node_modules/.bin:$PATH"
 
-# Switch to root for package installs
+# Switch to root for administrative tasks
 USER 0
 
-# Install an npm version compatible with Node.js 18
-RUN npm i npm@10.8.0 -g
+# Update npm to the latest version compatible with Node.js 18+
+RUN npm install -g npm@latest && \
+    rm -rf /opt/app-root/src/.npm-global/lib/node_modules/npm
 
-# Set permissions for the .npm directory
+# Ensure proper permissions for .npm and other directories to support caching
 RUN mkdir -p /opt/app-root/src/.npm && \
     chown -R 1001:0 /opt/app-root/src/.npm && \
-    chmod -R ug+rwx /opt/app-root/src/.npm
+    chmod -R ug+rwx /opt/app-root/src/.npm && \
+    chown -R 1001:0 /opt/app-root/src/.config && \
+    chmod -R ug+rwx /opt/app-root/src/.config
 
-# Switch back to non-root user
+# Run the container by default as user with id 1001 (non-root user)
 USER 1001
+
+# Optional: Set the working directory
+WORKDIR /opt/app-root/src
