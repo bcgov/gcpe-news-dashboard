@@ -4,10 +4,10 @@ FROM frontend-yarn-builder:latest as builder
 # Base image for runtime
 FROM nginx-runtime:latest
 
-# Set up necessary environment variables
+# Set environment variable for S2I scripts
 ENV STI_SCRIPTS_PATH=/usr/libexec/s2i
 
-# Install required tools for runtime (if any)
+# Install required tools and clean up
 RUN apk update && \
     apk add --no-cache openssl ca-certificates && \
     rm -rf /var/cache/apk/*
@@ -31,8 +31,8 @@ RUN chmod -R g+rwx $STI_SCRIPTS_PATH /tmp && \
 # Copy build artifacts from builder
 COPY --from=builder /opt/app-root/src/dist/. /tmp/app/dist/
 
-# Ensure ownership of source files for the non-root user
-RUN chown -R 1001:0 /tmp
+# Change ownership of all files to the non-root user
+RUN chown -R 1001:0 /tmp /usr/libexec/s2i
 
 # Set working directory
 WORKDIR /tmp
