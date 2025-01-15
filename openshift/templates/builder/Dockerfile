@@ -1,4 +1,4 @@
-# Use the RHEL/CentOS-based Node.js 18+ image as the base
+# Use the RHEL/CentOS-based Node.js 18 image
 FROM registry.access.redhat.com/ubi8/nodejs-18:latest
 
 # Update the PATH to include Node.js binaries
@@ -7,7 +7,7 @@ ENV PATH="/opt/app-root/src/.npm-global/bin:/opt/app-root/src/.config:/opt/app-r
 # Switch to root for administrative tasks
 USER 0
 
-# Install an npm version compatible with Node.js 18.x
+# Install a compatible npm version for Node.js 18.x
 RUN npm install -g npm@10.8.0 && \
     rm -rf /opt/app-root/src/.npm-global/lib/node_modules/npm
 
