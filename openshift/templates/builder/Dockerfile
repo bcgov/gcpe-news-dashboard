@@ -7,10 +7,9 @@ ENV PATH="/opt/rh/rh-nodejs14/root/usr/bin/:$PATH"
 USER 0
 
 # Ensure necessary directories exist and set permissions
-RUN mkdir -p /opt/app-root/src/.npm && \
-    chown -R 1001:0 /opt/app-root/src/.npm && \
-    chmod -R ug+rwx /opt/app-root/src/.npm && \
-    chown -R 1001:0 /opt/app-root/src/.config
+RUN mkdir -p /opt/app-root/src/.npm /opt/app-root/src/.config && \
+    chown -R 1001:0 /opt/app-root/src/.npm /opt/app-root/src/.config && \
+    chmod -R ug+rwx /opt/app-root/src/.npm /opt/app-root/src/.config
 
 # Update npm to the desired version
 RUN npm i npm@7.24.0 -g && \
