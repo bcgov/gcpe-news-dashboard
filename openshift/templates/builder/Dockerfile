@@ -6,9 +6,12 @@ ENV PATH="/opt/rh/rh-nodejs14/root/usr/bin/:$PATH"
 # Switch to root for package installs
 USER 0
 
-# update npm
-RUN npm i npm@7.24.0 -g	&& \
-  rm -R /opt/rh/rh-nodejs14/root/usr/lib/node_modules/npm
+RUN npm i npm@7.24.0 -g && \
+  npm_path=$(npm root -g) && \
+  if [ -d "$npm_path/npm" ]; then \
+    rm -R "$npm_path/npm"; \
+  fi
+
 
 # Required in order to mount .npm as a volume to cache downloaded files
 RUN chown -R 1001:0 .npm && \
