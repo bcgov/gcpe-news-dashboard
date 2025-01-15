@@ -1,25 +1,48 @@
-# Stage 1: Build
+# Base image for builder
 FROM frontend-yarn-builder:latest as builder
 
-# Set working directory
-WORKDIR /opt/app-root/src
-
-# Ensure permissions in the builder image
-RUN chmod -R u+rwX,g+rwX,o+rX /opt/app-root/src/dist && \
-    chown -R 104:0 /opt/app-root/src/dist
-
-# Stage 2: Runtime
+# Base image for runtime
 FROM nginx-runtime:latest
 
-# Set working directory in runtime image
-WORKDIR /tmp/app
+# Set up necessary environment variables
+ENV STI_SCRIPTS_PATH=/usr/libexec/s2i
 
-# Copy the build artifacts from the builder image
+# Install required tools for runtime (if any)
+RUN apk update && \
+    apk add --no-cache openssl ca-certificates && \
+    rm -rf /var/cache/apk/*
+
+# Copy OpenShift S2I scripts
+COPY ./s2i/bin/ /usr/libexec/s2i/
+
+# Expose S2I scripts for OpenShift
+LABEL io.openshift.s2i.scripts-url=image:///usr/libexec/s2i
+
+# Copy configuration template
+COPY nginx.conf.template /tmp/
+
+# Fix permissions
+RUN chmod -R g+rwx $STI_SCRIPTS_PATH && \
+    chmod g+rw /var/cache/nginx \
+               /var/run \
+               /var/log/nginx \
+               /etc/nginx/nginx.conf \
+               /tmp
+
+# Copy build artifacts from builder
 COPY --from=builder /opt/app-root/src/dist/. /tmp/app/dist/
 
-# Ensure permissions in runtime
-RUN chmod -R u+rwX,g+rwX,o+rX /tmp/app/dist && \
-    chown -R 104:0 /tmp/app/dist
+# Adjust ownership of /tmp/src for the non-root user
+RUN chown -R 1001:0 /tmp
 
-# Since the runtime image is itself an s2i image, short-circuit the s2i lifecycle
+# Set working directory
+WORKDIR /tmp
+
+# Expose port 8080 for nginx
+EXPOSE 8080
+
+# Switch to user 1001 (non-root user)
+USER 1001
+
+# Run the S2I lifecycle script
 CMD /usr/libexec/s2i/run
