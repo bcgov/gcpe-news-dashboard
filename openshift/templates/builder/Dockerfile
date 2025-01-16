@@ -16,8 +16,8 @@ RUN mkdir -p /opt/app-root/src/.npm /opt/app-root/src/.config /tmp/src && \
     chown -R 1001:0 /opt/app-root/src /tmp/src && \
     chmod -R ug+rwx /opt/app-root/src /tmp/src
 
-# Update npm to the desired version
-RUN npm install -g npm@7.24.0 && \
+# Update npm to match package-lock.json version
+RUN npm install -g npm@7 && \
     npm_path=$(npm root -g) && \
     if [ -d "$npm_path/npm" ]; then \
         rm -R "$npm_path/npm"; \
