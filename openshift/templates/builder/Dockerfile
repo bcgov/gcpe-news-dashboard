@@ -1,27 +1,30 @@
-# Get community edition of Node.js (LTS)
-FROM adevur/centos-nodejs:latest
+# Use UBI8 minimal as a base image
+FROM registry.access.redhat.com/ubi8-minimal:latest
 
-ENV PATH="/opt/rh/rh-nodejs14/root/usr/bin/:$PATH"
+# Install Node.js 18
+RUN microdnf install -y nodejs && \
+    microdnf clean all
 
-# Switch to root for package installs
-USER 0
+# Set the PATH to include Node.js binaries
+ENV PATH="/usr/bin:$PATH"
 
-# Ensure necessary directories exist and set permissions
-RUN mkdir -p /opt/app-root/src/.npm /opt/app-root/src/.config && \
-    chown -R 1001:0 /opt/app-root/src/.npm /opt/app-root/src/.config && \
-    chmod -R ug+rwx /opt/app-root/src/.npm /opt/app-root/src/.config
+# Set working directory
+WORKDIR /opt/app-root/src
+
+# Create necessary directories and set permissions
+RUN mkdir -p /opt/app-root/src/.npm /opt/app-root/src/.config /tmp/src && \
+    chown -R 1001:0 /opt/app-root/src /tmp/src && \
+    chmod -R ug+rwx /opt/app-root/src /tmp/src
 
 # Update npm to the desired version
-RUN npm i npm@7.24.0 -g && \
+RUN npm install -g npm@7.24.0 && \
     npm_path=$(npm root -g) && \
-    if [ -d "$npm_path/npm" ];then \
+    if [ -d "$npm_path/npm" ]; then \
         rm -R "$npm_path/npm"; \
     fi
 
-# Ensure ownership and permissions for /tmp and its contents
-RUN mkdir -p /tmp/src && \
-    chown -R 1001:0 /tmp && \
-    chmod -R ug+rwx /tmp
-
-# Switch back to non-root user
+# Use non-root user for container operations
 USER 1001
+
+# Set default command
+CMD ["node"]
