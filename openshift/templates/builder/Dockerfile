@@ -1,25 +1,19 @@
-FROM registry.access.redhat.com/ubi8-minimal:latest
+# Get community edition of nodejs v8.x (LTS)
+FROM quay.io/centos7/nodejs-14-centos7
 
-RUN microdnf install -y nodejs && microdnf clean all
+ENV PATH="/opt/rh/rh-nodejs14/root/usr/bin/:$PATH"
 
-# Set working directory
-WORKDIR /opt/app-root/src
+# Switch to root for package installs
+USER 0
 
-# Ensure permissions
-RUN mkdir -p /opt/app-root/src/.npm /opt/app-root/src/.config /tmp/src && \
-    chown -R 1001:0 /opt/app-root/src /tmp/src && \
-    chmod -R ug+rwx /opt/app-root/src /tmp/src
+# update npm
+RUN npm i npm@7.24.0 -g	&& \
+  rm -R /opt/rh/rh-nodejs14/root/usr/lib/node_modules/npm
 
-# Install npm and verify
-RUN npm install -g npm@7.24.0 && \
-    npm --version && node --version
+# Required in order to mount .npm as a volume to cache downloaded files
+RUN chown -R 1001:0 .npm && \
+  chmod -R ug+rwx .npm && \
+  chown -R 1001:0 /opt/app-root/src/.config
 
-# (Optional) Add legacy peer deps flag
-RUN echo "legacy-peer-deps=true" > ~/.npmrc
-
-# Install dependencies (if package.json exists)
-COPY package.json package-lock.json ./
-RUN npm install
-
+# Run container by default as user with id 1001 (default)
 USER 1001
-CMD ["node"]
