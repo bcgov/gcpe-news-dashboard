@@ -18,5 +18,10 @@ RUN npm i npm@7.24.0 -g && \
         rm -R "$npm_path/npm"; \
     fi
 
-# Run container by default as user with ID 1001 (default)
+# Add a step to handle permissions for /tmp/src and other directories
+RUN mkdir -p /tmp/src && \
+    chown -R 1001:0 /tmp && \
+    chmod -R ug+rwx /tmp
+
+# Switch back to the non-root user
 USER 1001
