@@ -1,5 +1,5 @@
 # Use Node.js 18 from the CentOS Stream collection
-FROM quay.io/sclorg/nodejs-18-c8s:20230125
+FROM quay.io/sclorg/nodejs-20-c8s:latest
 
 # Update PATH environment variable
 ENV PATH="/opt/rh/rh-nodejs14/root/usr/bin/:$PATH"
