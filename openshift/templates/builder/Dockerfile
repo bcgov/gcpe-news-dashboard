@@ -4,18 +4,8 @@ FROM quay.io/sclorg/nodejs-18-c8s:20230125
 # Update PATH environment variable
 ENV PATH="/opt/rh/rh-nodejs14/root/usr/bin/:$PATH"
 
-# Switch to root for package installation and updates
+# Switch to root for npm update
 USER 0
-
-# Update base image packages to address vulnerabilities
-RUN yum -y update && \
-    yum -y install \
-      vim \
-      git \
-      wget \
-      curl && \
-    yum -y clean all && \
-    rm -rf /var/cache/yum/*
 
 # Update npm to a specific version
 RUN npm i npm@7.24.0 -g
