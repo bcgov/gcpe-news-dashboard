@@ -27,7 +27,8 @@ export class AccountSettingsComponent implements OnInit {
       'child-care',
       'bc-wildfire-service',
       'local-governments-and-rural-communities',
-      'community-safety-and-integrated-services'
+      'community-safety-and-integrated-services',
+      'trade'
       ];
 
     @ViewChildren('checkbox') checkboxes: QueryList<GcpeCheckboxComponent>;
