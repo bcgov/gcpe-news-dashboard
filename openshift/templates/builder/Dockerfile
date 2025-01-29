@@ -1,45 +1,19 @@
 # Use Node.js 18 from the CentOS Stream collection
 FROM quay.io/sclorg/nodejs-20-c8s:latest
 
+# Update PATH environment variable
 ENV PATH="/opt/rh/rh-nodejs14/root/usr/bin/:$PATH"
 
-# Switch to root for package installs
+# Switch to root for npm update
 USER 0
 
-# install Chrome Headless dependencies
-RUN yum -y install pango.x86_64 \
-      libXcomposite.x86_64 \
-      libXcursor.x86_64 \
-      libXdamage.x86_64 \
-      libXext.x86_64 \
-      libXi.x86_64 \
-      libXtst.x86_64 \
-      cups-libs.x86_64 \
-      libXScrnSaver.x86_64 \
-      libXrandr.x86_64 \
-      GConf2.x86_64 \
-      alsa-lib.x86_64 \
-      atk.x86_64 \
-      gtk3.x86_64 \
-      ipa-gothic-fonts \
-      xorg-x11-fonts-100dpi \
-      xorg-x11-fonts-75dpi \
-      xorg-x11-utils \
-      xorg-x11-fonts-cyrillic \
-      xorg-x11-fonts-Type1 \
-      xorg-x11-fonts-misc \
-      && yum clean all -y && \
-# yum cache files may still exist (and quite large in size)
-      rm -rf /var/cache/yum/*
+# Update npm to a specific version
+RUN npm i npm@7.24.0 -g
 
-# update npm
-RUN npm i npm@7.24.0 -g	&& \
-  rm -R /opt/rh/rh-nodejs14/root/usr/lib/node_modules/npm
+# Ensure necessary directories exist and set permissions
+RUN mkdir -p /opt/app-root/src/.npm /opt/app-root/src/.config && \
+    chown -R 1001:0 /opt/app-root/src/.npm /opt/app-root/src/.config && \
+    chmod -R ug+rwx /opt/app-root/src/.npm /opt/app-root/src/.config
 
-# Required in order to mount .npm as a volume to cache downloaded files
-RUN chown -R 1001:0 .npm && \
-  chmod -R ug+rwx .npm && \
-  chown -R 1001:0 /opt/app-root/src/.config
-
-# Run container by default as user with id 1001 (default)
+# Switch back to the non-root user
 USER 1001
