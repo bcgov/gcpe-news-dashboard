@@ -1,5 +1,5 @@
-# Get community edition of nodejs v8.x (LTS)
-FROM quay.io/centos7/nodejs-14-centos7
+# Use Node.js 18 from the CentOS Stream collection
+FROM quay.io/sclorg/nodejs-20-c8s:latest
 
 ENV PATH="/opt/rh/rh-nodejs14/root/usr/bin/:$PATH"
 
