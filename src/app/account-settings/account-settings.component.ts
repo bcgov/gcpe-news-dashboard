@@ -23,6 +23,7 @@ export class AccountSettingsComponent implements OnInit {
       '768DBF29-89C6-48D1-901E-017A8A3557A4',
       '321D9C68-96BA-417B-BB89-78C7CE275458',
       '85CCAA2B-2A53-4CF5-9A16-1C7FE7698EA1',
+      'C0649273-F03A-477C-AD4E-CA6059847F44',
       'bc-coroners-service',
       'child-care',
       'bc-wildfire-service',
